@@ -34,10 +34,10 @@ printf "\nTest group: the drawing carries no text a reader has to have the face 
 grep --quiet --extended-regexp '<text[^>]*>' "$LOGO/logo.svg"
 assert "the wordmark is text in the source" "$?" "no text element in logo.svg"
 
-grep --quiet --fixed-strings 'logo/logo.svg' "$README"
+grep --quiet --fixed-strings 'src="logo/logo.svg"' "$README"
 [ "$?" = "1" ]
 assert "and the readme shows the rendering rather than the source" "$?" \
-  "$README points at the svg, whose wordmark falls back to whatever face a reader has"
+  "$README shows the svg, whose wordmark falls back to whatever face a reader has"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
