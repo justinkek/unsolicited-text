@@ -101,3 +101,7 @@ The two recordings are typed out from `demo/prompt.txt`, `demo/before.txt` and
 
     brew install vhs
     demo/record
+
+They are typed in Commit Mono at the palette in `demo/record`. Without that
+face installed the recording falls back to another one, and `demo/record` says
+so before it starts.
