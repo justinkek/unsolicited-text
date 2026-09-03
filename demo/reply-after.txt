@@ -8,4 +8,6 @@ settings and leave the plugin's.
 
 `[queue]`
 
-1. Q: Name the registrations to remove?
+1. Q: Remove it from every account, or one?
+2. Investigate: does an upgrade re-add it?
+3. OK/KO: kept the plugin's, not yours.

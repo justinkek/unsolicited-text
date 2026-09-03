@@ -1,18 +1,16 @@
-# unsolicited-text
+<p align="center">
+  <img src="logo/logo.png" width="440" alt="unsolicited-text">
+</p>
 
-What passes between a person and the agent: how a reply is formatted, the
-english it is written in, the checklist before it is sent, and the ceiling
-on its length. Nothing about the code or the instructions the agent writes.
-
-The rules themselves are `AGENTS.md` at the root of this checkout. Any tool
-that reads `AGENTS.md` natively already has them once the repository is on
-disk. The plugin is what adds the hooks that hold a reply to them: a reminder
-on every prompt, and a note at the end of a turn naming a reply that ran over
-the ceiling.
+<p align="center"><i>Consent is important.</i></p>
 
 ## What changes
 
-One ask, answered without the plugin and with it.
+### Answer in eight lines, and list what is open
+
+Seventeen lines of prose against six. The ceiling is eight, the queue does not
+count against it, and everything still open is listed in one place rather than
+asked inside the answer.
 
 <table>
 <tr>
@@ -20,18 +18,17 @@ One ask, answered without the plugin and with it.
 <td align="center"><b>After</b></td>
 </tr>
 <tr>
-<td><img src="demo/length-before.gif" alt="One question, answered in twenty-two lines of unbroken prose"></td>
-<td><img src="demo/length-after.gif" alt="The same question, answered in six tagged lines with one open question under them"></td>
+<td><img src="demo/reply-before.gif" alt="Seventeen lines of prose with three questions asked inside them"></td>
+<td><img src="demo/reply-after.gif" alt="Six lines, then a queue holding a question, an uncertainty and a call taken"></td>
 </tr>
 </table>
 
-Twenty-two lines of prose against six. The ceiling is eight, the queue does
-not count against it, and what needs an answer is asked in one place.
+The queue holds five kinds of item: a question, something unconfirmed, a call
+taken alone to keep moving, a way a defect could have been caught sooner, and
+anything you put off.
 
-That last part is the second half of it. Four questions arriving mid-answer
-are four threads open at once, and the reader owes a reply to all of them
-before any of it moves. One list at the end is one thread, picked up when they
-choose.
+Something put off stays put off. A short answer to it is still an answer, and
+it reopens the thing you set down.
 
 <table>
 <tr>
@@ -39,8 +36,22 @@ choose.
 <td align="center"><b>After</b></td>
 </tr>
 <tr>
-<td><img src="demo/queue-before.gif" alt="An answer with four questions asked inside it"></td>
-<td><img src="demo/queue-after.gif" alt="The same answer, with three numbered questions listed under it"></td>
+<td><img src="demo/deferred-before.gif" alt="A deferred question answered anyway, briefly"></td>
+<td><img src="demo/deferred-after.gif" alt="The same question acknowledged and carried to the queue"></td>
+</tr>
+</table>
+
+Anything with parallel structure is a table. Four sentences built the same way
+are four sentences to compare by hand.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/table-before.gif" alt="Four harnesses compared in four parallel sentences"></td>
+<td><img src="demo/table-after.gif" alt="The same four compared in a table"></td>
 </tr>
 </table>
 
@@ -77,14 +88,24 @@ not a list of the files, and never the tests that passed.
 
 ## What is installed
 
-| File | When it runs | What it does |
-| --- | --- | --- |
-| `hooks/load-agents-md.sh` | session start | prints `AGENTS.md` into the session |
-| `hooks/remind-response-length.sh` | every prompt | restates the shortest-form rule |
-| `hooks/replay-stop-notes.sh` | every prompt | prints the note the last turn recorded |
-| `hooks/note-long-reply.sh` | turn end | records a note when the reply ran over the ceiling |
+What passes between a person and the agent: how a reply is formatted, the
+english it is written in, the checklist before it is sent, and the ceiling on
+its length. Nothing about the code or the instructions the agent writes.
+
+| File | When it runs | What it does | Tokens |
+| --- | --- | --- | --- |
+| `hooks/load-agents-md.sh` | session start | prints `AGENTS.md` into the session | ~2,400 |
+| `hooks/remind-response-length.sh` | every prompt | restates the shortest-form rule | ~50 |
+| `hooks/replay-stop-notes.sh` | every prompt | prints the note the last turn recorded | ~70, and only when there is one |
+| `hooks/note-long-reply.sh` | turn end | records a note when the reply ran over the ceiling | none, it prints nothing into the session |
+
+Counted at four characters to a token, so read them as rough. The session
+start cost is paid once; the reminder is the one that repeats.
 
 Every harness runs those same four scripts. Only the registration differs.
+
+The rules they hold a reply to are `AGENTS.md` at the root, so a tool that
+reads `AGENTS.md` natively already has them with nothing installed.
 
 ## Claude Code, ZCode
 
@@ -148,6 +169,8 @@ Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
 
     brew install vhs
     demo/record
+
+The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
 
 They are typed in Commit Mono at the palette in `demo/record`. Without that
 face installed the recording falls back to another one, and `demo/record` says

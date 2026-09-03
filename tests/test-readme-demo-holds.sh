@@ -47,18 +47,18 @@ spelled() {
   case "$1" in
     6) printf 'six' ;;
     8) printf 'eight' ;;
-    22) printf 'twenty-two' ;;
+    17) printf 'seventeen' ;;
     *) printf '%s' "$1" ;;
   esac
 }
 
-printf "Test group: the length pair is what the hook says it is\n"
+printf "Test group: the reply pair is what the hook says it is\n"
 
-before="$(note_for "$DEMO/length-before.txt")"
+before="$(note_for "$DEMO/reply-before.txt")"
 [ -n "$before" ]
 assert "the reply recorded without the plugin is over the ceiling" "$?" "the hook recorded nothing"
 
-after="$(note_for "$DEMO/length-after.txt")"
+after="$(note_for "$DEMO/reply-after.txt")"
 [ -z "$after" ]
 assert "the reply recorded with the plugin is within it" "$?" "the hook recorded '$after'"
 
@@ -70,7 +70,7 @@ kept="$(awk '
   queued && probe ~ /^[0-9]+\. / { next }
   queued && probe != "" { queued = 0 }
   NF { kept++ }
-  END { print kept + 0 }' "$DEMO/length-after.txt")"
+  END { print kept + 0 }' "$DEMO/reply-after.txt")"
 
 grep --quiet --ignore-case --fixed-strings "$(spelled "$ran") lines of prose against $(spelled "$kept")" "$README"
 assert "the readme names $ran lines against $kept" "$?" "no such comparison in $README"
@@ -78,25 +78,53 @@ assert "the readme names $ran lines against $kept" "$?" "no such comparison in $
 grep --quiet --ignore-case --fixed-strings "the ceiling is $(spelled "$ceiling")" "$README"
 assert "the readme names the ceiling of $ceiling" "$?" "no such ceiling in $README"
 
-printf "\nTest group: the queue pair opens one thread rather than several\n"
+printf "\nTest group: the queue holds what the answer no longer asks\n"
 
-scattered="$(asked_outside_the_queue "$DEMO/queue-before.txt")"
+scattered="$(asked_outside_the_queue "$DEMO/reply-before.txt")"
 [ "$scattered" -gt 1 ]
 assert "the reply recorded without the plugin asks more than once mid-answer" "$?" \
   "it asks $scattered times outside a queue"
 
-held="$(asked_outside_the_queue "$DEMO/queue-after.txt")"
+held="$(asked_outside_the_queue "$DEMO/reply-after.txt")"
 [ "$held" -eq 0 ]
 assert "the reply recorded with the plugin asks nothing outside the queue" "$?" \
   "it asks $held times before the queue"
 
-listed="$(awk '
+for kind in "Q:" "Investigate:" "OK/KO:"; do
+  grep --quiet --extended-regexp "^[0-9]+\. $kind" "$DEMO/reply-after.txt"
+  assert "the queue carries a $kind item" "$?" "no such item"
+done
+
+printf "\nTest group: the deferred pair leaves what was put off alone\n"
+
+deferred="$(note_for "$DEMO/deferred-before.txt")"
+[ -n "$deferred" ]
+assert "the reply recorded without the plugin answers it anyway" "$?" "the hook recorded nothing"
+
+answered="$(awk '
   { probe = $0; sub(/^[[:space:]]+/, "", probe) }
-  probe == "`[queue]`" { queued = 1; next }
-  queued && probe ~ /^[0-9]+\. / { listed++ }
-  END { print listed + 0 }' "$DEMO/queue-after.txt")"
-[ "$listed" -gt 1 ]
-assert "the questions are listed in the queue instead" "$?" "only $listed listed"
+  probe == "`[queue]`" { exit }
+  NF { answered++ }
+  END { print answered + 0 }' "$DEMO/deferred-after.txt")"
+[ "$answered" -le 2 ]
+assert "the reply recorded with the plugin says a few words and stops" "$?" "it runs to $answered lines"
+
+grep --quiet --extended-regexp '^[0-9]+\. Deferred:' "$DEMO/deferred-after.txt"
+assert "and carries it to the queue" "$?" "nothing is listed as deferred"
+
+printf "\nTest group: the table pair compares in rows rather than sentences\n"
+
+rows="$(grep --count '^|' "$DEMO/table-after.txt")"
+[ "$rows" -gt 3 ]
+assert "the reply recorded with the plugin lays the comparison out in rows" "$?" "only $rows rows"
+
+rows="$(grep --count '^|' "$DEMO/table-before.txt")"
+[ "$rows" -eq 0 ]
+assert "the reply recorded without the plugin has none" "$?" "$rows rows already"
+
+table="$(note_for "$DEMO/table-after.txt")"
+[ -z "$table" ]
+assert "rows do not count against the ceiling" "$?" "the hook recorded '$table'"
 
 printf "\nTest group: the plain pair says the same thing without the decoding\n"
 
