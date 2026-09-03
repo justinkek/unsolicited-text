@@ -14,6 +14,7 @@ record_one() {
   {
     printf 'Output %s.gif\n\n' "$name"
     printf 'Set Shell bash\n'
+    printf 'Set Theme { "background": "#eff0f2", "foreground": "#485160", "cursor": "#485160", "selection": "#dfe1e5", "black": "#485160", "red": "#e08a72", "green": "#66c2b4", "yellow": "#b58900", "blue": "#56789c", "magenta": "#d33682", "cyan": "#5a8f9b", "white": "#b0b0b0", "brightBlack": "#767676", "brightRed": "#ee9d85", "brightGreen": "#9cd2cd", "brightYellow": "#fba054", "brightBlue": "#7fa3c7", "brightMagenta": "#e0589f", "brightCyan": "#6fa3b0", "brightWhite": "#485160" }\n'
     printf 'Set FontSize 13\n'
     printf 'Set Width 400\n'
     printf 'Set Height %s\n' "$height"

@@ -18,8 +18,8 @@ One ask, answered without the plugin and with it.
 
 <table>
 <tr>
-<td align="center"><b>Without it</b></td>
-<td align="center"><b>With it</b></td>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
 </tr>
 <tr>
 <td><img src="demo/before.gif" alt="A reply typing out over twenty-two lines of unbroken prose"></td>
