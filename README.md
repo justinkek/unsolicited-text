@@ -27,6 +27,8 @@ The queue holds five kinds of item: a question, something unconfirmed, a call
 taken alone to keep moving, a way a defect could have been caught sooner, and
 anything you put off.
 
+### Leave what was put off
+
 Something put off stays put off. A short answer to it is still an answer, and
 it reopens the thing you set down.
 
@@ -40,6 +42,8 @@ it reopens the thing you set down.
 <td><img src="demo/deferred-after.gif" alt="The same question acknowledged and carried to the queue"></td>
 </tr>
 </table>
+
+### Compare in a table
 
 Anything with parallel structure is a table. Four sentences built the same way
 are four sentences to compare by hand.
