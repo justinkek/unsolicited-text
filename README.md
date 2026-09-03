@@ -23,10 +23,10 @@ Every harness runs those same four scripts. Only the registration differs.
 
 ## Claude Code, ZCode
 
-    claude plugin marketplace add <path to this checkout>/harness-adapters/claude-code
+    claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
-In ZCode, add `harness-adapters/claude-code` through Settings, Marketplace. It
+In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace. It
 preloads the Claude Code marketplace format and reads the same two manifests.
 
 ## Codex
