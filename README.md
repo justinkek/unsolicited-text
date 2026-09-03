@@ -12,48 +12,22 @@ the ceiling.
 
 ## What changes
 
-One ask, answered without the plugin and with it. Both answers are correct;
-only the second can be read at a glance.
+One ask, answered without the plugin and with it.
 
 > the reminder fires twice on some prompts, why?
 
-Without it:
+<table>
+<tr>
+<td align="center"><b>Without it</b></td>
+<td align="center"><b>With it</b></td>
+</tr>
+<tr>
+<td><img src="demo/before.gif" alt="A reply typing out over twenty-two lines of unbroken prose"></td>
+<td><img src="demo/after.gif" alt="A six line reply, tagged, with one open question under it"></td>
+</tr>
+</table>
 
-```
-Great question! Let me walk you through what is happening here.
-
-So when you register a hook there are really two layers at play. The first
-is your own settings, which live in your home directory and apply to every
-session you start. The second is the plugin's own registration, which
-travels with the plugin wherever it is installed.
-
-What is happening in your case is that both layers are registering the same
-script. This is a really common gotcha and it catches a lot of people out!
-
-Essentially the harness does not deduplicate across those two layers, so the
-command just runs once per registration. That is why you are seeing it twice.
-
-To fix it you will want to remove one of them. I would probably suggest
-removing the one in your own settings, since the plugin is the source of
-truth now, but honestly either works depending on your setup.
-
-Let me know if you would like me to walk through how to do that!
-```
-
-With it:
-
-```
-`[problem]` The script is registered twice, once in your own settings and
-once by the plugin, and the harness does not deduplicate across the two.
-
-`[fix]` Drop the entry from your own settings and leave the plugin's.
-
-`[queue]`
-
-1. Q: Should the readme say which registrations to remove on upgrade?
-```
-
-Thirteen lines of prose against three. The ceiling is eight, the queue does
+Twenty-two lines of prose against six. The ceiling is eight, the queue does
 not count against it, and what needs an answer is asked in one place.
 
 ## What is installed
@@ -123,3 +97,9 @@ and it needs a shell on the machine, which the other three already require.
 ## Tests
 
     tests/run-tests
+
+The two recordings are typed out from `demo/before.txt` and `demo/after.txt`.
+Edit either one and record again:
+
+    brew install vhs
+    demo/record

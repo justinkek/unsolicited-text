@@ -26,10 +26,10 @@ tracked() { git -C "$REPOSITORY" ls-files --cached --others --exclude-standard |
 printf "Test group: nothing here knows a ticket board exists\n"
 
 report "no file names one of: $WORDS" \
-  "$(tracked | xargs grep --line-number --ignore-case --extended-regexp "\b($WORDS)\b" 2>/dev/null)"
+  "$(tracked | xargs grep --binary-files=without-match --line-number --ignore-case --extended-regexp "\b($WORDS)\b" 2>/dev/null)"
 
 report "no file names one of: $ABBREVIATIONS" \
-  "$(tracked | xargs grep --line-number --extended-regexp "\b($ABBREVIATIONS)\b" 2>/dev/null)"
+  "$(tracked | xargs grep --binary-files=without-match --line-number --extended-regexp "\b($ABBREVIATIONS)\b" 2>/dev/null)"
 
 report "no file name holds one of them" \
   "$(tracked | grep --ignore-case --extended-regexp "($WORDS)")"
