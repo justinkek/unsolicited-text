@@ -61,12 +61,15 @@ What passes between a person and the agent: how a reply is formatted, the
 english it is written in, the checklist before it is sent, and the ceiling on
 its length. Nothing about the code or the instructions the agent writes.
 
-| File | When it runs | What it does |
-| --- | --- | --- |
-| `hooks/load-agents-md.sh` | session start | prints `AGENTS.md` into the session |
-| `hooks/remind-response-length.sh` | every prompt | restates the shortest-form rule |
-| `hooks/replay-stop-notes.sh` | every prompt | prints the note the last turn recorded |
-| `hooks/note-long-reply.sh` | turn end | records a note when the reply ran over the ceiling |
+| File | When it runs | What it does | Tokens |
+| --- | --- | --- | --- |
+| `hooks/load-agents-md.sh` | session start | prints `AGENTS.md` into the session | ~2,400 |
+| `hooks/remind-response-length.sh` | every prompt | restates the shortest-form rule | ~50 |
+| `hooks/replay-stop-notes.sh` | every prompt | prints the note the last turn recorded | ~70, and only when there is one |
+| `hooks/note-long-reply.sh` | turn end | records a note when the reply ran over the ceiling | none, it prints nothing into the session |
+
+Counted at four characters to a token, so read them as rough. The session
+start cost is paid once; the reminder is the one that repeats.
 
 Every harness runs those same four scripts. Only the registration differs.
 
