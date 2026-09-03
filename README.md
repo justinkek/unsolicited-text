@@ -67,7 +67,7 @@ installed alongside: when plugin hooks land, delete this block.
 
 ## Pi
 
-    pi install git:github.com/justinkek/unsolicited-text@v1
+    pi install git:github.com/justinkek/unsolicited-text
 
 Pi cannot register a subprocess, so `harness-adapters/pi/src/index.ts` is a
 shim: it builds the same line of JSON each script already reads on stdin,
