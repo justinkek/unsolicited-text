@@ -1,0 +1,9 @@
+`[answer]` Three of the four run them, and
+only Codex runs none yet.
+
+| harness     | hooks | from        |
+| ----------- | ----- | ----------- |
+| Claude Code | 4     | the root    |
+| ZCode       | 4     | the same    |
+| Codex       | 0     | your config |
+| Pi          | 2     | a shim      |
