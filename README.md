@@ -44,8 +44,9 @@ choose.
 </tr>
 </table>
 
-The same answer twice again, once in the register that makes a reader stop and
-translate it, once in the words it already means.
+### Use plain english
+
+The same answer twice more: once you have to translate it, once you do not.
 
 <table>
 <tr>
@@ -58,8 +59,10 @@ translate it, once in the words it already means.
 </tr>
 </table>
 
-And work that is finished is one line naming what changed and where. Not a
-summary, not a list of the files, and never the tests that passed.
+### Say what changed, in one line
+
+Work that is finished is one line naming what changed and where. Not a summary,
+not a list of the files, and never the tests that passed.
 
 <table>
 <tr>
