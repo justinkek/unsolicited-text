@@ -36,5 +36,13 @@ grep --quiet --fixed-strings '"..", "..", "..", "hooks"' "$SHIM"
 assert "the shim resolves the hooks directory from its own file" "$?" \
   "the shim does not build a path back to hooks/"
 
+printf "\nTest group: the package the shim installs with names it\n"
+
+while read -r entry; do
+  [ -n "$entry" ] || continue
+  [ -f "$REPOSITORY/${entry#./}" ]
+  assert "package.json names $entry" "$?" "no file there"
+done < <(jq --raw-output '.pi.extensions[]' "$REPOSITORY/package.json")
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

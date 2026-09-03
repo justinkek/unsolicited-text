@@ -4,6 +4,8 @@
 	"description": "How an agent writes to the person reading it.",
 	"license": "MIT",
 	"pi": {
-		"extensions": ["./src/index.ts"]
+		"extensions": [
+			"./harness-adapters/pi/src/index.ts"
+		]
 	}
 }

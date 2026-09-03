@@ -27,10 +27,10 @@ for manifest in \
   "$REPOSITORY/.claude-plugin/marketplace.json" \
   "$ADAPTERS/claude-code/plugins/unsolicited-text/.claude-plugin/plugin.json" \
   "$ADAPTERS/claude-code/plugins/unsolicited-text/hooks/hooks.json" \
-  "$ADAPTERS/codex/.agents/plugins/marketplace.json" \
+  "$REPOSITORY/.agents/plugins/marketplace.json" \
   "$ADAPTERS/codex/plugins/unsolicited-text/.codex-plugin/plugin.json" \
   "$ADAPTERS/codex/plugins/unsolicited-text/hooks/hooks.json" \
-  "$ADAPTERS/pi/package.json"
+  "$REPOSITORY/package.json"
 do
   jq --exit-status . "$manifest" >/dev/null 2>&1
   assert "${manifest#$REPOSITORY/} parses" "$?" "not readable as JSON"
@@ -64,8 +64,8 @@ claude_source="$(source_of "$REPOSITORY/.claude-plugin/marketplace.json" '.plugi
 [ -f "$REPOSITORY/${claude_source#./}/.claude-plugin/plugin.json" ]
 assert "the claude code marketplace names its plugin" "$?" "no plugin at $claude_source"
 
-codex_source="$(source_of "$ADAPTERS/codex/.agents/plugins/marketplace.json" '.plugins[0].source.path')"
-[ -f "$ADAPTERS/codex/${codex_source#./}/.codex-plugin/plugin.json" ]
+codex_source="$(source_of "$REPOSITORY/.agents/plugins/marketplace.json" '.plugins[0].source.path')"
+[ -f "$REPOSITORY/${codex_source#./}/.codex-plugin/plugin.json" ]
 assert "the codex marketplace names its plugin" "$?" "no plugin at $codex_source"
 
 printf "\nTest group: every script the install steps name is one this repository carries\n"
