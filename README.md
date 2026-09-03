@@ -20,13 +20,29 @@ One ask, answered without the plugin and with it.
 <td align="center"><b>After</b></td>
 </tr>
 <tr>
-<td><img src="demo/before.gif" alt="One question, answered in twenty-two lines of unbroken prose"></td>
-<td><img src="demo/after.gif" alt="The same question, answered in six tagged lines with one open question under them"></td>
+<td><img src="demo/length-before.gif" alt="One question, answered in twenty-two lines of unbroken prose"></td>
+<td><img src="demo/length-after.gif" alt="The same question, answered in six tagged lines with one open question under them"></td>
 </tr>
 </table>
 
 Twenty-two lines of prose against six. The ceiling is eight, the queue does
 not count against it, and what needs an answer is asked in one place.
+
+That last part is the second half of it. Four questions arriving mid-answer
+are four threads open at once, and the reader owes a reply to all of them
+before any of it moves. One list at the end is one thread, picked up when they
+choose.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/queue-before.gif" alt="An answer with four questions asked inside it"></td>
+<td><img src="demo/queue-after.gif" alt="The same answer, with three numbered questions listed under it"></td>
+</tr>
+</table>
 
 ## What is installed
 
@@ -96,8 +112,8 @@ and it needs a shell on the machine, which the other three already require.
 
     tests/run-tests
 
-The two recordings are typed out from `demo/prompt.txt`, `demo/before.txt` and
-`demo/after.txt`. Edit any of them and record again:
+Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
+`demo/<name>-after.txt`. Edit any of them and record again:
 
     brew install vhs
     demo/record
