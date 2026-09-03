@@ -1,0 +1,15 @@
+{
+	"name": "unsolicited-text",
+	"description": "How an agent writes to the person reading it.",
+	"owner": {
+		"name": "Justin Kek",
+		"email": "justinkekjq@gmail.com"
+	},
+	"plugins": [
+		{
+			"name": "unsolicited-text",
+			"source": "./plugins/unsolicited-text",
+			"description": "How an agent writes to the person reading it."
+		}
+	]
+}

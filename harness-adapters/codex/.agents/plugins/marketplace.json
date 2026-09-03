@@ -1,0 +1,16 @@
+{
+	"name": "unsolicited-text",
+	"interface": {
+		"displayName": "unsolicited-text",
+		"shortDescription": "How an agent writes to the person reading it."
+	},
+	"plugins": [
+		{
+			"name": "unsolicited-text",
+			"source": {
+				"source": "local",
+				"path": "./plugins/unsolicited-text"
+			}
+		}
+	]
+}

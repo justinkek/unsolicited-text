@@ -1,0 +1,38 @@
+{
+	"hooks": {
+		"SessionStart": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/../../../../hooks/load-agents-md.sh"
+					}
+				]
+			}
+		],
+		"UserPromptSubmit": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/../../../../hooks/remind-response-length.sh"
+					},
+					{
+						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/../../../../hooks/replay-stop-notes.sh"
+					}
+				]
+			}
+		],
+		"Stop": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/../../../../hooks/note-long-reply.sh"
+					}
+				]
+			}
+		]
+	}
+}

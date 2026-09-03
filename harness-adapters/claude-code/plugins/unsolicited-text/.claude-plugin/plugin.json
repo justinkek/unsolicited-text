@@ -1,0 +1,9 @@
+{
+	"name": "unsolicited-text",
+	"version": "0.1.0",
+	"description": "How an agent writes to the person reading it.",
+	"author": {
+		"name": "Justin Kek",
+		"email": "justinkekjq@gmail.com"
+	}
+}

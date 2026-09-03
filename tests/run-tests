@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+tests_directory="$(cd "$(dirname "$0")" && pwd)"
+pass=0
+fail=0
+failures=""
+
+for test in "$tests_directory"/test-*.sh; do
+  name="$(basename "$test")"
+  if output="$(bash "$test" 2>&1)"; then
+    printf "OK  %s\n" "$name"
+    pass=$((pass + 1))
+  else
+    printf "KO  %s\n" "$name"
+    fail=$((fail + 1))
+    failures="$failures--- $name"$'\n'"$output"$'\n\n'
+  fi
+done
+
+printf "\n%d passed, %d failed\n" "$pass" "$fail"
+[ "$fail" -eq 0 ] && exit 0
+
+printf "\n%s" "$failures"
+exit 1
