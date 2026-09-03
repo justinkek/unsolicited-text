@@ -16,7 +16,7 @@ if command -v fc-list >/dev/null 2>&1 && ! fc-list --quiet ":family=$font"; then
 fi
 
 record_one() {
-  local name="$1" tape
+  local name="$1" prompt="$2" tape
   tape="$(mktemp)"
   {
     printf 'Output %s.gif\n\n' "$name"
@@ -29,7 +29,7 @@ record_one() {
     printf 'Set Padding 12\n'
     printf 'Set Framerate 15\n\n'
     printf 'Hide\n'
-    printf 'Type "clear; ./type prompt.txt %s.txt %s %s; sleep 60"\nEnter\n' "$name" "$columns" "$rate"
+    printf 'Type "clear; ./type %s %s.txt %s %s; sleep 60"\nEnter\n' "$prompt" "$name" "$columns" "$rate"
     printf 'Sleep 400ms\n'
     printf 'Show\n\n'
     printf 'Sleep %ss\n' "$runtime"
@@ -39,6 +39,9 @@ record_one() {
   printf 'record: wrote %s.gif\n' "$name"
 }
 
-for name in before after; do
-  record_one "$name"
+for prompt in "$directory"/*.prompt; do
+  pair="$(basename "$prompt" .prompt)"
+  for side in before after; do
+    record_one "$pair-$side" "$(basename "$prompt")"
+  done
 done

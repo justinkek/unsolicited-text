@@ -1,0 +1,9 @@
+`[answer]` Not yet. Codex does not run a
+plugin's own hooks, so the registration
+goes in your own config for now.
+
+`[queue]`
+
+1. Q: Every prompt, or the first of one?
+2. Q: The same line, or a shorter one?
+3. Q: A test in the same change?
