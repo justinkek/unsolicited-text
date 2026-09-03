@@ -1,0 +1,12 @@
+Claude Code runs all four of them, and it
+installs from the repository root.
+
+ZCode runs all four as well, because it
+reads the same two manifests.
+
+Codex installs the plugin but runs none
+of them yet, so they go in your own
+config for now.
+
+Pi runs two of them, through a shim that
+spawns the same scripts.

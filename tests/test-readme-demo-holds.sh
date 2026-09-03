@@ -98,6 +98,37 @@ listed="$(awk '
 [ "$listed" -gt 1 ]
 assert "the questions are listed in the queue instead" "$?" "only $listed listed"
 
+printf "\nTest group: the deferred pair leaves what was put off alone\n"
+
+deferred="$(note_for "$DEMO/deferred-before.txt")"
+[ -n "$deferred" ]
+assert "the reply recorded without the plugin answers it anyway" "$?" "the hook recorded nothing"
+
+answered="$(awk '
+  { probe = $0; sub(/^[[:space:]]+/, "", probe) }
+  probe == "`[queue]`" { exit }
+  NF { answered++ }
+  END { print answered + 0 }' "$DEMO/deferred-after.txt")"
+[ "$answered" -le 2 ]
+assert "the reply recorded with the plugin says a few words and stops" "$?" "it runs to $answered lines"
+
+grep --quiet --extended-regexp '^[0-9]+\. Deferred:' "$DEMO/deferred-after.txt"
+assert "and carries it to the queue" "$?" "nothing is listed as deferred"
+
+printf "\nTest group: the table pair compares in rows rather than sentences\n"
+
+rows="$(grep --count '^|' "$DEMO/table-after.txt")"
+[ "$rows" -gt 3 ]
+assert "the reply recorded with the plugin lays the comparison out in rows" "$?" "only $rows rows"
+
+rows="$(grep --count '^|' "$DEMO/table-before.txt")"
+[ "$rows" -eq 0 ]
+assert "the reply recorded without the plugin has none" "$?" "$rows rows already"
+
+table="$(note_for "$DEMO/table-after.txt")"
+[ -z "$table" ]
+assert "rows do not count against the ceiling" "$?" "the hook recorded '$table'"
+
 printf "\nTest group: every recording is no older than what it records\n"
 
 for prompt in "$DEMO"/*.prompt; do

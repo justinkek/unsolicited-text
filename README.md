@@ -44,6 +44,34 @@ choose.
 </tr>
 </table>
 
+Something put off stays put off. A short answer to it is still an answer, and
+it reopens the thing you set down.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/deferred-before.gif" alt="A deferred question answered anyway, briefly"></td>
+<td><img src="demo/deferred-after.gif" alt="The same question acknowledged and carried to the queue"></td>
+</tr>
+</table>
+
+Anything with parallel structure is a table. Four sentences built the same way
+are four sentences to compare by hand.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/table-before.gif" alt="Four harnesses compared in four parallel sentences"></td>
+<td><img src="demo/table-after.gif" alt="The same four compared in a table"></td>
+</tr>
+</table>
+
 ## What is installed
 
 | File | When it runs | What it does |
