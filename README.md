@@ -44,6 +44,34 @@ choose.
 </tr>
 </table>
 
+The same answer twice again, once in the register that makes a reader stop and
+translate it, once in the words it already means.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/plain-before.gif" alt="An answer given in metaphors and specification names"></td>
+<td><img src="demo/plain-after.gif" alt="The same answer in plain words"></td>
+</tr>
+</table>
+
+And work that is finished is one line naming what changed and where. Not a
+summary, not a list of the files, and never the tests that passed.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/directive-before.gif" alt="A finished task reported as a twelve line write-up"></td>
+<td><img src="demo/directive-after.gif" alt="The same task reported in one line"></td>
+</tr>
+</table>
+
 ## What is installed
 
 | File | When it runs | What it does |
