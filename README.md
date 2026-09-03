@@ -12,7 +12,11 @@ the ceiling.
 
 ## What changes
 
-One ask, answered without the plugin and with it.
+### Answer in eight lines, and list what is open
+
+Seventeen lines of prose against six. The ceiling is eight, the queue does not
+count against it, and everything still open is listed in one place rather than
+asked inside the answer.
 
 <table>
 <tr>
@@ -20,29 +24,14 @@ One ask, answered without the plugin and with it.
 <td align="center"><b>After</b></td>
 </tr>
 <tr>
-<td><img src="demo/length-before.gif" alt="One question, answered in twenty-two lines of unbroken prose"></td>
-<td><img src="demo/length-after.gif" alt="The same question, answered in six tagged lines with one open question under them"></td>
+<td><img src="demo/reply-before.gif" alt="Seventeen lines of prose with three questions asked inside them"></td>
+<td><img src="demo/reply-after.gif" alt="Six lines, then a queue holding a question, an uncertainty and a call taken"></td>
 </tr>
 </table>
 
-Twenty-two lines of prose against six. The ceiling is eight, the queue does
-not count against it, and what needs an answer is asked in one place.
-
-That last part is the second half of it. Four questions arriving mid-answer
-are four threads open at once, and the reader owes a reply to all of them
-before any of it moves. One list at the end is one thread, picked up when they
-choose.
-
-<table>
-<tr>
-<td align="center"><b>Before</b></td>
-<td align="center"><b>After</b></td>
-</tr>
-<tr>
-<td><img src="demo/queue-before.gif" alt="An answer with four questions asked inside it"></td>
-<td><img src="demo/queue-after.gif" alt="The same answer, with three numbered questions listed under it"></td>
-</tr>
-</table>
+The queue holds five kinds of item: a question, something unconfirmed, a call
+taken alone to keep moving, a way a defect could have been caught sooner, and
+anything you put off.
 
 ## What is installed
 
