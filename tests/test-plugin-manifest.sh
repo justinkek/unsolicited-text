@@ -24,7 +24,7 @@ commands_of() {
 printf "Test group: every manifest is readable JSON\n"
 
 for manifest in \
-  "$ADAPTERS/claude-code/.claude-plugin/marketplace.json" \
+  "$REPOSITORY/.claude-plugin/marketplace.json" \
   "$ADAPTERS/claude-code/plugins/unsolicited-text/.claude-plugin/plugin.json" \
   "$ADAPTERS/claude-code/plugins/unsolicited-text/hooks/hooks.json" \
   "$ADAPTERS/codex/.agents/plugins/marketplace.json" \
@@ -60,8 +60,8 @@ printf "\nTest group: each marketplace points at a plugin directory it carries\n
 
 source_of() { jq --raw-output "$2" "$1"; }
 
-claude_source="$(source_of "$ADAPTERS/claude-code/.claude-plugin/marketplace.json" '.plugins[0].source')"
-[ -f "$ADAPTERS/claude-code/${claude_source#./}/.claude-plugin/plugin.json" ]
+claude_source="$(source_of "$REPOSITORY/.claude-plugin/marketplace.json" '.plugins[0].source')"
+[ -f "$REPOSITORY/${claude_source#./}/.claude-plugin/plugin.json" ]
 assert "the claude code marketplace names its plugin" "$?" "no plugin at $claude_source"
 
 codex_source="$(source_of "$ADAPTERS/codex/.agents/plugins/marketplace.json" '.plugins[0].source.path')"
