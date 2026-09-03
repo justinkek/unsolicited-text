@@ -31,7 +31,7 @@ preloads the Claude Code marketplace format and reads the same two manifests.
 
 ## Codex
 
-    codex plugin marketplace add <path to this checkout>/harness-adapters/codex
+    codex plugin marketplace add justinkek/unsolicited-text
     codex plugin add unsolicited-text@unsolicited-text
 
 Codex does not run a plugin's own `hooks.json` yet
@@ -67,7 +67,7 @@ installed alongside: when plugin hooks land, delete this block.
 
 ## Pi
 
-    pi install git:github.com/<owner>/unsolicited-text@v1
+    pi install git:github.com/justinkek/unsolicited-text@v1
 
 Pi cannot register a subprocess, so `harness-adapters/pi/src/index.ts` is a
 shim: it builds the same line of JSON each script already reads on stdin,
