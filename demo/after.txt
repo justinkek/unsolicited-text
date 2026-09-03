@@ -1,0 +1,11 @@
+`[problem]` The script is registered
+twice, once in your own settings and once
+by the plugin, and the harness does not
+deduplicate across the two.
+
+`[fix]` Drop the entry from your own
+settings and leave the plugin's.
+
+`[queue]`
+
+1. Q: Name the registrations to remove?

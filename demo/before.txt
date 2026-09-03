@@ -1,0 +1,27 @@
+Great question! Let me walk you through
+what is happening here.
+
+So when you register a hook there are
+really two layers at play. The first is
+your own settings, which apply to every
+session you start. The second is the
+plugin's own registration, which travels
+with it.
+
+What is happening in your case is that
+both layers are registering the same
+script. This is a really common gotcha!
+
+Essentially the harness does not
+deduplicate across those two layers, so
+the command just runs once per
+registration.
+
+To fix it you will want to remove one of
+them. I would probably suggest removing
+the one in your own settings, but
+honestly either works depending on your
+setup.
+
+Let me know if you would like me to walk
+through how to do that!
