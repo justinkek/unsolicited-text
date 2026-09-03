@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+directory="$(cd "$(dirname "$0")" && pwd)"
+width="${LOGO_WIDTH:-880}"
+font="${LOGO_FONT:-CommitMono}"
+
+command -v rsvg-convert >/dev/null 2>&1 || { printf 'render: rsvg-convert is not installed (brew install librsvg)\n' >&2; exit 1; }
+
+if command -v fc-list >/dev/null 2>&1 && ! fc-list --quiet ":family=$font"; then
+  printf 'render: %s is not installed, the wordmark will fall back to another face\n' "$font" >&2
+fi
+
+rsvg-convert --width "$width" "$directory/logo.svg" --output "$directory/logo.png"
+printf 'render: wrote logo.png at %s wide\n' "$width"

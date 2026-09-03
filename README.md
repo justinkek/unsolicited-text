@@ -1,8 +1,8 @@
-# unsolicited-text
+<p align="center">
+  <img src="logo/logo.png" width="440" alt="unsolicited-text">
+</p>
 
-What passes between a person and the agent: how a reply is formatted, the
-english it is written in, the checklist before it is sent, and the ceiling
-on its length. Nothing about the code or the instructions the agent writes.
+<p align="center"><i>Consent is important.</i></p>
 
 The rules themselves are `AGENTS.md` at the root of this checkout. Any tool
 that reads `AGENTS.md` natively already has them once the repository is on
@@ -45,6 +45,10 @@ choose.
 </table>
 
 ## What is installed
+
+What passes between a person and the agent: how a reply is formatted, the
+english it is written in, the checklist before it is sent, and the ceiling on
+its length. Nothing about the code or the instructions the agent writes.
 
 | File | When it runs | What it does |
 | --- | --- | --- |
@@ -117,6 +121,8 @@ Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
 
     brew install vhs
     demo/record
+
+The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
 
 They are typed in Commit Mono at the palette in `demo/record`. Without that
 face installed the recording falls back to another one, and `demo/record` says
