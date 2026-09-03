@@ -78,8 +78,10 @@ for name in before after; do
   [ -f "$DEMO/$name.gif" ]
   assert "$name.gif is recorded" "$?" "run demo/record"
 
-  [ ! "$DEMO/$name.txt" -nt "$DEMO/$name.gif" ]
-  assert "$name.gif is no older than $name.txt" "$?" "the text changed since it was recorded, run demo/record"
+  for source in "$name.txt" prompt.txt type; do
+    [ ! "$DEMO/$source" -nt "$DEMO/$name.gif" ]
+    assert "$name.gif is no older than $source" "$?" "$source changed since it was recorded, run demo/record"
+  done
 
   grep --quiet --fixed-strings "demo/$name.gif" "$README"
   assert "the readme shows $name.gif" "$?" "no such image in $README"

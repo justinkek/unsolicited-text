@@ -14,16 +14,14 @@ the ceiling.
 
 One ask, answered without the plugin and with it.
 
-> the reminder fires twice on some prompts, why?
-
 <table>
 <tr>
 <td align="center"><b>Before</b></td>
 <td align="center"><b>After</b></td>
 </tr>
 <tr>
-<td><img src="demo/before.gif" alt="A reply typing out over twenty-two lines of unbroken prose"></td>
-<td><img src="demo/after.gif" alt="A six line reply, tagged, with one open question under it"></td>
+<td><img src="demo/before.gif" alt="One question, answered in twenty-two lines of unbroken prose"></td>
+<td><img src="demo/after.gif" alt="The same question, answered in six tagged lines with one open question under them"></td>
 </tr>
 </table>
 
@@ -98,8 +96,8 @@ and it needs a shell on the machine, which the other three already require.
 
     tests/run-tests
 
-The two recordings are typed out from `demo/before.txt` and `demo/after.txt`.
-Edit either one and record again:
+The two recordings are typed out from `demo/prompt.txt`, `demo/before.txt` and
+`demo/after.txt`. Edit any of them and record again:
 
     brew install vhs
     demo/record

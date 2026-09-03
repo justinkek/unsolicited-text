@@ -1,0 +1,52 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Time::HiRes qw(sleep time);
+
+my ($prompt_file, $reply_file, $columns, $rate) = @ARGV;
+
+my $requested_sleep = 0.15;
+my $band  = "\e[48;2;149;216;134m\e[38;2;72;81;96m";
+my $tag   = "\e[38;2;86;120;156m";
+my $plain = "\e[0m";
+
+open my $prompt, '<', $prompt_file or die "$prompt_file: $!";
+chomp(my $asked = <$prompt>);
+close $prompt;
+
+open my $reply, '<', $reply_file or die "$reply_file: $!";
+my $body = do { local $/; <$reply> };
+close $reply;
+
+my @stream;
+for my $span (split /(`[^`]*`)/, $body) {
+  if ($span =~ /^`(.*)`$/s) {
+    push @stream, $tag, split(//, $1), $plain;
+  } else {
+    push @stream, split(//, $span);
+  }
+}
+
+$| = 1;
+printf "%s %-*s%s\n\n", $band, $columns - 2, $asked, $plain;
+
+my $honoured_sleep = do {
+  my $started = time;
+  sleep $requested_sleep for 1 .. 4;
+  (time - $started) / 4;
+};
+
+my $per_sleep = int($rate * $honoured_sleep) || 1;
+my $written = 0;
+my $buffer = '';
+for my $piece (@stream) {
+  $buffer .= $piece;
+  $written++ if length($piece) == 1;
+  next if $written < $per_sleep;
+  print $buffer;
+  $buffer = '';
+  $written = 0;
+  sleep $requested_sleep;
+}
+print $buffer;

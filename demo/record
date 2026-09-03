@@ -4,37 +4,29 @@ set -e
 
 directory="$(cd "$(dirname "$0")" && pwd)"
 height="${DEMO_HEIGHT:-500}"
+columns="${DEMO_COLUMNS:-44}"
+rate="${DEMO_RATE:-85}"
 runtime="${DEMO_RUNTIME:-12}"
 
 command -v vhs >/dev/null 2>&1 || { printf 'record: vhs is not installed (brew install vhs)\n' >&2; exit 1; }
 
 record_one() {
-  local name="$1" tape typed=0 lines=0 line
+  local name="$1" tape
   tape="$(mktemp)"
   {
     printf 'Output %s.gif\n\n' "$name"
     printf 'Set Shell bash\n'
-    printf 'Set Theme { "background": "#eff0f2", "foreground": "#485160", "cursor": "#485160", "selection": "#dfe1e5", "black": "#485160", "red": "#e08a72", "green": "#66c2b4", "yellow": "#b58900", "blue": "#56789c", "magenta": "#d33682", "cyan": "#5a8f9b", "white": "#b0b0b0", "brightBlack": "#767676", "brightRed": "#ee9d85", "brightGreen": "#9cd2cd", "brightYellow": "#fba054", "brightBlue": "#7fa3c7", "brightMagenta": "#e0589f", "brightCyan": "#6fa3b0", "brightWhite": "#485160" }\n'
+    printf 'Set Theme { "background": "#eff0f2", "foreground": "#485160", "cursor": "#eff0f2", "selection": "#dfe1e5", "black": "#485160", "red": "#e08a72", "green": "#66c2b4", "yellow": "#b58900", "blue": "#56789c", "magenta": "#d33682", "cyan": "#5a8f9b", "white": "#b0b0b0", "brightBlack": "#767676", "brightRed": "#ee9d85", "brightGreen": "#9cd2cd", "brightYellow": "#fba054", "brightBlue": "#7fa3c7", "brightMagenta": "#e0589f", "brightCyan": "#6fa3b0", "brightWhite": "#485160" }\n'
     printf 'Set FontSize 13\n'
     printf 'Set Width 400\n'
     printf 'Set Height %s\n' "$height"
     printf 'Set Padding 12\n'
-    printf 'Set Framerate 15\n'
-    printf 'Set TypingSpeed 8ms\n\n'
+    printf 'Set Framerate 15\n\n'
     printf 'Hide\n'
-    printf 'Type "clear; cat > /dev/null"\nEnter\n'
+    printf 'Type "clear; ./type prompt.txt %s.txt %s %s; sleep 60"\nEnter\n' "$name" "$columns" "$rate"
+    printf 'Sleep 400ms\n'
     printf 'Show\n\n'
-    while IFS= read -r line; do
-      if [ -z "$line" ]; then
-        printf 'Enter\n'
-      else
-        printf 'Type "%s"\nEnter\n' "$line"
-        typed=$((typed + ${#line}))
-      fi
-      lines=$((lines + 1))
-    done < "$directory/$name.txt"
-    printf 'Sleep %ss\n' "$(awk -v runtime="$runtime" -v typed="$typed" -v lines="$lines" \
-      'BEGIN { printf "%.1f", runtime - typed * 0.008 - lines * 0.07 }')"
+    printf 'Sleep %ss\n' "$runtime"
   } > "$tape"
   ( cd "$directory" && vhs "$tape" >/dev/null )
   rm -f "$tape"
