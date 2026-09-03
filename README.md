@@ -4,12 +4,6 @@
 
 <p align="center"><i>Consent is important.</i></p>
 
-The rules themselves are `AGENTS.md` at the root of this checkout. Any tool
-that reads `AGENTS.md` natively already has them once the repository is on
-disk. The plugin is what adds the hooks that hold a reply to them: a reminder
-on every prompt, and a note at the end of a turn naming a reply that ran over
-the ceiling.
-
 ## What changes
 
 ### Answer in eight lines, and list what is open
@@ -75,6 +69,9 @@ its length. Nothing about the code or the instructions the agent writes.
 | `hooks/note-long-reply.sh` | turn end | records a note when the reply ran over the ceiling |
 
 Every harness runs those same four scripts. Only the registration differs.
+
+The rules they hold a reply to are `AGENTS.md` at the root, so a tool that
+reads `AGENTS.md` natively already has them with nothing installed.
 
 ## Claude Code, ZCode
 
