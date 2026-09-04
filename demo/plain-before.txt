@@ -1,0 +1,10 @@
+It rings a doorbell at the end of a turn.
+Think of it as a bouncer on the door of
+your reply: nothing gets past without a
+wristband.
+
+Under the hood it emits a hookSpecific
+Output payload conforming to the schema,
+ISO 8601 stamped, and hands off to the
+replay subsystem on the next
+UserPromptSubmit tick.

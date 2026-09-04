@@ -55,6 +55,37 @@ are four sentences to compare by hand.
 </tr>
 </table>
 
+### Use plain english
+
+The same answer twice more: once you have to translate it, once you do not.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/plain-before.gif" alt="An answer given in metaphors and specification names"></td>
+<td><img src="demo/plain-after.gif" alt="The same answer in plain words"></td>
+</tr>
+</table>
+
+### Say what changed, in one line
+
+Work that is finished is one line naming what changed and where. Not a summary,
+not a list of the files, and never the tests that passed.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/directive-before.gif" alt="A finished task reported as a twelve line write-up"></td>
+<td><img src="demo/directive-after.gif" alt="The same task reported in one line"></td>
+</tr>
+</table>
+
 ## What is installed
 
 What passes between a person and the agent: how a reply is formatted, the

@@ -1,0 +1,8 @@
+`[answer]` It counts the lines of prose in
+the reply you have just read, and writes a
+note when there were more than eight.
+
+You are not shown the note then. It is
+printed at the top of your next prompt, so
+the reply you already read is never taken
+away and rewritten.

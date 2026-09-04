@@ -126,6 +126,33 @@ table="$(note_for "$DEMO/table-after.txt")"
 [ -z "$table" ]
 assert "rows do not count against the ceiling" "$?" "the hook recorded '$table'"
 
+printf "\nTest group: the plain pair says the same thing without the decoding\n"
+
+DECODED='doorbell|bouncer|under the hood|ISO 8601|schema|subsystem|payload'
+
+carried="$(grep --count --extended-regexp --ignore-case "$DECODED" "$DEMO/plain-before.txt")"
+[ "$carried" -gt 1 ]
+assert "the reply recorded without the plugin makes the reader translate" "$?" \
+  "only $carried lines carry a metaphor or a name to look up"
+
+carried="$(grep --count --extended-regexp --ignore-case "$DECODED" "$DEMO/plain-after.txt")"
+[ "$carried" -eq 0 ]
+assert "the reply recorded with the plugin carries none of it" "$?" "$carried lines still do"
+
+printf "\nTest group: the directive pair reports finished work in one line\n"
+
+directive="$(note_for "$DEMO/directive-before.txt")"
+[ -n "$directive" ]
+assert "the write-up recorded without the plugin is over the ceiling" "$?" "the hook recorded nothing"
+
+reported="$(grep --count . "$DEMO/directive-after.txt")"
+[ "$reported" -le 2 ]
+assert "the reply recorded with the plugin is one statement" "$?" "it runs to $reported lines"
+
+grep --quiet --fixed-strings '`[' "$DEMO/directive-after.txt"
+[ "$?" = "1" ]
+assert "and carries no tag, because nothing was asked" "$?" "it is tagged"
+
 printf "\nTest group: every recording is no older than what it records\n"
 
 for prompt in "$DEMO"/*.prompt; do

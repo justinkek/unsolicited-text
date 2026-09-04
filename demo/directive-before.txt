@@ -1,0 +1,14 @@
+Done! Here is a summary of what I did.
+
+I opened your config and added a hooks
+block with the four commands, each one
+pointing at the checkout. I also checked
+that every path resolves, ran the tests
+(all eight passing), and confirmed that
+nothing else in the file was touched.
+
+Files changed:
+  ~/.codex/config.toml
+
+Everything looks good. Let me know if you
+would like me to walk through any of it!
