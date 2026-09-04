@@ -2,7 +2,7 @@
 	"name": "unsolicited-text",
 	"version": "0.1.0",
 	"description": "How an agent writes to the person reading it.",
-	"hooks": "./hooks/hooks.json",
+	"hooks": "./harness-adapters/codex/hooks.json",
 	"interface": {
 		"displayName": "unsolicited-text",
 		"shortDescription": "How an agent writes to the person reading it."

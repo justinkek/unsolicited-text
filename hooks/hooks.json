@@ -5,7 +5,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/../../../../hooks/load-agents-md.sh"
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/load-agents-md.sh"
 					}
 				]
 			}
@@ -15,11 +15,11 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/../../../../hooks/remind-response-length.sh"
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/remind-response-length.sh"
 					},
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/../../../../hooks/replay-stop-notes.sh"
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/replay-stop-notes.sh"
 					}
 				]
 			}
@@ -29,7 +29,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/../../../../hooks/note-long-reply.sh"
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/note-long-reply.sh"
 					}
 				]
 			}
