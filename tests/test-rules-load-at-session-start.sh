@@ -43,5 +43,21 @@ assert "it exits 0 with no rules file beside it" "$?" "exited $status"
 [ -z "$absent" ]
 assert "it prints nothing with no rules file beside it" "$?" "printed '$absent'"
 
+printf "\nTest group: what earlier versions wrote is cleared away\n"
+
+superseded="$TMPDIR/home/.local/state/unsolicited-text"
+
+mkdir -p "$superseded/notes"
+printf 'a note\n' > "$superseded/notes/session.stop-notes"
+printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+[ ! -d "$superseded" ]
+assert "the old notes directory goes" "$?" "it is still there"
+
+mkdir -p "$superseded/notes"
+printf 'not ours\n' > "$superseded/keep-me"
+printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+[ -f "$superseded/keep-me" ]
+assert "anything else in it stays" "$?" "it was removed"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

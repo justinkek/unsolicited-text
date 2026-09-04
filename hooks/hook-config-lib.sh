@@ -25,3 +25,12 @@ config_value() {
 prose_line_ceiling() {
   config_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT"
 }
+
+discard_superseded_notes() {
+  local superseded="$HOME/.local/state/unsolicited-text"
+  [ -d "$superseded" ] || return 0
+  rm -f "$superseded/notes"/*.stop-notes
+  rmdir "$superseded/notes" 2>/dev/null
+  rmdir "$superseded" 2>/dev/null
+  return 0
+}
