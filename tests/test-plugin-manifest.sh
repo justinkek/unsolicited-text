@@ -82,12 +82,19 @@ assert "and the rules ship inside it" "$?" \
 
 printf "\nTest group: every script the install steps name is one this repository carries\n"
 
-while read -r script; do
+named=0
+while read -r page script; do
   [ -n "$script" ] || continue
+  named=$((named + 1))
   [ -x "$REPOSITORY/hooks/$script" ]
-  assert "the readme names $script" "$?" "hooks/$script is not an executable file"
-done < <(grep --only-matching --extended-regexp 'hooks/[a-z-]+\.sh' "$REPOSITORY/README.md" \
-  | sed 's#^hooks/##' | sort --unique)
+  assert "$page names $script" "$?" "hooks/$script is not an executable file"
+done < <(for page in README.md INSTALL.md; do
+  grep --only-matching --extended-regexp 'hooks/[a-z-]+\.sh' "$REPOSITORY/$page" \
+    | sed "s#^hooks/#$page #" | sort --unique
+done)
+
+[ "$named" -gt 3 ]
+assert "the pages name the scripts at all" "$?" "only $named named between them"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
