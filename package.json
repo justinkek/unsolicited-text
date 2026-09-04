@@ -1,7 +1,7 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.1.2",
-	"description": "How an agent writes to the person reading it.",
+	"version": "0.1.3",
+	"description": "Consent is important.",
 	"license": "MIT",
 	"pi": {
 		"extensions": [

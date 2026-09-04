@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"description": "How an agent writes to the person reading it.",
+	"description": "Consent is important.",
 	"owner": {
 		"name": "Justin Kek",
 		"email": "justinkekjq@gmail.com"
@@ -9,7 +9,7 @@
 		{
 			"name": "unsolicited-text",
 			"source": "./",
-			"description": "How an agent writes to the person reading it."
+			"description": "Consent is important."
 		}
 	]
 }

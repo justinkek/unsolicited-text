@@ -27,5 +27,25 @@ for manifest in .codex-plugin/plugin.json package.json; do
     "it states $stated, and an install caches by version, so the two disagree about what a reader is running"
 done
 
+printf "\nTest group: every manifest carries the same description\n"
+
+said="$(jq --raw-output '.description' "$REPOSITORY/.claude-plugin/plugin.json")"
+
+for manifest in .codex-plugin/plugin.json package.json .claude-plugin/marketplace.json; do
+  stated="$(jq --raw-output '.description' "$REPOSITORY/$manifest")"
+  [ "$stated" = "$said" ]
+  assert "$manifest says \"$said\"" "$?" "it says \"$stated\""
+done
+
+for manifest in .codex-plugin/plugin.json .agents/plugins/marketplace.json; do
+  stated="$(jq --raw-output '.interface.shortDescription' "$REPOSITORY/$manifest")"
+  [ "$stated" = "$said" ]
+  assert "$manifest shows the same to a browsing user" "$?" "it shows \"$stated\""
+done
+
+stated="$(jq --raw-output '.plugins[0].description' "$REPOSITORY/.claude-plugin/marketplace.json")"
+[ "$stated" = "$said" ]
+assert "and so does the marketplace listing" "$?" "it says \"$stated\""
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
