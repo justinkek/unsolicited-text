@@ -59,5 +59,22 @@ printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
 [ -f "$superseded/keep-me" ]
 assert "anything else in it stays" "$?" "it was removed"
 
+printf "\nTest group: a settings file written before the rename is carried over\n"
+
+home="$TMPDIR/home/.unsolicited-text"
+mkdir -p "$home"
+rm -f "$home/settings"
+printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING = 11\n' > "$home/config"
+printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+
+[ ! -f "$home/config" ] && [ -f "$home/settings" ]
+assert "the old file becomes the settings file" "$?" "it was not moved"
+
+printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING = 9\n' > "$home/config"
+printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+
+grep --quiet --fixed-strings '11' "$home/settings"
+assert "and a settings file already there is not overwritten" "$?" "the old file won"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

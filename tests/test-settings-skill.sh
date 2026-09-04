@@ -33,12 +33,12 @@ assert "its description is the one line every session pays for" "$?" "the descri
 printf "\nTest group: what it tells the user matches what the hooks read\n"
 
 while read -r key; do
-  grep --quiet --fixed-strings "$key" "$HOOKS_DIR/hook-config-lib.sh" "$HOOKS_DIR/hook-stop-note-lib.sh"
+  grep --quiet --fixed-strings "$key" "$HOOKS_DIR/hook-settings-lib.sh" "$HOOKS_DIR/hook-stop-note-lib.sh"
   assert "$key is a setting the hooks read" "$?" "no hook reads it, so the skill would set nothing"
 done < <(grep --only-matching --extended-regexp 'UNSOLICITED_TEXT_[A-Z_]+' "$SKILL" | sort --unique)
 
 ceiling="$(grep --only-matching 'UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT=[0-9][0-9]*' \
-  "$HOOKS_DIR/hook-config-lib.sh" | grep --only-matching '[0-9][0-9]*')"
+  "$HOOKS_DIR/hook-settings-lib.sh" | grep --only-matching '[0-9][0-9]*')"
 grep --quiet --extended-regexp "UNSOLICITED_TEXT_PROSE_LINE_CEILING\` \| \`$ceiling\`" "$SKILL"
 assert "the ceiling it states is the ceiling the hooks default to" "$?" \
   "the hooks default to $ceiling and the skill says otherwise"
