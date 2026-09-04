@@ -35,7 +35,7 @@ printf '%s' "$now" > "$checked"
   [ -n "$latest" ] || exit 0
   [ "$latest" = "$installed" ] && exit 0
   [ "$(printf '%s\n%s\n' "$installed" "$latest" | sort --version-sort | tail -1)" = "$latest" ] || exit 0
-  printf '[unsolicited-text] %s is now available (current: %s). Update with unsolicited-text:update\nTo stop being told, use unsolicited-text:settings\n' \
+  printf '[unsolicited-text] version %s is now available (current: %s). Update with unsolicited-text:update\nTo stop being told, use unsolicited-text:settings\n' \
     "$latest" "$installed" > "$notice"
 ) >/dev/null 2>&1 &
 

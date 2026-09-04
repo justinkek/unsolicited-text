@@ -40,7 +40,7 @@ printf '{"version":"9.9.9"}\n' > "$TMPDIR/published.json"
 assert "the session that checks says nothing" "$?" "it spoke before it knew"
 
 said="$(session)"
-printf '%s' "$said" | grep --quiet --fixed-strings "9.9.9 is now available (current: $installed)"
+printf '%s' "$said" | grep --quiet --fixed-strings "version 9.9.9 is now available (current: $installed)"
 assert "the next session says what is out" "$?" "it said '$said'"
 
 [ -z "$(session)" ]
