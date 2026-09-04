@@ -19,7 +19,6 @@ assert_equal() {
   fi
 }
 
-# Reads one setting the way a hook does, in a shell of its own.
 read_setting() {
   (
     unset UNSOLICITED_TEXT_PROSE_LINE_CEILING UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY

@@ -15,7 +15,6 @@ config_file_value() {
   printf '%s' "$value"
 }
 
-# The environment wins, then the config file, then the default the caller names.
 config_value() {
   local key="$1" default="$2" value="${!1-}"
   [ -n "$value" ] || value="$(config_file_value "$key")"
