@@ -9,7 +9,7 @@
 			"name": "unsolicited-text",
 			"source": {
 				"source": "local",
-				"path": "./harness-adapters/codex/plugins/unsolicited-text"
+				"path": "./"
 			}
 		}
 	]
