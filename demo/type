@@ -6,7 +6,7 @@ use Time::HiRes qw(sleep time);
 
 my ($prompt_file, $reply_file, $columns, $rate) = @ARGV;
 
-my $requested_sleep = 0.15;
+my $requested_sleep = 0.05;
 my $band  = "\e[48;2;149;216;134m\e[38;2;72;81;96m";
 my $tag   = "\e[38;2;86;120;156m";
 my $plain = "\e[0m";
@@ -31,22 +31,19 @@ for my $span (split /(`[^`]*`)/, $body) {
 $| = 1;
 printf "%s %-*s%s\n\n", $band, $columns - 2, $asked, $plain;
 
-my $honoured_sleep = do {
-  my $started = time;
-  sleep $requested_sleep for 1 .. 4;
-  (time - $started) / 4;
-};
+sleep 0.6;
 
-my $per_sleep = int($rate * $honoured_sleep) || 1;
+my $started = time;
 my $written = 0;
-my $buffer = '';
-for my $piece (@stream) {
-  $buffer .= $piece;
-  $written++ if length($piece) == 1;
-  next if $written < $per_sleep;
+my $index = 0;
+while ($index < @stream) {
+  my $due = $rate * (time - $started);
+  my $buffer = '';
+  while ($index < @stream && $written < $due) {
+    my $piece = $stream[$index++];
+    $buffer .= $piece;
+    $written++ if length($piece) == 1;
+  }
   print $buffer;
-  $buffer = '';
-  $written = 0;
-  sleep $requested_sleep;
+  sleep $requested_sleep if $index < @stream;
 }
-print $buffer;

@@ -8,7 +8,7 @@
 	"plugins": [
 		{
 			"name": "unsolicited-text",
-			"source": "./harness-adapters/claude-code/plugins/unsolicited-text",
+			"source": "./",
 			"description": "How an agent writes to the person reading it."
 		}
 	]
