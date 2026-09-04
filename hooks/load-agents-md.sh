@@ -5,4 +5,6 @@ cat >/dev/null
 rules="$(dirname "$0")/../AGENTS.md"
 [ -f "$rules" ] || exit 0
 
-cat "$rules"
+. "$(dirname "$0")/hook-config-lib.sh"
+
+sed "s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/" "$rules"

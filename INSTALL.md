@@ -3,6 +3,10 @@
 Four hook scripts and the rules they hold a reply to. Every harness runs the
 same four; only the registration differs.
 
+Settings are read from `~/.unsolicited-text/config` whichever harness you install
+into, and the hooks keep what they write under `~/.unsolicited-text/state/`. The
+readme lists what you can set; nothing needs setting to install.
+
 ## 1. Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text

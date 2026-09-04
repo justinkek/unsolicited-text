@@ -12,14 +12,13 @@ transcript="$(printf '%s' "$input" | jq --raw-output '.transcript_path // empty'
 session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
 [ -n "$session_id" ] || exit 0
 
-export STOP_NOTE_DIRECTORY="${STOP_NOTE_DIRECTORY:-$HOME/.local/state/unsolicited-text/notes}"
 . "$(dirname "$0")/hook-transcript-lib.sh"
 . "$(dirname "$0")/hook-stop-note-lib.sh"
 
 last="$(hook_last_reply "$transcript")"
 [ -n "$last" ] || exit 0
 
-PROSE_LINE_CEILING=8
+PROSE_LINE_CEILING="$(prose_line_ceiling)"
 
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"

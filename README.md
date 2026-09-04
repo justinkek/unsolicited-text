@@ -82,7 +82,24 @@ I don't need to hear your life story after asking you to do something.
 
 (Estimated at four characters to a token)
 
-## 3. Install
+## 3. Settings
+
+Every harness reads the same file. Write one `key = value` a line into `~/.unsolicited-text/config`:
+
+```text
+PROSE_LINE_CEILING = 12
+```
+
+| Setting                | Default                           | What it holds                                                    |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------------- |
+| `PROSE_LINE_CEILING`   | `8`                               | non-blank lines of prose a reply may run to before a note is kept |
+| `STOP_NOTE_DIRECTORY`  | `~/.unsolicited-text/state/notes` | where a turn leaves the note the next turn reads                  |
+
+Nothing is written there for you, and an absent file means the defaults above. A variable of the same name in the environment wins over the file, so a single session can be run against another ceiling without editing anything. `UNSOLICITED_TEXT_HOME` moves the file and the state under it together.
+
+Anything the hooks write for themselves lives under `~/.unsolicited-text/state/`. Deleting that directory loses the note a turn was holding and nothing else; your settings sit beside it, not inside it.
+
+## 4. Install
 
 Copy/paste into your CLI prompt:
 
@@ -92,7 +109,7 @@ Install the unsolicited-text plugin from https://github.com/justinkek/unsolicite
 
 Or 🔗 [check the installation instructions](INSTALL.md).
 
-## 4. Tests
+## 5. Tests
 
     tests/run-tests
 
@@ -102,7 +119,7 @@ Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
     brew install vhs
     demo/record
 
-## 5. Docs
+## 6. Docs
 The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
 
 They are typed in Commit Mono at the palette in `demo/record`. Without that face installed the recording falls back to another one, and `demo/record` says so before it starts.

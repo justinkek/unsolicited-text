@@ -21,14 +21,18 @@ assert() {
 
 printf "Test group: the ceiling the rules state is the ceiling the hook enforces\n"
 
-enforced="$(grep --only-matching 'PROSE_LINE_CEILING=[0-9][0-9]*' "$LONG_REPLY_HOOK" \
+enforced="$(grep --only-matching 'PROSE_LINE_CEILING_DEFAULT=[0-9][0-9]*' "$HOOKS_DIR/hook-config-lib.sh" \
   | grep --only-matching '[0-9][0-9]*' | sort --unique)"
 
 if [ -n "$enforced" ]; then
-  assert "the hook names a ceiling" 0 ""
+  assert "the hooks name a ceiling" 0 ""
 else
-  assert "the hook names a ceiling" 1 "no PROSE_LINE_CEILING assignment in $LONG_REPLY_HOOK"
+  assert "the hooks name a ceiling" 1 "no PROSE_LINE_CEILING_DEFAULT in $HOOKS_DIR/hook-config-lib.sh"
 fi
+
+grep --quiet --fixed-strings 'prose_line_ceiling' "$LONG_REPLY_HOOK"
+assert "the hook takes it from the settings" "$?" \
+  "$LONG_REPLY_HOOK does not read the configured ceiling"
 
 grep --quiet --fixed-strings "at most $enforced non-blank lines of prose" "$RULES"
 assert "the rules state that same number" "$?" \

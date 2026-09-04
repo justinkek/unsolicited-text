@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-STOP_NOTE_DIRECTORY="${STOP_NOTE_DIRECTORY:-$HOME/.local/state/unsolicited-text/notes}"
+. "$(dirname "${BASH_SOURCE[0]}")/hook-config-lib.sh"
+
+STOP_NOTE_DIRECTORY="$(config_value STOP_NOTE_DIRECTORY "$UNSOLICITED_TEXT_STATE/notes")"
 
 stop_note_record() {
   local session_id="$1" note="$2" notes_file
