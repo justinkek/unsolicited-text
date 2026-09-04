@@ -12,14 +12,13 @@ transcript="$(printf '%s' "$input" | jq --raw-output '.transcript_path // empty'
 session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
 [ -n "$session_id" ] || exit 0
 
-export STOP_NOTE_DIRECTORY="${STOP_NOTE_DIRECTORY:-$HOME/.local/state/unsolicited-text/notes}"
 . "$(dirname "$0")/hook-transcript-lib.sh"
 . "$(dirname "$0")/hook-stop-note-lib.sh"
 
 last="$(hook_last_reply "$transcript")"
 [ -n "$last" ] || exit 0
 
-PROSE_LINE_CEILING=8
+UNSOLICITED_TEXT_PROSE_LINE_CEILING="$(prose_line_ceiling)"
 
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"
@@ -33,7 +32,7 @@ prose_lines="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queu
   index(probe, "|") == 1 { next }
   NF { prose_lines++ }
   END { print prose_lines + 0 }')"
-[ "$prose_lines" -gt "$PROSE_LINE_CEILING" ] || exit 0
+[ "$prose_lines" -gt "$UNSOLICITED_TEXT_PROSE_LINE_CEILING" ] || exit 0
 
-stop_note_record "$session_id" "[reply-shape] The last reply ran $prose_lines lines of prose against a ceiling of $PROSE_LINE_CEILING. Hold this one to the ceiling: send only what the reader needs in order to act, and put what needs the user's attention under \`[queue]\`, which the ceiling does not count."
+stop_note_record "$session_id" "[reply-shape] The last reply ran $prose_lines lines of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING. Hold this one to the ceiling: send only what the reader needs in order to act, and put what needs the user's attention under \`[queue]\`, which the ceiling does not count."
 exit 0
