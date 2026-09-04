@@ -23,5 +23,5 @@ config_value() {
 }
 
 prose_line_ceiling() {
-  config_value PROSE_LINE_CEILING "$PROSE_LINE_CEILING_DEFAULT"
+  config_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$PROSE_LINE_CEILING_DEFAULT"
 }

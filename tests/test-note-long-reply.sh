@@ -4,9 +4,9 @@ HOOK="$(cd "$(dirname "$0")/../hooks" && pwd)/note-long-reply.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
-export STOP_NOTE_DIRECTORY="$TMPDIR/notes"
-mkdir -p "$STOP_NOTE_DIRECTORY"
-NOTES_FILE="$STOP_NOTE_DIRECTORY/test-length.stop-notes"
+export UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$TMPDIR/notes"
+mkdir -p "$UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY"
+NOTES_FILE="$UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY/test-length.stop-notes"
 
 pass=0
 fail=0

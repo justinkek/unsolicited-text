@@ -87,13 +87,13 @@ I don't need to hear your life story after asking you to do something.
 Every harness reads the same file. Write one `key = value` a line into `~/.unsolicited-text/config`:
 
 ```text
-PROSE_LINE_CEILING = 12
+UNSOLICITED_TEXT_PROSE_LINE_CEILING = 12
 ```
 
-| Setting                | Default                           | What it holds                                                    |
-| ---------------------- | --------------------------------- | ---------------------------------------------------------------- |
-| `PROSE_LINE_CEILING`   | `8`                               | non-blank lines of prose a reply may run to before a note is kept |
-| `STOP_NOTE_DIRECTORY`  | `~/.unsolicited-text/state/notes` | where a turn leaves the note the next turn reads                  |
+| Setting                                | Default                           | What it holds                                                      |
+| -------------------------------------- | --------------------------------- | ------------------------------------------------------------------ |
+| `UNSOLICITED_TEXT_PROSE_LINE_CEILING`  | `8`                               | non-blank lines of prose a reply may run to before a note is kept   |
+| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` | where a turn leaves the note the next turn reads                    |
 
 Nothing is written there for you, and an absent file means the defaults above. A variable of the same name in the environment wins over the file, so a single session can be run against another ceiling without editing anything. `UNSOLICITED_TEXT_HOME` moves the file and the state under it together.
 

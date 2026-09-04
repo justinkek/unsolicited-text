@@ -15,7 +15,7 @@ function spawnHook(script: string, payload: Record<string, unknown>): string {
 	try {
 		return execFileSync(join(hooks, script), {
 			input: JSON.stringify({ session_id: session, ...payload }),
-			env: { ...process.env, STOP_NOTE_DIRECTORY: notes },
+			env: { ...process.env, UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY: notes },
 			encoding: "utf8",
 		}).trim();
 	} catch {

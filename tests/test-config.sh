@@ -21,13 +21,13 @@ assert_equal() {
 
 # Reads one setting the way a hook does, in a shell of its own.
 read_setting() {
-  env --unset=PROSE_LINE_CEILING --unset=STOP_NOTE_DIRECTORY "$@" \
+  env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING --unset=UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY "$@" \
     bash -c '. "$0"/hook-config-lib.sh; config_value "$1" "$2"' "$HOOKS_DIR" "$SETTING" "$DEFAULT"
 }
 
 printf "Test group: no config file, and the default stands\n"
 
-SETTING=PROSE_LINE_CEILING DEFAULT=8
+SETTING=UNSOLICITED_TEXT_PROSE_LINE_CEILING DEFAULT=8
 assert_equal "an unwritten setting falls back" \
   "$(HOME="$TMPDIR/empty" read_setting)" "8"
 
@@ -37,16 +37,16 @@ mkdir -p "$TMPDIR/home/.unsolicited-text"
 CONFIG="$TMPDIR/home/.unsolicited-text/config"
 cat > "$CONFIG" <<'CONF'
 # the shape of a reply
-PROSE_LINE_CEILING = 12
+UNSOLICITED_TEXT_PROSE_LINE_CEILING = 12
 CONF
 
 assert_equal "a value in ~/.unsolicited-text/config is read" \
   "$(HOME="$TMPDIR/home" read_setting)" "12"
 
 assert_equal "the environment wins over the file" \
-  "$(HOME="$TMPDIR/home" read_setting PROSE_LINE_CEILING=3)" "3"
+  "$(HOME="$TMPDIR/home" read_setting UNSOLICITED_TEXT_PROSE_LINE_CEILING=3)" "3"
 
-printf '%s\n' "#PROSE_LINE_CEILING=99" > "$CONFIG"
+printf '%s\n' "#UNSOLICITED_TEXT_PROSE_LINE_CEILING=99" > "$CONFIG"
 assert_equal "a commented-out setting is not a setting" \
   "$(HOME="$TMPDIR/home" read_setting)" "8"
 
@@ -54,13 +54,13 @@ printf '\n\n   \n' > "$CONFIG"
 assert_equal "blank lines leave the default alone" \
   "$(HOME="$TMPDIR/home" read_setting)" "8"
 
-printf 'PROSE_LINE_CEILING=4\nPROSE_LINE_CEILING=6\n' > "$CONFIG"
+printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING=4\nUNSOLICITED_TEXT_PROSE_LINE_CEILING=6\n' > "$CONFIG"
 assert_equal "the last assignment is the one that counts" \
   "$(HOME="$TMPDIR/home" read_setting)" "6"
 
 printf "\nTest group: state sits under the same home, and moves with it\n"
 
-SETTING=STOP_NOTE_DIRECTORY DEFAULT=""
+SETTING=UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY DEFAULT=""
 assert_equal "notes default to the state directory" \
   "$(HOME="$TMPDIR/home" bash -c '. "$0"/hook-config-lib.sh; printf "%s" "$UNSOLICITED_TEXT_STATE"' "$HOOKS_DIR")" \
   "$TMPDIR/home/.unsolicited-text/state"
@@ -81,9 +81,9 @@ payload="$(jq --null-input --compact-output --arg p "$transcript" \
 run_with_ceiling() {
   local notes="$TMPDIR/notes-$1"
   rm -rf "$notes"
-  printf '%s\n' "PROSE_LINE_CEILING=$1" > "$CONFIG"
+  printf '%s\n' "UNSOLICITED_TEXT_PROSE_LINE_CEILING=$1" > "$CONFIG"
   printf '%s' "$payload" \
-    | env --unset=PROSE_LINE_CEILING HOME="$TMPDIR/home" STOP_NOTE_DIRECTORY="$notes" \
+    | env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING HOME="$TMPDIR/home" UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$notes" \
       bash "$HOOKS_DIR/note-long-reply.sh" >/dev/null 2>&1
   [ -f "$notes/test-config.stop-notes" ] && printf 'recorded' || printf 'silent'
 }
@@ -93,13 +93,19 @@ assert_equal "the note names the configured ceiling" \
   "$(grep --count 'ceiling of 3' "$TMPDIR/notes-3/test-config.stop-notes")" "1"
 assert_equal "five lines against a ceiling of 20 is silence" "$(run_with_ceiling 20)" "silent"
 
+printf "\nTest group: every setting carries the plugin's own prefix\n"
+
+unprefixed="$(grep --recursive --only-matching 'config_value [A-Z_][A-Z_]*' "$HOOKS_DIR" \
+  | grep --invert-match 'config_value UNSOLICITED_TEXT_')"
+assert_equal "no setting is read under a bare name" "$unprefixed" ""
+
 printf "\nTest group: the rules reach the session carrying that same ceiling\n"
 
-printf '%s\n' "PROSE_LINE_CEILING=12" > "$CONFIG"
+printf '%s\n' "UNSOLICITED_TEXT_PROSE_LINE_CEILING=12" > "$CONFIG"
 start_payload="$(jq --null-input --compact-output \
   '{hook_event_name:"SessionStart",session_id:"test-config",source:"startup"}')"
 printed="$(printf '%s' "$start_payload" \
-  | env --unset=PROSE_LINE_CEILING HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-agents-md.sh" 2>/dev/null)"
+  | env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-agents-md.sh" 2>/dev/null)"
 
 assert_equal "the printed rules state the configured ceiling" \
   "$(printf '%s' "$printed" | grep --count --fixed-strings 'at most 12 non-blank lines of prose')" "1"
