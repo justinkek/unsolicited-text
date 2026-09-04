@@ -69,8 +69,12 @@ while read -r harness; do
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 
-grep --quiet --fixed-strings 'Ask me to update it' "$REPOSITORY/hooks/note-new-version.sh"
-assert "and the notice sends the reader to it" "$?" "the notice tells them to do it themselves"
+for named in update settings; do
+  grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
+  assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
+  [ -f "$REPOSITORY/skills/$named/SKILL.md" ]
+  assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
+done
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
