@@ -21,8 +21,10 @@ assert_equal() {
 
 # Reads one setting the way a hook does, in a shell of its own.
 read_setting() {
-  env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING --unset=UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY "$@" \
-    bash -c '. "$0"/hook-config-lib.sh; config_value "$1" "$2"' "$HOOKS_DIR" "$SETTING" "$DEFAULT"
+  (
+    unset UNSOLICITED_TEXT_PROSE_LINE_CEILING UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY
+    env "$@" bash -c '. "$0"/hook-config-lib.sh; config_value "$1" "$2"' "$HOOKS_DIR" "$SETTING" "$DEFAULT"
+  )
 }
 
 printf "Test group: no config file, and the default stands\n"
@@ -82,9 +84,12 @@ run_with_ceiling() {
   local notes="$TMPDIR/notes-$1"
   rm -rf "$notes"
   printf '%s\n' "UNSOLICITED_TEXT_PROSE_LINE_CEILING=$1" > "$CONFIG"
-  printf '%s' "$payload" \
-    | env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING HOME="$TMPDIR/home" UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$notes" \
-      bash "$HOOKS_DIR/note-long-reply.sh" >/dev/null 2>&1
+  (
+    unset UNSOLICITED_TEXT_PROSE_LINE_CEILING
+    printf '%s' "$payload" \
+      | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$notes" \
+        bash "$HOOKS_DIR/note-long-reply.sh" >/dev/null 2>&1
+  )
   [ -f "$notes/test-config.stop-notes" ] && printf 'recorded' || printf 'silent'
 }
 
@@ -104,8 +109,11 @@ printf "\nTest group: the rules reach the session carrying that same ceiling\n"
 printf '%s\n' "UNSOLICITED_TEXT_PROSE_LINE_CEILING=12" > "$CONFIG"
 start_payload="$(jq --null-input --compact-output \
   '{hook_event_name:"SessionStart",session_id:"test-config",source:"startup"}')"
-printed="$(printf '%s' "$start_payload" \
-  | env --unset=UNSOLICITED_TEXT_PROSE_LINE_CEILING HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-agents-md.sh" 2>/dev/null)"
+printed="$(
+  unset UNSOLICITED_TEXT_PROSE_LINE_CEILING
+  printf '%s' "$start_payload" \
+    | env HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-agents-md.sh" 2>/dev/null
+)"
 
 assert_equal "the printed rules state the configured ceiling" \
   "$(printf '%s' "$printed" | grep --count --fixed-strings 'at most 12 non-blank lines of prose')" "1"
