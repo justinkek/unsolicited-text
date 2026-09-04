@@ -2,7 +2,7 @@
 	"name": "unsolicited-text",
 	"interface": {
 		"displayName": "unsolicited-text",
-		"shortDescription": "How an agent writes to the person reading it."
+		"shortDescription": "Consent is important."
 	},
 	"plugins": [
 		{

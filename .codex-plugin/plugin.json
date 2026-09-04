@@ -1,10 +1,10 @@
 {
 	"name": "unsolicited-text",
 	"version": "0.1.3",
-	"description": "How an agent writes to the person reading it.",
+	"description": "Consent is important.",
 	"hooks": "./harness-adapters/codex/hooks.json",
 	"interface": {
 		"displayName": "unsolicited-text",
-		"shortDescription": "How an agent writes to the person reading it."
+		"shortDescription": "Consent is important."
 	}
 }
