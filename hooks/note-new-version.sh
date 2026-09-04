@@ -20,11 +20,11 @@ now="$(date +%s)"
 [ -f "$checked" ] && [ "$((now - $(cat "$checked")))" -lt "$interval" ] && exit 0
 
 installed="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
-  "$(dirname "$0")/../.claude-plugin/plugin.json" | head -1)"
+  "$(dirname "$0")/../package.json" | head -1)"
 [ -n "$installed" ] || exit 0
 
 published="$(setting_value UNSOLICITED_TEXT_VERSION_SOURCE \
-  https://raw.githubusercontent.com/justinkek/unsolicited-text/main/.claude-plugin/plugin.json)"
+  https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json)"
 
 mkdir -p "$UNSOLICITED_TEXT_STATE"
 printf '%s' "$now" > "$checked"
@@ -35,7 +35,7 @@ printf '%s' "$now" > "$checked"
   [ -n "$latest" ] || exit 0
   [ "$latest" = "$installed" ] && exit 0
   [ "$(printf '%s\n%s\n' "$installed" "$latest" | sort --version-sort | tail -1)" = "$latest" ] || exit 0
-  printf '[unsolicited-text] %s is out, you are on %s. Update with: claude plugin marketplace update unsolicited-text && claude plugin update unsolicited-text@unsolicited-text\n' \
+  printf '[unsolicited-text] %s is out, you are on %s. Update it the way you installed it. To stop being told, set UNSOLICITED_TEXT_UPDATE_CHECK = off in ~/.unsolicited-text/settings\n' \
     "$latest" "$installed" > "$notice"
 ) >/dev/null 2>&1 &
 
