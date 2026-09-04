@@ -5,7 +5,7 @@ description: Change an unsolicited-text setting
 
 # unsolicited-text settings
 
-One file, read by every harness: `~/.unsolicited-text/config`. One
+One file, read by every harness: `~/.unsolicited-text/settings`. One
 `key = value` a line. Blank lines and lines opening with `#` are ignored, and
 the last assignment of a key is the one that counts.
 
