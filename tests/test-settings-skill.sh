@@ -33,7 +33,7 @@ assert "its description is the one line every session pays for" "$?" "the descri
 printf "\nTest group: what it tells the user matches what the hooks read\n"
 
 while read -r key; do
-  grep --quiet --fixed-strings "$key" "$HOOKS_DIR/hook-settings-lib.sh" "$HOOKS_DIR/hook-stop-note-lib.sh"
+  grep --quiet --recursive --fixed-strings "$key" "$HOOKS_DIR"
   assert "$key is a setting the hooks read" "$?" "no hook reads it, so the skill would set nothing"
 done < <(grep --only-matching --extended-regexp 'UNSOLICITED_TEXT_[A-Z_]+' "$SKILL" | sort --unique)
 
@@ -49,6 +49,32 @@ assert "the notes default is still under the state directory" "$?" "hook-stop-no
 
 grep --quiet --fixed-strings '~/.unsolicited-text/state/notes' "$SKILL"
 assert "and the skill spells that same path out" "$?" "the skill names a different one"
+
+printf "\nTest group: the update skill covers every harness the plugin installs into\n"
+
+UPDATE="$REPOSITORY/skills/update/SKILL.md"
+
+[ -f "$UPDATE" ]
+assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
+
+grep --quiet --line-regexp --fixed-strings 'name: update' "$UPDATE"
+assert "it is named update" "$?" "the name is missing or carries the plugin prefix"
+
+grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE"
+assert "its description is one line" "$?" "the description has grown"
+
+while read -r harness; do
+  grep --quiet --fixed-strings "$harness" "$UPDATE"
+  assert "it says how to update on $harness" "$?" "$harness is in INSTALL.md and not in the skill"
+done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
+  | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
+
+for named in update settings; do
+  grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
+  assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
+  [ -f "$REPOSITORY/skills/$named/SKILL.md" ]
+  assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
+done
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

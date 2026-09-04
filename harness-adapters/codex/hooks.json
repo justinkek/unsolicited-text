@@ -6,6 +6,10 @@
 					{
 						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/load-agents-md.sh"
+					},
+					{
+						"type": "command",
+						"command": "${PLUGIN_ROOT}/hooks/note-new-version.sh"
 					}
 				]
 			}
