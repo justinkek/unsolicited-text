@@ -96,5 +96,22 @@ done)
 [ "$named" -gt 3 ]
 assert "the pages name the scripts at all" "$?" "only $named named between them"
 
+printf "\nTest group: every hook this repository carries is registered somewhere\n"
+
+registered="$(
+  for manifest in "$REPOSITORY/hooks/hooks.json" "$ADAPTERS/codex/hooks.json"; do
+    commands_of "$manifest"
+  done
+  grep --only-matching --extended-regexp '[a-z-]+\.sh' "$ADAPTERS/pi/src/index.ts"
+)"
+
+for script in "$REPOSITORY"/hooks/*.sh; do
+  name="$(basename "$script")"
+  case "$name" in *-lib.sh) continue ;; esac
+  printf '%s' "$registered" | grep --quiet --fixed-strings "$name"
+  assert "$name is registered by an adapter" "$?" \
+    "nothing runs it, so it ships and never fires"
+done
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
