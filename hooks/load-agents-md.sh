@@ -7,6 +7,6 @@ rules="$(dirname "$0")/../AGENTS.md"
 
 . "$(dirname "$0")/hook-config-lib.sh"
 
-discard_superseded_notes
+discard_notes_from_before_v_0_1_2
 
 sed "s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/" "$rules"
