@@ -1,5 +1,0 @@
-Left for later.
-
-`[queue]`
-
-1. Deferred: the codex hooks.
