@@ -33,7 +33,7 @@ assert "its description is the one line every session pays for" "$?" "the descri
 printf "\nTest group: what it tells the user matches what the hooks read\n"
 
 while read -r key; do
-  grep --quiet --fixed-strings "$key" "$HOOKS_DIR/hook-settings-lib.sh" "$HOOKS_DIR/hook-stop-note-lib.sh"
+  grep --quiet --recursive --fixed-strings "$key" "$HOOKS_DIR"
   assert "$key is a setting the hooks read" "$?" "no hook reads it, so the skill would set nothing"
 done < <(grep --only-matching --extended-regexp 'UNSOLICITED_TEXT_[A-Z_]+' "$SKILL" | sort --unique)
 
