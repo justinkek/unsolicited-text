@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "How an agent writes to the person reading it.",
 	"hooks": "./harness-adapters/codex/hooks.json",
 	"interface": {
