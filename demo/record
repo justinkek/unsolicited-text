@@ -7,7 +7,7 @@ height="${DEMO_HEIGHT:-500}"
 columns="${DEMO_COLUMNS:-44}"
 font="${DEMO_FONT:-CommitMono}"
 rate="${DEMO_RATE:-85}"
-runtime="${DEMO_RUNTIME:-12}"
+runtime="${DEMO_RUNTIME:-10}"
 
 command -v vhs >/dev/null 2>&1 || { printf 'record: vhs is not installed (brew install vhs)\n' >&2; exit 1; }
 

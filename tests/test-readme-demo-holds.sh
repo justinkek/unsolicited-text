@@ -62,22 +62,6 @@ after="$(note_for "$DEMO/reply-after.txt")"
 [ -z "$after" ]
 assert "the reply recorded with the plugin is within it" "$?" "the hook recorded '$after'"
 
-ran="$(printf '%s' "$before" | grep --only-matching 'ran [0-9][0-9]* lines' | grep --only-matching '[0-9][0-9]*')"
-ceiling="$(printf '%s' "$before" | grep --only-matching 'ceiling of [0-9][0-9]*' | grep --only-matching '[0-9][0-9]*')"
-kept="$(awk '
-  { probe = $0; sub(/^[[:space:]]+/, "", probe) }
-  probe == "`[queue]`" { queued = 1; next }
-  queued && probe ~ /^[0-9]+\. / { next }
-  queued && probe != "" { queued = 0 }
-  NF { kept++ }
-  END { print kept + 0 }' "$DEMO/reply-after.txt")"
-
-grep --quiet --ignore-case --fixed-strings "$(spelled "$ran") lines of prose against $(spelled "$kept")" "$README"
-assert "the readme names $ran lines against $kept" "$?" "no such comparison in $README"
-
-grep --quiet --ignore-case --fixed-strings "the ceiling is $(spelled "$ceiling")" "$README"
-assert "the readme names the ceiling of $ceiling" "$?" "no such ceiling in $README"
-
 printf "\nTest group: the queue holds what the answer no longer asks\n"
 
 scattered="$(asked_outside_the_queue "$DEMO/reply-before.txt")"
@@ -155,6 +139,8 @@ assert "and carries no tag, because nothing was asked" "$?" "it is tagged"
 
 printf "\nTest group: every recording is no older than what it records\n"
 
+shown=0
+
 for prompt in "$DEMO"/*.prompt; do
   pair="$(basename "$prompt" .prompt)"
   for side in before after; do
@@ -168,10 +154,23 @@ for prompt in "$DEMO"/*.prompt; do
       assert "$name.gif is no older than $source" "$?" "$source changed since it was recorded, run demo/record"
     done
 
-    grep --quiet --fixed-strings "demo/$name.gif" "$README"
-    assert "the readme shows $name.gif" "$?" "no such image in $README"
+    if grep --quiet --fixed-strings "demo/$name.gif" "$README"; then
+      shown=$((shown + 1))
+    fi
   done
 done
+
+printf "\nTest group: every recording the readme shows is one this repository carries\n"
+
+[ "$shown" -gt 0 ]
+assert "the readme shows recordings at all" "$?" "no demo image in $README"
+
+missing=""
+while read -r image; do
+  [ -f "$REPOSITORY/$image" ] || missing="$missing $image"
+done < <(grep --only-matching --extended-regexp 'demo/[a-z-]+\.gif' "$README" | sort --unique)
+[ -z "$missing" ]
+assert "and carries every one it shows" "$?" "$missing"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

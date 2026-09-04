@@ -28,7 +28,7 @@ with_separator() {
 printf "Test group: the readme counts what the hooks actually put into a session\n"
 
 stated="$(with_separator "$(rounded_tokens "$REPOSITORY/AGENTS.md")")"
-grep --quiet --fixed-strings "~$stated |" "$README"
+grep --quiet --extended-regexp "~$stated +\\|" "$README"
 assert "the rules cost about $stated tokens and the readme says so" "$?" \
   "AGENTS.md now measures ~$stated, which $README does not state"
 
