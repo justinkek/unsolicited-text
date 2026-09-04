@@ -50,5 +50,27 @@ assert "the notes default is still under the state directory" "$?" "hook-stop-no
 grep --quiet --fixed-strings '~/.unsolicited-text/state/notes' "$SKILL"
 assert "and the skill spells that same path out" "$?" "the skill names a different one"
 
+printf "\nTest group: the update skill covers every harness the plugin installs into\n"
+
+UPDATE="$REPOSITORY/skills/update/SKILL.md"
+
+[ -f "$UPDATE" ]
+assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
+
+grep --quiet --line-regexp --fixed-strings 'name: update' "$UPDATE"
+assert "it is named update" "$?" "the name is missing or carries the plugin prefix"
+
+grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE"
+assert "its description is one line" "$?" "the description has grown"
+
+while read -r harness; do
+  grep --quiet --fixed-strings "$harness" "$UPDATE"
+  assert "it says how to update on $harness" "$?" "$harness is in INSTALL.md and not in the skill"
+done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
+  | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
+
+grep --quiet --fixed-strings 'Ask me to update it' "$REPOSITORY/hooks/note-new-version.sh"
+assert "and the notice sends the reader to it" "$?" "the notice tells them to do it themselves"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
