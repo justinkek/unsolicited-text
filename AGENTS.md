@@ -66,7 +66,7 @@
   ────────────────────────────────────────────────
   ```
 
-- Keep a reply to at most 8 non-blank lines of prose. Fenced code blocks, table rows, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count. When the section structure above will not fit inside the ceiling, the sections come off before the content does.
+- Keep a reply to at most 8 non-blank lines of prose. A line counts only if it carries a word and no box-drawing mark, so fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, are all free. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count. When the section structure above will not fit inside the ceiling, the sections come off before the content does.
 
 ## Plain English
 

@@ -41,5 +41,5 @@ prose_lines="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queu
   END { print prose_lines + 0 }')"
 [ "$prose_lines" -gt "$UNSOLICITED_TEXT_PROSE_LINE_CEILING" ] || exit 0
 
-stop_note_record "$session_id" "[reply-shape] The last reply ran $prose_lines lines of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING. Hold this one to the ceiling: send only what the reader needs in order to act, and put what needs the user's attention under \`[queue]\`, which the ceiling does not count."
+stop_note_record "$session_id" "[reply-shape] The last reply ran $prose_lines lines of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING. Hold this one to the ceiling: send only what the reader needs in order to act. A table, a fenced block, a drawing and the \`[queue]\` cost nothing, so anything with parallel structure or a flow through it belongs in one of those rather than in prose."
 exit 0

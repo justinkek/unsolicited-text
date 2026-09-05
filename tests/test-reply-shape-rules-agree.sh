@@ -48,11 +48,18 @@ printf "\nTest group: the queue is exempt on both sides and the note says so\n"
 grep --quiet --fixed-strings 'probe == queue_tag' "$LONG_REPLY_HOOK"
 assert "the hook skips the queue" "$?" "no queue skip in $LONG_REPLY_HOOK"
 
-grep --quiet --fixed-strings 'the `[queue]` line with every item under it, do not count' "$RULES"
+grep --quiet --fixed-strings 'the `[queue]` line with every item under it, are all free' "$RULES"
 assert "the rules exempt the queue too" "$?" "the exemption clause does not name the queue in $RULES"
 
-grep --quiet --fixed-strings 'under \`[queue]\`' "$LONG_REPLY_HOOK"
+grep --quiet --fixed-strings 'the \`[queue]\` cost nothing' "$LONG_REPLY_HOOK"
 assert "the note points at the queue" "$?" "the note does not name the queue in $LONG_REPLY_HOOK"
+
+for free in 'table' 'fenced block' 'drawing'; do
+  grep --quiet --fixed-strings "$free" "$LONG_REPLY_HOOK"
+  outcome="$?"
+  assert "and at the $free the ceiling does not count" "$outcome" \
+    "the note never mentions it, so a reply over the ceiling is not told"
+done
 
 grep --quiet --fixed-strings 'What needs my attention goes in the queue' "$RULES"
 assert "the rules send what needs attention there" "$?" "no such clause in $RULES"

@@ -75,7 +75,7 @@ I don't need to hear your life story after asking you to do something.
 
 | File                              | When it runs  | What it does                                       | Tokens                                   |
 | --------------------------------- | ------------- | -------------------------------------------------- | ---------------------------------------- |
-| `hooks/load-agents-md.sh`         | session start | prints `AGENTS.md` into the session                | ~2,400                                   |
+| `hooks/load-agents-md.sh`         | session start | prints `AGENTS.md` into the session                | ~2,500                                   |
 | `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                    | ~50                                      |
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded             | ~70, and only when there is one          |
 | `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling | none, it prints nothing into the session |
