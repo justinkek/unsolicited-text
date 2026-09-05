@@ -62,6 +62,21 @@ after="$(note_for "$DEMO/reply-after.txt")"
 [ -z "$after" ]
 assert "the reply recorded with the plugin is within it" "$?" "the hook recorded '$after'"
 
+printf "\nTest group: the demos show what a session shows by default\n"
+
+glyphs_in() {
+  python3 -c '
+import sys, unicodedata
+print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_asian_width(c) == "W"})))' "$1"
+}
+
+carried=""
+for reply in "$DEMO"/*.txt; do
+  [ -z "$(glyphs_in "$reply")" ] || carried="$carried $(basename "$reply")"
+done
+[ -z "$carried" ]
+assert "no recording shows the glyphs, which are off unless asked for" "$?" "$carried does"
+
 printf "\nTest group: the queue holds what the answer no longer asks\n"
 
 scattered="$(asked_outside_the_queue "$DEMO/reply-before.txt")"
@@ -74,7 +89,7 @@ held="$(asked_outside_the_queue "$DEMO/reply-after.txt")"
 assert "the reply recorded with the plugin asks nothing outside the queue" "$?" \
   "it asks $held times before the queue"
 
-for kind in "❓ Question:" "🔍 Investigate:" "🚦 Approve/Reject:"; do
+for kind in "Question:" "Investigate:" "Approve/Reject:"; do
   grep --quiet --extended-regexp "^[0-9]+\. $kind" "$DEMO/reply-after.txt"
   assert "the queue carries a $kind item" "$?" "no such item"
 done

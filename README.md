@@ -71,6 +71,21 @@ ELI5
 
 I don't need to hear your life story after asking you to do something.
 
+### 1.5. as much of the queue as you want to see
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/visible-before.gif" alt="Six open items listed in full"></td>
+<td><img src="demo/visible-after.gif" alt="Two shown, and a count of the four still pending"></td>
+</tr>
+</table>
+
+Six things are still open. I only need to see the two I might pick up next.
+
 ## 2. How it works
 
 | File                              | When it runs  | What it does                                       | Tokens                                   |
@@ -79,8 +94,21 @@ I don't need to hear your life story after asking you to do something.
 | `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                    | ~50                                      |
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded             | ~70, and only when there is one          |
 | `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling | none, it prints nothing into the session |
+| `hooks/note-long-queue.sh`        | turn end      | records a note when the queue showed more items than allowed | none, it prints nothing into the session |
+| `hooks/note-new-version.sh`       | session start | asks once a day whether a newer version is out, and prints what it found | ~30, and only when there is one |
 
 (Estimated at four characters to a token)
+
+Two skills come with it. Neither costs a session more than its own name until
+you use it.
+
+| Skill | What it does |
+| --- | --- |
+| `unsolicited-text:settings` | says what is set, and changes one setting |
+| `unsolicited-text:update` | updates the plugin, whichever harness you are in |
+
+Everything a hook reads is a setting, and the settings skill is how you change
+one - ask it what is set and it will tell you.
 
 ## 3. Install
 
