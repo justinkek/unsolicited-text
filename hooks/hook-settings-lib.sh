@@ -25,6 +25,15 @@ prose_line_ceiling() {
   setting_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT"
 }
 
+queue_visible_items() {
+  local value
+  value="$(setting_value UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS "")"
+  case "$value" in
+    '' | *[!0-9]*) return 0 ;;
+  esac
+  printf '%s' "$value"
+}
+
 discard_notes_from_before_v_0_1_2() {
   local superseded="$HOME/.local/state/unsolicited-text"
   [ -d "$superseded" ] || return 0

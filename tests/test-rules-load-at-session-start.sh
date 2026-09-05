@@ -76,5 +76,20 @@ printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
 grep --quiet --fixed-strings '11' "$home/settings"
 assert "and a settings file already there is not overwritten" "$?" "the old file won"
 
+printf "\nTest group: the rules carry the visible limit that is set\n"
+
+unlimited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$unlimited" | grep --quiet --fixed-strings 'Show every item of the queue'
+assert "unset tells the reader to show every item" "$?" "the rules say otherwise"
+
+limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+  UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS=2 bash "$LOADER" 2>/dev/null)"
+printf '%s' "$limited" | grep --quiet --fixed-strings 'Show only the first 2 items of the queue'
+assert "a limit of 2 reaches the rules as 2" "$?" "the rules do not name it"
+
+printf '%s' "$limited" | grep --quiet --fixed-strings 'Show every item of the queue'
+[ "$?" = "1" ]
+assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
