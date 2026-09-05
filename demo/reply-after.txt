@@ -10,4 +10,4 @@ settings and leave the plugin's.
 
 1. Question: remove it everywhere, or here?
 2. Investigate: does an upgrade re-add it?
-3. approve/reject: kept the plugin's
+3. Approve/Reject: kept the plugin's
