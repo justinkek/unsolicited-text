@@ -43,6 +43,7 @@ export default function (pi: ExtensionAPI) {
 		const transcript = join(notes, "turn.jsonl");
 		writeFileSync(transcript, `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: textOf(event?.message) }] } })}\n`);
 		spawnHook("note-long-reply.sh", { transcript_path: transcript });
+		spawnHook("note-long-queue.sh", { transcript_path: transcript });
 		held = spawnHook("replay-stop-notes.sh", {});
 	});
 }

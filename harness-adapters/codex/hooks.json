@@ -34,6 +34,10 @@
 					{
 						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/note-long-reply.sh"
+					},
+					{
+						"type": "command",
+						"command": "${PLUGIN_ROOT}/hooks/note-long-queue.sh"
 					}
 				]
 			}

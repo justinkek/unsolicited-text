@@ -16,6 +16,11 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_PROSE_LINE_CEILING` | `8` |
 | `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` |
 | `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` |
+| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown |
+
+Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
+items, with a count of the rest. Say when setting it that an item out of sight
+may not come back, and that `0` shows the count alone.
 
 ## Changing one
 
