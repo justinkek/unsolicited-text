@@ -74,7 +74,7 @@ assert_names_the_queue() {
 }
 
 prose_of() { seq 1 "$1" | sed 's/^/point /'; }
-queue_of() { seq 1 "$1" | awk '{ print NR ". Q: open item " NR }'; }
+queue_of() { seq 1 "$1" | awk '{ print NR ". Question: open item " NR }'; }
 
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"

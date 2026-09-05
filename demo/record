@@ -39,8 +39,15 @@ record_one() {
   printf 'record: wrote %s.gif\n' "$name"
 }
 
+wanted="$*"
+
 for prompt in "$directory"/*.prompt; do
   pair="$(basename "$prompt" .prompt)"
+  case " $wanted " in
+    "  ") ;;
+    *" $pair "*) ;;
+    *) continue ;;
+  esac
   for side in before after; do
     record_one "$pair-$side" "$(basename "$prompt")"
   done
