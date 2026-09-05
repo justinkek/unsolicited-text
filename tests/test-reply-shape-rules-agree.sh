@@ -48,7 +48,7 @@ printf "\nTest group: the queue is exempt on both sides and the note says so\n"
 grep --quiet --fixed-strings 'probe == queue_tag' "$LONG_REPLY_HOOK"
 assert "the hook skips the queue" "$?" "no queue skip in $LONG_REPLY_HOOK"
 
-grep --quiet --fixed-strings 'the `[queue]` line with every item under it, are all free' "$RULES"
+grep --quiet --fixed-strings 'the `[queue]` line with every item under it, do not count' "$RULES"
 assert "the rules exempt the queue too" "$?" "the exemption clause does not name the queue in $RULES"
 
 grep --quiet --fixed-strings 'the \`[queue]\` cost nothing' "$LONG_REPLY_HOOK"
