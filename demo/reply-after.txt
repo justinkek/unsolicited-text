@@ -8,6 +8,6 @@ settings and leave the plugin's.
 
 `[queue]`
 
-1. ❓ Question: remove it everywhere?
-2. 🔍 Investigate: does upgrading re-add it
-3. 🚦 Approve/Reject: kept the plugin's
+1. Question: remove it everywhere?
+2. Investigate: does upgrading re-add it
+3. Approve/Reject: kept the plugin's

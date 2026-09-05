@@ -114,5 +114,22 @@ for script in "$REPOSITORY"/hooks/*.sh; do
     "nothing runs it, so it ships and never fires"
 done
 
+printf "\nTest group: the readme names everything that ships\n"
+
+for script in "$REPOSITORY"/hooks/*.sh; do
+  name="$(basename "$script")"
+  case "$name" in *-lib.sh) continue ;; esac
+  grep --quiet --fixed-strings "hooks/$name" "$REPOSITORY/README.md"
+  outcome="$?"
+  assert "the readme lists $name" "$outcome" "it ships and the readme never says so"
+done
+
+for skill in "$REPOSITORY"/skills/*/SKILL.md; do
+  named="$(basename "$(dirname "$skill")")"
+  grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/README.md"
+  outcome="$?"
+  assert "the readme names unsolicited-text:$named" "$outcome" "it ships and the readme never says so"
+done
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
