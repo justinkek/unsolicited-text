@@ -91,5 +91,27 @@ printf '%s' "$limited" | grep --quiet --fixed-strings 'Show every item of the qu
 [ "$?" = "1" ]
 assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
 
+printf "\nTest group: the glyphs are handed over only when they are asked for\n"
+
+glyphs_in() {
+  python3 -c '
+import sys, unicodedata
+print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_asian_width(c) == "W"})))' "$1"
+}
+
+written="$(glyphs_in "$REPOSITORY/AGENTS.md")"
+[ -n "$written" ]
+assert "the rules on disk carry glyphs at all" "$?" "AGENTS.md has none, so there is nothing to strip"
+
+printed="$TMPDIR/printed"
+printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" > "$printed" 2>/dev/null
+[ -z "$(glyphs_in "$printed")" ]
+assert "none of them reaches a session by default" "$?" "the rules printed $(glyphs_in "$printed")"
+
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_QUEUE_EMOJI=on bash "$LOADER" > "$printed" 2>/dev/null
+[ "$(glyphs_in "$printed")" = "$written" ]
+assert "and every one of them does when it is on" "$?" \
+  "AGENTS.md has $written and the session got $(glyphs_in "$printed")"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
