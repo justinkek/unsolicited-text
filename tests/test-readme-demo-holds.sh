@@ -74,7 +74,7 @@ held="$(asked_outside_the_queue "$DEMO/reply-after.txt")"
 assert "the reply recorded with the plugin asks nothing outside the queue" "$?" \
   "it asks $held times before the queue"
 
-for kind in "Question:" "Investigate:" "Approve/Reject:"; do
+for kind in "❓ Question:" "🔍 Investigate:" "🚦 Approve/Reject:"; do
   grep --quiet --extended-regexp "^[0-9]+\. $kind" "$DEMO/reply-after.txt"
   assert "the queue carries a $kind item" "$?" "no such item"
 done
@@ -119,6 +119,28 @@ assert "the reply recorded with the plugin is one statement" "$?" "it runs to $r
 grep --quiet --fixed-strings '`[' "$DEMO/directive-after.txt"
 [ "$?" = "1" ]
 assert "and carries no tag, because nothing was asked" "$?" "it is tagged"
+
+printf "\nTest group: every line fits the terminal it is typed into\n"
+
+COLUMNS_RECORDED="${DEMO_COLUMNS:-43}"
+
+widest_line() {
+  python3 -c '
+import sys, unicodedata
+widest = 0
+for line in open(sys.argv[1]).read().splitlines():
+    widest = max(widest, sum(2 if unicodedata.east_asian_width(c) == "W" else 1 for c in line))
+print(widest)' "$1"
+}
+
+for reply in "$DEMO"/*.txt "$DEMO"/*.prompt; do
+  widest="$(widest_line "$reply")"
+  fits="$reply"
+  [ "$widest" -le "$COLUMNS_RECORDED" ]
+  outcome="$?"
+  assert "$(basename "$fits") fits in $COLUMNS_RECORDED columns" "$outcome" \
+    "its widest line is $widest, so the recording wraps it"
+done
 
 printf "\nTest group: every recording is no older than what it records\n"
 

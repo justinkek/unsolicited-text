@@ -46,7 +46,8 @@ check_reachable() {
     inside="${command#"$prefix"}"
 
     [ "$inside" != "$command" ]
-    assert "$label names $(basename "$command") from its own root" "$?" \
+    outcome="$?"
+    assert "$label names $(basename "$command") from its own root" "$outcome" \
       "$command does not start with $prefix"
 
     case "/$inside/" in

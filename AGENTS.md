@@ -14,18 +14,29 @@
 - Keep `[answer]` and `[problem]` each to a single statement; route any elaboration to `[queue]`, never into the `[answer]`/`[problem]` line itself.
 - Never write background I did not ask for. Offer it in one line and wait to be asked.
 - A completed directive is one untagged line saying what was done and where to look. Passing tests are not reported at all.
-- The queue holds five kinds of item and nothing else: a question, opening `Question:` - the list number already identifies it; something unconfirmed, opening `Investigate:` - a cause behind a defect, or an open uncertainty either way; a call you made on your own to keep moving, opening `Approve/Reject:` and raised in the reply that makes the call rather than the one reporting the work it shaped - `Reject` from me means that work is wrong and comes back; a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each; and anything I deferred. It never holds an action of yours - do that instead of listing it.
+- The queue holds five kinds of item and nothing else. It never holds an action of yours - do that instead of listing it.
+
+  | Opens with | Holds |
+  | --- | --- |
+  | `❓ Question:` | anything I have to answer; the list number identifies it |
+  | `🔍 Investigate:` | a cause behind a defect, or an open uncertainty either way |
+  | `🚦 Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped - `Reject` from me means that work is wrong and comes back |
+  | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
+  | `💤 Later:` | anything I deferred |
+
 - Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I dequeue it:
 
   ```
   `[queue]`
 
-  1. Question: ...?
-  2. Investigate: ...
-  3. Approve/Reject: ...
+  1. ❓ Question: ...?
+  2. 🔍 Investigate: ...
+  3. 🚦 Approve/Reject: ...
+  4. 🌱 Prevent: ...
+  5. 💤 Later: ...
   ```
 
-- Every open question sits in the queue at once, none of them asked outside it. `Question:` is the only marker a question carries.
+- Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
 - A queue question blocks the action it gates until I answer it. Act on everything that does not depend on it. It stays listed in every reply until I answer it, and comes off the list the moment I do.
 - Show every item of the queue in every reply.
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
@@ -50,7 +61,7 @@
   ────────────────────────────────────────────────
   `[queue]`
 
-  1. Question: which directory should the notes be written to?
+  1. ❓ Question: which directory should the notes be written to?
 
   ────────────────────────────────────────────────
   ```
