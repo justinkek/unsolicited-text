@@ -25,6 +25,10 @@ prose_line_ceiling() {
   setting_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT"
 }
 
+queue_emoji() {
+  [ "$(setting_value UNSOLICITED_TEXT_QUEUE_EMOJI off)" = "on" ]
+}
+
 queue_visible_items() {
   local value
   value="$(setting_value UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS "")"
