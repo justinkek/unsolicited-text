@@ -34,10 +34,10 @@ note_for() {
 }
 
 four_items="$(printf '%s\n' 'Some answer.' '' '`[queue]`' '' \
-  '1. Q: one?' '2. Q: two?' '3. Q: three?' '4. Q: four?')"
+  '1. Question: one?' '2. Question: two?' '3. Question: three?' '4. Question: four?')"
 
 elided="$(printf '%s\n' 'Some answer.' '' '`[queue]`' '' \
-  '1. Q: one?' '2. Q: two?' '...1 more pending' '4. Q: four?')"
+  '1. Question: one?' '2. Question: two?' '...1 more pending' '4. Question: four?')"
 
 printf "Test group: a reply showing more than the setting allows is noted\n"
 
@@ -80,7 +80,7 @@ assert "and a value that is not a number counts as unset" "$?" "it read a word a
 printf "\nTest group: a queue inside a fenced block is an example, not a reply\n"
 
 fenced="$(printf '%s\n' 'Here is what it looks like:' '' '```' '`[queue]`' \
-  '1. Q: one?' '2. Q: two?' '3. Q: three?' '```')"
+  '1. Question: one?' '2. Question: two?' '3. Question: three?' '```')"
 [ -z "$(note_for 1 "$fenced")" ]
 assert "an example queue is not counted" "$?" "the fenced example was read as the reply's own queue"
 

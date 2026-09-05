@@ -8,6 +8,6 @@ settings and leave the plugin's.
 
 `[queue]`
 
-1. Q: Remove it from every account, or one?
+1. Question: remove it everywhere, or here?
 2. Investigate: does an upgrade re-add it?
-3. OK/KO: kept the plugin's, not yours.
+3. Approve/Reject: kept the plugin's

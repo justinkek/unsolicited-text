@@ -74,7 +74,7 @@ held="$(asked_outside_the_queue "$DEMO/reply-after.txt")"
 assert "the reply recorded with the plugin asks nothing outside the queue" "$?" \
   "it asks $held times before the queue"
 
-for kind in "Q:" "Investigate:" "OK/KO:"; do
+for kind in "Question:" "Investigate:" "Approve/Reject:"; do
   grep --quiet --extended-regexp "^[0-9]+\. $kind" "$DEMO/reply-after.txt"
   assert "the queue carries a $kind item" "$?" "no such item"
 done
