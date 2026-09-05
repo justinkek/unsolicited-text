@@ -79,7 +79,23 @@ queue_of() { seq 1 "$1" | awk '{ print NR ". Question: open item " NR }'; }
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"
 
-printf "Test group: the ceiling\n"
+printf "Test group: a line with no words is not prose\n"
+
+divider="$(printf '\342\224\200%.0s' $(seq 1 48))"
+
+assert_silent "a divider between sections" \
+  "$(run_hook "$(prose_of 6)$(printf '\n%s\n%s\n' "$divider" "$divider")")"
+
+assert_silent "a drawing, connectors and all" \
+  "$(run_hook "$(prose_of 4)$(printf '\n%s\n' '  a ──► b' '     │' '     ▼' '  c ──► d')")"
+
+assert_records "prose is still prose beside a drawing" \
+  "$(run_hook "$(prose_of 9)$(printf '\n%s\n' '  a ──► b')")"
+
+assert_records "and a sentence that mentions an arrow is not a drawing" \
+  "$(run_hook "$(prose_of 9)")"
+
+printf "\nTest group: the ceiling\n"
 
 assert_records "a write-up" "$(run_hook "$(prose_of 40)")"
 assert_records "one line over" "$(run_hook "$(prose_of 9)")"
