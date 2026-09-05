@@ -22,7 +22,13 @@ UNSOLICITED_TEXT_PROSE_LINE_CEILING="$(prose_line_ceiling)"
 
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"
-prose_lines="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queue_tag" '
+drawn="─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ ► ◄ ▲ ▼ → ← ↑ ↓"
+prose_lines="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queue_tag" -v drawn="$drawn" '
+  BEGIN { marks = split(drawn, mark, " ") }
+  function drawing(line,   i) {
+    for (i = 1; i <= marks; i++) if (index(line, mark[i])) return 1
+    return 0
+  }
   { probe = $0; sub(/^[[:space:]]+/, "", probe) }
   index(probe, fence) == 1 { fenced = !fenced; next }
   fenced { next }
@@ -30,7 +36,8 @@ prose_lines="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queu
   queued && probe ~ /^[0-9]+\. / { next }
   queued && probe != "" { queued = 0 }
   index(probe, "|") == 1 { next }
-  NF { prose_lines++ }
+  drawing(probe) { next }
+  probe ~ /[[:alnum:]]/ { prose_lines++ }
   END { print prose_lines + 0 }')"
 [ "$prose_lines" -gt "$UNSOLICITED_TEXT_PROSE_LINE_CEILING" ] || exit 0
 
