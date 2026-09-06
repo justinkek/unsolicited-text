@@ -62,6 +62,20 @@ after="$(note_for "$DEMO/reply-after.txt")"
 [ -z "$after" ]
 assert "the reply recorded with the plugin is within it" "$?" "the hook recorded '$after'"
 
+printf "\nTest group: the drift pair is a reply that drifted and one that did not\n"
+
+drifted="$(note_for "$DEMO/drift-before.txt")"
+[ -n "$drifted" ]
+assert "the reply shown without it is over the ceiling" "$?" "the hook recorded nothing"
+
+held="$(note_for "$DEMO/drift-after.txt")"
+[ -z "$held" ]
+assert "the reply shown with it is within the ceiling" "$?" "the hook recorded '$held'"
+
+grep --quiet --ignore-case --fixed-strings 'turn 40' "$DEMO/drift.prompt"
+assert "and the prompt says how far into the session they are" "$?" \
+  "nothing in the pair says this is a long session, which is the whole point"
+
 printf "\nTest group: the demos show what a session shows by default\n"
 
 emoji_in() {

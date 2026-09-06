@@ -2,12 +2,12 @@
   <img src="logo/logo.png" width="440" alt="unsolicited-text">
 </p>
 
-<h1 align="center">consent is important</h1>
+<h2 align="center">"i did not consent to text"</h2>
 
 
 ## 1. Features
 
-### 1.1. one thread at a time
+Responses are encouraged to keep to one thread at a time, and everything else gets added to the queue. 
 
 <table>
 <tr>
@@ -19,8 +19,6 @@
 <td><img src="demo/reply-after.gif" alt="Six lines, then a queue holding a question, an uncertainty and a call taken"></td>
 </tr>
 </table>
-
-Responses are encouraged to keep to max. 8 lines, and everything else gets added to the queue. 
 
 The queue holds different items (e.g. questions, investigations) which you can deal with one at a time when you feel necessary.
 
@@ -82,6 +80,26 @@ The queue holds different items (e.g. questions, investigations) which you can d
 </table>
 
 I don't need to hear your life story after asking you to do something.
+
+</details>
+
+<details>
+<summary><b>1.5. the fortieth reply looks like the first</b></summary>
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/drift-before.gif" alt="Turn forty, and the reply has drifted back to fifteen lines"></td>
+<td><img src="demo/drift-after.gif" alt="The same turn, still answered in two lines"></td>
+</tr>
+</table>
+
+Instructions loaded once fade as a session fills up. The reminder is printed
+again on every prompt, and the ceiling is measured at the end of every turn,
+so turn 40 is held to what turn 1 was.
 
 </details>
 

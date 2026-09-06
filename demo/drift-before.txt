@@ -1,0 +1,18 @@
+So, coming back to this after a while -
+we covered a few options and it is worth
+recapping where we landed, because there
+were a couple of threads running at once.
+
+We looked at one file against many, and
+measured both. Reading the head was 3.5ms
+against 15ms, and ten items cost 4KB
+against 40KB, so neither was close to
+mattering at the size we care about.
+
+On the queue itself we settled on one
+file per session rather than one for the
+machine, which also took the concurrency
+problem away entirely.
+
+Let me know if you want me to dig any of
+that up in more detail.
