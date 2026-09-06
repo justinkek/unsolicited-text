@@ -23,8 +23,8 @@ Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
 may not come back, and that `0` shows the count alone.
 
-Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with a
-glyph as well as its word. Say when setting it that a terminal with no emoji
+Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with an
+emoji as well as its word. Say when setting it that a terminal with no emoji
 font shows a box instead.
 
 ## Changing one

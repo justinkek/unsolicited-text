@@ -64,7 +64,7 @@ assert "the reply recorded with the plugin is within it" "$?" "the hook recorded
 
 printf "\nTest group: the demos show what a session shows by default\n"
 
-glyphs_in() {
+emoji_in() {
   python3 -c '
 import sys, unicodedata
 print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_asian_width(c) == "W"})))' "$1"
@@ -73,12 +73,12 @@ print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_as
 carried=""
 for reply in "$DEMO"/*.txt; do
   case "$(basename "$reply")" in emoji-after.txt) continue ;; esac
-  [ -z "$(glyphs_in "$reply")" ] || carried="$carried $(basename "$reply")"
+  [ -z "$(emoji_in "$reply")" ] || carried="$carried $(basename "$reply")"
 done
 [ -z "$carried" ]
-assert "no recording shows the glyphs, which are off unless asked for" "$?" "$carried does"
+assert "no recording shows the emoji, which are off unless asked for" "$?" "$carried does"
 
-[ -n "$(glyphs_in "$DEMO/emoji-after.txt")" ] && [ -z "$(glyphs_in "$DEMO/emoji-before.txt")" ]
+[ -n "$(emoji_in "$DEMO/emoji-after.txt")" ] && [ -z "$(emoji_in "$DEMO/emoji-before.txt")" ]
 assert "except the pair whose whole subject is turning them on" "$?" \
   "its two halves do not differ, so it demonstrates nothing"
 

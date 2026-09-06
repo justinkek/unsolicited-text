@@ -85,21 +85,7 @@ I don't need to hear your life story after asking you to do something.
 
 </details>
 
-
-## 2. How it works
-
-| File                              | When it runs  | What it does                                                             | Tokens                                   |
-| --------------------------------- | ------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
-| `hooks/load-agents-md.sh`         | session start | prints `AGENTS.md` into the session                                      | ~2,500                                   |
-| `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                                          | ~50                                      |
-| `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
-| `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling                       | none, it prints nothing into the session |
-| `hooks/note-long-queue.sh`        | turn end      | records a note when the queue showed more items than allowed             | none, it prints nothing into the session |
-| `hooks/note-new-version.sh`       | session start | asks once a day whether a newer version is out, and prints what it found | ~30, and only when there is one          |
-
-(Estimated at four characters to a token)
-
-## 3. Settings
+## 2. Settings
 
 Everything a hook reads is a setting, and two skills come with the plugin to
 reach them. Neither costs a session more than its own name until you use it.
@@ -111,7 +97,7 @@ reach them. Neither costs a session more than its own name until you use it.
 
 
 <details>
-<summary><b>3.1 configure as much of the queue as you want to see</b></summary>
+<summary><b>2.1 configure as much of the queue as you want to see</b></summary>
 
 <table>
 <tr>
@@ -127,7 +113,7 @@ reach them. Neither costs a session more than its own name until you use it.
 </details>
 
 <details>
-<summary><b>3.2 open each queue item with a glyph</b></summary>
+<summary><b>2.2 open each queue item with an emoji</b></summary>
 
 <table>
 <tr>
@@ -136,7 +122,7 @@ reach them. Neither costs a session more than its own name until you use it.
 </tr>
 <tr>
 <td><img src="demo/emoji-before.gif" alt="Five open items, each opening with its word"></td>
-<td><img src="demo/emoji-after.gif" alt="The same five, each opening with a glyph as well"></td>
+<td><img src="demo/emoji-after.gif" alt="The same five, each opening with an emoji as well"></td>
 </tr>
 </table>
 
@@ -144,7 +130,7 @@ Off unless you ask for it: a terminal with no emoji font shows a box instead.
 
 </details>
 
-## 4. Install
+## 3. Install
 
 Copy/paste into your CLI prompt:
 
@@ -153,6 +139,19 @@ Install the unsolicited-text plugin from https://github.com/justinkek/unsolicite
 ```
 
 Or 🔗 [check the installation instructions](INSTALL.md).
+
+## 4. How it works
+
+| File                              | When it runs  | What it does                                                             | Tokens                                   |
+| --------------------------------- | ------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
+| `hooks/load-agents-md.sh`         | session start | prints `AGENTS.md` into the session                                      | ~2,500                                   |
+| `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                                          | ~50                                      |
+| `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
+| `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling                       | none, it prints nothing into the session |
+| `hooks/note-long-queue.sh`        | turn end      | records a note when the queue showed more items than allowed             | none, it prints nothing into the session |
+| `hooks/note-new-version.sh`       | session start | asks once a day whether a newer version is out, and prints what it found | ~30, and only when there is one          |
+
+(Estimated at four characters to a token)
 
 ## 5. Tests
 

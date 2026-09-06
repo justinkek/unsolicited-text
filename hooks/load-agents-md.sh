@@ -13,8 +13,8 @@ move_settings_from_before_v_0_1_4
 rewrite="s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/"
 
 if ! queue_emoji; then
-  for glyph in ❓ 🔍 🚦 🌱 💤; do
-    rewrite="$rewrite;s/$glyph //g"
+  for emoji in ❓ 🔍 🚦 🌱 💤; do
+    rewrite="$rewrite;s/$emoji //g"
   done
 fi
 
