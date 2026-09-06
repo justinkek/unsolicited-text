@@ -62,6 +62,40 @@ after="$(note_for "$DEMO/reply-after.txt")"
 [ -z "$after" ]
 assert "the reply recorded with the plugin is within it" "$?" "the hook recorded '$after'"
 
+printf "\nTest group: the drift pair is a reply that drifted and one that did not\n"
+
+drifted="$(note_for "$DEMO/drift-before.txt")"
+[ -n "$drifted" ]
+assert "the reply shown without it is over the ceiling" "$?" "the hook recorded nothing"
+
+held="$(note_for "$DEMO/drift-after.txt")"
+[ -z "$held" ]
+assert "the reply shown with it is within the ceiling" "$?" "the hook recorded '$held'"
+
+grep --quiet --ignore-case --fixed-strings 'turn 40' "$DEMO/drift.prompt"
+assert "and the prompt says how far into the session they are" "$?" \
+  "nothing in the pair says this is a long session, which is the whole point"
+
+printf "\nTest group: the demos show what a session shows by default\n"
+
+emoji_in() {
+  python3 -c '
+import sys, unicodedata
+print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_asian_width(c) == "W"})))' "$1"
+}
+
+carried=""
+for reply in "$DEMO"/*.txt; do
+  case "$(basename "$reply")" in emoji-after.txt) continue ;; esac
+  [ -z "$(emoji_in "$reply")" ] || carried="$carried $(basename "$reply")"
+done
+[ -z "$carried" ]
+assert "no recording shows the emoji, which are off unless asked for" "$?" "$carried does"
+
+[ -n "$(emoji_in "$DEMO/emoji-after.txt")" ] && [ -z "$(emoji_in "$DEMO/emoji-before.txt")" ]
+assert "except the pair whose whole subject is turning them on" "$?" \
+  "its two halves do not differ, so it demonstrates nothing"
+
 printf "\nTest group: the queue holds what the answer no longer asks\n"
 
 scattered="$(asked_outside_the_queue "$DEMO/reply-before.txt")"
@@ -74,7 +108,7 @@ held="$(asked_outside_the_queue "$DEMO/reply-after.txt")"
 assert "the reply recorded with the plugin asks nothing outside the queue" "$?" \
   "it asks $held times before the queue"
 
-for kind in "❓ Question:" "🔍 Investigate:" "🚦 Approve/Reject:"; do
+for kind in "Question:" "Investigate:" "Approve/Reject:"; do
   grep --quiet --extended-regexp "^[0-9]+\. $kind" "$DEMO/reply-after.txt"
   assert "the queue carries a $kind item" "$?" "no such item"
 done
@@ -136,9 +170,16 @@ print(widest)' "$1"
 for reply in "$DEMO"/*.txt "$DEMO"/*.prompt; do
   widest="$(widest_line "$reply")"
   fits="$reply"
-  [ "$widest" -le "$COLUMNS_RECORDED" ]
+  pair="$(basename "$reply")"
+  pair="${pair%-before.txt}"; pair="${pair%-after.txt}"; pair="${pair%.prompt}"
+  allowed="$COLUMNS_RECORDED"
+  if [ -f "$DEMO/$pair.width" ]; then
+    allowed="$(awk -v pixels="$(head -1 "$DEMO/$pair.width")" -v fits="$COLUMNS_RECORDED" \
+      'BEGIN { printf "%d", pixels * fits / 400 }')"
+  fi
+  [ "$widest" -le "$allowed" ]
   outcome="$?"
-  assert "$(basename "$fits") fits in $COLUMNS_RECORDED columns" "$outcome" \
+  assert "$(basename "$fits") fits in $allowed columns" "$outcome" \
     "its widest line is $widest, so the recording wraps it"
 done
 

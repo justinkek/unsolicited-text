@@ -1,0 +1,5 @@
+`[answer]` One file per session, under
+state/, one item a line.
+
+Neither speed nor storage decided it -
+both were trivial at this size.

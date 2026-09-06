@@ -1,0 +1,8 @@
+The turn end hook reads the reply you have just seen and counts its
+lines of prose. If it ran over the ceiling, it writes a note to a
+file named for the session, and shows you nothing at the time.
+
+The next time you type anything, the prompt hook reads that file,
+prints what it found into the session, and deletes it. So the
+finding lands one turn after the reply it is about, and a session
+you never write to again never reads its note.
