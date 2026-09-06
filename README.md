@@ -126,6 +126,24 @@ reach them. Neither costs a session more than its own name until you use it.
 
 </details>
 
+<details>
+<summary><b>3.2 open each queue item with a glyph</b></summary>
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/emoji-before.gif" alt="Five open items, each opening with its word"></td>
+<td><img src="demo/emoji-after.gif" alt="The same five, each opening with a glyph as well"></td>
+</tr>
+</table>
+
+Off unless you ask for it: a terminal with no emoji font shows a box instead.
+
+</details>
+
 ## 4. Install
 
 Copy/paste into your CLI prompt:
