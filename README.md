@@ -84,7 +84,9 @@ I don't need to hear your life story after asking you to do something.
 </details>
 
 <details>
-<summary><b>1.5. the fortieth reply looks like the first</b></summary>
+<summary><b>1.5. no agent drift</b></summary>
+
+The agent remains concise even with longer sessions.
 
 <table>
 <tr>
@@ -96,10 +98,6 @@ I don't need to hear your life story after asking you to do something.
 <td><img src="demo/drift-after.gif" alt="The same turn, still answered in two lines"></td>
 </tr>
 </table>
-
-Instructions loaded once fade as a session fills up. The reminder is printed
-again on every prompt, and the ceiling is measured at the end of every turn,
-so turn 40 is held to what turn 1 was.
 
 </details>
 
