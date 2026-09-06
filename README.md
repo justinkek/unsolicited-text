@@ -26,7 +26,8 @@ The queue holds five kinds of item: a question, something unconfirmed, a call ta
 
 You can then deal with them one at a time when you feel necessary.
 
-### 1.2. say less, see more
+<details>
+<summary><b>1.2. say less, see more</b></summary>
 
 <table>
 <tr>
@@ -40,8 +41,10 @@ You can then deal with them one at a time when you feel necessary.
 </table>
 
 A picture paints a thousand words.
+</details>
 
-### 1.3. simple english
+<details>
+<summary><b>1.3. simple english</b></summary>
 
 <table>
 <tr>
@@ -55,8 +58,10 @@ A picture paints a thousand words.
 </table>
 
 ELI5
+</details>
 
-### 1.4. single sentence confirmations
+<details>
+<summary><b>1.4. single sentence confirmations</b></summary>
 
 <table>
 <tr>
@@ -70,8 +75,10 @@ ELI5
 </table>
 
 I don't need to hear your life story after asking you to do something.
+</details>
 
-### 1.5. as much of the queue as you want to see
+<details>
+<summary><b>1.5. as much of the queue as you want to see</b></summary>
 
 <table>
 <tr>
@@ -85,6 +92,7 @@ I don't need to hear your life story after asking you to do something.
 </table>
 
 Six things are still open. I only need to see the two I might pick up next.
+</details>
 
 ## 2. How it works
 
