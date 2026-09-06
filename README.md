@@ -41,6 +41,19 @@ You can then deal with them one at a time when you feel necessary.
 </table>
 
 A picture paints a thousand words.
+
+<table>
+<tr>
+<td align="center"><b>Before</b></td>
+<td align="center"><b>After</b></td>
+</tr>
+<tr>
+<td><img src="demo/diagram-before.gif" alt="Two paragraphs describing how a note reaches the next turn"></td>
+<td><img src="demo/diagram-after.gif" alt="The same thing drawn, turn by turn"></td>
+</tr>
+</table>
+
+So does a drawing, and neither one counts against the reply's length.
 </details>
 
 <details>

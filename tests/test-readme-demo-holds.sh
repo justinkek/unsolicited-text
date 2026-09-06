@@ -151,9 +151,16 @@ print(widest)' "$1"
 for reply in "$DEMO"/*.txt "$DEMO"/*.prompt; do
   widest="$(widest_line "$reply")"
   fits="$reply"
-  [ "$widest" -le "$COLUMNS_RECORDED" ]
+  pair="$(basename "$reply")"
+  pair="${pair%-before.txt}"; pair="${pair%-after.txt}"; pair="${pair%.prompt}"
+  allowed="$COLUMNS_RECORDED"
+  if [ -f "$DEMO/$pair.width" ]; then
+    allowed="$(awk -v pixels="$(head -1 "$DEMO/$pair.width")" -v fits="$COLUMNS_RECORDED" \
+      'BEGIN { printf "%d", pixels * fits / 400 }')"
+  fi
+  [ "$widest" -le "$allowed" ]
   outcome="$?"
-  assert "$(basename "$fits") fits in $COLUMNS_RECORDED columns" "$outcome" \
+  assert "$(basename "$fits") fits in $allowed columns" "$outcome" \
     "its widest line is $widest, so the recording wraps it"
 done
 

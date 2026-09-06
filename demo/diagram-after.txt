@@ -1,0 +1,17 @@
+turn 1   you ask something
+             │
+             ▼
+         the agent replies, 12 lines of prose
+             │
+   turn end  ├──► note-long-reply.sh counts them against the ceiling
+             │    and writes a note to state/notes/<session>
+             │
+turn 2   you type anything
+             │
+   prompt    ├──► replay-stop-notes.sh prints that note, then deletes it
+             │
+             ▼
+         "[reply-shape] The last reply ran 12 lines against a ceiling of 8..."
+             │
+             ▼
+         the agent replies, shorter
