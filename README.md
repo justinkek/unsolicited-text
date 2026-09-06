@@ -86,7 +86,7 @@ I don't need to hear your life story after asking you to do something.
 <details>
 <summary><b>1.5. no agent drift</b></summary>
 
-The agent remains concise even with longer sessions.
+The agent remains concise even with longer sessions via skills, hooks and local state.
 
 <table>
 <tr>
