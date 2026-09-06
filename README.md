@@ -107,18 +107,19 @@ Six things are still open. I only need to see the two I might pick up next.
 
 (Estimated at four characters to a token)
 
-Two skills come with it. Neither costs a session more than its own name until
-you use it.
+## 3. Settings
+
+Everything a hook reads is a setting, and two skills come with the plugin to
+reach them. Neither costs a session more than its own name until you use it.
 
 | Skill | What it does |
 | --- | --- |
 | `unsolicited-text:settings` | says what is set, and changes one setting |
 | `unsolicited-text:update` | updates the plugin, whichever harness you are in |
 
-Everything a hook reads is a setting, and the settings skill is how you change
-one - ask it what is set and it will tell you.
+Ask it what is set and it will tell you. Nothing needs setting to install.
 
-## 3. Install
+## 4. Install
 
 Copy/paste into your CLI prompt:
 
@@ -128,7 +129,7 @@ Install the unsolicited-text plugin from https://github.com/justinkek/unsolicite
 
 Or 🔗 [check the installation instructions](INSTALL.md).
 
-## 4. Tests
+## 5. Tests
 
     tests/run-tests
 
@@ -138,7 +139,7 @@ Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
     brew install vhs
     demo/record
 
-## 5. Docs
+## 6. Docs
 The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
 
 They are typed in Commit Mono at the palette in `demo/record`. Without that face installed the recording falls back to another one, and `demo/record` says so before it starts.
