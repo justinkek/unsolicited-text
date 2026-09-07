@@ -53,7 +53,7 @@
 - Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
 - Never put copy-paste-as-is text (commit messages, paths, commands) inside tables. Put each in its own fenced code block or inline code span.
-- Keep a reply to at most 8 non-blank lines of prose. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
+- Keep a reply to at most 8 non-blank lines of prose, and at most 120 words of it. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
 
 ## Plain English
 
