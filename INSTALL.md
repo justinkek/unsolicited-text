@@ -66,57 +66,6 @@ has already happened, so print them into the session once:
 
 Every turn after that is covered by the hooks above, which need no restart.
 
-### A repository that carries it
-
-The route above lasts one session. To have every session in a repository load it -
-yours, a teammate's, a hosted one, a run on CI - the repository carries the plugin
-itself and names it in settings everyone gets on clone. Nobody installs anything.
-
-Copy the scripts and the rules in, keeping them together as the plugin ships them:
-
-    git clone --depth 1 https://github.com/justinkek/unsolicited-text /tmp/unsolicited-text
-    mkdir -p .claude/unsolicited-text
-    cp -R /tmp/unsolicited-text/hooks /tmp/unsolicited-text/AGENTS.md .claude/unsolicited-text/
-
-Then commit `.claude/settings.json` naming them from the project root, which
-`${CLAUDE_PROJECT_DIR}` stands for wherever the repository is checked out:
-
-```json
-{
-	"hooks": {
-		"SessionStart": [
-			{ "hooks": [
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/load-agents-md.sh" },
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/note-new-version.sh" }
-			] }
-		],
-		"UserPromptSubmit": [
-			{ "hooks": [
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/remind-response-length.sh" },
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/replay-stop-notes.sh" }
-			] }
-		],
-		"Stop": [
-			{ "hooks": [
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/note-long-reply.sh" },
-				{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/unsolicited-text/hooks/note-long-queue.sh" }
-			] }
-		]
-	}
-}
-```
-
-Three things to know before you commit it. Everyone who works in the repository
-gets these rules, so agree them first - a reply shape is a house style, not a
-lint rule you can slip in. A copy does not update itself: repeat the two commands
-above to move it forward, and the diff shows exactly what changed. And hooks in a
-project settings file run once the folder is trusted, so the first session in a
-fresh checkout asks before any of this takes effect.
-
-This is Claude Code's settings format, which ZCode reads as well. Codex reads a
-project layer of its own and Pi installs into a project directory of its own;
-neither is written up here yet, because neither has been tried.
-
 ## 2. Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
