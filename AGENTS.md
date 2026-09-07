@@ -53,23 +53,7 @@
 - Naming a queued item opens it the same way `dequeue` does, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
 - Never put copy-paste-as-is text (commit messages, paths, commands) inside tables. Put each in its own fenced code block or inline code span.
-- Structure a reply into sections only when it carries more than one section's worth of content - one ask is bare text, no header, no divider. Never a divider between a header and its content. One header per ask, never two of my asks collapsed into one, and the header paraphrases or quotes my ask rather than naming its topic. Label a non-question header `A.` / `B.`; a question is labelled in the queue instead. Dividers are a 48-character run of `─` (U+2500), never a markdown `---`, which the terminal renders as literal dashes:
-
-  ```
-  ────────────────────────────────────────────────
-  **A. Does the reminder fire on an empty prompt?**
-
-  Yes - on every prompt, whatever it holds.
-
-  ────────────────────────────────────────────────
-  `[queue]`
-
-  1. ❓ Question: which directory should the notes be written to?
-
-  ────────────────────────────────────────────────
-  ```
-
-- Keep a reply to at most 8 non-blank lines of prose. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count. When the section structure above will not fit inside the ceiling, the sections come off before the content does.
+- Keep a reply to at most 8 non-blank lines of prose. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
 
 ## Plain English
 
