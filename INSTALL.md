@@ -10,6 +10,62 @@ same four; only the registration differs.
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace. It preloads the Claude Code marketplace format and reads the same two manifests.
 
+### A single cloud session
+
+Wherever Claude Code runs in a container rebuilt from scratch - on the web, from a
+phone, on a CI runner - it never resolves a marketplace, so the install above
+reports nothing and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set in the
+environment, and `~/.claude/plugins/installed_plugins.json` stays empty however
+many times you run it.
+
+Hooks themselves run there, and a settings file written mid-session is picked up
+while that session is still going, so one session can carry the plugin without
+installing anything. What follows is written in Claude Code's own settings format,
+which ZCode reads too; the other two harnesses register hooks their own way and
+this route has not been tried on either. Fetch it:
+
+    git clone --depth 1 https://github.com/justinkek/unsolicited-text ~/.unsolicited-text/checkout
+
+Then write `.claude/settings.local.json` in the working directory:
+
+```json
+{
+	"hooks": {
+		"SessionStart": [
+			{ "hooks": [
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/load-agents-md.sh" },
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-new-version.sh" }
+			] }
+		],
+		"UserPromptSubmit": [
+			{ "hooks": [
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/remind-response-length.sh" },
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/replay-stop-notes.sh" }
+			] }
+		],
+		"Stop": [
+			{ "hooks": [
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-long-reply.sh" },
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-long-queue.sh" }
+			] }
+		]
+	}
+}
+```
+
+Write out `$HOME` as the path it stands for if your harness does not expand it in
+a hook command.
+
+Two things follow from writing it mid-session. The file is untracked, so nothing
+reaches the repository or anyone else working in it, and the container takes it
+away when the session ends, so this is the throwaway route rather than the one to
+standardise on. And the rules load at session start, which
+has already happened, so print them into the session once:
+
+    cat ~/.unsolicited-text/checkout/AGENTS.md
+
+Every turn after that is covered by the hooks above, which need no restart.
+
 ## 2. Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
