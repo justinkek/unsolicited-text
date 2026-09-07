@@ -12,15 +12,17 @@ In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace. It pre
 
 ### A single cloud session
 
-A hosted session - Claude Code on the web, a run on a CI runner, any container
-rebuilt from scratch each time - never resolves a marketplace, so the install
-above reports nothing and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set in the
+Wherever Claude Code runs in a container rebuilt from scratch - on the web, from a
+phone, on a CI runner - it never resolves a marketplace, so the install above
+reports nothing and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set in the
 environment, and `~/.claude/plugins/installed_plugins.json` stays empty however
 many times you run it.
 
 Hooks themselves run there, and a settings file written mid-session is picked up
 while that session is still going, so one session can carry the plugin without
-installing anything. Fetch it:
+installing anything. What follows is written in Claude Code's own settings format,
+which ZCode reads too; the other two harnesses register hooks their own way and
+this route has not been tried on either. Fetch it:
 
     git clone --depth 1 https://github.com/justinkek/unsolicited-text ~/.unsolicited-text/checkout
 
