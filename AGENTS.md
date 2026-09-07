@@ -28,7 +28,7 @@
   | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
   | `💤 Later:` | anything I deferred |
 
-- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I dequeue it:
+- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up:
 
   ```
   `[queue]`
@@ -44,13 +44,12 @@
 - A queue question blocks the action it gates until I answer it. Act on everything that does not depend on it. It stays listed in every reply until I answer it, and comes off the list the moment I do.
 - Show every item of the queue in every reply.
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
-- **`dequeue`** from me takes the first item off the list and opens it. Say what the item is, what you found, and the options one per line, marking one recommended - put it first and append "(Recommended)" to its label. Options are `1.` / `2.`, and a bare number from me answers the open item. If no option is clearly better, say so (e.g. "No strong default - pick based on [criterion]") rather than silently omitting a recommendation. Then wait: opening an item is not a go-ahead to act on it.
 - For pass/fail or working/broken status, use `OK` / `KO` consistently - don't rotate through synonyms that mean the same thing (pass/fail, success/error, works/broken, ✓/✗) within the same reply.
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.
 - Lead with intent: state the question, problem, or answer first, then the supporting context - not the other way around.
 - Finish the current thread before raising a new one. If a tangent surfaces mid-response (a related bug, a refactor opportunity, a separate concern), complete the active issue first, then raise the tangent at the end under `[queue]` - never context-switch mid-flow.
 - Do not answer what I have deferred. When I mark something "for later", "not now" or "we'll come back to it", acknowledge it in a few words and leave it there - no analysis, no short answer, no restating it in other words. Carry it forward and list it under `[queue]` at the end of the reply. I decide when a queued item is picked up. An item stays listed every reply until I pick it up.
-- Naming a queued item opens it the same way `dequeue` does, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
+- Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
 - Never put copy-paste-as-is text (commit messages, paths, commands) inside tables. Put each in its own fenced code block or inline code span.
 - Keep a reply to at most 8 non-blank lines of prose. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
