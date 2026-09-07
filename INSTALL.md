@@ -44,3 +44,5 @@ Codex asks you to trust each command the first time it meets it, and they stay t
     pi install git:github.com/justinkek/unsolicited-text
 
 Pi cannot register a subprocess, so `harness-adapters/pi/src/index.ts` is a shim: it builds the same line of JSON each script already reads on stdin, spawns the script, and returns what it printed. It carries no rule of its own, and it needs a shell on the machine, which the other three already require.
+
+To take it back off, 🔗 [check the uninstall instructions](UNINSTALL.md).
