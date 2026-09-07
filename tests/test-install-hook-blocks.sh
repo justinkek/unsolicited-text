@@ -68,5 +68,14 @@ grep --quiet --fixed-strings 'Everyone who works in the repository' "$INSTALL"
 assert "and says who else gets the rules" "$?" \
   "committing a reply shape for a whole repository is not a silent change"
 
+grep --quiet --fixed-strings '.claude/settings.local.json' "$INSTALL" \
+  && grep --quiet --fixed-strings 'gitignore' "$INSTALL"
+assert "the personal route says to keep its file out of git" "$?" \
+  "a hand-written settings.local.json lands in the next commit unless the page says to ignore it"
+
+grep --quiet --fixed-strings 'never this file' "$INSTALL"
+assert "and says it does not reach a hosted session" "$?" \
+  "a personal file stays on the machine that has it, and the page has to say so"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

@@ -117,6 +117,32 @@ This is Claude Code's settings format, which ZCode reads as well. Codex reads a
 project layer of its own and Pi installs into a project directory of its own;
 neither is written up here yet, because neither has been tried.
 
+### Just you, in one repository
+
+The install at the top of this section applies to every project you open. To hold
+one repository to the rules and leave the rest of your work alone - or to live
+with them yourself before asking a team to - keep a checkout and name it in a
+settings file only you have:
+
+    git clone --depth 1 https://github.com/justinkek/unsolicited-text ~/.unsolicited-text/checkout
+
+Write the same six hooks into `.claude/settings.local.json`, exactly as the
+session-only block above has them. That file is yours: it sits above the shared
+`.claude/settings.json` in what Claude Code reads, so it also lets you keep the
+rules while a repository that carries its own copy is still being argued about.
+
+Claude Code keeps that file out of git when it writes the file itself. When you
+write it by hand, ignore it yourself, or it lands in your next commit:
+
+    printf '%s\n' '.claude/settings.local.json' >> .gitignore
+
+It stays on the machine that has it. A hosted session runs on a fresh clone, so
+it reads the committed `.claude/settings.json` and never this file - covered by
+the two routes above, and worth knowing before you wonder why a session on the
+web ignores what you set here. Updating is one command,
+`git -C ~/.unsolicited-text/checkout pull`, and it moves every repository pointed
+at that checkout forward at once.
+
 ## 2. Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
