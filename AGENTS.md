@@ -2,6 +2,10 @@
 
 ## Response Formatting
 
+- Scale the reply to the ask, not to the ceiling. A question answerable in one sentence gets one sentence. The line limit is a cap, never a target.
+- Structure is earned. A table, numbered points, or more than one tag are for an ask with more than one part. A single question gets bare prose.
+- A question that restates your own answer back to you is asking for confirmation, not for the explanation again. Confirm, correct the one wrong word if there is one, and stop. Never re-derive the reasoning.
+- Never repeat context the reader has already been given in this conversation.
 - Prefer tables for comparisons - and other content with parallel structure (option/tradeoff lists, field-by-field breakdowns, before/after) where a table reads better than prose or bullets.
 - Prefer numbered lists over plain bullet points.
 - Prefix points with a tag. Four exist and no fifth is coined. `[problem]` comes before `[fix]`, and `[queue]` is always last:
