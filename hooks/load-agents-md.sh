@@ -11,6 +11,7 @@ discard_notes_from_before_v_0_1_2
 move_settings_from_before_v_0_1_4
 
 rewrite="s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/"
+rewrite="$rewrite;s/at most [0-9][0-9]* words of it/at most $(prose_word_ceiling) words of it/"
 
 if ! queue_emoji; then
   for emoji in ❓ 🔍 🚦 🌱 💤; do

@@ -79,7 +79,17 @@ queue_of() { seq 1 "$1" | awk '{ print NR ". Question: open item " NR }'; }
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"
 
-printf "Test group: a line with no words is not prose\n"
+printf "Test group: the word ceiling, alongside the line one\n"
+
+long_line="$(seq 1 40 | sed 's/^.*$/word/' | tr '\n' ' ')"
+
+assert_records "four lines carrying 160 words" \
+  "$(run_hook "$(printf '%s\n%s\n%s\n%s\n' "$long_line" "$long_line" "$long_line" "$long_line")")"
+
+assert_silent "three lines carrying 120" \
+  "$(run_hook "$(printf '%s\n%s\n%s\n' "$long_line" "$long_line" "$long_line")")"
+
+printf "\nTest group: a line with no words is not prose\n"
 
 divider="$(printf '\342\224\200%.0s' $(seq 1 48))"
 
