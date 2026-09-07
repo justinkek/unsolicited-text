@@ -49,6 +49,7 @@
 - Lead with intent: state the question, problem, or answer first, then the supporting context - not the other way around.
 - Finish the current thread before raising a new one. If a tangent surfaces mid-response (a related bug, a refactor opportunity, a separate concern), complete the active issue first, then raise the tangent at the end under `[queue]` - never context-switch mid-flow.
 - Do not answer what I have deferred. When I mark something "for later", "not now" or "we'll come back to it", acknowledge it in a few words and leave it there - no analysis, no short answer, no restating it in other words. Carry it forward and list it under `[queue]` at the end of the reply. I decide when a queued item is picked up. An item stays listed every reply until I pick it up.
+- Where there is a choice to make, write the options one per line, numbered, the one you recommend first and labelled "(Recommended)". A bare number from me answers it.
 - Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
 - Never put copy-paste-as-is text (commit messages, paths, commands) inside tables. Put each in its own fenced code block or inline code span.
