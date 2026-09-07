@@ -45,7 +45,9 @@ printf "\nTest group: and the check catches one when it is there\n"
 
 planted="$(mktemp)"
 trap 'rm -f "$planted"' EXIT
-printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' 'assert "$(basename x) is fine" "$?" "detail"' > "$planted"
+label='assert "$(basename x) is fine" '
+status='"$?"'
+printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' "$label$status \"detail\"" > "$planted"
 [ -n "$(lost_status_in "$planted")" ]
 outcome="$?"
 if [ "$outcome" = "0" ]; then
@@ -56,7 +58,7 @@ else
   fail=$((fail + 1))
 fi
 
-printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' 'assert "label" "$?" "detail $(basename x)"' > "$planted"
+printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' "assert \"label\" $status \"detail \$(basename x)\"" > "$planted"
 [ -z "$(lost_status_in "$planted")" ]
 outcome="$?"
 if [ "$outcome" = "0" ]; then
