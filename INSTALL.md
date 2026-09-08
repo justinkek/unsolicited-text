@@ -1,81 +1,29 @@
 # Installing unsolicited-text
 
-The hooks in `hooks/hooks.json` and the rules they hold a reply to. Every harness
-runs the same set; only the registration differs.
-
 ## 1. Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
-In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace. It preloads the Claude Code marketplace format and reads the same two manifests.
+In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
-### A single cloud session
+### Cloud sessions
 
-Wherever Claude Code runs in a container rebuilt from scratch - on the web, from a
-phone, on a CI runner - it never resolves a marketplace, so the install above
-reports nothing and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set in the
-environment, and `~/.claude/plugins/installed_plugins.json` stays empty however
-many times you run it.
+Claude Code on the web, on a phone, or on a CI runner runs in a container rebuilt
+from scratch, and never resolves a marketplace: the install above reports nothing
+and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set there, and
+`~/.claude/plugins/installed_plugins.json` stays empty however many times you run
+it.
 
-Hooks themselves run there, and a settings file written mid-session is picked up
-while that session is still going, so one session can carry the plugin without
-installing anything. What follows is written in Claude Code's own settings format,
-which ZCode reads too; the other two harnesses register hooks their own way and
-this route has not been tried on either. Fetch it:
+This script installs it in the container instead. There are two ways to run it,
+and they differ only in who runs it:
 
-    git clone --depth 1 https://github.com/justinkek/unsolicited-text ~/.unsolicited-text/checkout
-
-Then write `.claude/settings.local.json` in the working directory:
-
-```json
-{
-	"hooks": {
-		"SessionStart": [
-			{ "hooks": [
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/load-rules.sh" },
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-new-version.sh" }
-			] }
-		],
-		"UserPromptSubmit": [
-			{ "hooks": [
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/remind-response-length.sh" },
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/replay-stop-notes.sh" }
-			] }
-		],
-		"Stop": [
-			{ "hooks": [
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-long-reply.sh" },
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-long-queue.sh" }
-			] }
-		]
-	}
-}
-```
-
-Write out `$HOME` as the path it stands for if your harness does not expand it in
-a hook command.
-
-Two things follow from writing it mid-session. The file is untracked, so nothing
-reaches the repository or anyone else working in it, and the container takes it
-away when the session ends, so this is the throwaway route rather than the one to
-standardise on. And the rules load at session start, which
-has already happened, so print them into the session once:
-
-    cat ~/.unsolicited-text/checkout/rules/reply-shape.md
-
-Every turn after that is covered by the hooks above, which need no restart.
-
-### Every cloud session you start
-
-The route above is per session because you write the file inside a container that
-is thrown away. An environment sets itself up instead: a cloud environment runs a
-setup script before Claude Code launches, and what that script writes to disk is
-kept, so it runs once and every later session in that environment starts with the
-plugin already registered. Nothing is installed, and no repository carries
-anything - the rules follow you, not the code you happen to open.
-
-Put this in the environment's Setup script field, at claude.ai/code:
+1. Paste it into the Setup script field of your environment, at claude.ai/code.
+   Every session that environment starts from then on has the plugin, and the
+   script re-runs on its own about weekly, so it follows releases.
+2. Ask the agent to run it in the session you are already in. That covers this
+   one session. Set your permission mode to accept edits first, or the classifier
+   refuses the write.
 
 ```bash
 #!/bin/bash
@@ -107,24 +55,22 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 SETTINGS
 ```
 
-The settings file the script writes is the container's own, not the one on your
-machine - a hosted session never reads yours, and reads this one, which is why
-the plugin arrives without any repository mentioning it.
+It overwrites `~/.claude/settings.json`, so fold in anything already there rather
+than pasting over it.
 
-Four things worth knowing. The script has to exit zero or the session refuses to
-start, which is what `|| true` is doing on the clone. It runs again when you edit
-it, and roughly weekly as the cache expires, so it moves to the latest release on
-its own. It overwrites `~/.claude/settings.json`, so fold in anything already
-there rather than pasting over it. And a session already running does not get it -
-open a new one.
+Run in a session already going, the hooks take effect from your next message, but
+session start has passed, so print the rules once:
+
+    cat /opt/unsolicited-text/rules/reply-shape.md
 
 ## 2. Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
     codex plugin add unsolicited-text@unsolicited-text
 
-Codex does not run a plugin's own `hooks.json` yet
-([openai/codex#16430](https://github.com/openai/codex/issues/16430)), checked on codex-cli 0.144.5: the plugin installs and reports itself enabled, and a session fires none of its hooks. Until that changes, register the same commands by hand in `~/.codex/config.toml`, which is the layer Codex does read:
+Codex does not run a plugin's own hooks yet
+([openai/codex#16430](https://github.com/openai/codex/issues/16430)), so register
+them by hand in `~/.codex/config.toml`:
 
     [[hooks.SessionStart]]
     [[hooks.SessionStart.hooks]]
@@ -153,12 +99,12 @@ Codex does not run a plugin's own `hooks.json` yet
     type = "command"
     command = "<path to this checkout>/hooks/note-long-queue.sh"
 
-Codex asks you to trust each command the first time it meets it, and they stay trusted until the command text changes. The session start hook prints the rules into the session, so registering these is all a Codex session needs - you do not have to put the rules in `~/.codex/AGENTS.md` as well. Keep the plugin installed alongside: when plugin hooks land, delete this block.
+Codex asks you to trust each command the first time it meets it.
 
 ## 3. Pi
 
     pi install git:github.com/justinkek/unsolicited-text
 
-Pi cannot register a subprocess, so `harness-adapters/pi/src/index.ts` is a shim: it builds the same line of JSON each script already reads on stdin, spawns the script, and returns what it printed. It carries no rule of its own, and it needs a shell on the machine, which the other three already require.
+Pi needs a shell on the machine, which the other harnesses already require.
 
 To take it back off, 🔗 [check the uninstall instructions](UNINSTALL.md).
