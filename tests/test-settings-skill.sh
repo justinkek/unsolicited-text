@@ -74,6 +74,16 @@ while read -r harness; do
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 
+printf "\nTest group: a change reaches the session that made it\n"
+
+grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
+assert "the skill reprints the rules from the loader" "$?" \
+  "the rules were printed at session start, and a new ceiling would wait for a restart"
+
+grep --quiet --fixed-strings 'CLAUDE_PLUGIN_ROOT' "$SKILL"
+assert "and names the path on a plugin install too" "$?" \
+  "only the cloud checkout path is given, and a plugin install has no such directory"
+
 printf "\nTest group: each skill has a menu entry that says the same thing\n"
 
 for skill in "$REPOSITORY"/skills/*/; do

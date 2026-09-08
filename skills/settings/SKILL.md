@@ -34,6 +34,18 @@ Read the file, replace or add the one line, write it back. Leave the rest of
 the file as it is, comments included. Create it holding that single line if it
 is not there.
 
+## Making it hold this session
+
+The hooks read the file every time they run, so a ceiling takes effect at once.
+The rules do not: they were printed at session start. Print them again from the
+same hook, and the session reads the new copy:
+
+    printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh
+
+That path is the checkout on a cloud install. On a plugin install it is
+`${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and the settings file is the same
+either way. Nothing needs a restart.
+
 ## Saying what is set
 
 Name each key the file sets, and the default above for each key it does not.
