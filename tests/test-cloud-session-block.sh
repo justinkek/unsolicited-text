@@ -24,8 +24,12 @@ while read -r script; do
   [ -n "$script" ] || continue
   registered=$((registered + 1))
   grep --quiet --fixed-strings "checkout/hooks/$script" "$INSTALL"
-  assert "the block names $script" "$?" \
+  assert "the session-only block names $script" "$?" \
     "hooks.json registers it and a session written from $INSTALL would not run it"
+
+  grep --quiet --fixed-strings "/opt/unsolicited-text/hooks/$script" "$INSTALL"
+  assert "the setup script names $script" "$?" \
+    "hooks.json registers it and an environment built from $INSTALL would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
   "$REPOSITORY/hooks/hooks.json" | sed 's#.*/##' | sort --unique)
 
@@ -49,6 +53,19 @@ assert "it writes the untracked settings file" "$?" "no settings.local.json in $
 
 grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$INSTALL"
 assert "and says how to tell a hosted session apart" "$?" "no detection signal in $INSTALL"
+
+printf "\nTest group: the setup script survives the rules it has to live by\n"
+
+grep --quiet --fixed-strings '|| true' "$INSTALL"
+assert "a failed clone does not stop the session starting" "$?" \
+  "a setup script that exits non-zero refuses the session, so $INSTALL has to say so"
+
+grep --quiet --fixed-strings 'exit zero' "$INSTALL"
+assert "and the page says why that matters" "$?" "no mention of the exit status a setup script owes"
+
+grep --quiet --fixed-strings 'It overwrites `~/.claude/settings.json`' "$INSTALL"
+assert "the reader is warned before their own settings go" "$?" \
+  "the script replaces a file that may already hold something"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
