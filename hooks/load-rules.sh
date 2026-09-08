@@ -36,8 +36,6 @@ else
   keep="$keep queue-limit=unset"
 fi
 
-# A tag names the setting values that keep its rule, as {breadcrumb=on} or
-# {queue-tree=always-on|on-switch-only}. Everything else goes.
 for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr -d '{}' | sort --unique); do
   held=""
   for value in $(printf '%s' "${tag#*=}" | tr '|' ' '); do
