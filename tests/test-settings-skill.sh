@@ -39,7 +39,7 @@ done < <(grep --only-matching --extended-regexp 'UNSOLICITED_TEXT_[A-Z_]+' "$SKI
 
 ceiling="$(grep --only-matching 'UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT=[0-9][0-9]*' \
   "$HOOKS_DIR/hook-settings-lib.sh" | grep --only-matching '[0-9][0-9]*')"
-grep --quiet --extended-regexp "UNSOLICITED_TEXT_PROSE_LINE_CEILING\` \| \`$ceiling\`" "$SKILL"
+grep --quiet --extended-regexp "UNSOLICITED_TEXT_PROSE_LINE_CEILING\` +\| +\`$ceiling\`" "$SKILL"
 assert "the ceiling it states is the ceiling the hooks default to" "$?" \
   "the hooks default to $ceiling and the skill says otherwise"
 
@@ -73,6 +73,21 @@ while read -r harness; do
     "$harness is installable from INSTALL.md and has no way forward from there"
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
+
+printf "\nTest group: a change reaches the session that made it\n"
+
+grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
+assert "the skill reprints the rules from the loader" "$?" \
+  "the rules were printed at session start, and a new ceiling would wait for a restart"
+
+[ "$(grep --count --extended-regexp 'load-rules\.sh`|<that path>`' "$SKILL")" \
+  = "$(grep --count --extended-regexp "printf '\{\}' \|" "$SKILL")" ]
+assert "and pipes a line into every command it gives" "$?" \
+  "the script waits on standard input, so a command without the pipe hangs"
+
+grep --quiet --extended-regexp 'settings this harness reads|<that path>' "$SKILL"
+assert "and finds the path without naming one harness variable" "$?" \
+  "a hardcoded plugin root belongs to one harness and is empty in the others"
 
 printf "\nTest group: each skill has a menu entry that says the same thing\n"
 

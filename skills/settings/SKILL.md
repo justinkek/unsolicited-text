@@ -11,14 +11,14 @@ the last assignment of a key is the one that counts.
 
 `UNSOLICITED_TEXT_HOME` moves that file and the state under it together.
 
-| Key | Default |
-| --- | --- |
-| `UNSOLICITED_TEXT_PROSE_LINE_CEILING` | `8` |
-| `UNSOLICITED_TEXT_PROSE_WORD_CEILING` | `120` |
-| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` |
-| `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` |
-| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown |
-| `UNSOLICITED_TEXT_QUEUE_EMOJI` | `off` |
+| Key                                        | Default                           |
+| ------------------------------------------ | --------------------------------- |
+| `UNSOLICITED_TEXT_PROSE_LINE_CEILING`      | `8`                               |
+| `UNSOLICITED_TEXT_PROSE_WORD_CEILING`      | `120`                             |
+| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY`     | `~/.unsolicited-text/state/notes` |
+| `UNSOLICITED_TEXT_UPDATE_CHECK`            | `on`                              |
+| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
+| `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
@@ -33,6 +33,20 @@ font shows a box instead.
 Read the file, replace or add the one line, write it back. Leave the rest of
 the file as it is, comments included. Create it holding that single line if it
 is not there.
+
+## Making it hold this session
+
+The hooks read the file every time they run, so a ceiling takes effect at once.
+The rules do not: they were printed at session start. Print them again from the
+same hook, and the session reads the new copy.
+
+- Installed by the cloud script: `printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
+- Installed any other way: read the session start hook's command out of the
+  settings this harness reads, and run that same script the same way:
+  `printf '{}' | <that path>`
+
+The script reads a line on standard input and prints nothing without one, so it
+waits forever if the pipe is left off. Nothing needs a restart.
 
 ## Saying what is set
 
