@@ -39,7 +39,7 @@ breadcrumb() {
 }
 
 queue_tree() {
-  setting_value UNSOLICITED_TEXT_QUEUE_TREE auto
+  setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only
 }
 
 queue_visible_items() {

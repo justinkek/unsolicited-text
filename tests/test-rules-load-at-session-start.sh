@@ -105,7 +105,7 @@ assert "and the unlimited rule is gone when one is set" "$?" "both rules are pri
 printf "\nTest group: no rule reaches a session still carrying its tag\n"
 
 for shown in "$unlimited" "$limited"; do
-  printf '%s' "$shown" | grep --quiet --extended-regexp '\{(breadcrumb|queue-limit)=?[a-z]*\}'
+  printf '%s' "$shown" | grep --quiet --extended-regexp '\{(breadcrumb|queue-limit|queue-tree)=?[a-z|-]*\}'
   [ "$?" = "1" ]
   assert "the tags are stripped or the line is dropped" "$?" \
     "a session was handed a rule with the setting that keeps it still written on the end"
@@ -118,24 +118,27 @@ shape_of() {
     ${1:+UNSOLICITED_TEXT_QUEUE_TREE="$1"} bash "$LOADER" 2>/dev/null
 }
 
-for shape in "" auto; do
-  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Draw the queue as a list until'
-  assert "${shape:-unset} draws a list until work drifts" "$?" "the rules say otherwise"
+for shape in "" on-switch-only; do
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Draw the queue as a list, and as a tree in the one reply'
+  assert "${shape:-unset} draws a list until a switch is raised" "$?" "the rules say otherwise"
 
   printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'The tree is drawn inside a fenced block'
   assert "${shape:-unset} carries the drawing it switches to" "$?" "the tree has no description to follow"
+
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Show every item of the queue'
+  assert "${shape:-unset} keeps the list rule" "$?" "the shape it goes back to is undescribed"
 done
 
 printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp 'queue as a tree|tree is drawn'
 [ "$?" = "1" ]
 assert "off never mentions a tree" "$?" "a session is told about one it will not draw"
 
-printf '%s' "$(shape_of on)" | grep --quiet --fixed-strings 'Draw the queue as a tree in every reply'
-assert "on draws it every reply" "$?" "the rules do not say so"
+printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'Draw the queue as a tree in every reply'
+assert "always-on draws it every reply" "$?" "the rules do not say so"
 
-printf '%s' "$(shape_of on)" | grep --quiet --fixed-strings 'Show every item of the queue'
+printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'Show every item of the queue'
 [ "$?" = "1" ]
-assert "and the list rule is gone when it is on" "$?" "a session is told to draw both"
+assert "and the list rule is gone when it is always on" "$?" "a session is told to draw both"
 
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 

@@ -20,7 +20,7 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
 | `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
 | `UNSOLICITED_TEXT_BREADCRUMB`              | `off`                             |
-| `UNSOLICITED_TEXT_QUEUE_TREE`              | `off`                             |
+| `UNSOLICITED_TEXT_QUEUE_TREE`              | `on-switch-only`                  |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
@@ -30,10 +30,13 @@ Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with an
 emoji as well as its word. Say when setting it that a terminal with no emoji
 font shows a box instead.
 
-Setting `UNSOLICITED_TEXT_QUEUE_TREE` to `on` draws the queue as a tree of
-threads rather than a numbered list. Say when setting it that only the branch
-being worked is drawn in full, the rest carrying a count, and that an item is
-opened by naming it rather than by its number.
+`UNSOLICITED_TEXT_QUEUE_TREE` draws the queue as a tree of threads rather than a
+numbered list. It takes three values: `on-switch-only`, the default, draws the
+tree in the reply that raises an item off the open thread and goes back to the
+list after it; `always-on` draws it in every reply; `off` never draws it. Say
+when setting it that only the branch being worked is drawn in full, the rest
+carrying a count, and that an item is opened by naming it rather than by its
+number.
 
 Setting `UNSOLICITED_TEXT_BREADCRUMB` to `on` opens every reply with the thread
 being worked on, `unsolicited-text › settings › breadcrumb`. Say when setting it
