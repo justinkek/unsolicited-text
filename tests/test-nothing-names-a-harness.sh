@@ -27,22 +27,22 @@ report "no hook script names one of: $HARNESSES" \
 report "the rules name none of them either" \
   "$(grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b" "$REPOSITORY/rules/reply-shape.md")"
 
-printf "\nTest group: only the skill whose subject is the difference may name one\n"
+printf "\nTest group: no skill names one, and the page they point at names them all\n"
 
-report "no other skill names one" \
-  "$(find "$REPOSITORY/skills" -name SKILL.md -not -path '*/update/*' -print0 \
+report "no skill names one" \
+  "$(find "$REPOSITORY/skills" -name SKILL.md -print0 \
     | xargs -0 grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b")"
 
 named=0
 while read -r harness; do
-  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY/skills/update/SKILL.md" && named=$((named + 1))
+  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY/UPDATING.md" && named=$((named + 1))
 done < <(printf '%s\n' claude codex pi)
 [ "$named" -eq 3 ]
 if [ "$?" = "0" ]; then
-  printf "  OK  and the one that may, names all three\n"
+  printf "  OK  UPDATING.md names all three\n"
   pass=$((pass + 1))
 else
-  printf "  KO  skills/update names %s of the three harnesses\n" "$named"
+  printf "  KO  UPDATING.md names %s of the three harnesses\n" "$named"
   fail=$((fail + 1))
 fi
 
