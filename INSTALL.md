@@ -14,8 +14,6 @@ Note for agents: check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the
 Claude Code cloud sessions, on the web or on a phone, run in a container rebuilt from scratch and never resolve a marketplace, so the install above does not work.
 
 There are two ways to install it on cloud sessions:
-1. For all sessions
-2. For the current session only
 
 #### Every session
 
