@@ -41,7 +41,7 @@ An empty value counts as unset.
 
 ## What not to do
 
-Do not edit `AGENTS.md` to change the ceiling. The session start hook rewrites
+Do not edit `rules/reply-shape.md` to change the ceiling. The session start hook rewrites
 the ceiling in the rules it prints, from whatever is configured.
 
 Do not export a variable to make a change stick. The environment wins over the

@@ -3,7 +3,7 @@
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 HOOKS_DIR="$REPOSITORY/hooks"
 LONG_REPLY_HOOK="$HOOKS_DIR/note-long-reply.sh"
-RULES="$REPOSITORY/AGENTS.md"
+RULES="$REPOSITORY/rules/reply-shape.md"
 
 pass=0
 fail=0

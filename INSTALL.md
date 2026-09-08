@@ -62,7 +62,7 @@ away when the session ends, so this is the throwaway route rather than the one t
 standardise on. And the rules load at session start, which
 has already happened, so print them into the session once:
 
-    cat ~/.unsolicited-text/checkout/AGENTS.md
+    cat ~/.unsolicited-text/checkout/rules/reply-shape.md
 
 Every turn after that is covered by the hooks above, which need no restart.
 
