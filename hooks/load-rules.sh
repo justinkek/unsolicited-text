@@ -19,6 +19,10 @@ if ! queue_emoji; then
   done
 fi
 
+if breadcrumb; then
+  rewrite="$rewrite;s|- Do not write a breadcrumb.|- Open every reply with the thread you are on, as its own first line: \`unsolicited-text › settings › breadcrumb\`. Keep the root and the last two levels, write \`…\` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open.|"
+fi
+
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
   rewrite="$rewrite;s|- Show every item of the queue in every reply.|- Show only the first $visible items of the queue. Write \`...N more pending\` under them, with N the number left unshown, and list anything raised this turn below that line.|"

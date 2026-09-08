@@ -102,6 +102,21 @@ printf '%s' "$limited" | grep --quiet --fixed-strings 'Show every item of the qu
 [ "$?" = "1" ]
 assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
 
+printf "\nTest group: the breadcrumb is written only when it is asked for\n"
+
+off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$off" | grep --quiet --fixed-strings 'Do not write a breadcrumb.'
+assert "unset tells the reader to write none" "$?" "the rules ask for one by default"
+
+on="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+  UNSOLICITED_TEXT_BREADCRUMB=on bash "$LOADER" 2>/dev/null)"
+printf '%s' "$on" | grep --quiet --fixed-strings 'Open every reply with the thread you are on'
+assert "on asks for one" "$?" "the rules do not describe it"
+
+printf '%s' "$on" | grep --quiet --fixed-strings 'Do not write a breadcrumb.'
+[ "$?" = "1" ]
+assert "and the refusal is gone when it is on" "$?" "both rules are printed"
+
 printf "\nTest group: the emoji are handed over only when they are asked for\n"
 
 emoji_in() {
