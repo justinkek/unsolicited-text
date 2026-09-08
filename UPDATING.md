@@ -11,19 +11,7 @@ The first command refreshes the marketplace snapshot on disk. Without it the
 second has nothing newer to install. A session already running holds the old
 copy, so restart it.
 
-## 2. Codex
-
-    codex plugin marketplace upgrade unsolicited-text
-    codex plugin add unsolicited-text@unsolicited-text
-
-Running `add` again re-installs at the snapshot's version; there is no separate
-update command.
-
-## 3. Pi
-
-    pi update git:github.com/justinkek/unsolicited-text
-
-## Cloud sessions
+### Cloud sessions
 
 Installed by the Cloud Session Install Script from
 🔗 [the install instructions](INSTALL.md), where the checkout lives at
@@ -39,6 +27,18 @@ effect from your next message, and session start has passed, so print the rules
 once:
 
     cat /opt/unsolicited-text/rules/reply-shape.md
+
+## 2. Codex
+
+    codex plugin marketplace upgrade unsolicited-text
+    codex plugin add unsolicited-text@unsolicited-text
+
+Running `add` again re-installs at the snapshot's version; there is no separate
+update command.
+
+## 3. Pi
+
+    pi update git:github.com/justinkek/unsolicited-text
 
 ## Which version is installed
 
