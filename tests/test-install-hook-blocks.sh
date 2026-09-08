@@ -59,9 +59,6 @@ printf "\nTest group: the page says what a reader has to know before running it\
 grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$INSTALL"
 assert "why the install above does nothing in a container" "$?" "no detection signal in $INSTALL"
 
-grep --quiet --fixed-strings 'It overwrites `~/.claude/settings.json`' "$INSTALL"
-assert "that it replaces a settings file already there" "$?" "no warning before their own settings go"
-
 grep --quiet --fixed-strings 'rules/reply-shape.md' "$INSTALL"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"

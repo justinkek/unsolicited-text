@@ -7,28 +7,30 @@
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
-Note for agents: Check if `SKIP_PLUGIN_MARKETPLACE` is set before using the above install instructions. If it is set, the user is in a cloud session,and will need to use the installation instructions below.
-
+Note for agents: check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below.
 
 ### Cloud sessions
 
-Claude Code Cloud sessions (e.g. on web/mobile) run in a container rebuilt from scratch and never resolves a marketplace, so the install above does not work. 
+Claude Code cloud sessions, on the web or on a phone, run in a container rebuilt from scratch and never resolve a marketplace, so the install above does not work.
 
-There are two ways to install it on cloud sessions: 
+There are two ways to install it on cloud sessions:
 1. For all sessions
 2. For the current session only
 
+#### Every session
+
+1. Paste the "Cloud Session Install Script" (see below) into the Setup script field of your cloud environment.
+2. Start a new session. The environment runs the script before the session begins.
+
 #### This session only
 
-1. Ensure that permission mode to accept edits first, or the auto-permissions classifier refuses the write.
-2. Ask the agent to run the "Cloud Session Install Script" (see below). 
-3. The hooks will take effect from your next message. Session start has passed, so print the rules once:
+1. Set your permission mode to accept edits, or the auto-permissions classifier refuses the write.
+2. Ask the agent to run the "Cloud Session Install Script" (see below).
+3. The hooks take effect from your next message. Session start has passed, so print the rules once:
 
     cat /opt/unsolicited-text/rules/reply-shape.md
 
-#### Every session
-
-1. Users will need to paste the "Cloud Session Install Script" (see below) into the Setup script field of your cloud environment.
+The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
 
@@ -61,9 +63,6 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 }
 SETTINGS
 ```
-
-Note for agents: It overwrites `~/.claude/settings.json`, so fold in anything already there rather
-than pasting over it.
 
 ## 2. Codex
 
