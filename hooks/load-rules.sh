@@ -20,7 +20,7 @@ if ! queue_emoji; then
 fi
 
 if breadcrumb; then
-  rewrite="$rewrite;s|- Do not write a breadcrumb.|- Open every reply with the thread you are on, as the root, then each branch down to it, separated by \` › \`, on its own first line and nothing else. Summarise a long branch into two or three words when it opens, and use those same words every reply after. Keep the root and the last two, and write \`…\` for the levels between. Write nothing when only one thread is open. The line does not count against the ceiling.|"
+  rewrite="$rewrite;s|- Do not write a breadcrumb.|- Open every reply with the thread you are on, as its own first line: \`unsolicited-text › settings › breadcrumb\`. Keep the root and the last two levels, write \`…\` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open.|"
 fi
 
 visible="$(queue_visible_items)"

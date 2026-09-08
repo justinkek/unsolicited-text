@@ -31,6 +31,7 @@ counted="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queue_ta
     return 0
   }
   { probe = $0; sub(/^[[:space:]]+/, "", probe) }
+  !seen && probe ~ /[[:alnum:]]/ { seen = 1; if (index(probe, " › ")) next }
   index(probe, fence) == 1 { fenced = !fenced; next }
   fenced { next }
   probe == queue_tag { queued = 1; next }

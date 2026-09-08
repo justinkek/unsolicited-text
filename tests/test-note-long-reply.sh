@@ -148,6 +148,13 @@ assert_records "prose below the queue is not exempted by it" \
   "$(run_hook "$(printf '%s\n\n%s\n\n%s\n\n%s\n' "$(prose_of 2)" "$queue_tag" "$(queue_of 2)" "$(prose_of 9)")")"
 assert_names_the_queue "the note points at the queue" "$(run_hook "$(prose_of 9)")"
 
+printf "\nTest group: a breadcrumb is not prose\n"
+
+assert_silent "the ceiling with a breadcrumb above it" \
+  "$(run_hook "$(printf 'unsolicited-text \342\200\272 rules \342\200\272 breadcrumb\n%s' "$(prose_of 8)")")"
+assert_records "a line carrying the mark further down still counts" \
+  "$(run_hook "$(printf '%s\nunsolicited-text \342\200\272 rules \342\200\272 breadcrumb\n' "$(prose_of 8)")")"
+
 printf "\nTest group: the guards\n"
 
 assert_silent "loop guard — already continued once" "$(run_hook "$(prose_of 40)" true)"
