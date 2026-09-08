@@ -42,8 +42,9 @@
 
 - Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
 - A queue question blocks the action it gates until I answer it. Act on everything that does not depend on it. It stays listed in every reply until I answer it, and comes off the list the moment I do.
-- Show every item of the queue in every reply. {queue-limit=unset}
-- Show only the first {queue-limit} items of the queue. Write `...N more pending` under them, with N the number left unshown, and list anything raised this turn below that line. {queue-limit=set}
+- Draw the queue as a tree instead of a list, inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list. Draw the branch being worked in full and write every other branch as its name and `(N pending)`, N being the items under it; write no count for a branch with nothing hidden. Keep a row to one line, wrapping by hand at about sixty characters and carrying the branch marks down the continuation. Mark at most one row, `← CURRENT` on the item open now, `← DONE` on the one closed this reply and `← NEXT` on the one after it in the same branch, and, when an item is raised that neither serves nor closes the open thread, `← CONTEXT SWITCH` on it and `← CURRENT CONTEXT` on the thread it left, saying that `context switch` from me moves onto it. {queue-tree=on}
+- Show every item of the queue in every reply. {queue-tree=off} {queue-limit=unset}
+- Show only the first {queue-limit} items of the queue. Write `...N more pending` under them, with N the number left unshown, and list anything raised this turn below that line. {queue-tree=off} {queue-limit=set}
 - Do not write a breadcrumb. {breadcrumb=off}
 - Open every reply with the thread you are on, as its own first line: `unsolicited-text › settings › breadcrumb`. Keep the root and the last two levels, write `…` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open. {breadcrumb=on}
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.

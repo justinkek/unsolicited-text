@@ -111,6 +111,22 @@ for shown in "$unlimited" "$limited"; do
     "a session was handed a rule with the setting that keeps it still written on the end"
 done
 
+printf "\nTest group: the queue is a tree only when it is asked for\n"
+
+list_shape="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$list_shape" | grep --quiet --fixed-strings 'Draw the queue as a tree'
+[ "$?" = "1" ]
+assert "unset leaves the queue a list" "$?" "the tree is drawn by default"
+
+tree_shape="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+  UNSOLICITED_TEXT_QUEUE_TREE=on bash "$LOADER" 2>/dev/null)"
+printf '%s' "$tree_shape" | grep --quiet --fixed-strings 'Draw the queue as a tree'
+assert "on asks for the tree" "$?" "the rules do not describe it"
+
+printf '%s' "$tree_shape" | grep --quiet --fixed-strings 'Show every item of the queue'
+[ "$?" = "1" ]
+assert "and the list rule is gone when it is on" "$?" "a session is told to draw both"
+
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 
 off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"

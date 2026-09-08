@@ -26,6 +26,12 @@ else
   keep="breadcrumb=off"
 fi
 
+if queue_tree; then
+  keep="$keep queue-tree=on"
+else
+  keep="$keep queue-tree=off"
+fi
+
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
   keep="$keep queue-limit=set"
@@ -34,7 +40,7 @@ else
   keep="$keep queue-limit=unset"
 fi
 
-for tag in breadcrumb=on breadcrumb=off queue-limit=set queue-limit=unset; do
+for tag in breadcrumb=on breadcrumb=off queue-tree=on queue-tree=off queue-limit=set queue-limit=unset; do
   case " $keep " in
     *" $tag "*) rewrite="$rewrite;s/ {$tag}//" ;;
     *) rewrite="$rewrite;/{$tag}/d" ;;
