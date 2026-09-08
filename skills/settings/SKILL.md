@@ -40,8 +40,13 @@ The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules do not: they were printed at session start. Print them again from the
 same hook, and the session reads the new copy.
 
-- For a cloud session: `printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
-- Otherwise: `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`
+- Installed by the cloud script: `printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
+- Installed any other way: read the session start hook's command out of the
+  settings this harness reads, and run that same script the same way:
+  `printf '{}' | <that path>`
+
+The script reads a line on standard input and prints nothing without one, so it
+waits forever if the pipe is left off. Nothing needs a restart.
 
 ## Saying what is set
 
