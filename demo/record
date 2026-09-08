@@ -50,6 +50,17 @@ record_one() {
   printf 'record: wrote %s.gif\n' "$name"
 }
 
+# The recordings are checked in, so what they were recorded from is written down
+# beside them. A file time does not survive a clone; a hash of the content does.
+write_sources() {
+  local pair="$1" source
+  : > "$directory/$pair.sha"
+  for source in type "$pair.prompt" "$pair-before.txt" "$pair-after.txt"; do
+    printf '%s  %s\n' "$(git -C "$directory" hash-object "$source")" "$source" \
+      >> "$directory/$pair.sha"
+  done
+}
+
 wanted="$*"
 
 for prompt in "$directory"/*.prompt; do
@@ -62,4 +73,5 @@ for prompt in "$directory"/*.prompt; do
   for side in before after; do
     record_one "$pair-$side" "$(basename "$prompt")" "$pair"
   done
+  write_sources "$pair"
 done
