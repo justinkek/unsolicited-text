@@ -110,4 +110,6 @@ them by hand in `~/.codex/config.toml`:
 
     pi install git:github.com/justinkek/unsolicited-text
 
-To take it back off, 🔗 [check the uninstall instructions](UNINSTALL.md).
+## Uninstalling
+
+For uninstalling, see 🔗 [the uninstall instructions](UNINSTALL.md).
