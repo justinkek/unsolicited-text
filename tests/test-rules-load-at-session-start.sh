@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-LOADER="$REPOSITORY/hooks/load-agents-md.sh"
+LOADER="$REPOSITORY/hooks/load-rules.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -44,8 +44,8 @@ assert "and AGENTS.md says where the printed rules live" "$?" \
 printf "\nTest group: no rules file, no output\n"
 
 mkdir -p "$TMPDIR/hooks"
-cp "$LOADER" "$TMPDIR/hooks/load-agents-md.sh"
-absent="$(printf '%s' "$payload" | bash "$TMPDIR/hooks/load-agents-md.sh" 2>/dev/null)"
+cp "$LOADER" "$TMPDIR/hooks/load-rules.sh"
+absent="$(printf '%s' "$payload" | bash "$TMPDIR/hooks/load-rules.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]

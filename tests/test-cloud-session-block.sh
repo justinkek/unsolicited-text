@@ -30,6 +30,10 @@ while read -r script; do
   grep --quiet --fixed-strings "/opt/unsolicited-text/hooks/$script" "$INSTALL"
   assert "the setup script names $script" "$?" \
     "hooks.json registers it and an environment built from $INSTALL would not run it"
+
+  grep --quiet --fixed-strings "<path to this checkout>/hooks/$script" "$INSTALL"
+  assert "the codex block names $script" "$?" \
+    "hooks.json registers it and a Codex session registered from $INSTALL would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
   "$REPOSITORY/hooks/hooks.json" | sed 's#.*/##' | sort --unique)
 

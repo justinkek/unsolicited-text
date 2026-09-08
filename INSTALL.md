@@ -1,7 +1,7 @@
 # Installing unsolicited-text
 
-Four hook scripts and the rules they hold a reply to. Every harness runs the
-same four; only the registration differs.
+The hooks in `hooks/hooks.json` and the rules they hold a reply to. Every harness
+runs the same set; only the registration differs.
 
 ## 1. Claude Code, ZCode
 
@@ -33,7 +33,7 @@ Then write `.claude/settings.local.json` in the working directory:
 	"hooks": {
 		"SessionStart": [
 			{ "hooks": [
-				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/load-agents-md.sh" },
+				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/load-rules.sh" },
 				{ "type": "command", "command": "$HOME/.unsolicited-text/checkout/hooks/note-new-version.sh" }
 			] }
 		],
@@ -86,7 +86,7 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 	"hooks": {
 		"SessionStart": [
 			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-agents-md.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
 			] }
 		],
@@ -124,12 +124,16 @@ open a new one.
     codex plugin add unsolicited-text@unsolicited-text
 
 Codex does not run a plugin's own `hooks.json` yet
-([openai/codex#16430](https://github.com/openai/codex/issues/16430)), checked on codex-cli 0.144.5: the plugin installs and reports itself enabled, and a session fires none of its hooks. Until that changes, register the same four commands by hand in `~/.codex/config.toml`, which is the layer Codex does read:
+([openai/codex#16430](https://github.com/openai/codex/issues/16430)), checked on codex-cli 0.144.5: the plugin installs and reports itself enabled, and a session fires none of its hooks. Until that changes, register the same commands by hand in `~/.codex/config.toml`, which is the layer Codex does read:
 
     [[hooks.SessionStart]]
     [[hooks.SessionStart.hooks]]
     type = "command"
-    command = "<path to this checkout>/hooks/load-agents-md.sh"
+    command = "<path to this checkout>/hooks/load-rules.sh"
+
+    [[hooks.SessionStart.hooks]]
+    type = "command"
+    command = "<path to this checkout>/hooks/note-new-version.sh"
 
     [[hooks.UserPromptSubmit]]
     [[hooks.UserPromptSubmit.hooks]]
@@ -145,7 +149,11 @@ Codex does not run a plugin's own `hooks.json` yet
     type = "command"
     command = "<path to this checkout>/hooks/note-long-reply.sh"
 
-Codex asks you to trust each command the first time it meets it, and they stay trusted until the command text changes. The session start hook prints the rules into the session, so registering these four is all a Codex session needs - you do not have to put the rules in `~/.codex/AGENTS.md` as well. Keep the plugin installed alongside: when plugin hooks land, delete this block.
+    [[hooks.Stop.hooks]]
+    type = "command"
+    command = "<path to this checkout>/hooks/note-long-queue.sh"
+
+Codex asks you to trust each command the first time it meets it, and they stay trusted until the command text changes. The session start hook prints the rules into the session, so registering these is all a Codex session needs - you do not have to put the rules in `~/.codex/AGENTS.md` as well. Keep the plugin installed alongside: when plugin hooks land, delete this block.
 
 ## 3. Pi
 

@@ -2,11 +2,11 @@
 
 The rules this plugin prints into a session are not this file. They are
 `rules/reply-shape.md`, and a session never reads that file as it sits on disk:
-`hooks/load-agents-md.sh` rewrites the ceilings, strips the queue emoji unless
+`hooks/load-rules.sh` rewrites the ceilings, strips the queue emoji unless
 they are turned on, and caps the queue length, then prints the result. Run the
 hook to see what a session gets:
 
-    printf '{}' | hooks/load-agents-md.sh
+    printf '{}' | hooks/load-rules.sh
 
 This file is what a session working *on* the plugin reads.
 
