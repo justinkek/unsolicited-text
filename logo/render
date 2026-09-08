@@ -13,4 +13,9 @@ if command -v fc-list >/dev/null 2>&1 && ! fc-list --quiet ":family=$font"; then
 fi
 
 rsvg-convert --width "$width" "$directory/logo.svg" --output "$directory/logo.png"
+
+# The rendering is checked in, so the drawing it came from is written down beside
+# it. A file time does not survive a clone; a hash of the content does.
+printf '%s  logo.svg\n' "$(git -C "$directory" hash-object logo.svg)" > "$directory/rendered.sha"
+
 printf 'render: wrote logo.png at %s wide\n' "$width"

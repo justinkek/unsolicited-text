@@ -183,26 +183,42 @@ for reply in "$DEMO"/*.txt "$DEMO"/*.prompt; do
     "its widest line is $widest, so the recording wraps it"
 done
 
-printf "\nTest group: every recording is no older than what it records\n"
+printf "\nTest group: every recording carries the sources it was recorded from\n"
 
 shown=0
 
 for prompt in "$DEMO"/*.prompt; do
   pair="$(basename "$prompt" .prompt)"
+
   for side in before after; do
     name="$pair-$side"
 
     [ -f "$DEMO/$name.gif" ]
     assert "$name.gif is recorded" "$?" "run demo/record"
 
-    for source in "$name.txt" "$pair.prompt" type; do
-      [ ! "$DEMO/$source" -nt "$DEMO/$name.gif" ]
-      assert "$name.gif is no older than $source" "$?" "$source changed since it was recorded, run demo/record"
-    done
-
     if grep --quiet --fixed-strings "demo/$name.gif" "$README"; then
       shown=$((shown + 1))
     fi
+  done
+
+  [ -f "$DEMO/$pair.sha" ]
+  assert "$pair.sha names what the pair was recorded from" "$?" "run demo/record"
+  [ -f "$DEMO/$pair.sha" ] || continue
+
+  recorded=""
+  while read -r hash source; do
+    recorded="$recorded $source"
+    [ "$hash" = "$(git -C "$DEMO" hash-object "$source" 2>/dev/null)" ]
+    assert "$pair was recorded from the $source on disk" "$?" \
+      "$source changed since the recording, run demo/record"
+  done < "$DEMO/$pair.sha"
+
+  for source in type "$pair.prompt" "$pair-before.txt" "$pair-after.txt"; do
+    case " $recorded " in
+      *" $source "*) continue ;;
+    esac
+    false
+    assert "$pair.sha names $source" "$?" "the recording is unchecked against it, run demo/record"
   done
 done
 
