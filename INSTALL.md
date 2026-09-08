@@ -66,6 +66,58 @@ has already happened, so print them into the session once:
 
 Every turn after that is covered by the hooks above, which need no restart.
 
+### Every cloud session you start
+
+The route above is per session because you write the file inside a container that
+is thrown away. An environment sets itself up instead: a cloud environment runs a
+setup script before Claude Code launches, and what that script writes to disk is
+kept, so it runs once and every later session in that environment starts with the
+plugin already registered. Nothing is installed, and no repository carries
+anything - the rules follow you, not the code you happen to open.
+
+Put this in the environment's Setup script field, at claude.ai/code:
+
+```bash
+#!/bin/bash
+git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text || true
+mkdir -p "$HOME/.claude"
+cat > "$HOME/.claude/settings.json" <<'SETTINGS'
+{
+	"hooks": {
+		"SessionStart": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-agents-md.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
+			] }
+		],
+		"UserPromptSubmit": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" }
+			] }
+		],
+		"Stop": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-reply.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-queue.sh" }
+			] }
+		]
+	}
+}
+SETTINGS
+```
+
+The settings file the script writes is the container's own, not the one on your
+machine - a hosted session never reads yours, and reads this one, which is why
+the plugin arrives without any repository mentioning it.
+
+Four things worth knowing. The script has to exit zero or the session refuses to
+start, which is what `|| true` is doing on the clone. It runs again when you edit
+it, and roughly weekly as the cache expires, so it moves to the latest release on
+its own. It overwrites `~/.claude/settings.json`, so fold in anything already
+there rather than pasting over it. And a session already running does not get it -
+open a new one.
+
 ## 2. Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
