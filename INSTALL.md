@@ -37,7 +37,8 @@ The container takes all of it away when the session ends.
 git -C /opt/unsolicited-text pull --quiet \
 	|| git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text \
 	|| true
-mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.claude/skills"
+cp -R /opt/unsolicited-text/skills/. "$HOME/.claude/skills/"
 cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 {
 	"hooks": {
