@@ -63,9 +63,14 @@ assert "it is named update" "$?" "the name is missing or carries the plugin pref
 grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE"
 assert "its description is one line" "$?" "the description has grown"
 
+grep --quiet --fixed-strings 'UPDATING.md' "$UPDATE"
+assert "it points at the page that carries the commands" "$?" \
+  "the skill neither holds them nor says where they are"
+
 while read -r harness; do
-  grep --quiet --fixed-strings "$harness" "$UPDATE"
-  assert "it says how to update on $harness" "$?" "$harness is in INSTALL.md and not in the skill"
+  grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATING.md"
+  assert "UPDATING.md says how to update on $harness" "$?" \
+    "$harness is installable from INSTALL.md and has no way forward from there"
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 

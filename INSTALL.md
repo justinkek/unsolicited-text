@@ -34,7 +34,9 @@ The container takes all of it away when the session ends.
 
 ```bash
 #!/bin/bash
-git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text || true
+git -C /opt/unsolicited-text pull --quiet \
+	|| git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text \
+	|| true
 mkdir -p "$HOME/.claude"
 cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 {
@@ -101,6 +103,10 @@ them by hand in `~/.codex/config.toml`:
 ## 3. Pi
 
     pi install git:github.com/justinkek/unsolicited-text
+
+## Updating
+
+For updating, see 🔗 [the update instructions](UPDATING.md).
 
 ## Uninstalling
 
