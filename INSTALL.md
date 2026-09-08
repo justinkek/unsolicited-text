@@ -7,16 +7,30 @@
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
+Note for agents: Check if `SKIP_PLUGIN_MARKETPLACE` is set before using the above install instructions. If it is set, the user is in a cloud session,and will need to use the installation instructions below.
+
+
 ### Cloud sessions
 
-Claude Code on the web, on a phone, or on a CI runner runs in a container rebuilt
-from scratch, and never resolves a marketplace: the install above reports nothing
-and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set there, and
-`~/.claude/plugins/installed_plugins.json` stays empty however many times you run
-it.
+Claude Code Cloud sessions (e.g. on web/mobile) run in a container rebuilt from scratch and never resolves a marketplace, so the install above does not work. 
 
-This script installs it in the container instead. The two sections below run the
-same script and differ only in who runs it.
+There are two ways to install it on cloud sessions: 
+1. For all sessions
+2. For the current session only
+
+#### This session only
+
+1. Ensure that permission mode to accept edits first, or the auto-permissions classifier refuses the write.
+2. Ask the agent to run the "Cloud Session Install Script" (see below). 
+3. The hooks will take effect from your next message. Session start has passed, so print the rules once:
+
+    cat /opt/unsolicited-text/rules/reply-shape.md
+
+#### Every session
+
+1. Users will need to paste the "Cloud Session Install Script" (see below) into the Setup script field of your cloud environment.
+
+#### Cloud Session Install Script
 
 ```bash
 #!/bin/bash
@@ -48,27 +62,8 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 SETTINGS
 ```
 
-It overwrites `~/.claude/settings.json`, so fold in anything already there rather
+Note for agents: It overwrites `~/.claude/settings.json`, so fold in anything already there rather
 than pasting over it.
-
-#### This session only
-
-Ask the agent to run the script. Set your permission mode to accept edits first,
-or the classifier refuses the write.
-
-The hooks take effect from your next message. Session start has passed, so print
-the rules once:
-
-    cat /opt/unsolicited-text/rules/reply-shape.md
-
-The container takes all of it away when the session ends.
-
-#### Every session
-
-Paste the script into the Setup script field of your environment, at
-claude.ai/code, then start a new session. Every session that environment starts
-from then on has the plugin, and the script re-runs about weekly on its own, so it
-follows releases.
 
 ## 2. Codex
 
