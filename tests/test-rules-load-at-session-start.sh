@@ -102,6 +102,15 @@ printf '%s' "$limited" | grep --quiet --fixed-strings 'Show every item of the qu
 [ "$?" = "1" ]
 assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
 
+printf "\nTest group: no rule reaches a session still carrying its tag\n"
+
+for shown in "$unlimited" "$limited"; do
+  printf '%s' "$shown" | grep --quiet --extended-regexp '\{(breadcrumb|queue-limit)=?[a-z]*\}'
+  [ "$?" = "1" ]
+  assert "the tags are stripped or the line is dropped" "$?" \
+    "a session was handed a rule with the setting that keeps it still written on the end"
+done
+
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 
 off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"

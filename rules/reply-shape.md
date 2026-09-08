@@ -42,8 +42,10 @@
 
 - Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
 - A queue question blocks the action it gates until I answer it. Act on everything that does not depend on it. It stays listed in every reply until I answer it, and comes off the list the moment I do.
-- Show every item of the queue in every reply.
-- Do not write a breadcrumb.
+- Show every item of the queue in every reply. {queue-limit=unset}
+- Show only the first {queue-limit} items of the queue. Write `...N more pending` under them, with N the number left unshown, and list anything raised this turn below that line. {queue-limit=set}
+- Do not write a breadcrumb. {breadcrumb=off}
+- Open every reply with the thread you are on, as its own first line: `unsolicited-text › settings › breadcrumb`. Keep the root and the last two levels, write `…` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open. {breadcrumb=on}
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
 - For pass/fail or working/broken status, use `OK` / `KO` consistently - don't rotate through synonyms that mean the same thing (pass/fail, success/error, works/broken, ✓/✗) within the same reply.
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.

@@ -27,10 +27,14 @@ with_separator() {
 
 printf "Test group: the readme counts what the hooks actually put into a session\n"
 
-stated="$(with_separator "$(rounded_tokens "$REPOSITORY/rules/reply-shape.md")")"
+printed="$(mktemp)"
+trap 'rm -f "$printed"' EXIT
+printf '{}' | bash "$REPOSITORY/hooks/load-rules.sh" > "$printed" 2>/dev/null
+
+stated="$(with_separator "$(rounded_tokens "$printed")")"
 grep --quiet --extended-regexp "~$stated +\\|" "$README"
 assert "the rules cost about $stated tokens and the readme says so" "$?" \
-  "rules/reply-shape.md now measures ~$stated, which $README does not state"
+  "a session is handed ~$stated, which $README does not state"
 
 for hook in remind-response-length replay-stop-notes; do
   printed="$(printf '{"session_id":"tokens","prompt":"x"}' | bash "$REPOSITORY/hooks/$hook.sh" 2>/dev/null | wc -c | tr -d ' ')"
