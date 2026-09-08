@@ -19,13 +19,26 @@ if ! queue_emoji; then
   done
 fi
 
+# A rule tagged with a setting is kept only when that setting holds; the rest go.
 if breadcrumb; then
-  rewrite="$rewrite;s|- Do not write a breadcrumb.|- Open every reply with the thread you are on, as its own first line: \`unsolicited-text › settings › breadcrumb\`. Keep the root and the last two levels, write \`…\` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open.|"
+  keep="breadcrumb=on"
+else
+  keep="breadcrumb=off"
 fi
 
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
-  rewrite="$rewrite;s|- Show every item of the queue in every reply.|- Show only the first $visible items of the queue. Write \`...N more pending\` under them, with N the number left unshown, and list anything raised this turn below that line.|"
+  keep="$keep queue-limit=set"
+  rewrite="$rewrite;s/{queue-limit}/$visible/"
+else
+  keep="$keep queue-limit=unset"
 fi
+
+for tag in breadcrumb=on breadcrumb=off queue-limit=set queue-limit=unset; do
+  case " $keep " in
+    *" $tag "*) rewrite="$rewrite;s/ {$tag}//" ;;
+    *) rewrite="$rewrite;/{$tag}/d" ;;
+  esac
+done
 
 sed "$rewrite" "$rules"
