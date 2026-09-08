@@ -74,6 +74,22 @@ while read -r harness; do
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 
+printf "\nTest group: each skill has a menu entry that says the same thing\n"
+
+for skill in "$REPOSITORY"/skills/*/; do
+  named="$(basename "$skill")"
+  command="$REPOSITORY/commands/$named.md"
+
+  [ -f "$command" ]
+  assert "commands/$named.md is there" "$?" \
+    "skills/$named has no menu entry, and a skill alone never reaches the slash menu"
+
+  [ "$(sed -n 's/^description: //p' "$command" | head -1)" \
+    = "$(sed -n 's/^description: //p' "$skill/SKILL.md" | head -1)" ]
+  assert "and describes $named the same way the skill does" "$?" \
+    "the menu and the skill list would say different things about it"
+done
+
 for named in update settings; do
   grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
   assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"

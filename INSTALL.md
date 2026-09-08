@@ -28,7 +28,7 @@ There are two ways to install it on cloud sessions:
 
     cat /opt/unsolicited-text/rules/reply-shape.md
 
-4. Run `/reload-skills` to list the settings and update skills. `/reload-plugins` does not work over a remote connection, and this route installs no plugin.
+4. Run `/reload-skills` to list the settings and update skills. `/reload-plugins` does not work over a remote connection, and this route installs no plugin. The `/unsolicited-text-settings` and `/unsolicited-text-update` menu entries arrive on their own a moment later.
 
 The container takes all of it away when the session ends.
 
@@ -39,8 +39,11 @@ The container takes all of it away when the session ends.
 git -C /opt/unsolicited-text pull --quiet \
 	|| git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text \
 	|| true
-mkdir -p "$HOME/.claude/skills"
+mkdir -p "$HOME/.claude/skills" "$HOME/.claude/commands"
 cp -R /opt/unsolicited-text/skills/. "$HOME/.claude/skills/"
+for command in /opt/unsolicited-text/commands/*.md; do
+	cp "$command" "$HOME/.claude/commands/unsolicited-text-$(basename "$command")"
+done
 cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 {
 	"hooks": {
