@@ -33,11 +33,11 @@ font shows a box instead.
 `UNSOLICITED_TEXT_QUEUE_TREE` draws the queue as a tree of threads rather than a
 numbered list. It takes three values:
 
-| Value            | Draws the tree                                          |
-| ---------------- | ------------------------------------------------------- |
-| `on-switch-only` | the default. The queue is a list. One reply draws the tree instead: the reply that raises an item belonging to another thread. The reply after it is a list again. |
-| `always-on`      | every reply.                                            |
-| `off`            | never.                                                  |
+| Value                      | Behaviour                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `on-switch-only` (default) | the queue stays as a list, except when the you raise an item that is not relevant to the current thread |
+| `always-on`                | replaces the queue list for all replies                                                                 |
+| `off`                      | never                                                                                                   |
 
 Say when setting it that only the branch being worked is drawn in full, the rest
 carrying a count, and that an item is opened by naming it rather than by its
