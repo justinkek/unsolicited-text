@@ -23,10 +23,8 @@ pulls the latest release. An untouched environment rebuilds about weekly on its
 own, so it follows releases either way.
 
 For the current session, ask the agent to run the script again. The hooks take
-effect from your next message, and session start has passed, so print the rules
-once:
-
-    cat /opt/unsolicited-text/rules/reply-shape.md
+effect from your next message, and session start has passed, so ask it to print
+`/opt/unsolicited-text/rules/reply-shape.md` into the session as well.
 
 ## 2. Codex
 
