@@ -25,7 +25,7 @@ report "no hook script names one of: $HARNESSES" \
   "$(grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b" "$REPOSITORY"/hooks/*.sh)"
 
 report "the rules name none of them either" \
-  "$(grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b" "$REPOSITORY/AGENTS.md")"
+  "$(grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b" "$REPOSITORY/rules/reply-shape.md")"
 
 printf "\nTest group: only the skill whose subject is the difference may name one\n"
 

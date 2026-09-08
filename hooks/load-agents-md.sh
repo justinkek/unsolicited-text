@@ -2,7 +2,7 @@
 
 cat >/dev/null
 
-rules="$(dirname "$0")/../AGENTS.md"
+rules="$(dirname "$0")/../rules/reply-shape.md"
 [ -f "$rules" ] || exit 0
 
 . "$(dirname "$0")/hook-settings-lib.sh"

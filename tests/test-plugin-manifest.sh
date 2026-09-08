@@ -77,9 +77,9 @@ codex_source="$(source_of "$REPOSITORY/.agents/plugins/marketplace.json" '.plugi
 [ -f "$REPOSITORY/${codex_source#./}.codex-plugin/plugin.json" ]
 assert "the codex marketplace names its plugin" "$?" "no plugin at $codex_source"
 
-[ -f "$REPOSITORY/${claude_source#./}AGENTS.md" ]
+[ -f "$REPOSITORY/${claude_source#./}rules/reply-shape.md" ]
 assert "and the rules ship inside it" "$?" \
-  "AGENTS.md sits outside the plugin, so an installed copy has nothing to print"
+  "rules/reply-shape.md sits outside the plugin, so an installed copy has nothing to print"
 
 printf "\nTest group: every script the install steps name is one this repository carries\n"
 

@@ -30,6 +30,17 @@ for heading in "## Response Formatting" "## Plain English" "## Pre-send checklis
   assert "the loader prints $heading" "$?" "no such heading on stdout"
 done
 
+printf "\nTest group: what a session gets is not what a contributor reads\n"
+
+printf '%s' "$printed" | grep --quiet --fixed-strings 'Working in this repository'
+[ "$?" = "1" ]
+assert "the loader does not print AGENTS.md" "$?" \
+  "AGENTS.md is instructions for working on the plugin, and a session is paying for them"
+
+grep --quiet --fixed-strings 'rules/reply-shape.md' "$REPOSITORY/AGENTS.md"
+assert "and AGENTS.md says where the printed rules live" "$?" \
+  "a reader who edits AGENTS.md expecting a session to change has no way to know better"
+
 printf "\nTest group: no rules file, no output\n"
 
 mkdir -p "$TMPDIR/hooks"
@@ -99,9 +110,9 @@ import sys, unicodedata
 print("".join(sorted({c for c in open(sys.argv[1]).read() if unicodedata.east_asian_width(c) == "W"})))' "$1"
 }
 
-written="$(emoji_in "$REPOSITORY/AGENTS.md")"
+written="$(emoji_in "$REPOSITORY/rules/reply-shape.md")"
 [ -n "$written" ]
-assert "the rules on disk carry emoji at all" "$?" "AGENTS.md has none, so there is nothing to strip"
+assert "the rules on disk carry emoji at all" "$?" "rules/reply-shape.md has none, so there is nothing to strip"
 
 printed="$TMPDIR/printed"
 printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" > "$printed" 2>/dev/null
@@ -111,7 +122,7 @@ assert "none of them reaches a session by default" "$?" "the rules printed $(emo
 printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_QUEUE_EMOJI=on bash "$LOADER" > "$printed" 2>/dev/null
 [ "$(emoji_in "$printed")" = "$written" ]
 assert "and every one of them does when it is on" "$?" \
-  "AGENTS.md has $written and the session got $(emoji_in "$printed")"
+  "rules/reply-shape.md has $written and the session got $(emoji_in "$printed")"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
