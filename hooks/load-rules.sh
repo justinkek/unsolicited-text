@@ -26,6 +26,8 @@ else
   keep="breadcrumb=off"
 fi
 
+keep="$keep queue-tree=$(queue_tree)"
+
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
   keep="$keep queue-limit=set"
@@ -34,11 +36,18 @@ else
   keep="$keep queue-limit=unset"
 fi
 
-for tag in breadcrumb=on breadcrumb=off queue-limit=set queue-limit=unset; do
-  case " $keep " in
-    *" $tag "*) rewrite="$rewrite;s/ {$tag}//" ;;
-    *) rewrite="$rewrite;/{$tag}/d" ;;
-  esac
+for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr -d '{}' | sort --unique); do
+  held=""
+  for value in $(printf '%s' "${tag#*=}" | tr '|' ' '); do
+    case " $keep " in
+      *" ${tag%%=*}=$value "*) held=1 ;;
+    esac
+  done
+  if [ -n "$held" ]; then
+    rewrite="$rewrite;s/ {$tag}//"
+  else
+    rewrite="$rewrite;/{$tag}/d"
+  fi
 done
 
 sed "$rewrite" "$rules"

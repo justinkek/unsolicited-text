@@ -20,6 +20,7 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
 | `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
 | `UNSOLICITED_TEXT_BREADCRUMB`              | `off`                             |
+| `UNSOLICITED_TEXT_QUEUE_TREE`              | `on-switch-only`                  |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
@@ -28,6 +29,19 @@ may not come back, and that `0` shows the count alone.
 Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with an
 emoji as well as its word. Say when setting it that a terminal with no emoji
 font shows a box instead.
+
+`UNSOLICITED_TEXT_QUEUE_TREE` draws the queue as a tree of threads rather than a
+numbered list. It takes three values:
+
+| Value                      | Behaviour                                                                                                                                                                     |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `on-switch-only` (default) | the queue is a list, except when you raise an item that is not relevant to the current thread - the queue then renders as a tree once and reverts to a list on the next reply |
+| `always-on`                | the queue is a tree for all replies                                                                                                                                           |
+| `off`                      | the queue is a list                                                                                                                                                           |
+
+Say when setting it that only the branch being worked is drawn in full, the rest
+carrying a count, and that an item is opened by naming it rather than by its
+number.
 
 Setting `UNSOLICITED_TEXT_BREADCRUMB` to `on` opens every reply with the thread
 being worked on, `unsolicited-text › settings › breadcrumb`. Say when setting it

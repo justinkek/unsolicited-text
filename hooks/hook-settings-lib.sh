@@ -38,6 +38,10 @@ breadcrumb() {
   [ "$(setting_value UNSOLICITED_TEXT_BREADCRUMB off)" = "on" ]
 }
 
+queue_tree() {
+  setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only
+}
+
 queue_visible_items() {
   local value
   value="$(setting_value UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS "")"
