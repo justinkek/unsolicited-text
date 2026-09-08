@@ -2,7 +2,7 @@
   <img src="logo/logo.png" width="440" alt="unsolicited-text">
 </p>
 
-<h2 align="center">"i did not consent to text"</h2>
+<h2 align="center">stay focused</h2>
 
 
 ## 1. Features
