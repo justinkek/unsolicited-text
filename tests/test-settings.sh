@@ -111,7 +111,7 @@ start_payload="$(jq --null-input --compact-output \
 printed="$(
   unset UNSOLICITED_TEXT_PROSE_LINE_CEILING
   printf '%s' "$start_payload" \
-    | env HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-agents-md.sh" 2>/dev/null
+    | env HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-rules.sh" 2>/dev/null
 )"
 
 assert_equal "the printed rules state the configured ceiling" \
