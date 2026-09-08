@@ -28,6 +28,8 @@ There are two ways to install it on cloud sessions:
 
     cat /opt/unsolicited-text/rules/reply-shape.md
 
+4. Run `/reload-skills` to list the settings and update skills. `/reload-plugins` does not work over a remote connection, and this route installs no plugin.
+
 The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
