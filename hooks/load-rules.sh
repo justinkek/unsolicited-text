@@ -26,11 +26,7 @@ else
   keep="breadcrumb=off"
 fi
 
-if queue_tree; then
-  keep="$keep queue-tree=on"
-else
-  keep="$keep queue-tree=off"
-fi
+keep="$keep queue-tree=$(queue_tree)"
 
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
@@ -40,11 +36,20 @@ else
   keep="$keep queue-limit=unset"
 fi
 
-for tag in breadcrumb=on breadcrumb=off queue-tree=on queue-tree=off queue-limit=set queue-limit=unset; do
-  case " $keep " in
-    *" $tag "*) rewrite="$rewrite;s/ {$tag}//" ;;
-    *) rewrite="$rewrite;/{$tag}/d" ;;
-  esac
+# A tag names the setting values that keep its rule, as {breadcrumb=on} or
+# {queue-tree=on|auto}. Everything else goes.
+for tag in $(grep --only-matching '{[a-z-]*=[a-z|]*}' "$rules" | tr -d '{}' | sort --unique); do
+  held=""
+  for value in $(printf '%s' "${tag#*=}" | tr '|' ' '); do
+    case " $keep " in
+      *" ${tag%%=*}=$value "*) held=1 ;;
+    esac
+  done
+  if [ -n "$held" ]; then
+    rewrite="$rewrite;s/ {$tag}//"
+  else
+    rewrite="$rewrite;/{$tag}/d"
+  fi
 done
 
 sed "$rewrite" "$rules"

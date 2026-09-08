@@ -39,7 +39,7 @@ breadcrumb() {
 }
 
 queue_tree() {
-  [ "$(setting_value UNSOLICITED_TEXT_QUEUE_TREE off)" = "on" ]
+  setting_value UNSOLICITED_TEXT_QUEUE_TREE auto
 }
 
 queue_visible_items() {

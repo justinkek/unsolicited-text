@@ -113,17 +113,27 @@ done
 
 printf "\nTest group: the queue is a tree only when it is asked for\n"
 
-list_shape="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
-printf '%s' "$list_shape" | grep --quiet --fixed-strings 'Draw the queue as a tree'
+shape_of() {
+  printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+    ${1:+UNSOLICITED_TEXT_QUEUE_TREE="$1"} bash "$LOADER" 2>/dev/null
+}
+
+for shape in "" auto; do
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Draw the queue as a list until'
+  assert "${shape:-unset} draws a list until work drifts" "$?" "the rules say otherwise"
+
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'The tree is drawn inside a fenced block'
+  assert "${shape:-unset} carries the drawing it switches to" "$?" "the tree has no description to follow"
+done
+
+printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp 'queue as a tree|tree is drawn'
 [ "$?" = "1" ]
-assert "unset leaves the queue a list" "$?" "the tree is drawn by default"
+assert "off never mentions a tree" "$?" "a session is told about one it will not draw"
 
-tree_shape="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  UNSOLICITED_TEXT_QUEUE_TREE=on bash "$LOADER" 2>/dev/null)"
-printf '%s' "$tree_shape" | grep --quiet --fixed-strings 'Draw the queue as a tree'
-assert "on asks for the tree" "$?" "the rules do not describe it"
+printf '%s' "$(shape_of on)" | grep --quiet --fixed-strings 'Draw the queue as a tree in every reply'
+assert "on draws it every reply" "$?" "the rules do not say so"
 
-printf '%s' "$tree_shape" | grep --quiet --fixed-strings 'Show every item of the queue'
+printf '%s' "$(shape_of on)" | grep --quiet --fixed-strings 'Show every item of the queue'
 [ "$?" = "1" ]
 assert "and the list rule is gone when it is on" "$?" "a session is told to draw both"
 
