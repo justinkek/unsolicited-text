@@ -99,12 +99,8 @@ them by hand in `~/.codex/config.toml`:
     type = "command"
     command = "<path to this checkout>/hooks/note-long-queue.sh"
 
-Codex asks you to trust each command the first time it meets it.
-
 ## 3. Pi
 
     pi install git:github.com/justinkek/unsolicited-text
-
-Pi needs a shell on the machine, which the other harnesses already require.
 
 To take it back off, 🔗 [check the uninstall instructions](UNINSTALL.md).
