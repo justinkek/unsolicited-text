@@ -11,14 +11,14 @@ the last assignment of a key is the one that counts.
 
 `UNSOLICITED_TEXT_HOME` moves that file and the state under it together.
 
-| Key | Default |
-| --- | --- |
-| `UNSOLICITED_TEXT_PROSE_LINE_CEILING` | `8` |
-| `UNSOLICITED_TEXT_PROSE_WORD_CEILING` | `120` |
-| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` |
-| `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` |
-| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown |
-| `UNSOLICITED_TEXT_QUEUE_EMOJI` | `off` |
+| Key                                        | Default                           |
+| ------------------------------------------ | --------------------------------- |
+| `UNSOLICITED_TEXT_PROSE_LINE_CEILING`      | `8`                               |
+| `UNSOLICITED_TEXT_PROSE_WORD_CEILING`      | `120`                             |
+| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY`     | `~/.unsolicited-text/state/notes` |
+| `UNSOLICITED_TEXT_UPDATE_CHECK`            | `on`                              |
+| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
+| `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
@@ -38,13 +38,10 @@ is not there.
 
 The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules do not: they were printed at session start. Print them again from the
-same hook, and the session reads the new copy:
+same hook, and the session reads the new copy.
 
-    printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh
-
-That path is the checkout on a cloud install. On a plugin install it is
-`${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and the settings file is the same
-either way. Nothing needs a restart.
+- For a cloud session: `printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
+- Otherwise: `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`
 
 ## Saying what is set
 
