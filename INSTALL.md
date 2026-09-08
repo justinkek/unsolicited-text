@@ -15,15 +15,8 @@ and loads nothing. `SKIP_PLUGIN_MARKETPLACE` is set there, and
 `~/.claude/plugins/installed_plugins.json` stays empty however many times you run
 it.
 
-This script installs it in the container instead. There are two ways to run it,
-and they differ only in who runs it:
-
-1. Paste it into the Setup script field of your environment, at claude.ai/code.
-   Every session that environment starts from then on has the plugin, and the
-   script re-runs on its own about weekly, so it follows releases.
-2. Ask the agent to run it in the session you are already in. That covers this
-   one session. Set your permission mode to accept edits first, or the classifier
-   refuses the write.
+This script installs it in the container instead. The two sections below run the
+same script and differ only in who runs it.
 
 ```bash
 #!/bin/bash
@@ -58,10 +51,24 @@ SETTINGS
 It overwrites `~/.claude/settings.json`, so fold in anything already there rather
 than pasting over it.
 
-Run in a session already going, the hooks take effect from your next message, but
-session start has passed, so print the rules once:
+#### This session only
+
+Ask the agent to run the script. Set your permission mode to accept edits first,
+or the classifier refuses the write.
+
+The hooks take effect from your next message. Session start has passed, so print
+the rules once:
 
     cat /opt/unsolicited-text/rules/reply-shape.md
+
+The container takes all of it away when the session ends.
+
+#### Every session
+
+Paste the script into the Setup script field of your environment, at
+claude.ai/code, then start a new session. Every session that environment starts
+from then on has the plugin, and the script re-runs about weekly on its own, so it
+follows releases.
 
 ## 2. Codex
 
