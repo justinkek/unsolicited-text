@@ -31,10 +31,15 @@ emoji as well as its word. Say when setting it that a terminal with no emoji
 font shows a box instead.
 
 `UNSOLICITED_TEXT_QUEUE_TREE` draws the queue as a tree of threads rather than a
-numbered list. It takes three values: `on-switch-only`, the default, draws the
-tree in the reply that raises an item off the open thread and goes back to the
-list after it; `always-on` draws it in every reply; `off` never draws it. Say
-when setting it that only the branch being worked is drawn in full, the rest
+numbered list. It takes three values:
+
+| Value            | Draws the tree                                          |
+| ---------------- | ------------------------------------------------------- |
+| `on-switch-only` | the default. The queue is a list. One reply draws the tree instead: the reply that raises an item belonging to another thread. The reply after it is a list again. |
+| `always-on`      | every reply.                                            |
+| `off`            | never.                                                  |
+
+Say when setting it that only the branch being worked is drawn in full, the rest
 carrying a count, and that an item is opened by naming it rather than by its
 number.
 
