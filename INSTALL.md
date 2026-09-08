@@ -7,7 +7,7 @@
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
-Note for agents: check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below.
+Note for agents: check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below. Ask which of the two routes they want before doing anything. For every session, print the steps and the script for them to paste, since the Setup script field is theirs to edit and not yours. For this session only, run the script yourself.
 
 ### Cloud sessions
 
