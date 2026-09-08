@@ -34,6 +34,10 @@ queue_emoji() {
   [ "$(setting_value UNSOLICITED_TEXT_QUEUE_EMOJI off)" = "on" ]
 }
 
+breadcrumb() {
+  [ "$(setting_value UNSOLICITED_TEXT_BREADCRUMB off)" = "on" ]
+}
+
 queue_visible_items() {
   local value
   value="$(setting_value UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS "")"

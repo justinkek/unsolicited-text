@@ -19,6 +19,7 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_UPDATE_CHECK`            | `on`                              |
 | `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
 | `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
+| `UNSOLICITED_TEXT_BREADCRUMB`              | `off`                             |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
 items, with a count of the rest. Say when setting it that an item out of sight
@@ -27,6 +28,10 @@ may not come back, and that `0` shows the count alone.
 Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with an
 emoji as well as its word. Say when setting it that a terminal with no emoji
 font shows a box instead.
+
+Setting `UNSOLICITED_TEXT_BREADCRUMB` to `on` opens every reply with the thread
+being worked on, `unsolicited-text › settings › breadcrumb`. Say when setting it
+that a session with one thread open shows nothing.
 
 ## Changing one
 
