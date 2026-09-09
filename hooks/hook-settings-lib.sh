@@ -42,10 +42,6 @@ queue_tree() {
   setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only
 }
 
-onboarding() {
-  [ "$(setting_value UNSOLICITED_TEXT_ONBOARDING on)" = "on" ]
-}
-
 onboarding_is_done() {
   local marker="$UNSOLICITED_TEXT_STATE/onboarded"
   [ -f "$marker" ] && return 0

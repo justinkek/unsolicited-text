@@ -171,11 +171,10 @@ printf '%s' "$second" | grep --quiet --fixed-strings 'try the settings skill'
 [ "$?" = "1" ]
 assert "the run after it seeds nothing" "$?" "every session pays for the demo"
 
-opted_out="$(printf '%s' "$payload" | env HOME="$TMPDIR/opted-out" \
-  UNSOLICITED_TEXT_ONBOARDING=off bash "$LOADER" 2>/dev/null)"
-printf '%s' "$opted_out" | grep --quiet --fixed-strings 'try the settings skill'
-[ "$?" = "1" ]
-assert "off seeds nothing at all" "$?" "the setting does not hold"
+rm -f "$fresh/.unsolicited-text/state/onboarded"
+again="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$again" | grep --quiet --fixed-strings 'try the settings skill'
+assert "deleting the marker shows it again" "$?" "there is no way back to it"
 
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 

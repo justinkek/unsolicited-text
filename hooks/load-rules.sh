@@ -59,7 +59,7 @@ sed "$rewrite" "$rules" | awk '
 
 # The first session on a machine starts with two items, so the queue is worked
 # once before it holds anything that matters.
-if onboarding && ! onboarding_is_done; then
+if ! onboarding_is_done; then
   if queue_emoji; then
     later="💤 Later:"
   else
