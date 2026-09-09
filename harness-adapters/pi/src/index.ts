@@ -34,7 +34,9 @@ function textOf(message: any): string {
 
 export default function (pi: ExtensionAPI) {
 	pi.on("before_agent_start", async () => {
-		const content = [spawnHook("remind-response-length.sh", {}), held].filter(Boolean).join("\n");
+		const content = [spawnHook("remind-response-length.sh", {}), held, spawnHook("note-new-version.sh", {})]
+			.filter(Boolean)
+			.join("\n");
 		held = "";
 		return content ? { message: { customType: "unsolicited-text", content, display: true } } : undefined;
 	});

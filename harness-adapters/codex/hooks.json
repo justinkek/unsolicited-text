@@ -6,10 +6,6 @@
 					{
 						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/load-rules.sh"
-					},
-					{
-						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/note-new-version.sh"
 					}
 				]
 			}
@@ -24,6 +20,10 @@
 					{
 						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/replay-stop-notes.sh"
+					},
+					{
+						"type": "command",
+						"command": "${PLUGIN_ROOT}/hooks/note-new-version.sh"
 					}
 				]
 			}

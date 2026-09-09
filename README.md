@@ -165,7 +165,7 @@ Or 🔗 [check the installation instructions](INSTALL.md).
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
 | `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling                       | none, it prints nothing into the session |
 | `hooks/note-long-queue.sh`        | turn end      | records a note when the queue showed more items than allowed             | none, it prints nothing into the session |
-| `hooks/note-new-version.sh`       | session start | asks once a day whether a newer version is out, and prints what it found | ~30, and only when there is one          |
+| `hooks/note-new-version.sh`       | every prompt  | asks once a day whether a newer version is out, and prints what it found | ~30, and only when there is one          |
 
 (Estimated at four characters to a token)
 

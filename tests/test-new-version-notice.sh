@@ -74,5 +74,26 @@ session >/dev/null
 [ -z "$(rm -f "$STATE/version-checked"; session)" ]
 assert "an older one says nothing either" "$?" "it offered a downgrade"
 
+printf "\nTest group: the check runs where a long session reaches it\n"
+
+for manifest in "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/harness-adapters/codex/hooks.json"; do
+  named="$(basename "$(dirname "$manifest")")"
+
+  python3 - "$manifest" <<'CHECK'
+import json, sys
+hooks = json.load(open(sys.argv[1]))["hooks"]
+def names(event):
+    return [h["command"] for group in hooks.get(event, []) for h in group["hooks"]]
+prompt = any("note-new-version" in c for c in names("UserPromptSubmit"))
+start = any("note-new-version" in c for c in names("SessionStart"))
+sys.exit(0 if prompt and not start else 1)
+CHECK
+  assert "$named asks at a prompt rather than at session start" "$?" \
+    "a session that never restarts never checks, and never prints what it found"
+done
+
+grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/harness-adapters/pi/src/index.ts"
+assert "the pi shim asks too" "$?" "pi is told about no version but the one it installed"
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]

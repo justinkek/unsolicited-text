@@ -46,14 +46,14 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 	"hooks": {
 		"SessionStart": [
 			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" },
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" }
 			] }
 		],
 		"UserPromptSubmit": [
 			{ "hooks": [
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" },
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" }
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
 			] }
 		],
 		"Stop": [
@@ -81,10 +81,6 @@ them by hand in `~/.codex/config.toml`:
     type = "command"
     command = "<path to this checkout>/hooks/load-rules.sh"
 
-    [[hooks.SessionStart.hooks]]
-    type = "command"
-    command = "<path to this checkout>/hooks/note-new-version.sh"
-
     [[hooks.UserPromptSubmit]]
     [[hooks.UserPromptSubmit.hooks]]
     type = "command"
@@ -93,6 +89,10 @@ them by hand in `~/.codex/config.toml`:
     [[hooks.UserPromptSubmit.hooks]]
     type = "command"
     command = "<path to this checkout>/hooks/replay-stop-notes.sh"
+
+    [[hooks.UserPromptSubmit.hooks]]
+    type = "command"
+    command = "<path to this checkout>/hooks/note-new-version.sh"
 
     [[hooks.Stop]]
     [[hooks.Stop.hooks]]
