@@ -155,6 +155,27 @@ assert "off carries neither the example nor the mark that dropped it" "$?" \
 printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp '^  1\. (❓ )?Question: \.\.\.\?$'
 assert "and the example under an untagged rule stays" "$?" "the queue has no layout to follow"
 
+printf "\nTest group: the first session on a machine starts with two queue items\n"
+
+fresh="$TMPDIR/fresh"
+first="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+second="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+
+printf '%s' "$first" | grep --quiet --fixed-strings 'try the settings skill'
+assert "the first run seeds the settings item" "$?" "a new install is told nothing"
+
+printf '%s' "$first" | grep --quiet --fixed-strings 'try the update skill'
+assert "and the update item" "$?" "a new install cannot find the update skill"
+
+printf '%s' "$second" | grep --quiet --fixed-strings 'try the settings skill'
+[ "$?" = "1" ]
+assert "the run after it seeds nothing" "$?" "every session pays for the demo"
+
+rm -f "$fresh/.unsolicited-text/state/onboarded"
+again="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$again" | grep --quiet --fixed-strings 'try the settings skill'
+assert "deleting the marker shows it again" "$?" "there is no way back to it"
+
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 
 off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
