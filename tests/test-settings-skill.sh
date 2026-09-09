@@ -79,8 +79,9 @@ printf "\nTest group: a change reaches the session that made it\n"
 RELOADING="$REPOSITORY/RELOADING.md"
 
 for skill in "$SKILL" "$UPDATE"; do
+  named="$(basename "$(dirname "$skill")")"
   grep --quiet --fixed-strings 'RELOADING.md' "$skill"
-  assert "$(basename "$(dirname "$skill")") points at the reloading page" "$?" \
+  assert "the $named skill points at the reloading page" "$?" \
     "the rules were printed at session start, and a change would wait for a restart"
 done
 
