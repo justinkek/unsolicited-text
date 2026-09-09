@@ -93,7 +93,7 @@ done
 
 printf "\nTest group: an unanswered question is carried in the queue\n"
 
-grep --quiet --fixed-strings 'stays listed in every reply until I answer it' "$RULES"
+grep --quiet --fixed-strings 'stays listed in every reply until I pick it up or answer it' "$RULES"
 assert "the rules carry an unanswered question forward" "$?" \
   "expected the carry-forward rule to state how long it stays listed, in $RULES"
 
