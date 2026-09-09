@@ -20,6 +20,7 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
 | `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
 | `UNSOLICITED_TEXT_BREADCRUMB`              | `off`                             |
+| `UNSOLICITED_TEXT_ONBOARDING`              | `on`                              |
 | `UNSOLICITED_TEXT_QUEUE_TREE`              | `on-switch-only`                  |
 
 Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
@@ -42,6 +43,12 @@ numbered list. It takes three values:
 Say when setting it that only the branch being worked is drawn in full, the rest
 carrying a count, and that an item is opened by naming it rather than by its
 number.
+
+`UNSOLICITED_TEXT_ONBOARDING` seeds the first session on a machine with two
+queue items, one for this skill and one for the update skill. Setting it to
+`off` seeds nothing. Say when setting it that the first session has already
+happened on a machine that has run one, so turning it back `on` changes
+nothing there.
 
 Setting `UNSOLICITED_TEXT_BREADCRUMB` to `on` opens every reply with the thread
 being worked on, `unsolicited-text › settings › breadcrumb`. Say when setting it

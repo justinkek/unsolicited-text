@@ -42,6 +42,18 @@ queue_tree() {
   setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only
 }
 
+onboarding() {
+  [ "$(setting_value UNSOLICITED_TEXT_ONBOARDING on)" = "on" ]
+}
+
+onboarding_is_done() {
+  local marker="$UNSOLICITED_TEXT_STATE/onboarded"
+  [ -f "$marker" ] && return 0
+  mkdir -p "$UNSOLICITED_TEXT_STATE" 2>/dev/null || return 0
+  : > "$marker" 2>/dev/null
+  return 1
+}
+
 queue_visible_items() {
   local value
   value="$(setting_value UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS "")"

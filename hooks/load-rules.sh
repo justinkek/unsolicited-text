@@ -56,3 +56,16 @@ sed "$rewrite" "$rules" | awk '
   dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
   { dropping = 0; print }
 '
+
+# The first session on a machine starts with two items, so the queue is worked
+# once before it holds anything that matters.
+if onboarding && ! onboarding_is_done; then
+  if queue_emoji; then
+    later="💤 Later:"
+  else
+    later="Later:"
+  fi
+  printf '\n## First session\n\nStart the queue with these two items:\n\n'
+  printf '1. %s try the settings skill - it changes any of these rules\n' "$later"
+  printf '2. %s try the update skill - it fetches a newer copy\n' "$later"
+fi
