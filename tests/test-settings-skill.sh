@@ -76,18 +76,28 @@ done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/I
 
 printf "\nTest group: a change reaches the session that made it\n"
 
-grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
-assert "the skill reprints the rules from the loader" "$?" \
-  "the rules were printed at session start, and a new ceiling would wait for a restart"
+RELOADING="$REPOSITORY/RELOADING.md"
 
-[ "$(grep --count --extended-regexp 'load-rules\.sh`|<that path>`' "$SKILL")" \
-  = "$(grep --count --extended-regexp "printf '\{\}' \|" "$SKILL")" ]
+for skill in "$SKILL" "$UPDATE"; do
+  grep --quiet --fixed-strings 'RELOADING.md' "$skill"
+  assert "$(basename "$(dirname "$skill")") points at the reloading page" "$?" \
+    "the rules were printed at session start, and a change would wait for a restart"
+done
+
+grep --quiet --fixed-strings 'load-rules.sh' "$RELOADING"
+assert "the page names the loader" "$?" "there is no script to run"
+
+[ "$(grep --count --fixed-strings 'load-rules.sh' "$RELOADING")" \
+  -ge "$(grep --count --extended-regexp "printf '\{\}' \|" "$RELOADING")" ]
 assert "and pipes a line into every command it gives" "$?" \
   "the script waits on standard input, so a command without the pipe hangs"
 
-grep --quiet --extended-regexp 'settings this harness reads|<that path>' "$SKILL"
-assert "and finds the path without naming one harness variable" "$?" \
-  "a hardcoded plugin root belongs to one harness and is empty in the others"
+while read -r harness; do
+  grep --quiet --fixed-strings "$harness" "$RELOADING"
+  assert "RELOADING.md says where the loader is on $harness" "$?" \
+    "$harness is installable from INSTALL.md and cannot reload its rules"
+done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
+  | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 
 printf "\nTest group: each skill has a menu entry that says the same thing\n"
 

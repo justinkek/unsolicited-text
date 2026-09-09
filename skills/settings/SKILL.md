@@ -59,13 +59,8 @@ The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules do not: they were printed at session start. Print them again from the
 same hook, and the session reads the new copy.
 
-- Installed by the cloud script: `printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
-- Installed any other way: read the session start hook's command out of the
-  settings this harness reads, and run that same script the same way:
-  `printf '{}' | <that path>`
-
-The script reads a line on standard input and prints nothing without one, so it
-waits forever if the pipe is left off. Nothing needs a restart.
+🔗 [RELOADING.md](../../RELOADING.md) carries the command and the path for
+every install route.
 
 ## Saying what is set
 

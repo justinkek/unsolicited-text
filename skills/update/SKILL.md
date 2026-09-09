@@ -18,9 +18,9 @@ that removes an install rather than moving it forward.
 
 ## Afterwards
 
-The session already running holds the old copy. Say that it takes a restart.
-On the cloud route, print the rules again from the session start hook instead:
-`printf '{}' | /opt/unsolicited-text/hooks/load-rules.sh`
+The session already running holds the old copy. Print the rules again, on every
+route: 🔗 [RELOADING.md](../../RELOADING.md) says where the script is for each
+one. Say that a restart is needed only where it cannot be found.
 
 If the version does not move, the marketplace snapshot is what is stale: the
 first of the two commands failed or was skipped.
