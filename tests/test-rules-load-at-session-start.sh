@@ -25,7 +25,7 @@ printed="$(printf '%s' "$payload" | bash "$LOADER" 2>/dev/null)"
 
 printf "Test group: the rules reach the session\n"
 
-for heading in "## Response Formatting" "## Plain English" "## Pre-send checklist" "## Reply shape"; do
+for heading in "## Response Formatting" "## Plain English" "## Pre-send checklist"; do
   printf '%s' "$printed" | grep --quiet --fixed-strings "$heading"
   assert "the loader prints $heading" "$?" "no such heading on stdout"
 done

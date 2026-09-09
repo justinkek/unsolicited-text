@@ -71,7 +71,7 @@
 - Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
 - Never put copy-paste-as-is text (commit messages, paths, commands) inside tables. Put each in its own fenced code block or inline code span.
-- Keep a reply to at most 8 non-blank lines of prose, and at most 120 words of it. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling the reply is refused and sent back to be rewritten - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
+- Keep a reply to at most 8 non-blank lines of prose, and at most 120 words of it. Fenced code blocks, table rows, dividers, the rows of a drawing, and the `[queue]` line with every item under it, do not count against it; every other non-blank line does. Past the ceiling a note reaches you at the next prompt - cut to what the reader needs in order to act and carry the rest into a follow-up. What needs my attention goes in the queue, which the ceiling does not count.
 
 ## Plain English
 
@@ -92,7 +92,3 @@ Before sending every response, silently verify:
 1. Delete any closing filler ("Let me know if...", "Hope this helps!", "Anything else?").
 2. Delete hedging adverbs that add no information ("basically", "essentially", "actually").
 3. Verify: if the reader reads only the first and last line, do they know what to do and what happened?
-
-## Reply shape
-
-`note-long-reply.sh` reads the line ceiling stated above. It does not refuse the reply. A refusal at turn end discards output the reader has already read, and the second attempt renders beside the first. It records what it found through `hook-stop-note-lib.sh`, and `replay-stop-notes.sh` prints it as the next prompt arrives and takes it away. A finding lands one turn after the reply it is about, and a session the user never writes to again never reads it.
