@@ -140,6 +140,21 @@ printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'Show every i
 [ "$?" = "1" ]
 assert "and the list rule is gone when it is always on" "$?" "a session is told to draw both"
 
+printf "\nTest group: a rule that goes takes the example written under it\n"
+
+for shape in always-on on-switch-only; do
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings '├── queue marks (3 pending)'
+  assert "$shape shows the drawing it asks for" "$?" "the tree is described and never shown"
+done
+
+printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp '├──|└──|@@drop@@'
+[ "$?" = "1" ]
+assert "off carries neither the example nor the mark that dropped it" "$?" \
+  "a session is handed rows of a drawing it will not draw"
+
+printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp '^  1\. (❓ )?Question: \.\.\.\?$'
+assert "and the example under an untagged rule stays" "$?" "the queue has no layout to follow"
+
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 
 off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
