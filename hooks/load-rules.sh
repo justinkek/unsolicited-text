@@ -46,8 +46,13 @@ for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr 
   if [ -n "$held" ]; then
     rewrite="$rewrite;s/ {$tag}//"
   else
-    rewrite="$rewrite;/{$tag}/d"
+    rewrite="$rewrite;/{$tag}/s/.*/@@drop@@/"
   fi
 done
 
-sed "$rewrite" "$rules"
+# A rule that goes takes the block written under it, the worked example among it.
+sed "$rewrite" "$rules" | awk '
+  /^@@drop@@$/ { dropping = 1; next }
+  dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
+  { dropping = 0; print }
+'
