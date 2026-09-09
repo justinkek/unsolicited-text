@@ -155,6 +155,18 @@ assert "off carries neither the example nor the mark that dropped it" "$?" \
 printf '%s' "$(shape_of off)" | grep --quiet --extended-regexp '^  1\. (❓ )?Question: \.\.\.\?$'
 assert "and the example under an untagged rule stays" "$?" "the queue has no layout to follow"
 
+printf "\nTest group: a reprint says it replaces what came before\n"
+
+printf '%s' "$printed" | grep --quiet --fixed-strings 'These rules replace any printed earlier'
+[ "$?" = "1" ]
+assert "the session start print claims nothing" "$?" "it supersedes rules nobody has read"
+
+reprinted="$(printf '{}' | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+printf '%s' "$reprinted" | grep --quiet --line-regexp --fixed-strings \
+  'These rules replace any printed earlier in this session.'
+assert "a hand run opens by superseding the earlier print" "$?" \
+  "a session holds both shapes and obeys both"
+
 printf "\nTest group: the first session on a machine starts with two queue items\n"
 
 fresh="$TMPDIR/fresh"

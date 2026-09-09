@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-cat >/dev/null
+# A hand run carries no event name, and nothing takes an earlier print back out
+# of the conversation.
+payload="$(cat)"
+case "$payload" in
+  *'"hook_event_name"'*) reprint="" ;;
+  *) reprint=1 ;;
+esac
 
 rules="$(dirname "$0")/../rules/reply-shape.md"
 [ -f "$rules" ] || exit 0
@@ -50,15 +56,14 @@ for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr 
   fi
 done
 
-# A rule that goes takes the block written under it, the worked example among it.
+[ -n "$reprint" ] && printf 'These rules replace any printed earlier in this session.\n\n'
+
 sed "$rewrite" "$rules" | awk '
   /^@@drop@@$/ { dropping = 1; next }
   dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
   { dropping = 0; print }
 '
 
-# The first session on a machine starts with two items, so the queue is worked
-# once before it holds anything that matters.
 if ! onboarding_is_done; then
   if queue_emoji; then
     later="💤 Later:"
