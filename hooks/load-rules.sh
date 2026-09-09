@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-cat >/dev/null
+# The harness names the event it fires for. A hand run carries no name, which
+# makes it a reprint: what a session already read has to be superseded, since
+# nothing can take it back out of the conversation.
+payload="$(cat)"
+case "$payload" in
+  *'"hook_event_name"'*) reprint="" ;;
+  *) reprint=1 ;;
+esac
 
 rules="$(dirname "$0")/../rules/reply-shape.md"
 [ -f "$rules" ] || exit 0
@@ -49,6 +56,8 @@ for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr 
     rewrite="$rewrite;/{$tag}/s/.*/@@drop@@/"
   fi
 done
+
+[ -n "$reprint" ] && printf 'These rules replace any printed earlier in this session.\n\n'
 
 # A rule that goes takes the block written under it, the worked example among it.
 sed "$rewrite" "$rules" | awk '

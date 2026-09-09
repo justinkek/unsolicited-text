@@ -33,8 +33,9 @@ trap 'rm -f "$printed"; rm -rf "$settled"' EXIT
 
 # The first run on a machine seeds the queue as well. The table counts what
 # every run after it costs, so seed one and measure the next.
-printf '{}' | env HOME="$settled" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
-printf '{}' | env HOME="$settled" bash "$REPOSITORY/hooks/load-rules.sh" > "$printed" 2>/dev/null
+start='{"hook_event_name":"SessionStart"}'
+printf '%s' "$start" | env HOME="$settled" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
+printf '%s' "$start" | env HOME="$settled" bash "$REPOSITORY/hooks/load-rules.sh" > "$printed" 2>/dev/null
 
 stated="$(with_separator "$(rounded_tokens "$printed")")"
 grep --quiet --extended-regexp "~$stated +\\|" "$README"
