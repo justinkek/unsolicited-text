@@ -12,7 +12,7 @@
   - `[answer]` - the direct answer to what was asked.
   - `[problem]` - the problem being addressed, as a single statement naming the root cause.
   - `[fix]` - the proposed or applied fix for a `[problem]` (use instead of `[answer]` in the bug-fix framing).
-  - `[queue]` - a numbered list of what is still open, held until I pick it up.
+  - `[queue]` - a numbered list of what is still open.
 - Always write the tag prefix as inline code (in backticks).
 - Use each tag only when it adds signal; never pad a reply with empty-slot tags or restate the same point under two tags.
 - Keep `[answer]` and `[problem]` each to a single statement; route any elaboration to `[queue]`, never into the `[answer]`/`[problem]` line itself.
@@ -42,7 +42,8 @@
 
 - Order the queue by what I pick up next. The item to pick up first comes first, a deferred item sinks below one that is not, and a branch sorts by the first item under it. The order is the pointer: nothing else says what comes next.
 - Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
-- A queue question blocks the action it gates until I answer it. Act on everything that does not depend on it. It stays listed in every reply until I answer it, and comes off the list the moment I do.
+- An item stays listed in every reply until I pick it up or answer it, and comes off the moment I do. I decide when that is.
+- A queue question blocks the action it gates. Act on everything that does not depend on it.
 - Draw the queue as a tree in every reply. {queue-tree=always-on}
 - Draw the queue as a list, and as a tree in the one reply that raises an item which neither serves nor closes the open thread. Go back to the list in the reply after that. {queue-tree=on-switch-only}
 - The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list: {queue-tree=always-on|on-switch-only}
@@ -66,7 +67,7 @@
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.
 - Lead with intent: state the question, problem, or answer first, then the supporting context - not the other way around.
 - Finish the current thread before raising a new one. If a tangent surfaces mid-response (a related bug, a refactor opportunity, a separate concern), complete the active issue first, then raise the tangent at the end under `[queue]` - never context-switch mid-flow.
-- Do not answer what I have deferred. When I mark something "for later", "not now" or "we'll come back to it", acknowledge it in a few words and leave it there - no analysis, no short answer, no restating it in other words. Carry it forward and list it under `[queue]` at the end of the reply. I decide when a queued item is picked up. An item stays listed every reply until I pick it up.
+- Do not answer what I have deferred. When I mark something "for later", "not now" or "we'll come back to it", acknowledge it in a few words and leave it there - no analysis, no short answer, no restating it in other words. Carry it forward and list it under `[queue]`.
 - Where there is a choice to make, write the options one per line, numbered, the one you recommend first and labelled "(Recommended)". A bare number from me answers it.
 - Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
