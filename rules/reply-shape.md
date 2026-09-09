@@ -18,13 +18,13 @@
 - Keep `[answer]` and `[problem]` each to a single statement; route any elaboration to `[queue]`, never into the `[answer]`/`[problem]` line itself.
 - Never write background I did not ask for. Offer it in one line and wait to be asked.
 - A completed directive is one untagged line saying what was done and where to look. Passing tests are not reported at all.
-- The queue holds five kinds of item and nothing else. It never holds an action of yours - do that instead of listing it.
+- The queue holds five kinds of item and nothing else. It never holds an action still yours to take - do that instead of listing it. Work of yours that is finished and waiting on me is mine, not yours, and it is listed.
 
   | Opens with | Holds |
   | --- | --- |
   | `❓ Question:` | anything I have to answer; the list number identifies it |
   | `🔍 Investigate:` | a cause behind a defect, or an open uncertainty either way |
-  | `🚦 Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped - `Reject` from me means that work is wrong and comes back |
+  | `🚦 Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped, and work of yours that is finished and waiting on my call - a pull request in review among it, listed from the reply that opens it until I merge or close it. `Reject` from me means that work is wrong and comes back |
   | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
   | `💤 Later:` | anything I deferred |
 
