@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# The harness names the event it fires for. A hand run carries no name, which
-# makes it a reprint: what a session already read has to be superseded, since
-# nothing can take it back out of the conversation.
+# A hand run carries no event name, and nothing takes an earlier print back out
+# of the conversation.
 payload="$(cat)"
 case "$payload" in
   *'"hook_event_name"'*) reprint="" ;;
@@ -59,15 +58,12 @@ done
 
 [ -n "$reprint" ] && printf 'These rules replace any printed earlier in this session.\n\n'
 
-# A rule that goes takes the block written under it, the worked example among it.
 sed "$rewrite" "$rules" | awk '
   /^@@drop@@$/ { dropping = 1; next }
   dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
   { dropping = 0; print }
 '
 
-# The first session on a machine starts with two items, so the queue is worked
-# once before it holds anything that matters.
 if ! onboarding_is_done; then
   if queue_emoji; then
     later="💤 Later:"
