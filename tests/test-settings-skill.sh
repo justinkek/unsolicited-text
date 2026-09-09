@@ -100,6 +100,17 @@ while read -r harness; do
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
 
+printf "\nTest group: a setting another one turns off says so\n"
+
+grep --quiet --fixed-strings 'n.a.' "$SKILL"
+assert "the skill has a value for a setting that does nothing" "$?" \
+  "a key reads as set while the setting above it makes it do nothing"
+
+for pair in UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL; do
+  grep --quiet --fixed-strings "$pair" "$SKILL"
+  assert "$pair is named as one of them" "$?" "the skill cannot say what turned it off"
+done
+
 printf "\nTest group: each skill has a menu entry that says the same thing\n"
 
 for skill in "$REPOSITORY"/skills/*/; do
