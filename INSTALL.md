@@ -34,10 +34,7 @@ The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
 
-Paste this once. It clones into a new directory and swaps it in only when the
-clone worked, so a failure leaves the checkout it had rather than half of a new
-one, and says so in the setup log. Everything it installs lives in the checkout,
-so a later version brings its own and this script never changes.
+Paste this once.
 
 ```bash
 #!/bin/bash
