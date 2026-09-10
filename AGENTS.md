@@ -26,7 +26,7 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | a setting, and its default | `hooks/hook-settings-lib.sh` |
 | what the settings skill tells the user | `skills/settings/SKILL.md` |
 | which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
-| how a route is installed | `INSTALL.md`, and `UNINSTALL.md` for taking it back off |
+| how each install method works | `INSTALL.md`, and `UNINSTALL.md` for taking it back off |
 
 Every setting is read through `setting_value`, takes the `UNSOLICITED_TEXT_`
 prefix, and is named in the settings skill. A test holds all three together.
