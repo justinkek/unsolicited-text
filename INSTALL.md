@@ -17,8 +17,9 @@ There are two ways to install it on cloud sessions:
 
 #### Every session
 
-1. Paste the "Cloud Session Install Script" (see below) into the Setup script field of your cloud environment.
-2. Start a new session. The environment runs the script before the session begins.
+1. Open 🔗 [claude.ai/code](https://claude.ai/code), open the environment settings, and find the Setup script field. 🔗 [The documentation](https://code.claude.com/docs/en/claude-code-on-the-web) says where it is if the page has moved since.
+2. Paste the "Cloud Session Install Script" (see below) into that field and save.
+3. Start a new session. The environment rebuilds and runs the script before the session begins.
 
 #### This session only
 
