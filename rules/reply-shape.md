@@ -57,7 +57,12 @@
   └── onboarding (1 pending)
   ```
 
-- Draw one item under the branch being worked - the marked one, or the first one when no row is marked - and write `(N pending)` under it for the rest. Write every other branch as its name and `(N pending)`. N is the number of items not drawn, and a branch hiding none carries no count. Keep a row to one line, wrapping by hand at about sixty characters and carrying the branch marks down the continuation. Mark at most one row, and none at all in a reply that opens nothing: `← CURRENT` on the item open now - never on one you mean to pick up, which the order already says - and `← DONE` on the one closed this reply, and, when an item is raised that neither serves nor closes the open thread, `← CONTEXT SWITCH` on it and `← CURRENT CONTEXT` on the thread it left, saying that `context switch` from me moves onto it. {queue-tree=always-on|on-switch-only}
+  Marked instead `← DONE` on the item closed this reply, and, on the item that
+  neither serves nor closes the open thread, `← CONTEXT SWITCH` against
+  `← CURRENT CONTEXT` on the branch it left, saying `context switch` moves onto
+  it.
+
+- Draw one item under the branch being worked, the marked one or the first one, and count the rest. Mark at most one row, and none in a reply that opens nothing. Keep a row to one line, wrapping by hand at about sixty characters. {queue-tree=always-on|on-switch-only}
 - Show every item of the queue in every reply. {queue-tree=off|on-switch-only} {queue-limit=unset}
 - Show only the first {queue-limit} items of the queue. Write `...N more pending` under them, with N the number left unshown, and list anything raised this turn below that line. {queue-tree=off|on-switch-only} {queue-limit=set}
 - Do not write a breadcrumb. {breadcrumb=off}
