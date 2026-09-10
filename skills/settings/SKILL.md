@@ -67,6 +67,19 @@ every install route.
 Name each key the file sets, and the default above for each key it does not.
 An empty value counts as unset.
 
+A key another setting has turned off keeps its value and says so in the
+parenthesis, naming the key and the value that turned it off:
+
+| Key | Value |
+| --- | --- |
+| `UNSOLICITED_TEXT_QUEUE_TREE` | `always-on` (set) |
+| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | `2` (set - n.a. because `UNSOLICITED_TEXT_QUEUE_TREE` is set to `always-on`) |
+
+Two pairs do this. `UNSOLICITED_TEXT_QUEUE_TREE = always-on` draws no list, so
+`UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` limits nothing.
+`UNSOLICITED_TEXT_UPDATE_CHECK = off` asks nothing, so
+`UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL` throttles nothing.
+
 ## What not to do
 
 Do not edit `rules/reply-shape.md` to change the ceiling. The session start hook rewrites
