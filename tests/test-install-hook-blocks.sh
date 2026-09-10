@@ -54,6 +54,27 @@ import json, sys
 raise SystemExit(0 if json.load(open(sys.argv[1])).get("hooks") else 1)' "$CLOUD"
 assert "and the settings it copies are readable JSON" "$?" "the block writes something a harness cannot read"
 
+printf "\nTest group: the pasted script hands the work to the checkout\n"
+
+INSTALLER="$REPOSITORY/harness-adapters/claude-code/install-cloud.sh"
+
+[ -x "$INSTALLER" ]
+assert "install-cloud.sh is there and runnable" "$?" "the pasted script would run nothing"
+
+printf '%s' "$script" | grep --quiet --fixed-strings 'install-cloud.sh'
+assert "the pasted script runs it" "$?" "it copies files itself, and a later version cannot change what is copied"
+
+bash -n "$INSTALLER"
+assert "and it parses as bash" "$?" "the setup script would fail on a fresh container"
+
+installed="$(mktemp -d)"
+HOME="$installed" bash "$INSTALLER" >/dev/null 2>&1
+for wanted in .claude/settings.json .claude/skills/settings/SKILL.md .claude/commands/unsolicited-text-update.md; do
+  [ -f "$installed/$wanted" ]
+  assert "it installs $wanted" "$?" "a cloud session would not have it"
+done
+rm -rf "$installed"
+
 printf "\nTest group: the page says what a reader has to know before running it\n"
 
 grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$INSTALL"
