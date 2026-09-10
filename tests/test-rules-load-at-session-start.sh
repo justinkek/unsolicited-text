@@ -180,13 +180,13 @@ assert "and the example under an untagged rule stays" "$?" "the queue has no lay
 
 printf "\nTest group: a reprint says it replaces what came before\n"
 
-printf '%s' "$printed" | grep --quiet --fixed-strings 'These rules replace any printed earlier'
+printf '%s' "$printed" | grep --quiet --fixed-strings 'These unsolicited-text rules replace the unsolicited-text rules printed earlier'
 [ "$?" = "1" ]
 assert "the session start print claims nothing" "$?" "it supersedes rules nobody has read"
 
 reprinted="$(printf '{}' | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
 printf '%s' "$reprinted" | grep --quiet --line-regexp --fixed-strings \
-  'These rules replace any printed earlier in this session.'
+  'These unsolicited-text rules replace the unsolicited-text rules printed earlier in this session, and nothing else.'
 assert "a hand run opens by superseding the earlier print" "$?" \
   "a session holds both shapes and obeys both"
 
