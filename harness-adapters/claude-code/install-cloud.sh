@@ -9,4 +9,7 @@ for command in "$checkout"/commands/*.md; do
   cp "$command" "$HOME/.claude/commands/unsolicited-text-$(basename "$command")"
 done
 
-cp "$checkout/harness-adapters/claude-code/cloud-settings.json" "$HOME/.claude/settings.json"
+"$checkout/harness-adapters/claude-code/merge-settings.sh" \
+  "$checkout/harness-adapters/claude-code/cloud-settings.json" \
+  "$HOME/.claude/settings.json" \
+  "$checkout"
