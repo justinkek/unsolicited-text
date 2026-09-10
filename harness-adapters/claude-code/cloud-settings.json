@@ -2,6 +2,7 @@
 	"hooks": {
 		"SessionStart": [
 			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" }
 			] }
 		],
