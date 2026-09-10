@@ -36,5 +36,5 @@ shown="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queue_tag"
 
 [ "$shown" -gt "$visible" ] || exit 0
 
-stop_note_record "$session_id" "[queue-shape] The last reply showed $shown queue items with $visible visible allowed. Show the first $visible, write \`...N more pending\` under them with N the number left unshown, and list anything raised this turn below that line."
+stop_note_record "$session_id" "[queue-shape] The last reply showed $shown queue items with $visible visible allowed. Show the first $visible and write \`...N more pending\` under them, N being every item below them."
 exit 0
