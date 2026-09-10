@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-# Adds this plugin's hook registrations to a settings file without taking away
-# what is already there. An entry belongs to this plugin when its command names
-# a file inside the checkout, and only those entries are replaced, so installing
-# twice registers each hook once.
-#
-#     merge-settings.sh <registrations> <settings> <checkout>
-
 registrations="$1"
 settings="$2"
 checkout="$3"
@@ -18,8 +11,6 @@ if ! command -v jq >/dev/null 2>&1; then
   exit 1
 fi
 
-# The registrations name the checkout a cloud session clones into. Point them at
-# the checkout this script is running from, so an install works from anywhere.
 rewrite=$(cat <<'JQ'
 def rewrite: walk(if type == "string" then split($stated) | join($checkout) else . end);
 JQ
@@ -49,12 +40,8 @@ if ! jq --exit-status 'type == "object"' "$settings" >/dev/null 2>&1; then
 fi
 
 merge=$(cat <<'JQ'
-# An entry this plugin registered, told apart from the ones anybody else
-# registered by the checkout its command sits in.
 def mine: (.command? // "") | startswith($checkout + "/");
 
-# Everything already registered for one event, minus this plugin's own entries,
-# minus any group those entries leave empty.
 def kept($event):
   [ (.hooks[$event] // [])[]
     | if type == "object"
