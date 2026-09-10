@@ -61,7 +61,7 @@
   `← CURRENT CONTEXT` on the branch it left, saying `context switch` moves onto
   it.
 
-- Draw one item under the branch being worked, the marked one or the first one, and count the rest - even when every one of them is waiting on me. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand. {queue-tree=always-on|on-switch-only}
+- Draw one item under the branch being worked, the marked one or the first one, and count the rest - the items not drawn, even when every one of them is waiting on me. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand. {queue-tree=always-on|on-switch-only}
 - Draw the queue as a list or as a tree, never both in one reply. The list holds every item. {queue-tree=off|on-switch-only} {queue-limit=unset}
 - Draw the queue as a list or as a tree, never both in one reply. The list holds the first {queue-limit} items, then `...N more pending` when any are hidden, N being every item below them. Write no such line when every item is shown. {queue-tree=off|on-switch-only} {queue-limit=set}
 - Do not write a breadcrumb. {breadcrumb=off}
