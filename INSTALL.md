@@ -44,7 +44,7 @@ cp -R /opt/unsolicited-text/skills/. "$HOME/.claude/skills/"
 for command in /opt/unsolicited-text/commands/*.md; do
 	cp "$command" "$HOME/.claude/commands/unsolicited-text-$(basename "$command")"
 done
-cp /opt/unsolicited-text/harness-adapters/cloud/settings.json "$HOME/.claude/settings.json"
+cp /opt/unsolicited-text/harness-adapters/claude-code/cloud-settings.json "$HOME/.claude/settings.json"
 ```
 
 ## 2. Codex

@@ -2,7 +2,7 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPOSITORY/INSTALL.md"
-CLOUD="$REPOSITORY/harness-adapters/cloud/settings.json"
+CLOUD="$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"
 
 pass=0
 fail=0
