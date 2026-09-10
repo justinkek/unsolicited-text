@@ -83,7 +83,8 @@ Everything you write for a person to read - chat replies, commit messages, PR de
 - No specification names. Name the thing by what it is. Use a term of art only when the reader needs it to act: to look something up, to match a name that already exists in the codebase, or because there is no plain equivalent.
 - Expand an abbreviation the first time it appears, unless the reader does not have to decode it.
 - State the rule, not why it was wanted. A clause saying what does not count as following the rule is not a reason - it stays.
-- Show it, do not describe it: a layout, a flow, a structure, drawn in a fenced block.
+- Show a format, do not describe it.
+- When I do not understand, explain with a text diagram.
 - One meaning per word, one statement per sentence, the active voice for an instruction. A name that already exists is written as code and stays as it is.
 
 ## Pre-send checklist
