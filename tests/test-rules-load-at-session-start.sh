@@ -113,15 +113,15 @@ rm -f "$home/config"
 printf "\nTest group: the rules carry the visible limit that is set\n"
 
 unlimited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
-printf '%s' "$unlimited" | grep --quiet --fixed-strings 'Show every item of the queue'
+printf '%s' "$unlimited" | grep --quiet --fixed-strings 'The list holds every item'
 assert "unset tells the reader to show every item" "$?" "the rules say otherwise"
 
 limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
   UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS=2 bash "$LOADER" 2>/dev/null)"
-printf '%s' "$limited" | grep --quiet --fixed-strings 'Show only the first 2 items of the queue'
+printf '%s' "$limited" | grep --quiet --fixed-strings 'The list holds the first 2 items'
 assert "a limit of 2 reaches the rules as 2" "$?" "the rules do not name it"
 
-printf '%s' "$limited" | grep --quiet --fixed-strings 'Show every item of the queue'
+printf '%s' "$limited" | grep --quiet --fixed-strings 'The list holds every item'
 [ "$?" = "1" ]
 assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
 
@@ -148,7 +148,7 @@ for shape in "" on-switch-only; do
   printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'The tree is drawn inside a fenced block'
   assert "${shape:-unset} carries the drawing it switches to" "$?" "the tree has no description to follow"
 
-  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Show every item of the queue'
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'never both in one reply'
   assert "${shape:-unset} keeps the list rule" "$?" "the shape it goes back to is undescribed"
 done
 
@@ -159,7 +159,7 @@ assert "off never mentions a tree" "$?" "a session is told about one it will not
 printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'Draw the queue as a tree in every reply'
 assert "always-on draws it every reply" "$?" "the rules do not say so"
 
-printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'Show every item of the queue'
+printf '%s' "$(shape_of always-on)" | grep --quiet --fixed-strings 'never both in one reply'
 [ "$?" = "1" ]
 assert "and the list rule is gone when it is always on" "$?" "a session is told to draw both"
 
