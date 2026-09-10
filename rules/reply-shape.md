@@ -63,7 +63,7 @@
 
 - Draw one item under the branch being worked, the marked one or the first one, and count the rest. Mark at most one row, and none in a reply that opens nothing. Keep a row to one line, wrapping by hand at about sixty characters. {queue-tree=always-on|on-switch-only}
 - Draw the queue as a list or as a tree, never both in one reply. The list holds every item. {queue-tree=off|on-switch-only} {queue-limit=unset}
-- Draw the queue as a list or as a tree, never both in one reply. The list holds the first {queue-limit} items, then `...N more pending`, with N every item below them - one raised this turn among them. {queue-tree=off|on-switch-only} {queue-limit=set}
+- Draw the queue as a list or as a tree, never both in one reply. The list holds the first {queue-limit} items, then `...N more pending` when any are hidden, N being every item below them. Write no such line when none are. {queue-tree=off|on-switch-only} {queue-limit=set}
 - Do not write a breadcrumb. {breadcrumb=off}
 - Open every reply with the thread you are on, as its own first line: `unsolicited-text › settings › breadcrumb`. Keep the root and the last two levels, write `…` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open. {breadcrumb=on}
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
