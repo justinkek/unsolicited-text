@@ -84,6 +84,7 @@ Everything you write for a person to read - chat replies, commit messages, PR de
 - Expand an abbreviation the first time it appears, unless the reader does not have to decode it.
 - State the rule, not why it was wanted. A clause saying what does not count as following the rule is not a reason - it stays.
 - Show a format, do not describe it.
+- Draw a flow, do not describe it: when I say I am confused, or when the answer is what runs in what order, draw it in a fenced block as steps and arrows, each step naming what it reads or writes.
 - One meaning per word, one statement per sentence, the active voice for an instruction. A name that already exists is written as code and stays as it is.
 
 ## Pre-send checklist
