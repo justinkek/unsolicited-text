@@ -4,6 +4,8 @@ cat >/dev/null
 
 . "$(dirname "$0")/hook-settings-lib.sh"
 
+apply_migrations
+
 notice="$UNSOLICITED_TEXT_STATE/new-version"
 checked="$UNSOLICITED_TEXT_STATE/version-checked"
 
