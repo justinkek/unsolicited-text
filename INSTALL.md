@@ -107,6 +107,19 @@ them by hand in `~/.codex/config.toml`:
 
     pi install git:github.com/justinkek/unsolicited-text
 
+## A harness that runs no hooks
+
+The chat interface at claude.ai is one: a skill installs and appears, and no
+session start, prompt or turn end runs a script. Everything this plugin does
+comes from `hooks/`, so none of it happens there. The settings and update
+skills still appear, and they change and fetch what is not running.
+
+What works instead is the harness's own way of holding text across a
+conversation - user preferences, or a custom style. Paste
+`rules/reply-shape.md` into one of those and the replies take their shape from
+it. What you lose is the note at the end of a long turn, which is what catches
+drift over a long conversation.
+
 ## Updating
 
 For updating, see 🔗 [the update instructions](UPDATING.md).
