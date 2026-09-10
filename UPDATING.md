@@ -1,6 +1,6 @@
 # Updating unsolicited-text
 
-The route you installed by is the route you update by.
+You update the way you installed.
 
 ## 1. Claude Code, ZCode
 

@@ -36,7 +36,7 @@ The rules do not: they were printed at session start. Print them again from the
 same hook, and the session reads the new copy.
 
 🔗 [RELOADING.md](../../RELOADING.md) carries the command and the path for
-every install route.
+every install method.
 
 ## Saying what is set
 
