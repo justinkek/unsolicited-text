@@ -23,10 +23,10 @@ lost_status_in() {
 report() {
   local label="$1" hits="$2"
   if [ -z "$hits" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s\n" "$label"
+    printf "  FAIL  %s\n" "$label"
     printf '%s\n' "$hits" | sed 's/^/        /'
     fail=$((fail + 1))
   fi
@@ -51,10 +51,10 @@ printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' "$label$status \"detail\"" > "
 [ -n "$(lost_status_in "$planted")" ]
 outcome="$?"
 if [ "$outcome" = "0" ]; then
-  printf "  OK  a planted one is refused\n"
+  printf "  PASS  a planted one is refused\n"
   pass=$((pass + 1))
 else
-  printf "  KO  a planted one is refused — the check saw nothing wrong with it\n"
+  printf "  FAIL  a planted one is refused — the check saw nothing wrong with it\n"
   fail=$((fail + 1))
 fi
 
@@ -62,10 +62,10 @@ printf '%s\n' '#!/usr/bin/env bash' '[ 1 -eq 2 ]' "assert \"label\" $status \"de
 [ -z "$(lost_status_in "$planted")" ]
 outcome="$?"
 if [ "$outcome" = "0" ]; then
-  printf "  OK  and a substitution standing after it is left alone\n"
+  printf "  PASS  and a substitution standing after it is left alone\n"
   pass=$((pass + 1))
 else
-  printf "  KO  and a substitution standing after it is left alone — it was refused too\n"
+  printf "  FAIL  and a substitution standing after it is left alone — it was refused too\n"
   fail=$((fail + 1))
 fi
 

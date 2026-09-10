@@ -8,10 +8,10 @@ failures=""
 for test in "$tests_directory"/test-*.sh; do
   name="$(basename "$test")"
   if output="$(bash "$test" 2>&1)"; then
-    printf "OK  %s\n" "$name"
+    printf "PASS  %s\n" "$name"
     pass=$((pass + 1))
   else
-    printf "KO  %s\n" "$name"
+    printf "FAIL  %s\n" "$name"
     fail=$((fail + 1))
     failures="$failures--- $name"$'\n'"$output"$'\n\n'
   fi

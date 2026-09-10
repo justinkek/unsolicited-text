@@ -12,10 +12,10 @@ ABBREVIATIONS='BR|TR|CR'
 report() {
   local label="$1" hits="$2"
   if [ -z "$hits" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s\n" "$label"
+    printf "  FAIL  %s\n" "$label"
     printf '%s\n' "$hits" | sed 's/^/        /'
     fail=$((fail + 1))
   fi

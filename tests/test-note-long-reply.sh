@@ -43,10 +43,10 @@ run_hook() {
 assert_records() {
   local label="$1" note="$2"
   if [ -n "$note" ] && [ "${note#THE REPLY WAS DISCARDED}" = "$note" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — expected a recorded note, got '%s'\n" "$label" "$note"
+    printf "  FAIL  %s — expected a recorded note, got '%s'\n" "$label" "$note"
     fail=$((fail + 1))
   fi
 }
@@ -54,10 +54,10 @@ assert_records() {
 assert_silent() {
   local label="$1" note="$2"
   if [ -z "$note" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — expected nothing recorded, got '%s'\n" "$label" "$note"
+    printf "  FAIL  %s — expected nothing recorded, got '%s'\n" "$label" "$note"
     fail=$((fail + 1))
   fi
 }
@@ -65,10 +65,10 @@ assert_silent() {
 assert_names_the_queue() {
   local label="$1" note="$2"
   if printf '%s' "$note" | grep --quiet --fixed-strings "$queue_tag"; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — the note never names the queue: '%s'\n" "$label" "$note"
+    printf "  FAIL  %s — the note never names the queue: '%s'\n" "$label" "$note"
     fail=$((fail + 1))
   fi
 }
@@ -118,10 +118,10 @@ printf "\nTest group: the reply is never discarded\n"
 
 discarded="$(printf '%s' "$(run_hook "$(prose_of 40)")" | grep --count 'THE REPLY WAS DISCARDED')"
 if [ "$discarded" = "0" ]; then
-  printf "  OK  %s\n" "the hook sends nothing back over the ceiling"
+  printf "  PASS  %s\n" "the hook sends nothing back over the ceiling"
   pass=$((pass + 1))
 else
-  printf "  KO  %s\n" "the hook still discards the reply over the ceiling"
+  printf "  FAIL  %s\n" "the hook still discards the reply over the ceiling"
   fail=$((fail + 1))
 fi
 
