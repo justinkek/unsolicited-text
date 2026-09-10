@@ -50,7 +50,7 @@
   ```
   unsolicited-text
   ├── drawing the tree
-  │   ├── 🔍 A leaf runs off the side of a phone  ← CURRENT
+  │   ├── 🔍 Investigate: a leaf runs off the side of a phone  ← CURRENT
   │   └── (2 pending)
   ├── queue marks (3 pending)
   └── onboarding (1 pending)
