@@ -32,20 +32,15 @@ The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
 
-Paste this once. The hooks it registers live in the checkout, so a later
-version brings its own registrations and this script never changes.
+Paste this once. Everything it installs lives in the checkout, so a later
+version brings its own, and this script never changes.
 
 ```bash
 #!/bin/bash
 git -C /opt/unsolicited-text pull --quiet \
 	|| git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text \
 	|| true
-mkdir -p "$HOME/.claude/skills" "$HOME/.claude/commands"
-cp -R /opt/unsolicited-text/skills/. "$HOME/.claude/skills/"
-for command in /opt/unsolicited-text/commands/*.md; do
-	cp "$command" "$HOME/.claude/commands/unsolicited-text-$(basename "$command")"
-done
-cp /opt/unsolicited-text/harness-adapters/claude-code/cloud-settings.json "$HOME/.claude/settings.json"
+/opt/unsolicited-text/harness-adapters/claude-code/install-cloud.sh || true
 ```
 
 ## 2. Codex
