@@ -74,6 +74,28 @@ session >/dev/null
 [ -z "$(rm -f "$STATE/version-checked"; session)" ]
 assert "an older one says nothing either" "$?" "it offered a downgrade"
 
+printf "\nTest group: an interval in seconds becomes one in days\n"
+
+renamed="$(mktemp -d)"
+mkdir -p "$renamed/.unsolicited-text"
+printf 'UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL = 172800\n' > "$renamed/.unsolicited-text/settings"
+printf '{}' | env HOME="$renamed" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
+
+grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 2' \
+  "$renamed/.unsolicited-text/settings"
+assert "two days of seconds is rewritten as two days" "$?" \
+  "the old key is left behind and the setting stops holding"
+
+printf 'UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL = 600\n' > "$renamed/.unsolicited-text/settings"
+rm -f "$renamed/.unsolicited-text/state/applied-version"
+printf '{}' | env HOME="$renamed" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
+
+grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 1' \
+  "$renamed/.unsolicited-text/settings"
+assert "anything under a day becomes one day" "$?" "a fraction of a day rounds to no check at all"
+
+rm -rf "$renamed"
+
 printf "\nTest group: the check runs where a long session reaches it\n"
 
 for manifest in "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/harness-adapters/codex/hooks.json"; do

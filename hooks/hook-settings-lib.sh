@@ -93,6 +93,19 @@ migrate_settings_from_0_1_4() {
   return 0
 }
 
+migrate_check_interval_from_0_1_38() {
+  local seconds days
+  [ -f "$UNSOLICITED_TEXT_SETTINGS" ] || return 0
+  seconds="$(settings_file_value UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL)" || return 0
+  case "$seconds" in '' | *[!0-9]*) return 0 ;; esac
+  days="$(( (seconds + 86399) / 86400 ))"
+  [ "$days" -lt 1 ] && days=1
+  sed "s/^[[:space:]]*UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL[[:space:]]*=.*/UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = $days/" \
+    "$UNSOLICITED_TEXT_SETTINGS" > "$UNSOLICITED_TEXT_SETTINGS.renamed" \
+    && mv "$UNSOLICITED_TEXT_SETTINGS.renamed" "$UNSOLICITED_TEXT_SETTINGS"
+  return 0
+}
+
 apply_migrations() {
   local applied="" installed marker="$UNSOLICITED_TEXT_STATE/applied-version"
   [ -f "$marker" ] && read -r applied < "$marker"
@@ -101,6 +114,7 @@ apply_migrations() {
 
   migrate_notes_from_0_1_2
   migrate_settings_from_0_1_4
+  migrate_check_interval_from_0_1_38
 
   mkdir -p "$UNSOLICITED_TEXT_STATE" 2>/dev/null || return 0
   printf '%s\n' "$installed" > "$marker" 2>/dev/null
