@@ -5,6 +5,10 @@
 				"hooks": [
 					{
 						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/apply-migrations.sh"
+					},
+					{
+						"type": "command",
 						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh"
 					}
 				]
@@ -13,6 +17,10 @@
 		"UserPromptSubmit": [
 			{
 				"hooks": [
+					{
+						"type": "command",
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/apply-migrations.sh"
+					},
 					{
 						"type": "command",
 						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/remind-response-length.sh"

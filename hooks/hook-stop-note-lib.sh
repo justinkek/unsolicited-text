@@ -2,7 +2,6 @@
 
 . "$(dirname "${BASH_SOURCE[0]}")/hook-settings-lib.sh"
 
-apply_migrations
 
 UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$(setting_value UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY "$UNSOLICITED_TEXT_STATE/notes")"
 
