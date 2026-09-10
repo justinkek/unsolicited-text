@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Copies this checkout into the places a cloud session reads. The setup script
-# pasted into a cloud environment clones and runs this, so what it copies can
-# change without that script changing.
-
 checkout="$(cd "$(dirname "$0")/../.." && pwd)"
 
 mkdir -p "$HOME/.claude/skills" "$HOME/.claude/commands"
