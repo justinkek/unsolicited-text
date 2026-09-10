@@ -4,8 +4,6 @@ cat >/dev/null
 
 . "$(dirname "$0")/hook-settings-lib.sh"
 
-apply_migrations
-
 notice="$UNSOLICITED_TEXT_STATE/new-version"
 checked="$UNSOLICITED_TEXT_STATE/version-checked"
 
@@ -17,7 +15,7 @@ fi
 [ "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK on)" = "on" ] || exit 0
 command -v curl >/dev/null 2>&1 || exit 0
 
-interval="$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL 86400)"
+interval="$(( $(setting_value UNSOLICITED_TEXT_UPDATE_CHECK_DAYS 1) * 86400 ))"
 now="$(date +%s)"
 [ -f "$checked" ] && [ "$((now - $(cat "$checked")))" -lt "$interval" ] && exit 0
 

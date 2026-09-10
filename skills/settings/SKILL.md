@@ -15,7 +15,7 @@ the last assignment of a key is the one that counts.
 | `UNSOLICITED_TEXT_PROSE_WORD_CEILING` | `120` | the most words of prose a reply may hold |
 | `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` | where a turn's notes are written |
 | `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` | asks once a day whether a newer version is out |
-| `UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL` | `86400` | seconds between those asks |
+| `UNSOLICITED_TEXT_UPDATE_CHECK_DAYS` | `1` | days between those asks |
 | `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown | shows only that many items, with a count of the rest. Say that an item out of sight may not come back, and that `0` shows the count alone |
 | `UNSOLICITED_TEXT_QUEUE_EMOJI` | `off` | `on` opens each item with an emoji as well as its word. Say that a terminal with no emoji font shows a box instead |
 | `UNSOLICITED_TEXT_BREADCRUMB` | `off` | `on` opens every reply with the thread being worked on, `unsolicited-text › settings › breadcrumb`. Say that a session with one thread open shows nothing |
@@ -54,7 +54,7 @@ parenthesis, naming the key and the value that turned it off:
 Two pairs do this. `UNSOLICITED_TEXT_QUEUE_TREE = always-on` draws no list, so
 `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` limits nothing.
 `UNSOLICITED_TEXT_UPDATE_CHECK = off` asks nothing, so
-`UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL` throttles nothing.
+`UNSOLICITED_TEXT_UPDATE_CHECK_DAYS` throttles nothing.
 
 ## What not to do
 

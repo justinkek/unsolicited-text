@@ -106,7 +106,7 @@ grep --quiet --fixed-strings 'n.a.' "$SKILL"
 assert "the skill has a value for a setting that does nothing" "$?" \
   "a key reads as set while the setting above it makes it do nothing"
 
-for pair in UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL; do
+for pair in UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS UNSOLICITED_TEXT_UPDATE_CHECK_DAYS; do
   grep --quiet --fixed-strings "$pair" "$SKILL"
   assert "$pair is named as one of them" "$?" "the skill cannot say what turned it off"
 done
