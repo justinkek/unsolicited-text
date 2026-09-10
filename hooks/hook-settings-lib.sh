@@ -76,8 +76,6 @@ installed_version() {
   return 1
 }
 
-# Every migration is written to be safe to run twice, and they run in the order
-# they were added.
 migrate_notes_from_0_1_2() {
   local superseded="$HOME/.local/state/unsolicited-text"
   [ -d "$superseded" ] || return 0
