@@ -55,7 +55,7 @@ for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr 
   fi
 done
 
-[ -n "$reprint" ] && printf 'These rules replace any printed earlier in this session.\n\n'
+[ -n "$reprint" ] && printf 'These unsolicited-text rules replace the unsolicited-text rules printed earlier in this session, and nothing else.\n\n'
 
 sed "$rewrite" "$rules" | awk '
   /^@@drop@@$/ { dropping = 1; next }

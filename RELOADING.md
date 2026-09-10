@@ -8,7 +8,7 @@ again, from the same script:
 
 The script reads a line on standard input and prints nothing without one, so it
 waits forever if the pipe is left off. The print opens by saying it replaces the
-rules the session already read.
+unsolicited-text rules the session already read, and nothing else.
 
 ## Where the script is, by install method
 
