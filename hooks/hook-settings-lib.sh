@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+UNSOLICITED_TEXT_LIB="$(dirname "${BASH_SOURCE[0]}")"
 UNSOLICITED_TEXT_HOME="${UNSOLICITED_TEXT_HOME:-$HOME/.unsolicited-text}"
 UNSOLICITED_TEXT_SETTINGS="$UNSOLICITED_TEXT_HOME/settings"
 UNSOLICITED_TEXT_STATE="$UNSOLICITED_TEXT_HOME/state"
@@ -59,7 +60,23 @@ queue_visible_items() {
   printf '%s' "$value"
 }
 
-discard_notes_from_before_v_0_1_2() {
+installed_version() {
+  local line
+  while read -r line; do
+    case "$line" in
+      *'"version"'*)
+        line="${line#*\"version\"}"
+        line="${line#*:}"
+        line="${line#*\"}"
+        printf '%s' "${line%%\"*}"
+        return 0
+        ;;
+    esac
+  done < "$UNSOLICITED_TEXT_LIB/../package.json"
+  return 1
+}
+
+migrate_notes_from_0_1_2() {
   local superseded="$HOME/.local/state/unsolicited-text"
   [ -d "$superseded" ] || return 0
   rm -f "$superseded/notes"/*.stop-notes
@@ -68,10 +85,24 @@ discard_notes_from_before_v_0_1_2() {
   return 0
 }
 
-move_settings_from_before_v_0_1_4() {
+migrate_settings_from_0_1_4() {
   local superseded="$UNSOLICITED_TEXT_HOME/config"
   [ -f "$superseded" ] || return 0
   [ -f "$UNSOLICITED_TEXT_SETTINGS" ] && return 0
   mv "$superseded" "$UNSOLICITED_TEXT_SETTINGS"
+  return 0
+}
+
+apply_migrations() {
+  local applied="" installed marker="$UNSOLICITED_TEXT_STATE/applied-version"
+  [ -f "$marker" ] && read -r applied < "$marker"
+  installed="$(installed_version)" || return 0
+  [ "$applied" = "$installed" ] && return 0
+
+  migrate_notes_from_0_1_2
+  migrate_settings_from_0_1_4
+
+  mkdir -p "$UNSOLICITED_TEXT_STATE" 2>/dev/null || return 0
+  printf '%s\n' "$installed" > "$marker" 2>/dev/null
   return 0
 }
