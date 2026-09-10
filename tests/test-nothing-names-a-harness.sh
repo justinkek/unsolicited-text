@@ -10,10 +10,10 @@ HARNESSES='claude|codex|zcode|pi'
 report() {
   local label="$1" hits="$2"
   if [ -z "$hits" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s\n" "$label"
+    printf "  FAIL  %s\n" "$label"
     printf '%s\n' "$hits" | sed 's/^/        /'
     fail=$((fail + 1))
   fi
@@ -39,10 +39,10 @@ while read -r harness; do
 done < <(printf '%s\n' claude codex pi)
 [ "$named" -eq 3 ]
 if [ "$?" = "0" ]; then
-  printf "  OK  UPDATING.md names all three\n"
+  printf "  PASS  UPDATING.md names all three\n"
   pass=$((pass + 1))
 else
-  printf "  KO  UPDATING.md names %s of the three harnesses\n" "$named"
+  printf "  FAIL  UPDATING.md names %s of the three harnesses\n" "$named"
   fail=$((fail + 1))
 fi
 

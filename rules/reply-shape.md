@@ -68,7 +68,7 @@
 - Do not write a breadcrumb. {breadcrumb=off}
 - Open every reply with the thread you are on, as its own first line: `unsolicited-text › settings › breadcrumb`. Keep the root and the last two levels, write `…` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open. {breadcrumb=on}
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
-- For pass or fail, write `OK` and `KO`, and never a synonym of either in the same reply.
+- For pass or fail, write `PASS` and `FAIL`, and never a synonym of either in the same reply.
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.
 - Lead with intent: state the question, problem, or answer first, then the supporting context - not the other way around.
 - Finish the thread you are on before raising another. A tangent goes under `[queue]` at the end of the reply.
