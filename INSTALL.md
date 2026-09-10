@@ -46,13 +46,11 @@ cat > "$HOME/.claude/settings.json" <<'SETTINGS'
 	"hooks": {
 		"SessionStart": [
 			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/apply-migrations.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" }
 			] }
 		],
 		"UserPromptSubmit": [
 			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/apply-migrations.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
@@ -81,17 +79,9 @@ them by hand in `~/.codex/config.toml`:
     [[hooks.SessionStart]]
     [[hooks.SessionStart.hooks]]
     type = "command"
-    command = "<path to this checkout>/hooks/apply-migrations.sh"
-
-    [[hooks.SessionStart.hooks]]
-    type = "command"
     command = "<path to this checkout>/hooks/load-rules.sh"
 
     [[hooks.UserPromptSubmit]]
-    [[hooks.UserPromptSubmit.hooks]]
-    type = "command"
-    command = "<path to this checkout>/hooks/apply-migrations.sh"
-
     [[hooks.UserPromptSubmit.hooks]]
     type = "command"
     command = "<path to this checkout>/hooks/remind-response-length.sh"

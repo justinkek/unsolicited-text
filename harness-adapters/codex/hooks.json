@@ -5,10 +5,6 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/apply-migrations.sh"
-					},
-					{
-						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/load-rules.sh"
 					}
 				]
@@ -17,10 +13,6 @@
 		"UserPromptSubmit": [
 			{
 				"hooks": [
-					{
-						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/apply-migrations.sh"
-					},
 					{
 						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/remind-response-length.sh"

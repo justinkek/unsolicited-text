@@ -13,6 +13,7 @@ rules="$(dirname "$0")/../rules/reply-shape.md"
 
 . "$(dirname "$0")/hook-settings-lib.sh"
 
+apply_migrations
 
 rewrite="s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/"
 rewrite="$rewrite;s/at most [0-9][0-9]* words of it/at most $(prose_word_ceiling) words of it/"

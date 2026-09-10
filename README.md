@@ -160,7 +160,6 @@ Or 🔗 [check the installation instructions](INSTALL.md).
 
 | File                              | When it runs  | What it does                                                             | Tokens                                   |
 | --------------------------------- | ------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
-| `hooks/apply-migrations.sh`     | session start, every prompt | carries state written by an earlier version forward, once per version | none, it prints nothing into the session |
 | `hooks/load-rules.sh`         | session start | prints `rules/reply-shape.md` into the session                                      | ~2,100                                   |
 | `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                                          | ~50                                      |
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
