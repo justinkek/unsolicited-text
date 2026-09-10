@@ -21,6 +21,8 @@ There are two ways to install it on cloud sessions:
 2. Paste the "Cloud Session Install Script" (see below) into that field and save.
 3. Start a new session. The environment rebuilds and runs the script before the session begins.
 
+A cloud environment runs that script once and reuses the filesystem it made, so a session weeks later starts from that same copy. Every session start therefore refreshes the checkout from the published version before the rules are printed, and says so when it moves.
+
 #### This session only
 
 1. Set your permission mode to accept edits, or the auto-permissions classifier refuses the write.
@@ -32,14 +34,20 @@ The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
 
-Paste this once. Everything it installs lives in the checkout, so a later
-version brings its own, and this script never changes.
+Paste this once. It clones into a new directory and swaps it in only when the
+clone worked, so a failure leaves the checkout it had rather than half of a new
+one, and says so in the setup log. Everything it installs lives in the checkout,
+so a later version brings its own and this script never changes.
 
 ```bash
 #!/bin/bash
-git -C /opt/unsolicited-text pull --quiet \
-	|| git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text \
-	|| true
+if git clone --depth 1 https://github.com/justinkek/unsolicited-text /opt/unsolicited-text.new; then
+	rm -rf /opt/unsolicited-text
+	mv /opt/unsolicited-text.new /opt/unsolicited-text
+else
+	echo "unsolicited-text: the clone failed, keeping whatever was already there" >&2
+	rm -rf /opt/unsolicited-text.new
+fi
 /opt/unsolicited-text/harness-adapters/claude-code/install-cloud.sh || true
 ```
 
