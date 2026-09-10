@@ -11,10 +11,10 @@ fail=0
 assert_equal() {
   local label="$1" got="$2" want="$3"
   if [ "$got" = "$want" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — expected '%s', got '%s'\n" "$label" "$want" "$got"
+    printf "  FAIL  %s — expected '%s', got '%s'\n" "$label" "$want" "$got"
     fail=$((fail + 1))
   fi
 }

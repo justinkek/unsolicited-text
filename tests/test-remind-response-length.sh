@@ -10,10 +10,10 @@ fail=0
 assert_fires() {
   local label="$1" output="$2"
   if printf '%s' "$output" | grep -qF "[response-length]"; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — expected the ceiling, got '%s'\n" "$label" "$output"
+    printf "  FAIL  %s — expected the ceiling, got '%s'\n" "$label" "$output"
     fail=$((fail + 1))
   fi
 }
@@ -39,10 +39,10 @@ printf "\nTest group: carries the clauses the always-loaded rules no longer stat
 assert_carries() {
   local label="$1" clause="$2"
   if run_hook "$SESSION" 'add a rule' | grep --quiet --fixed-strings -- "$clause"; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — the reminder does not state '%s'\n" "$label" "$clause"
+    printf "  FAIL  %s — the reminder does not state '%s'\n" "$label" "$clause"
     fail=$((fail + 1))
   fi
 }
@@ -60,10 +60,10 @@ printf "\nTest group: emits exactly one line\n"
 
 lines="$(run_hook "$SESSION" 'add a rule' | wc -l | tr -d ' ')"
 if [ "$lines" = "1" ]; then
-  printf "  OK  single line of output\n"
+  printf "  PASS  single line of output\n"
   pass=$((pass + 1))
 else
-  printf "  KO  single line of output — got %s lines\n" "$lines"
+  printf "  FAIL  single line of output — got %s lines\n" "$lines"
   fail=$((fail + 1))
 fi
 

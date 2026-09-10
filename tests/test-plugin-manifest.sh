@@ -9,10 +9,10 @@ fail=0
 assert() {
   local label="$1" outcome="$2" detail="$3"
   if [ "$outcome" = "0" ]; then
-    printf "  OK  %s\n" "$label"
+    printf "  PASS  %s\n" "$label"
     pass=$((pass + 1))
   else
-    printf "  KO  %s — %s\n" "$label" "$detail"
+    printf "  FAIL  %s — %s\n" "$label" "$detail"
     fail=$((fail + 1))
   fi
 }
