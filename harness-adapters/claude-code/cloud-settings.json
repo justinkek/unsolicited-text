@@ -1,0 +1,22 @@
+{
+	"hooks": {
+		"SessionStart": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" }
+			] }
+		],
+		"UserPromptSubmit": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
+			] }
+		],
+		"Stop": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-reply.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-queue.sh" }
+			] }
+		]
+	}
+}

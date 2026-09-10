@@ -98,7 +98,8 @@ rm -rf "$renamed"
 
 printf "\nTest group: the check runs where a long session reaches it\n"
 
-for manifest in "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/harness-adapters/codex/hooks.json"; do
+for manifest in "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/harness-adapters/codex/hooks.json" \
+  "$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"; do
   named="$(basename "$(dirname "$manifest")")"
 
   python3 - "$manifest" <<'CHECK'

@@ -2,6 +2,7 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPOSITORY/INSTALL.md"
+CLOUD="$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"
 
 pass=0
 fail=0
@@ -24,9 +25,9 @@ while read -r script; do
   [ -n "$script" ] || continue
   registered=$((registered + 1))
 
-  grep --quiet --fixed-strings "/opt/unsolicited-text/hooks/$script" "$INSTALL"
-  assert "the setup script names $script" "$?" \
-    "hooks.json registers it and a container set up from $INSTALL would not run it"
+  grep --quiet --fixed-strings "/opt/unsolicited-text/hooks/$script" "$CLOUD"
+  assert "the cloud settings name $script" "$?" \
+    "hooks.json registers it and a cloud session would not run it"
 
   grep --quiet --fixed-strings "<path to this checkout>/hooks/$script" "$INSTALL"
   assert "the codex block names $script" "$?" \
@@ -48,11 +49,10 @@ printf '%s' "$script" | grep --quiet --fixed-strings '|| true'
 assert "a failed clone does not stop the session starting" "$?" \
   "a setup script that exits non-zero refuses the session"
 
-printf '%s' "$script" | python3 -c '
-import json, re, sys
-settings = re.search(r"<<.SETTINGS.\n(.*?)\nSETTINGS", sys.stdin.read(), re.S)
-raise SystemExit(0 if settings and json.loads(settings.group(1)).get("hooks") else 1)'
-assert "and the settings it writes are readable JSON" "$?" "the block writes something a harness cannot read"
+python3 -c '
+import json, sys
+raise SystemExit(0 if json.load(open(sys.argv[1])).get("hooks") else 1)' "$CLOUD"
+assert "and the settings it copies are readable JSON" "$?" "the block writes something a harness cannot read"
 
 printf "\nTest group: the page says what a reader has to know before running it\n"
 

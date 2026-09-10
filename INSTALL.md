@@ -31,6 +31,9 @@ The container takes all of it away when the session ends.
 
 #### Cloud Session Install Script
 
+Paste this once. The hooks it registers live in the checkout, so a later
+version brings its own registrations and this script never changes.
+
 ```bash
 #!/bin/bash
 git -C /opt/unsolicited-text pull --quiet \
@@ -41,30 +44,7 @@ cp -R /opt/unsolicited-text/skills/. "$HOME/.claude/skills/"
 for command in /opt/unsolicited-text/commands/*.md; do
 	cp "$command" "$HOME/.claude/commands/unsolicited-text-$(basename "$command")"
 done
-cat > "$HOME/.claude/settings.json" <<'SETTINGS'
-{
-	"hooks": {
-		"SessionStart": [
-			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" }
-			] }
-		],
-		"UserPromptSubmit": [
-			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" },
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/replay-stop-notes.sh" },
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-new-version.sh" }
-			] }
-		],
-		"Stop": [
-			{ "hooks": [
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-reply.sh" },
-				{ "type": "command", "command": "/opt/unsolicited-text/hooks/note-long-queue.sh" }
-			] }
-		]
-	}
-}
-SETTINGS
+cp /opt/unsolicited-text/harness-adapters/claude-code/cloud-settings.json "$HOME/.claude/settings.json"
 ```
 
 ## 2. Codex
