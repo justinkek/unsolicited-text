@@ -21,7 +21,7 @@ There are two ways to install it on cloud sessions:
 2. Paste the "Cloud Session Install Script" (see below) into that field and save.
 3. Start a new session. The environment rebuilds and runs the script before the session begins.
 
-A cloud environment runs that script once and reuses the filesystem it made, so a session weeks later starts from that same copy. Every session start therefore refreshes the checkout from the published version before the rules are printed, and says so when it moves.
+Every session start refreshes the checkout from the published version before the rules are printed, and says so when there is a new version.
 
 #### This session only
 
