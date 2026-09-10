@@ -9,43 +9,19 @@ One file, read by every harness: `~/.unsolicited-text/settings`. One
 `key = value` a line. Blank lines and lines opening with `#` are ignored, and
 the last assignment of a key is the one that counts.
 
-`UNSOLICITED_TEXT_HOME` moves that file and the state under it together.
+| Key | Default | What it does, and what to say when setting it |
+| --- | --- | --- |
+| `UNSOLICITED_TEXT_PROSE_LINE_CEILING` | `8` | the most non-blank lines of prose a reply may hold |
+| `UNSOLICITED_TEXT_PROSE_WORD_CEILING` | `120` | the most words of prose a reply may hold |
+| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY` | `~/.unsolicited-text/state/notes` | where a turn's notes are written |
+| `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` | asks once a day whether a newer version is out |
+| `UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL` | `86400` | seconds between those asks |
+| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown | shows only that many items, with a count of the rest. Say that an item out of sight may not come back, and that `0` shows the count alone |
+| `UNSOLICITED_TEXT_QUEUE_EMOJI` | `off` | `on` opens each item with an emoji as well as its word. Say that a terminal with no emoji font shows a box instead |
+| `UNSOLICITED_TEXT_BREADCRUMB` | `off` | `on` opens every reply with the thread being worked on, `unsolicited-text › settings › breadcrumb`. Say that a session with one thread open shows nothing |
+| `UNSOLICITED_TEXT_QUEUE_TREE` | `on-switch-only` | draws the queue as a tree of threads rather than a numbered list, on the reply that raises an item off the open thread. `always-on` draws it in every reply, `off` in none. Say that only the branch being worked is drawn, the rest carrying a count, and that an item is opened by naming it rather than by its number |
 
-| Key                                        | Default                           |
-| ------------------------------------------ | --------------------------------- |
-| `UNSOLICITED_TEXT_PROSE_LINE_CEILING`      | `8`                               |
-| `UNSOLICITED_TEXT_PROSE_WORD_CEILING`      | `120`                             |
-| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY`     | `~/.unsolicited-text/state/notes` |
-| `UNSOLICITED_TEXT_UPDATE_CHECK`            | `on`                              |
-| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` | unset, every item shown           |
-| `UNSOLICITED_TEXT_QUEUE_EMOJI`             | `off`                             |
-| `UNSOLICITED_TEXT_BREADCRUMB`              | `off`                             |
-| `UNSOLICITED_TEXT_QUEUE_TREE`              | `on-switch-only`                  |
-
-Setting `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS` shows only that many queue
-items, with a count of the rest. Say when setting it that an item out of sight
-may not come back, and that `0` shows the count alone.
-
-Setting `UNSOLICITED_TEXT_QUEUE_EMOJI` to `on` opens each queue item with an
-emoji as well as its word. Say when setting it that a terminal with no emoji
-font shows a box instead.
-
-`UNSOLICITED_TEXT_QUEUE_TREE` draws the queue as a tree of threads rather than a
-numbered list. It takes three values:
-
-| Value                      | Behaviour                                                                                                                                                                     |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `on-switch-only` (default) | the queue is a list, except when you raise an item that is not relevant to the current thread - the queue then renders as a tree once and reverts to a list on the next reply |
-| `always-on`                | the queue is a tree for all replies                                                                                                                                           |
-| `off`                      | the queue is a list                                                                                                                                                           |
-
-Say when setting it that only the branch being worked is drawn in full, the rest
-carrying a count, and that an item is opened by naming it rather than by its
-number.
-
-Setting `UNSOLICITED_TEXT_BREADCRUMB` to `on` opens every reply with the thread
-being worked on, `unsolicited-text › settings › breadcrumb`. Say when setting it
-that a session with one thread open shows nothing.
+`UNSOLICITED_TEXT_HOME` moves the settings file and the state under it together.
 
 ## Changing one
 
