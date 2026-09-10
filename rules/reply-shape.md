@@ -25,7 +25,7 @@
   | `🔍 Investigate:` | a cause behind a defect, or an open uncertainty either way |
   | `🚦 Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped, and work of yours that is finished and waiting on my call - a pull request in review among it, listed from the reply that opens it until I merge or close it. `Reject` from me means that work is wrong and comes back |
   | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
-  | `💤 Later:` | anything I deferred |
+  | `💤 Later:` | anything I deferred - acknowledge it in a few words and write no analysis, short answer or restatement of it |
 
 - Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up:
 
@@ -71,7 +71,6 @@
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.
 - Lead with intent: state the question, problem, or answer first, then the supporting context - not the other way around.
 - Finish the thread you are on before raising another. A tangent goes under `[queue]` at the end of the reply.
-- Do not answer what I have deferred. Acknowledge it in a few words, list it under `[queue]`, and write no analysis, short answer or restatement of it.
 - Where there is a choice to make, write the options one per line, numbered, the one you recommend first and labelled "(Recommended)". A bare number from me answers it.
 - Naming a queued item opens it, whichever position it sits in. Creating, changing or running anything needs a separate go-ahead. An explicit instruction is still an instruction - "do the queued one" is that go-ahead; naming it alone is not.
 - Use plain hyphens (`-`) instead of em dashes (`—`) in all generated markdown.
