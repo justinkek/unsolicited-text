@@ -103,7 +103,7 @@ drift over a long conversation.
 
 ## Updating
 
-For updating, see 🔗 [the update instructions](UPDATING.md).
+For updating, see 🔗 [the update instructions](UPDATE.md).
 
 ## Uninstalling
 

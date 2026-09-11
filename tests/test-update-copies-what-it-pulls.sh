@@ -21,10 +21,10 @@ assert() {
 
 printf "Test group: the update instructions name a script that installs what it pulls\n"
 
-named="$(grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/UPDATING.md" | sort --unique)"
+named="$(grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/UPDATE.md" | sort --unique)"
 
 printf '%s' "$named" | grep --quiet --line-regexp --fixed-strings refresh-cloud.sh
-assert "UPDATING.md names refresh-cloud.sh" "$?" \
+assert "UPDATE.md names refresh-cloud.sh" "$?" \
   "it names $(printf '%s' "$named" | tr '\n' ' '), none of which installs what it pulls"
 
 for script in $named; do
@@ -40,7 +40,7 @@ grep --quiet --fixed-strings refresh-cloud.sh "$REPOSITORY/skills/update/SKILL.m
 outcome="$?"
 [ "$outcome" != "0" ]
 assert "the update skill names no script itself" "$?" \
-  "it holds a copy of what UPDATING.md says, and the two drift apart"
+  "it holds a copy of what UPDATE.md says, and the two drift apart"
 
 printf "\nTest group: an update in a session hands it what the new version added\n"
 

@@ -9,7 +9,7 @@ Running this skill is the go-ahead. Update, then say which version was
 installed and which one is now.
 
 Work out which harness the session is in, and how the plugin was installed.
-🔗 [UPDATING.md](../../UPDATING.md) carries the commands for every install
+🔗 [UPDATE.md](../../UPDATE.md) carries the commands for every install
 method,
 including a cloud session, where the checkout sits at `/opt/unsolicited-text`
 and no marketplace is involved.
