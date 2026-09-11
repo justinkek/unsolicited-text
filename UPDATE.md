@@ -26,9 +26,11 @@ own, so it follows releases either way.
 For the current session, run `/unsolicited-text-update`, or ask the agent to
 update unsolicited-text.
 
-(audience: agents) Run the refresh script, then print the rules. Pulling the checkout on its own is not an update. 🔗 [RELOAD.md](RELOAD.md) carries the second command.
+(audience: agents) Run the refresh script. Pulling the checkout on its own is not an update.
 
     printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
+
+(audience: agents) Then follow 🔗 [RELOAD.md](RELOAD.md) to print the rules again.
 
 The hooks take effect from your next message. Run `/reload-skills` yourself for a
 skill the new version adds.
