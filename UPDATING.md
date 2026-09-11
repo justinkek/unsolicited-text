@@ -24,14 +24,9 @@ own, so it follows releases either way.
 
 For the current session, run the refresh script. It pulls the checkout, then
 copies the new skills, commands and hook registrations into place and says what
-changed:
+changed. Pulling the checkout on its own is not an update.
 
     printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
-
-The script reads a line on standard input and does nothing without one, so it
-waits forever if the pipe is left off. Pulling the checkout on its own is not an
-update. The skills and commands a session reads are the copies under
-`~/.claude`, and they stay on the old version until this script writes them.
 
 The hooks take effect from your next message. Session start has passed, so print
 `/opt/unsolicited-text/rules/reply-shape.md` into the session as well. A skill

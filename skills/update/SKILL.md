@@ -14,11 +14,6 @@ method,
 including a cloud session, where the checkout sits at `/opt/unsolicited-text`
 and no marketplace is involved.
 
-Where the page names one script that pulls and installs together, run that and
-nothing else. Pulling the checkout on its own is not an update: the session
-reads its skills, commands and hook registrations from copies written outside
-the checkout, and those stay on the old version until the script writes them.
-
 Stop and ask before anything the page does not carry, and before a command
 that removes an install rather than moving it forward.
 
