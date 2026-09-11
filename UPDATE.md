@@ -9,9 +9,8 @@ You update the way you installed.
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
 
-The first command refreshes the marketplace snapshot on disk. Without it the
-second has nothing newer to install. A session already running holds the old
-copy, so restart it.
+A session already running holds the old copy, so restart it or run
+`/reload-plugins`.
 
 ### Cloud sessions
 
@@ -24,15 +23,16 @@ environment. The edit rebuilds the environment, which runs the script again and
 pulls the latest release. An untouched environment rebuilds about weekly on its
 own, so it follows releases either way.
 
-For the current session, run the refresh script. It pulls the checkout, then
-copies the new skills, commands and hook registrations into place and says what
-changed. Pulling the checkout on its own is not an update.
+For the current session, run `/unsolicited-text-update`, or ask the agent to
+update unsolicited-text.
+
+(audience: agents) Run the refresh script. Pulling the checkout on its own is not an update.
 
     printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
 
-The hooks take effect from your next message. Session start has passed, so print
-the rules again as well: 🔗 [RELOAD.md](RELOAD.md) carries the command. A
-skill the new version adds needs `/reload-skills` before it can be run.
+(audience: agents) Then follow 🔗 [RELOAD.md](RELOAD.md) to print the rules again.
+
+Run `/reload-skills` to finish.
 
 ## 2. Codex
 
