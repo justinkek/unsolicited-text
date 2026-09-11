@@ -52,24 +52,24 @@ assert "and the skill spells that same path out" "$?" "the skill names a differe
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
-UPDATE="$REPOSITORY/skills/update/SKILL.md"
+UPDATE_SKILL="$REPOSITORY/skills/update/SKILL.md"
 
-[ -f "$UPDATE" ]
+[ -f "$UPDATE_SKILL" ]
 assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
 
-grep --quiet --line-regexp --fixed-strings 'name: update' "$UPDATE"
+grep --quiet --line-regexp --fixed-strings 'name: update' "$UPDATE_SKILL"
 assert "it is named update" "$?" "the name is missing or carries the plugin prefix"
 
-grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE"
+grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE_SKILL"
 assert "its description is one line" "$?" "the description has grown"
 
-grep --quiet --fixed-strings 'UPDATING.md' "$UPDATE"
+grep --quiet --fixed-strings 'UPDATE.md' "$UPDATE_SKILL"
 assert "it points at the page that carries the commands" "$?" \
   "the skill neither holds them nor says where they are"
 
 while read -r harness; do
-  grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATING.md"
-  assert "UPDATING.md says how to update on $harness" "$?" \
+  grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATE.md"
+  assert "UPDATE.md says how to update on $harness" "$?" \
     "$harness is installable from INSTALL.md and has no way forward from there"
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')
@@ -78,7 +78,7 @@ printf "\nTest group: a change reaches the session that made it\n"
 
 RELOAD="$REPOSITORY/RELOAD.md"
 
-for skill in "$SKILL" "$UPDATE"; do
+for skill in "$SKILL" "$UPDATE_SKILL"; do
   named="$(basename "$(dirname "$skill")")"
   grep --quiet --fixed-strings 'RELOAD.md' "$skill"
   assert "the $named skill points at the reloading page" "$?" \

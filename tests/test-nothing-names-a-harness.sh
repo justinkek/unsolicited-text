@@ -35,14 +35,14 @@ report "no skill names one" \
 
 named=0
 while read -r harness; do
-  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY/UPDATING.md" && named=$((named + 1))
+  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY/UPDATE.md" && named=$((named + 1))
 done < <(printf '%s\n' claude codex pi)
 [ "$named" -eq 3 ]
 if [ "$?" = "0" ]; then
-  printf "  PASS  UPDATING.md names all three\n"
+  printf "  PASS  UPDATE.md names all three\n"
   pass=$((pass + 1))
 else
-  printf "  FAIL  UPDATING.md names %s of the three harnesses\n" "$named"
+  printf "  FAIL  UPDATE.md names %s of the three harnesses\n" "$named"
   fail=$((fail + 1))
 fi
 

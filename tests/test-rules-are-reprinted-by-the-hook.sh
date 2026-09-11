@@ -21,7 +21,7 @@ assert() {
 
 printf "Test group: one page carries the command, and the rest send a reader to it\n"
 
-for page in INSTALL.md UPDATING.md; do
+for page in INSTALL.md UPDATE.md; do
   grep --quiet --fixed-strings '/rules/reply-shape.md' "$REPOSITORY/$page"
   outcome="$?"
   [ "$outcome" != "0" ]
