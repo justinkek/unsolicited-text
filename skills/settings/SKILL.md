@@ -29,20 +29,17 @@ Read the file, replace or add the one line, write it back. Leave the rest of
 the file as it is, comments included. Create it holding that single line if it
 is not there.
 
-## Making it hold this session
+## How far a change reaches
 
 The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules do not: they were printed at session start. Print them again from the
-same hook, and the session reads the new copy.
+same hook, and the session reads the new copy. 🔗 [RELOAD.md](../../RELOAD.md)
+carries the command and the path for every install method.
 
-🔗 [RELOAD.md](../../RELOAD.md) carries the command and the path for
-every install method.
-
-## Keeping a setting across sessions
-
-A container rebuilt for each session takes the settings file with it. The
-environment wins over the file, so set the keys wherever the harness sets
-variables for every session, and each one is set again on every rebuild.
+The next session reads the file again, unless the home directory is rebuilt for
+each one, which takes the file with it. The environment wins over the file, so
+set the keys wherever the harness sets variables for every session, and each one
+is set again on every rebuild.
 
 ## Saying what is set
 
