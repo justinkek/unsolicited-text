@@ -9,8 +9,7 @@ You update the way you installed.
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
 
-Without the first, the second has nothing newer to install. A session already
-running holds the old copy, so restart it.
+A session already running holds the old copy, so restart it.
 
 ### Cloud sessions
 
