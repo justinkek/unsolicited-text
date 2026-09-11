@@ -38,6 +38,14 @@ same hook, and the session reads the new copy.
 🔗 [RELOAD.md](../../RELOAD.md) carries the command and the path for
 every install method.
 
+## Keeping a setting across sessions
+
+A container rebuilt for each session takes the settings file with it. The
+environment wins over the file, so where a harness sets variables for every
+session, putting the keys there is what carries them across.
+
+🔗 [INSTALL.md](../../INSTALL.md) says where that is.
+
 ## Saying what is set
 
 Name each key the file sets, and the default above for each key it does not.
@@ -61,5 +69,5 @@ Two pairs do this. `UNSOLICITED_TEXT_QUEUE_TREE = always-on` draws no list, so
 Do not edit `rules/reply-shape.md` to change the ceiling. The session start hook rewrites
 the ceiling in the rules it prints, from whatever is configured.
 
-Do not export a variable to make a change stick. The environment wins over the
-file for that session only.
+Do not export a variable by hand to make a change stick. The environment wins
+over the file, and an export lasts the one session.

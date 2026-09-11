@@ -3,6 +3,7 @@
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 SKILL="$REPOSITORY/skills/settings/SKILL.md"
 HOOKS_DIR="$REPOSITORY/hooks"
+UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
 pass=0
 fail=0
@@ -49,6 +50,20 @@ assert "the notes default is still under the state directory" "$?" "hook-stop-no
 
 grep --quiet --fixed-strings '~/.unsolicited-text/state/notes' "$SKILL"
 assert "and the skill spells that same path out" "$?" "the skill names a different one"
+
+printf "\nTest group: where the skill sends a reader for a setting that outlives the session\n"
+
+grep --quiet --fixed-strings 'INSTALL.md' "$SKILL"
+assert "the settings skill points at the install page" "$?" \
+  "it says a harness can set the keys for every session and never says where"
+
+grep --quiet --fixed-strings 'Environment variables field' "$REPOSITORY/INSTALL.md"
+assert "and the install page names the field to put them in" "$?" \
+  "the pointer lands on a page that does not say where"
+
+grep --quiet --fixed-strings "$UNSOLICITED_TEXT_SETTINGS_PATH" "$REPOSITORY/INSTALL.md"
+assert "and names the file a rebuilt container takes away" "$?" \
+  "nothing says what the environment is standing in for"
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
