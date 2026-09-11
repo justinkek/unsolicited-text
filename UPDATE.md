@@ -23,8 +23,8 @@ environment. The edit rebuilds the environment, which runs the script again and
 pulls the latest release. An untouched environment rebuilds about weekly on its
 own, so it follows releases either way.
 
-For the current session, run `/unsolicited-text-update`, or ask for it in plain
-words.
+For the current session, run `/unsolicited-text-update`, or ask the agent to
+update unsolicited-text.
 
 (audience: agents) Run the refresh script, then print the rules. Pulling the checkout on its own is not an update. 🔗 [RELOAD.md](RELOAD.md) carries the second command.
 
