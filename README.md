@@ -4,6 +4,8 @@
 
 <h2 align="center">stay focused</h2>
 
+(audience: humans)
+
 
 ## 1. Features
 

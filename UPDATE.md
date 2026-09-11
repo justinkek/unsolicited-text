@@ -1,5 +1,7 @@
 # Updating unsolicited-text
 
+(audience: humans)
+
 You update the way you installed.
 
 ## 1. Claude Code, ZCode
