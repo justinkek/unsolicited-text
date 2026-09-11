@@ -76,26 +76,26 @@ done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/I
 
 printf "\nTest group: a change reaches the session that made it\n"
 
-RELOADING="$REPOSITORY/RELOADING.md"
+RELOAD="$REPOSITORY/RELOAD.md"
 
 for skill in "$SKILL" "$UPDATE"; do
   named="$(basename "$(dirname "$skill")")"
-  grep --quiet --fixed-strings 'RELOADING.md' "$skill"
+  grep --quiet --fixed-strings 'RELOAD.md' "$skill"
   assert "the $named skill points at the reloading page" "$?" \
     "the rules were printed at session start, and a change would wait for a restart"
 done
 
-grep --quiet --fixed-strings 'load-rules.sh' "$RELOADING"
+grep --quiet --fixed-strings 'load-rules.sh' "$RELOAD"
 assert "the page names the loader" "$?" "there is no script to run"
 
-[ "$(grep --count --fixed-strings 'load-rules.sh' "$RELOADING")" \
-  -ge "$(grep --count --extended-regexp "printf '\{\}' \|" "$RELOADING")" ]
+[ "$(grep --count --fixed-strings 'load-rules.sh' "$RELOAD")" \
+  -ge "$(grep --count --extended-regexp "printf '\{\}' \|" "$RELOAD")" ]
 assert "and pipes a line into every command it gives" "$?" \
   "the script waits on standard input, so a command without the pipe hangs"
 
 while read -r harness; do
-  grep --quiet --fixed-strings "$harness" "$RELOADING"
-  assert "RELOADING.md says where the loader is on $harness" "$?" \
+  grep --quiet --fixed-strings "$harness" "$RELOAD"
+  assert "RELOAD.md says where the loader is on $harness" "$?" \
     "$harness is installable from INSTALL.md and cannot reload its rules"
 done < <(grep --only-matching --extended-regexp '^## [0-9]+\. .*' "$REPOSITORY/INSTALL.md" \
   | sed 's/^## [0-9]*\. //' | tr ',' '\n' | sed 's/^ *//')

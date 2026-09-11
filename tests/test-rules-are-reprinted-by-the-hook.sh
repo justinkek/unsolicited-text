@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-PAGE="$REPOSITORY/RELOADING.md"
+PAGE=RELOAD.md
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -28,12 +28,12 @@ for page in INSTALL.md UPDATING.md; do
   assert "$page names no path to the rules file" "$?" \
     "it tells a reader to print the file as it sits on disk, which is not what a session is given"
 
-  grep --quiet --fixed-strings "$(basename "$PAGE")" "$REPOSITORY/$page"
-  assert "and sends them to $(basename "$PAGE") instead" "$?" "it says to print the rules and never says how"
+  grep --quiet --fixed-strings "$PAGE" "$REPOSITORY/$page"
+  assert "and sends them to $PAGE instead" "$?" "it says to print the rules and never says how"
 done
 
-grep --quiet --fixed-strings 'load-rules.sh' "$PAGE"
-assert "$(basename "$PAGE") names the hook" "$?" "the one page that carries the command does not name it"
+grep --quiet --fixed-strings 'load-rules.sh' "$REPOSITORY/$PAGE"
+assert "$PAGE names the hook" "$?" "the one page that carries the command does not name it"
 
 printf "\nTest group: the hook gives a session something the file on disk does not\n"
 
