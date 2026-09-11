@@ -3,6 +3,7 @@
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 SKILL="$REPOSITORY/skills/settings/SKILL.md"
 HOOKS_DIR="$REPOSITORY/hooks"
+UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
 pass=0
 fail=0
@@ -49,6 +50,16 @@ assert "the notes default is still under the state directory" "$?" "hook-stop-no
 
 grep --quiet --fixed-strings '~/.unsolicited-text/state/notes' "$SKILL"
 assert "and the skill spells that same path out" "$?" "the skill names a different one"
+
+printf "\nTest group: where the skill sends a reader for a setting that outlives the session\n"
+
+grep --quiet --ignore-case --fixed-strings 'environment variable' "$SKILL"
+assert "the settings skill says where a setting outlives the session" "$?" \
+  "a reader loses every setting on the next rebuild with nothing saying why"
+
+grep --quiet --fixed-strings "$UNSOLICITED_TEXT_SETTINGS_PATH" "$SKILL"
+assert "and names the file a rebuilt container takes away" "$?" \
+  "nothing says what the environment stands in for"
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
