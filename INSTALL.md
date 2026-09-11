@@ -1,5 +1,7 @@
 # Installing unsolicited-text
 
+(audience: humans)
+
 ## 1. Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text
@@ -7,7 +9,7 @@
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
-Note for agents: check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below.
+(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below.
 
 ### Cloud sessions
 

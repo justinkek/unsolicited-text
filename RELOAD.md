@@ -1,5 +1,7 @@
 # Reloading the rules into a running session
 
+(audience: humans)
+
 The rules are printed once, at session start. A change to a setting or a newer
 version installed mid-session reaches the session only when they are printed
 again, from the same script:

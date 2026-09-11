@@ -1,5 +1,7 @@
 # Working in this repository
 
+(audience: agents)
+
 The rules this plugin prints into a session are not this file. They are
 `rules/reply-shape.md`, and a session never reads that file as it sits on disk:
 `hooks/load-rules.sh` rewrites the ceilings, strips the queue emoji unless
@@ -43,3 +45,9 @@ and rendered by `logo/render`.
 
 Write documentation the way the rules ask for a reply: plain English, no
 metaphors, and a worked example instead of a description of one.
+
+Every page opens with `(audience: humans)` or `(audience: agents)` under its
+heading. Where a page written for one holds a paragraph the other acts on, that
+paragraph opens with the mark for whoever acts on it, and it lasts one
+paragraph. `rules/reply-shape.md` carries no mark, since a hook prints it into a
+session and the mark would go with it.
