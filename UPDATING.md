@@ -29,8 +29,8 @@ changed. Pulling the checkout on its own is not an update.
     printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
 
 The hooks take effect from your next message. Session start has passed, so print
-`/opt/unsolicited-text/rules/reply-shape.md` into the session as well. A skill
-the new version adds needs `/reload-skills` before it can be run.
+the rules again as well: 🔗 [RELOADING.md](RELOADING.md) carries the command. A
+skill the new version adds needs `/reload-skills` before it can be run.
 
 ## 2. Codex
 
