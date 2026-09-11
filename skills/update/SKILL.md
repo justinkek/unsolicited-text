@@ -20,7 +20,7 @@ that removes an install rather than moving it forward.
 ## Afterwards
 
 The session already running holds the old copy. Print the rules again, whatever
-the install method: 🔗 [RELOADING.md](../../RELOADING.md) says where the script
+the install method: 🔗 [RELOAD.md](../../RELOAD.md) says where the script
 is for each one. Say that a restart is needed only where it cannot be found.
 
 If the version does not move, the marketplace snapshot is what is stale: the

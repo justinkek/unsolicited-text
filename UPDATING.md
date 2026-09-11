@@ -22,9 +22,15 @@ environment. The edit rebuilds the environment, which runs the script again and
 pulls the latest release. An untouched environment rebuilds about weekly on its
 own, so it follows releases either way.
 
-For the current session, ask the agent to run the script again. The hooks take
-effect from your next message, and session start has passed, so ask it to print
-`/opt/unsolicited-text/rules/reply-shape.md` into the session as well.
+For the current session, run the refresh script. It pulls the checkout, then
+copies the new skills, commands and hook registrations into place and says what
+changed. Pulling the checkout on its own is not an update.
+
+    printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
+
+The hooks take effect from your next message. Session start has passed, so print
+the rules again as well: 🔗 [RELOAD.md](RELOAD.md) carries the command. A
+skill the new version adds needs `/reload-skills` before it can be run.
 
 ## 2. Codex
 
