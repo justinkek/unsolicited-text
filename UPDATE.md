@@ -32,8 +32,7 @@ update unsolicited-text.
 
 (audience: agents) Then follow 🔗 [RELOAD.md](RELOAD.md) to print the rules again.
 
-The hooks take effect from your next message. Run `/reload-skills` yourself for a
-skill the new version adds.
+Run `/reload-skills` to finish.
 
 ## 2. Codex
 
