@@ -41,10 +41,8 @@ every install method.
 ## Keeping a setting across sessions
 
 A container rebuilt for each session takes the settings file with it. The
-environment wins over the file, so where a harness sets variables for every
-session, putting the keys there is what carries them across.
-
-🔗 [INSTALL.md](../../INSTALL.md) says where that is.
+environment wins over the file, so set the keys wherever the harness sets
+variables for every session, and each one is set again on every rebuild.
 
 ## Saying what is set
 

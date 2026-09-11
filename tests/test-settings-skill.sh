@@ -53,17 +53,18 @@ assert "and the skill spells that same path out" "$?" "the skill names a differe
 
 printf "\nTest group: where the skill sends a reader for a setting that outlives the session\n"
 
-grep --quiet --fixed-strings 'INSTALL.md' "$SKILL"
-assert "the settings skill points at the install page" "$?" \
-  "it says a harness can set the keys for every session and never says where"
+grep --quiet --fixed-strings 'variables for every session' "$SKILL"
+assert "the settings skill says where a setting outlives the session" "$?" \
+  "a reader loses every setting on the next rebuild with nothing saying why"
 
-grep --quiet --fixed-strings 'Environment variables field' "$REPOSITORY/INSTALL.md"
-assert "and the install page names the field to put them in" "$?" \
-  "the pointer lands on a page that does not say where"
-
-grep --quiet --fixed-strings "$UNSOLICITED_TEXT_SETTINGS_PATH" "$REPOSITORY/INSTALL.md"
+grep --quiet --fixed-strings "$UNSOLICITED_TEXT_SETTINGS_PATH" "$SKILL"
 assert "and names the file a rebuilt container takes away" "$?" \
-  "nothing says what the environment is standing in for"
+  "nothing says what the environment stands in for"
+
+named="$(grep --ignore-case --extended-regexp --only-matching '\b(claude|codex|zcode|pi)\b' "$SKILL")"
+[ -z "$named" ]
+assert "and names no harness while doing it" "$?" \
+  "$(printf '%s' "$named" | tr '\n' ' ')is one harness, and the skill is read on all of them"
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 

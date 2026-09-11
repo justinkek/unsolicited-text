@@ -34,10 +34,6 @@ Every session start refreshes the checkout from the published version before the
 
 The container takes all of it away when the session ends.
 
-#### Keeping your settings
-
-The container takes `~/.unsolicited-text/settings` with it too. Put each key in the Environment variables field of your cloud environment, beside the Setup script field, and every session starts with it set. The settings skill names every key.
-
 #### Cloud Session Install Script
 
 Paste this once.
