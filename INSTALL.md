@@ -2,6 +2,9 @@
 
 (audience: humans)
 
+Before installing, check 🔗 [product compatibility](COMPATIBILITY.md) for
+what works on the product and surface you use.
+
 ## 1. Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text

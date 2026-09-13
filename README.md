@@ -158,6 +158,9 @@ Install the unsolicited-text plugin from https://github.com/justinkek/unsolicite
 
 Or 🔗 [check the installation instructions](INSTALL.md).
 
+See 🔗 [product compatibility](COMPATIBILITY.md) for what installation,
+hooks and reloads support on each product and surface.
+
 ## 4. How it works
 
 | File                              | When it runs  | What it does                                                             | Tokens                                   |
