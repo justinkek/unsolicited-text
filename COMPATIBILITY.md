@@ -32,9 +32,14 @@
 |  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
 |  | IDE extension | Local | None | Not supported. The IDE extension does not support plugins, so there are no rules or settings to reload. |
 
-## Other
+## ZCode
 
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
 | ZCode | Desktop GUI | Local | Add `justinkek/unsolicited-text` through Settings, Marketplace | Supported through its Claude Code plugin compatibility. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
+
+## Pi
+
+| Product | Surface | Harness execution environment | Installation | Support |
+| --- | --- | --- | --- | --- |
 | Pi | CLI | Local | Run the Pi command in [INSTALL.md](INSTALL.md#3-pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load or reload the full rules automatically. Its hooks read settings from `~/.unsolicited-text/settings` or `UNSOLICITED_TEXT_*` environment variables. |
