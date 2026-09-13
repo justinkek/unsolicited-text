@@ -7,11 +7,11 @@
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
 | Claude Chat | Web GUI | Hosted | Install or upload the plugin through Customize | Partial. The settings and update skills can appear, but Chat does not run the hooks that load the reply rules or catch drift. There are no rules to reload, and hook settings have no effect. Put `rules/reply-shape.md` in a preference or custom style for reply shaping without drift checks. |
-|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Partial, for the same reason as the web GUI. |
+|  | Desktop GUI | Hosted | (as above) | Partial, for the same reason as the web GUI. |
 |  | Mobile GUI | Hosted |  | Not verified. |
 | Cowork | Web GUI | Hosted | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
-|  | Desktop GUI | Local | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
-|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
+|  | Desktop GUI | Local | (as above) | Not verified, as in the web GUI row. |
+|  | Desktop GUI | Hosted | (as above) | Not verified, as in the web GUI row. |
 |  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not verified, as in the web GUI row. |
 | Claude Code | Web GUI | Hosted | [INSTALL.md#cloud-sessions](INSTALL.md#cloud-sessions) | Supported. Every session loads the rules and drift checks at session start, after refreshing the checkout to the published version, so an old container is not held at the version it was built with. The setup script is pasted once. A this-session install needs the [manual rule reload](RELOAD.md) and `/reload-skills`. Settings use `UNSOLICITED_TEXT_*` environment variables because the container is rebuilt, and the install overwrites `~/.claude/settings.json`, so hooks registered there by anything else are lost. |
 |  | Desktop GUI | Local | [INSTALL.md#1-claude-code-zcode](INSTALL.md#1-claude-code-zcode) | Supported, reported working by a user, and behaves as the CLI row. |
