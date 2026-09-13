@@ -7,16 +7,16 @@
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
 | Claude Chat | Web GUI | Hosted | Install or upload the plugin through Customize | Partial. The settings and update skills can appear, but Chat does not run the hooks that load the reply rules or catch drift. There are no rules to reload, and hook settings have no effect. Put `rules/reply-shape.md` in a preference or custom style for reply shaping without drift checks. |
-|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Partial, for the same reason as the web GUI. There are no rules to reload, and hook settings have no effect. |
+|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Partial, for the same reason as the web GUI. |
 |  | Mobile GUI | Hosted | No installation method is documented here | Not verified. |
 | Cowork | Web GUI | Hosted | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
-|  | Desktop GUI | Local | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
-|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
-| Claude Code | Web GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Supported. Every-session installs load all rules and drift checks at session start, and refresh the checkout to the published version first, so a container built from an older environment is not held at the version it was built with. The pasted setup script clones and hands the rest to the checkout, so it never needs pasting again. A this-session install needs the [manual rule reload](RELOAD.md) and `/reload-skills`. Persistent settings use `UNSOLICITED_TEXT_*` environment variables because the container is rebuilt, and `~/.claude/settings.json` is overwritten by the install, so hooks registered there by anything else are lost. |
-|  | Desktop GUI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported, reported working by a user. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
-|  | Desktop GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Not verified, including reload and settings behavior. |
-|  | Mobile GUI | Hosted | Configure the cloud environment from the web GUI | Supported as access to a Claude Code cloud session. The plugin runs in the session container, not on the phone. Reload and settings behave as in the web GUI row. A queue drawn as a tree wraps where the phone chooses, since a fenced block does not scroll there. |
+|  | Desktop GUI | Local | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
+|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
+|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not verified, as in the web GUI row. |
+| Claude Code | Web GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Supported. Every session loads the rules and drift checks at session start, after refreshing the checkout to the published version, so an old container is not held at the version it was built with. The setup script is pasted once. A this-session install needs the [manual rule reload](RELOAD.md) and `/reload-skills`. Settings use `UNSOLICITED_TEXT_*` environment variables because the container is rebuilt, and the install overwrites `~/.claude/settings.json`, so hooks registered there by anything else are lost. |
+|  | Desktop GUI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported, reported working by a user, and behaves as the CLI row. |
+|  | Desktop GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Not verified. |
+|  | Mobile GUI | Hosted | Configure the cloud environment from the web GUI | Supported as access to a Claude Code cloud session, behaving as the web GUI row. The plugin runs in the session container, not on the phone. A queue drawn as a tree wraps where the phone chooses, since a fenced block does not scroll there. |
 |  | CLI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
 
 ## OpenAI
@@ -24,17 +24,17 @@
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
 | ChatGPT Chat | Web GUI | Hosted | No installation method is documented here | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Partial in principle, for the same reason as the web GUI. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Partial in principle, for the same reason as the web GUI. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
-| ChatGPT Work | Web GUI | Hosted | No installation method is documented here | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment. There are therefore no rules or settings to reload. |
-|  | Desktop GUI | Local | No installation method is documented here | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work, so reload and settings behavior is also unverified. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not deploy the hook scripts into a hosted session, so there are no rules or settings to reload. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not yet supported. The required hook scripts are not deployed into the cloud execution environment, so there are no rules or settings to reload. |
-| Codex | Web GUI | Hosted | No installation method is documented here | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. There are no rules or settings to reload. |
+|  | Desktop GUI | Hosted | No installation method is documented here | Partial in principle, for the same reason as the web GUI. |
+|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Partial in principle, for the same reason as the web GUI. |
+| ChatGPT Work | Web GUI | Hosted | No installation method is documented here | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment. |
+|  | Desktop GUI | Local | No installation method is documented here | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work. |
+|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not deploy the hook scripts into a hosted session. |
+|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not yet supported, as in the web GUI row. |
+| Codex | Web GUI | Hosted | No installation method is documented here | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. |
 |  | Desktop GUI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not install or register the hook scripts into a hosted session, so there are no rules or settings to reload. |
-|  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
-|  | IDE extension | Local | None | Not supported. The IDE extension does not support plugins, so there are no rules or settings to reload. |
+|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not install or register the hook scripts into a hosted session. |
+|  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported, as in the desktop GUI row. |
+|  | IDE extension | Local | None | Not supported. The IDE extension does not support plugins. |
 
 ## ZCode
 
