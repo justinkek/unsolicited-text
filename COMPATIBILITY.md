@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- |
 | Claude Chat | Web GUI | Hosted | Install or upload the plugin through Customize | Partial. The settings and update skills can appear, but Chat does not run the hooks that load the reply rules or catch drift. There are no rules to reload, and hook settings have no effect. Put `rules/reply-shape.md` in a preference or custom style for reply shaping without drift checks. |
 |  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Partial, for the same reason as the web GUI. |
-|  | Mobile GUI | Hosted | No installation method is documented here | Not verified. |
+|  | Mobile GUI | Hosted |  | Not verified. |
 | Cowork | Web GUI | Hosted | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text, its reload, and its settings have not been tested there. |
 |  | Desktop GUI | Local | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
 |  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
@@ -23,18 +23,18 @@
 
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
-| ChatGPT Chat | Web GUI | Hosted | No installation method is documented here | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Partial in principle, for the same reason as the web GUI. |
+| ChatGPT Chat | Web GUI | Hosted |  | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
+|  | Desktop GUI | Hosted |  | Partial in principle, for the same reason as the web GUI. |
 |  | Mobile GUI | Hosted | Install the plugin from another supported surface | Partial in principle, for the same reason as the web GUI. |
-| ChatGPT Work | Web GUI | Hosted | No installation method is documented here | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment. |
-|  | Desktop GUI | Local | No installation method is documented here | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not deploy the hook scripts into a hosted session. |
+| ChatGPT Work | Web GUI | Hosted |  | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment. |
+|  | Desktop GUI | Local |  | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work. |
+|  | Desktop GUI | Hosted |  | Not yet supported. This repository does not deploy the hook scripts into a hosted session. |
 |  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not yet supported, as in the web GUI row. |
-| Codex | Web GUI | Hosted | No installation method is documented here | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. |
+| Codex | Web GUI | Hosted |  | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. |
 |  | Desktop GUI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Not yet supported. This repository does not install or register the hook scripts into a hosted session. |
+|  | Desktop GUI | Hosted |  | Not yet supported. This repository does not install or register the hook scripts into a hosted session. |
 |  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported, as in the desktop GUI row. |
-|  | IDE extension | Local | None | Not supported. The IDE extension does not support plugins. |
+|  | IDE extension | Local |  | Not supported. The IDE extension does not support plugins. |
 
 ## ZCode
 
