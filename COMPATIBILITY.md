@@ -13,11 +13,11 @@
 |  | Desktop GUI | Local | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
 |  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Not verified, as in the web GUI row. |
 |  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not verified, as in the web GUI row. |
-| Claude Code | Web GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Supported. Every session loads the rules and drift checks at session start, after refreshing the checkout to the published version, so an old container is not held at the version it was built with. The setup script is pasted once. A this-session install needs the [manual rule reload](RELOAD.md) and `/reload-skills`. Settings use `UNSOLICITED_TEXT_*` environment variables because the container is rebuilt, and the install overwrites `~/.claude/settings.json`, so hooks registered there by anything else are lost. |
-|  | Desktop GUI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported, reported working by a user, and behaves as the CLI row. |
-|  | Desktop GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Not verified. |
+| Claude Code | Web GUI | Hosted | [INSTALL.md#cloud-sessions](INSTALL.md#cloud-sessions) | Supported. Every session loads the rules and drift checks at session start, after refreshing the checkout to the published version, so an old container is not held at the version it was built with. The setup script is pasted once. A this-session install needs the [manual rule reload](RELOAD.md) and `/reload-skills`. Settings use `UNSOLICITED_TEXT_*` environment variables because the container is rebuilt, and the install overwrites `~/.claude/settings.json`, so hooks registered there by anything else are lost. |
+|  | Desktop GUI | Local | [INSTALL.md#1-claude-code-zcode](INSTALL.md#1-claude-code-zcode) | Supported, reported working by a user, and behaves as the CLI row. |
+|  | Desktop GUI | Hosted | [INSTALL.md#cloud-sessions](INSTALL.md#cloud-sessions) | Not verified. |
 |  | Mobile GUI | Hosted | Configure the cloud environment from the web GUI | Supported as access to a Claude Code cloud session, behaving as the web GUI row. The plugin runs in the session container, not on the phone. A queue drawn as a tree wraps where the phone chooses, since a fenced block does not scroll there. |
-|  | CLI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
+|  | CLI | Local | [INSTALL.md#1-claude-code-zcode](INSTALL.md#1-claude-code-zcode) | Supported. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
 
 ## OpenAI
 
@@ -31,9 +31,9 @@
 |  | Desktop GUI | Hosted |  | Not yet supported. This repository does not deploy the hook scripts into a hosted session. |
 |  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not yet supported, as in the web GUI row. |
 | Codex | Web GUI | Hosted |  | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. |
-|  | Desktop GUI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
+|  | Desktop GUI | Local | [INSTALL.md#2-codex](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the [manual rule reload](RELOAD.md). Settings live in `~/.unsolicited-text/settings`. |
 |  | Desktop GUI | Hosted |  | Not yet supported. This repository does not install or register the hook scripts into a hosted session. |
-|  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported, as in the desktop GUI row. |
+|  | CLI | Local | [INSTALL.md#2-codex](INSTALL.md#2-codex) | Supported, as in the desktop GUI row. |
 |  | IDE extension | Local |  | Not supported. The IDE extension does not support plugins. |
 
 ## ZCode
@@ -46,4 +46,4 @@
 
 | Product | Surface | Harness execution environment | Installation | Support |
 | --- | --- | --- | --- | --- |
-| Pi | CLI | Local | Run the Pi command in [INSTALL.md](INSTALL.md#3-pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load or reload the full rules automatically. Its hooks read settings from `~/.unsolicited-text/settings` or `UNSOLICITED_TEXT_*` environment variables. |
+| Pi | CLI | Local | [INSTALL.md#3-pi](INSTALL.md#3-pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load or reload the full rules automatically. Its hooks read settings from `~/.unsolicited-text/settings` or `UNSOLICITED_TEXT_*` environment variables. |
