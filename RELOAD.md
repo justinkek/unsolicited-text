@@ -2,6 +2,9 @@
 
 (audience: humans)
 
+This only applies where the plugin's hooks run. Check 🔗
+[product compatibility](COMPATIBILITY.md) for your product and surface.
+
 The rules are printed once, at session start. A change to a setting or a newer
 version installed mid-session reaches the session only when they are printed
 again, from the same script:
