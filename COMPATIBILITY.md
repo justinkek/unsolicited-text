@@ -2,63 +2,40 @@
 
 (audience: humans)
 
-This page separates the product you use, the surface you reach it through, and
-the environment where its harness runs. Support means support for
-unsolicited-text itself, not plugin support in general.
-
 ## Anthropic
 
-| Product | Surface | Harness execution environment | Installation | Support |
-| --- | --- | --- | --- | --- |
-| Claude Chat | Web GUI | Hosted | Install or upload the plugin through Customize | Partial. The settings and update skills can appear, but Chat does not run the hooks that load the reply rules or catch drift. Put `rules/reply-shape.md` in a preference or custom style for reply shaping without drift checks. |
-|  | Desktop GUI | Hosted | Install or upload the plugin through Customize | Partial, for the same reason as the web GUI. |
-|  | Mobile GUI | Hosted | No installation method is documented here | Not verified. |
-| Cowork | Web GUI | Hosted | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there. |
-|  | Desktop GUI | Hosted or local | Install or upload the plugin through Customize | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there. |
-| Claude Code | Web GUI | Hosted | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions) | Supported. Every-session installs load all rules and drift checks at session start. A this-session install needs the manual rule reload and `/reload-skills`. |
-|  | Desktop GUI | Local or hosted | No installation method is documented here | Not verified. |
-|  | Mobile GUI | Hosted | Configure the cloud environment from the web GUI | Supported as access to a Claude Code cloud session. The plugin runs in the session container, not on the phone. |
-|  | CLI | Local | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or reload the rules into the current one. |
-| ZCode | Desktop GUI | Local | Add `justinkek/unsolicited-text` through Settings, Marketplace | Supported through its Claude Code plugin compatibility. Start a new session after installation, or reload the rules into the current one. |
-
-Anthropic says that plugin skills work in Chat and Cowork, while hooks run only
-in Cowork. Cowork is available on desktop, web, and mobile, and its execution
-environment can differ from the surface used to reach it. See
-[Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)
-and
-[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile).
+| Product     | Surface     | Harness execution environment | Installation                                                                        | Support                                                                                                                                                                                                                          |
+| ----------- | ----------- | ----------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Chat | Web GUI     | Hosted                        | Install or upload the plugin through Customize                                      | Partial. The settings and update skills can appear, but Chat does not run the hooks that load the reply rules or catch drift. Put `rules/reply-shape.md` in a preference or custom style for reply shaping without drift checks. |
+|             | Desktop GUI | Hosted                        | Install or upload the plugin through Customize                                      | Partial, for the same reason as the web GUI.                                                                                                                                                                                     |
+|             | Mobile GUI  | Hosted                        | No installation method is documented here                                           | Not verified.                                                                                                                                                                                                                    |
+| Cowork      | Web GUI     | Hosted                        | Install or upload the plugin through Customize                                      | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there.                                                                                                                           |
+|             | Desktop GUI | Hosted or local               | Install or upload the plugin through Customize                                      | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there.                                                                                                                           |
+|             | Mobile GUI  | Hosted                        | Install the plugin from another supported surface                                   | Not verified. Cowork supports plugin skills and hooks, but unsolicited-text has not been tested there.                                                                                                                           |
+| Claude Code | Web GUI     | Hosted                        | Use the setup script in [INSTALL.md](INSTALL.md#cloud-sessions)                     | Supported. Every-session installs load all rules and drift checks at session start. A this-session install needs the manual rule reload and `/reload-skills`.                                                                    |
+|             | Desktop GUI | Local or hosted               | No installation method is documented here                                           | Not verified.                                                                                                                                                                                                                    |
+|             | Mobile GUI  | Hosted                        | Configure the cloud environment from the web GUI                                    | Supported as access to a Claude Code cloud session. The plugin runs in the session container, not on the phone.                                                                                                                  |
+|             | CLI         | Local                         | Use the Claude marketplace commands in [INSTALL.md](INSTALL.md#1-claude-code-zcode) | Supported. The plugin supplies the rules, reminders, drift checks, settings skill, and update skill. Start a new session after installation, or reload the rules into the current one.                                           |
+| ZCode       | Desktop GUI | Local                         | Add `justinkek/unsolicited-text` through Settings, Marketplace                      | Supported through its Claude Code plugin compatibility. Start a new session after installation, or reload the rules into the current one.                                                                                        |
 
 ## OpenAI
 
-| Product | Surface | Harness execution environment | Installation | Support |
-| --- | --- | --- | --- | --- |
-| ChatGPT Chat | Web GUI | Hosted | No installation method is documented here | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. This plugin has not been tested in Chat. |
-|  | Desktop GUI | Hosted | No installation method is documented here | Partial in principle, for the same reason as the web GUI. This plugin has not been tested in Chat. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Partial in principle, for the same reason as the web GUI. This plugin has not been tested in Chat. |
-| ChatGPT Work | Web GUI | Hosted | No installation method is documented here | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment. |
-|  | Desktop GUI | Hosted or local | No installation method is documented here | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work. |
-|  | Mobile GUI | Hosted | Install the plugin from another supported surface | Not yet supported. The required hook scripts are not deployed into the cloud execution environment. |
-| Codex | Web GUI | Hosted | No installation method is documented here | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud. |
-|  | Desktop GUI | Local or hosted | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported for local sessions after the hooks are registered. A new session loads the rules automatically; the current session needs a manual reload. Hosted sessions are not yet supported by this repository. |
-|  | CLI | Local | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs a manual reload. |
-|  | IDE extension | Local | None | Not supported. The IDE extension does not support plugins. |
-
-OpenAI says plugins work in Chat and Work on web, desktop, and mobile, in Codex
-in the ChatGPT desktop app, and in Codex CLI. Hook scripts must exist in the
-execution environment, and a web install does not deploy them. See
-[Plugins](https://learn.chatgpt.com/docs/plugins).
+| Product      | Surface       | Harness execution environment | Installation                                                                                        | Support                                                                                                                                                                                                        |
+| ------------ | ------------- | ----------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ChatGPT Chat | Web GUI       | Hosted                        | No installation method is documented here                                                           | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. This plugin has not been tested in Chat.         |
+|              | Desktop GUI   | Hosted                        | No installation method is documented here                                                           | Partial in principle, for the same reason as the web GUI. This plugin has not been tested in Chat.                                                                                                             |
+|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface                                                   | Partial in principle, for the same reason as the web GUI. This plugin has not been tested in Chat.                                                                                                             |
+| ChatGPT Work | Web GUI       | Hosted                        | No installation method is documented here                                                           | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment.                                                                    |
+|              | Desktop GUI   | Hosted or local               | No installation method is documented here                                                           | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work.                                                                                                 |
+|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface                                                   | Not yet supported. The required hook scripts are not deployed into the cloud execution environment.                                                                                                            |
+| Codex        | Web GUI       | Hosted                        | No installation method is documented here                                                           | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud.                                                                                                |
+|              | Desktop GUI   | Local or hosted               | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported for local sessions after the hooks are registered. A new session loads the rules automatically; the current session needs a manual reload. Hosted sessions are not yet supported by this repository. |
+|              | CLI           | Local                         | Use the Codex marketplace commands and manual hook registration in [INSTALL.md](INSTALL.md#2-codex) | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs a manual reload.                                                                              |
+|              | IDE extension | Local                         | None                                                                                                | Not supported. The IDE extension does not support plugins.                                                                                                                                                     |
 
 ## Other
 
-| Product | Surface | Harness execution environment | Installation | Support |
-| --- | --- | --- | --- | --- |
-| Pi | CLI | Local | Run the Pi command in [INSTALL.md](INSTALL.md#3-pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load the full rules automatically. |
+| Product | Surface | Harness execution environment | Installation                                        | Support                                                                                                                                                                          |
+| ------- | ------- | ----------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pi      | CLI     | Local                         | Run the Pi command in [INSTALL.md](INSTALL.md#3-pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load the full rules automatically. |
 
-## Reloading and settings
-
-The plugin loads its full rules at session start only where the support cell
-says that its hooks run. If you install into an already-running supported
-session, follow [RELOAD.md](RELOAD.md). Settings live in
-`~/.unsolicited-text/settings`; cloud sessions instead need environment
-variables because their filesystem is rebuilt.
