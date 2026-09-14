@@ -89,6 +89,11 @@ them by hand in `~/.codex/config.toml`:
 
     pi install git:github.com/justinkek/unsolicited-text
 
+## 4. Claude Chat, Cowork
+
+Open Customize, and install or upload the plugin there. Neither resolves a
+marketplace from the chat box.
+
 ## Updating
 
 For updating, see 🔗 [the update instructions](UPDATE.md).
