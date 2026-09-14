@@ -46,6 +46,11 @@ update command.
 
     pi update git:github.com/justinkek/unsolicited-text
 
+## 4. Claude Chat, Cowork
+
+Install the plugin through Customize again. It carries no version the harness
+can upgrade in place.
+
 ## Which version is installed
 
     cat /opt/unsolicited-text/.claude-plugin/plugin.json

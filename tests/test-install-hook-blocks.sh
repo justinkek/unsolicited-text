@@ -2,6 +2,7 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPOSITORY/INSTALL.md"
+COMPATIBILITY="$REPOSITORY/COMPATIBILITY.md"
 CLOUD="$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"
 
 pass=0
@@ -80,9 +81,13 @@ printf "\nTest group: the page says what a reader has to know before running it\
 grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$INSTALL"
 assert "why the install above does nothing in a container" "$?" "no detection signal in $INSTALL"
 
-grep --quiet --fixed-strings 'rules/reply-shape.md' "$INSTALL"
+grep --quiet --fixed-strings 'RELOAD.md' "$INSTALL"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"
+
+grep --quiet --fixed-strings 'rules/reply-shape.md' "$COMPATIBILITY"
+assert "and what to do on a harness that runs no hooks" "$?" \
+  "a reader on such a harness is told nothing works and nothing else"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
