@@ -5,7 +5,7 @@
 Before installing, check 🔗 [product compatibility](COMPATIBILITY.md) for
 what works on the product and surface you use.
 
-## 1. Claude Code, ZCode
+## Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
@@ -85,19 +85,19 @@ them by hand in `~/.codex/config.toml`:
     type = "command"
     command = "<path to this checkout>/hooks/note-long-queue.sh"
 
-## 3. Pi
+## Pi
 
     pi install git:github.com/justinkek/unsolicited-text
 
-## 4. Claude Chat, Cowork
+## Claude Chat, Cowork
 
 Open Customize, and install or upload the plugin there. Neither resolves a
 marketplace from the chat box.
 
-## Updating
+# Updating
 
 For updating, see 🔗 [the update instructions](UPDATE.md).
 
-## Uninstalling
+# Uninstalling
 
 For uninstalling, see 🔗 [the uninstall instructions](UNINSTALL.md).
