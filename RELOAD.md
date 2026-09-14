@@ -23,7 +23,7 @@ unsolicited-text rules the session already read, and nothing else.
 | Claude Code, ZCode | under the plugin directory - the hook registers it as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and a shell cannot read that variable |
 | Codex | the path written by hand in `~/.codex/config.toml` |
 | Pi | the checkout the shim names |
-| Claude Chat, Cowork | nowhere - no hook runs there, so paste `rules/reply-shape.md` into a preference or custom style again |
+| Claude Chat, Cowork | nowhere - no hook runs there, so the reload skill carries the rules itself |
 
 However it was installed, the file can be found rather than guessed:
 

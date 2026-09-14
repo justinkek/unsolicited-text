@@ -105,13 +105,14 @@ The agent remains concise even with longer sessions via skills, hooks and local 
 
 ## 2. Settings
 
-Everything a hook reads is a setting, and two skills come with the plugin to
+Everything a hook reads is a setting, and three skills come with the plugin to
 reach them. Neither costs a session more than its own name until you use it.
 
 | Skill                       | What it does                                     |
 | --------------------------- | ------------------------------------------------ |
 | `unsolicited-text:settings` | says what is set, and changes one setting        |
 | `unsolicited-text:update`   | updates the plugin, whichever harness you are in |
+| `unsolicited-text:reload`   | prints the rules into a session that never got them |
 
 
 <details>
