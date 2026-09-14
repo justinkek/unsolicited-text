@@ -48,8 +48,7 @@ update command.
 
 ## 4. Claude Chat, Cowork
 
-Install the plugin through Customize again. It carries no version the harness
-can upgrade in place.
+Open the plus menu, then Plugins, then Manage plugins, and update it there.
 
 ## Which version is installed
 

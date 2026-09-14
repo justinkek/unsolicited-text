@@ -91,8 +91,9 @@ them by hand in `~/.codex/config.toml`:
 
 ## Claude Chat, Cowork
 
-Open Customize, and install or upload the plugin there. Neither resolves a
-marketplace from the chat box.
+Open the plus menu beside the message box, then Plugins, then Browse plugins,
+and install unsolicited-text. Its skills appear under the plugin's own entry
+in that menu.
 
 # Updating
 
