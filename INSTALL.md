@@ -49,7 +49,7 @@ fi
 /opt/unsolicited-text/harness-adapters/claude-code/install-cloud.sh || true
 ```
 
-## 2. Codex
+## Codex
 
     codex plugin marketplace add justinkek/unsolicited-text
     codex plugin add unsolicited-text@unsolicited-text
