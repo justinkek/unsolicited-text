@@ -33,7 +33,7 @@ Leave the rest of the file as it is, comments included.
 The hooks read the file every time they run, so a ceiling takes effect at once.
 
 The rules are printed at session start, so print them again from the same hook, and the session reads the new copy.
-🔗 [RELOAD.md](../../RELOAD.md) carries the command and the path for every install method.
+The reload skill does it, and 🔗 [RELOAD.md](../../RELOAD.md) carries the command and the path for every install method.
 
 ### Cloud sessions
 

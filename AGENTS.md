@@ -29,6 +29,7 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | what the settings skill tells the user | `skills/settings/SKILL.md` |
 | which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
 | how each install method works | `INSTALL.md`, and `UNINSTALL.md` for taking it back off |
+| the rules a session without hooks reads | nothing by hand - run `skills/reload/render` after editing `rules/reply-shape.md` |
 
 Every setting is read through `setting_value`, takes the `UNSOLICITED_TEXT_`
 prefix, and is named in the settings skill. A test holds all three together.
@@ -38,6 +39,10 @@ and `package.json` together when a change has to reach an installed copy: an
 install caches by version.
 
 ## What not to hand-edit
+
+`skills/reload/SKILL.md` is generated from `rules/reply-shape.md` by
+`skills/reload/render`, with every setting at its default. A test fails when the
+two disagree.
 
 The recordings under `demo/` are generated. Edit the prompt and the two reply
 files beside them, then run `demo/record`. The logo is drawn in `logo/logo.svg`
