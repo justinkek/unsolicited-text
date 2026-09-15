@@ -27,6 +27,10 @@ for manifest in .codex-plugin/plugin.json package.json; do
     "it states $stated, and an install caches by version, so the two disagree about what a reader is running"
 done
 
+grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/skills/reload/SKILL.md"
+assert "the reload skill was rendered from $declared" "$?" \
+  "it names another version, and a session with no checkout would report that one - run skills/reload/render"
+
 printf "\nTest group: every manifest carries the same description\n"
 
 said="$(jq --raw-output '.description' "$REPOSITORY/.claude-plugin/plugin.json")"
