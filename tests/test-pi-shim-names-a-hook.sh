@@ -32,7 +32,7 @@ done <<< "$named"
 
 printf "\nTest group: the shim reaches them through the one hooks directory\n"
 
-grep --quiet --fixed-strings '"..", "..", "..", "hooks"' "$SHIM"
+grep --quiet --fixed-strings '"..", "hooks"' "$SHIM"
 assert "the shim resolves the hooks directory from its own file" "$?" \
   "the shim does not build a path back to hooks/"
 

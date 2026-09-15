@@ -8,7 +8,7 @@
 	"plugins": [
 		{
 			"name": "unsolicited-text",
-			"source": "./",
+			"source": "./dist/claude-code",
 			"description": "Consent is important."
 		}
 	]

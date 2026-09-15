@@ -62,22 +62,22 @@ check_reachable() {
   done < <(commands_of "$manifest")
 }
 
-check_reachable "$REPOSITORY/hooks/hooks.json" "$REPOSITORY" CLAUDE_PLUGIN_ROOT "claude-code"
-check_reachable "$ADAPTERS/codex/hooks.json" "$REPOSITORY" PLUGIN_ROOT "codex"
+check_reachable "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/dist/claude-code" CLAUDE_PLUGIN_ROOT "claude-code"
+check_reachable "$ADAPTERS/codex/hooks.json" "$REPOSITORY/dist/codex" PLUGIN_ROOT "codex"
 
 printf "\nTest group: each marketplace points at a plugin directory it carries\n"
 
 source_of() { jq --raw-output "$2" "$1"; }
 
 claude_source="$(source_of "$REPOSITORY/.claude-plugin/marketplace.json" '.plugins[0].source')"
-[ -f "$REPOSITORY/${claude_source#./}.claude-plugin/plugin.json" ]
+[ -f "$REPOSITORY/${claude_source#./}/.claude-plugin/plugin.json" ]
 assert "the claude code marketplace names its plugin" "$?" "no plugin at $claude_source"
 
 codex_source="$(source_of "$REPOSITORY/.agents/plugins/marketplace.json" '.plugins[0].source.path')"
-[ -f "$REPOSITORY/${codex_source#./}.codex-plugin/plugin.json" ]
+[ -f "$REPOSITORY/${codex_source#./}/.codex-plugin/plugin.json" ]
 assert "the codex marketplace names its plugin" "$?" "no plugin at $codex_source"
 
-[ -f "$REPOSITORY/${claude_source#./}rules/reply-shape.md" ]
+[ -f "$REPOSITORY/${claude_source#./}/rules/reply-shape.md" ]
 assert "and the rules ship inside it" "$?" \
   "rules/reply-shape.md sits outside the plugin, so an installed copy has nothing to print"
 
