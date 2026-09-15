@@ -29,8 +29,9 @@ report "the rules name none of them either" \
 
 printf "\nTest group: no skill names one, and the page they point at names them all\n"
 
+# A generated SKILL.md carries a page that names every install method on purpose.
 names_a_harness_without_linking() {
-  find "$REPOSITORY/skills" -name SKILL.md -print0 \
+  find "$REPOSITORY/skills" \( -name body.md -o -name render \) -print0 \
     | xargs -0 grep --line-number --ignore-case --extended-regexp "\b($HARNESSES)\b" \
     | grep --invert-match --fixed-strings '](http'
 }
@@ -53,7 +54,7 @@ fi
 
 printf "\nTest group: and the check catches a bare mention\n"
 
-planted="$REPOSITORY/skills/planted-by-a-test/SKILL.md"
+planted="$REPOSITORY/skills/planted-by-a-test/body.md"
 mkdir -p "$(dirname "$planted")"
 trap 'rm -rf "$(dirname "$planted")"' EXIT
 

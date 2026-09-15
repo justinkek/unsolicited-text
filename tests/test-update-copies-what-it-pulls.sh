@@ -36,11 +36,11 @@ grep --quiet --fixed-strings install-cloud.sh "$ADAPTER/refresh-cloud.sh"
 assert "the script it names runs the install" "$?" \
   "an update pulls the checkout and copies none of it, so a new skill waits for the next session"
 
-grep --quiet --fixed-strings refresh-cloud.sh "$REPOSITORY/skills/update/SKILL.md"
+grep --quiet --fixed-strings refresh-cloud.sh "$REPOSITORY/skills/update/body.md"
 outcome="$?"
 [ "$outcome" != "0" ]
-assert "the update skill names no script itself" "$?" \
-  "it holds a copy of what UPDATE.md says, and the two drift apart"
+assert "the hand-written half of the update skill names no script" "$?" \
+  "it holds a second copy of what UPDATE.md says, and the two drift apart"
 
 printf "\nTest group: an update in a session hands it what the new version added\n"
 
