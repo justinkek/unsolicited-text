@@ -46,6 +46,25 @@ assert "the next session says what is out" "$?" "it said '$said'"
 [ -z "$(session)" ]
 assert "and does not say it twice" "$?" "the notice outlived being read"
 
+rm -rf "$TMPDIR/home"
+printf '{"version":"9.9.9"}\n' > "$TMPDIR/published.json"
+session >/dev/null
+said="$(session)"
+
+printf '%s' "$said" | python3 -c '
+import json, sys
+said = json.load(sys.stdin)
+raise SystemExit(0 if said.get("systemMessage") else 1)' 2>/dev/null
+assert "the notice is written where the user is shown it" "$?" \
+  "it goes into the agent's context alone, and the user hears nothing"
+
+printf '%s' "$said" | python3 -c '
+import json, sys
+said = json.load(sys.stdin)
+raise SystemExit(0 if said["systemMessage"] in said["hookSpecificOutput"]["additionalContext"] else 1)' 2>/dev/null
+assert "and the agent is handed the same words" "$?" \
+  "a harness that shows the user cannot also tell the agent what happened"
+
 printf "\nTest group: the check is throttled, and can be turned off\n"
 
 rm -rf "$TMPDIR/home"
