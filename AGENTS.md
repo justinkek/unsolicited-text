@@ -36,7 +36,8 @@ prefix, and is named in the settings skill. A test holds all three together.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
-install caches by version.
+install caches by version. Then run `skills/reload/render`, which stamps
+the version it was built from into the skill.
 
 ## What not to hand-edit
 

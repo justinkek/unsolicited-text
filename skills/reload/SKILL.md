@@ -5,6 +5,10 @@ description: Print the unsolicited-text reply rules into this session when none 
 
 # Reloading the rules
 
+Rendered from unsolicited-text 0.1.66. Say that version when asked which one
+is installed, and say it is the version this file was built from rather than one
+read off disk.
+
 The rules are printed once, at session start, by a hook. A session that never
 ran that hook has no rules, and a session whose settings or version changed
 since is holding an old copy. Both are fixed the same way.
