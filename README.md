@@ -103,16 +103,13 @@ The agent remains concise even with longer sessions via skills, hooks and local 
 
 </details>
 
-## 2. Settings
+## 2. Skills
 
-Everything a hook reads is a setting, and three skills come with the plugin to
-reach them. Neither costs a session more than its own name until you use it.
-
-| Skill                       | What it does                                     |
-| --------------------------- | ------------------------------------------------ |
-| `unsolicited-text:settings` | says what is set, and changes one setting        |
-| `unsolicited-text:update`   | updates the plugin, whichever harness you are in |
-| `unsolicited-text:reload`   | prints the rules into a session that never got them |
+| Skill                       | What it does                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| `unsolicited-text:settings` | allows you to configure different settings (e.g. queue in tree format, emojis) |
+| `unsolicited-text:update`   | updates the plugin                                                             |
+| `unsolicited-text:reload`   | prints the rules into a session that never got them                            |
 
 
 <details>
@@ -166,7 +163,7 @@ hooks and reloads support on each product and surface.
 
 | File                              | When it runs  | What it does                                                             | Tokens                                   |
 | --------------------------------- | ------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
-| `hooks/load-rules.sh`         | session start | prints `rules/reply-shape.md` into the session                                      | ~1,900                                   |
+| `hooks/load-rules.sh`             | session start | prints `rules/reply-shape.md` into the session                           | ~1,900                                   |
 | `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                                          | ~50                                      |
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
 | `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling                       | none, it prints nothing into the session |
