@@ -5,6 +5,17 @@
 Before installing, check 🔗 [product compatibility](COMPATIBILITY.md) for
 what works on the product and surface you use.
 
+Each product has a folder under `dist/` holding everything its install copies,
+and a README with these same steps:
+
+| Product | Folder |
+| --- | --- |
+| Claude Code, ZCode | [dist/claude-code](dist/claude-code) |
+| Claude Code cloud sessions | [dist/claude-cloud](dist/claude-cloud) |
+| Codex | [dist/codex](dist/codex) |
+| Pi | [dist/pi](dist/pi) |
+| Claude Chat, Cowork | [dist/chat-cowork](dist/chat-cowork) |
+
 ## Claude Code, ZCode
 
     claude plugin marketplace add justinkek/unsolicited-text
@@ -12,19 +23,19 @@ what works on the product and surface you use.
 
 In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
 
-(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the instructions below.
+(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the next section.
 
-### Cloud sessions
+## Claude Code cloud sessions
 
-A cloud session resolves no marketplace, so the install above does not work. There are two ways to install it there. An agent asks which of the two you want before doing anything:
+A cloud session resolves no marketplace, so the marketplace install does not work. There are two ways to install it there. An agent asks which of the two you want before doing anything:
 
-#### Every session
+### Every session
 
 1. Open 🔗 [claude.ai/code](https://claude.ai/code), open the environment settings, and find the Setup script field. See 🔗 [docs](https://code.claude.com/docs/en/cloud-environments#setup-scripts).
 2. Paste the "Cloud Session Install Script" (see below) into that field and save. The field is yours to edit, so an agent prints the steps and the script for you rather than pasting them itself.
 3. Start a new session. The environment rebuilds and runs the script before the session begins.
 
-#### This session only
+### This session only
 
 1. Set your permission mode to accept edits, or the auto-permissions classifier refuses the write.
 2. Ask the agent to run the "Cloud Session Install Script" (see below).
@@ -33,7 +44,7 @@ A cloud session resolves no marketplace, so the install above does not work. The
 
 The container takes all of it away when the session ends.
 
-#### Cloud Session Install Script
+### Cloud Session Install Script
 
 Paste this once.
 
@@ -46,7 +57,7 @@ else
 	echo "unsolicited-text: the clone failed, keeping whatever was already there" >&2
 	rm -rf /opt/unsolicited-text.new
 fi
-/opt/unsolicited-text/harness-adapters/claude-code/install-cloud.sh || true
+/opt/unsolicited-text/dist/claude-cloud/install.sh || true
 ```
 
 ## Codex

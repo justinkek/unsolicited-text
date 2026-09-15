@@ -29,10 +29,15 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | what the settings skill tells the user | `skills/settings/SKILL.md` |
 | which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
 | how each install method works | `INSTALL.md`, and `UNINSTALL.md` for taking it back off |
+| what an install copies | nothing by hand - `dist/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
 
 Every setting is read through `setting_value`, takes the `UNSOLICITED_TEXT_`
 prefix, and is named in the settings skill. A test holds all three together.
+
+`dist/` is generated and committed, one folder per product, because an install
+fetches files from the repository. Run `./build` after changing anything it
+copies. A test rebuilds and fails on any difference.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an

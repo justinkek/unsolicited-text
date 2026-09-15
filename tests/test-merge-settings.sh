@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-MERGE="$REPOSITORY/harness-adapters/claude-code/merge-settings.sh"
-REGISTRATIONS="$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"
+MERGE="$REPOSITORY/dist/claude-cloud/merge-settings.sh"
+REGISTRATIONS="$REPOSITORY/dist/claude-cloud/settings.json"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

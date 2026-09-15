@@ -2,7 +2,7 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPOSITORY/INSTALL.md"
-CLOUD="$REPOSITORY/harness-adapters/claude-code/cloud-settings.json"
+CLOUD="$REPOSITORY/dist/claude-cloud/settings.json"
 
 pass=0
 fail=0
@@ -25,7 +25,7 @@ while read -r script; do
   [ -n "$script" ] || continue
   registered=$((registered + 1))
 
-  grep --quiet --fixed-strings "/opt/unsolicited-text/hooks/$script" "$CLOUD"
+  grep --quiet --fixed-strings "/opt/unsolicited-text/dist/claude-cloud/hooks/$script" "$CLOUD"
   assert "the cloud settings name $script" "$?" \
     "hooks.json registers it and a cloud session would not run it"
 
@@ -56,12 +56,12 @@ assert "and the settings it copies are readable JSON" "$?" "the block writes som
 
 printf "\nTest group: the pasted script hands the work to the checkout\n"
 
-INSTALLER="$REPOSITORY/harness-adapters/claude-code/install-cloud.sh"
+INSTALLER="$REPOSITORY/dist/claude-cloud/install.sh"
 
 [ -x "$INSTALLER" ]
-assert "install-cloud.sh is there and runnable" "$?" "the pasted script would run nothing"
+assert "the cloud install script is there and runnable" "$?" "the pasted script would run nothing"
 
-printf '%s' "$script" | grep --quiet --fixed-strings 'install-cloud.sh'
+printf '%s' "$script" | grep --quiet --fixed-strings 'dist/claude-cloud/install.sh'
 assert "the pasted script runs it" "$?" "it copies files itself, and a later version cannot change what is copied"
 
 bash -n "$INSTALLER"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/harness-adapters/claude-code"
+ADAPTER="$REPOSITORY/dist/claude-cloud"
 
 pass=0
 fail=0
@@ -39,18 +39,18 @@ assert "every file naming a path under /opt names that one" "$?" \
 printf "\nTest group: the pieces that have to agree on it do\n"
 
 stated="$(sed -n 's/^stated=\(.*\)$/\1/p' "$ADAPTER/merge-settings.sh")"
-[ "$stated" = "$cloned" ]
-assert "merge-settings.sh rewrites away the path the install clones to" "$?" \
+case "$stated" in "$cloned"/*) true ;; *) false ;; esac
+assert "merge-settings.sh rewrites away a path inside the checkout" "$?" \
   "it rewrites $stated, so a registration written from another checkout is never recognised as this plugin's"
 
 outside="$(jq --raw-output --arg checkout "$cloned/" \
   '.hooks | to_entries[] | .value[] | .hooks[] | .command | select(startswith($checkout) | not)' \
-  "$ADAPTER/cloud-settings.json")"
+  "$ADAPTER/settings.json")"
 [ -z "$outside" ]
 assert "every registration names a command inside it" "$?" \
   "$(printf '%s' "$outside" | tr '\n' ' ')sits outside the checkout, and nothing is there to run"
 
-grep --quiet --fixed-strings "$cloned/harness-adapters/claude-code/install-cloud.sh" "$REPOSITORY/INSTALL.md"
+grep --quiet --fixed-strings "$cloned/dist/claude-cloud/install.sh" "$REPOSITORY/INSTALL.md"
 assert "and the install script runs the install from it" "$?" \
   "it clones to one place and installs from another"
 
