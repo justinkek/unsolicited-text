@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+repository="$(cd "$(dirname "$0")/../.." && pwd)"
+out="${1:-$repository/skills/settings/SKILL.md}"
+published="https://github.com/justinkek/unsolicited-text/blob/main"
+
+cat "$repository/skills/settings/body.md" > "$out"
+
+printf '\n## RELOAD.md, as it stands in this copy\n' >> "$out"
+
+sed -E \
+  -e '/^\(audience: humans\)$/d' \
+  -e '1{/^# /d;}' \
+  -e 's/^#/##/' \
+  -e "s@\]\(([A-Za-z-]+\.md)([^)]*)\)@]($published/\1\2)@g" \
+  "$repository/RELOAD.md" | cat -s >> "$out"

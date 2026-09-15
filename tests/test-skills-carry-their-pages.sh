@@ -49,5 +49,19 @@ grep --quiet --fixed-strings 'First session' "$SKILL"
 [ "$?" = "1" ]
 assert "and no onboarding block does either" "$?" "every reader would be told to start a queue"
 
+printf "\nTest group: every skill that carries a page is built from it\n"
+
+for named in update settings; do
+  page="$(sed -n 's/^## \([A-Z]*\.md\), as it stands.*/\1/p' "$REPOSITORY/skills/$named/SKILL.md" | head -1)"
+  [ -n "$page" ]
+  assert "the $named skill carries a page" "$?" \
+    "it links one instead, and a session with no checkout has nothing to follow"
+
+  "$REPOSITORY/skills/$named/render" "$TMPDIR/$named.md"
+  diff --unified "$REPOSITORY/skills/$named/SKILL.md" "$TMPDIR/$named.md" >"$TMPDIR/$named.drift"
+  assert "and matches what it renders from $page" "$?" \
+    "$page moved on without it - run skills/$named/render"
+done
+
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
