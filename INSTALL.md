@@ -95,6 +95,10 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
+No hook runs on either, so the reply rules never reach a session and a setting
+changes nothing. Paste `rules/reply-shape.md` into a preference or a custom
+style to shape replies there.
+
 # Updating
 
 For updating, see 🔗 [the update instructions](UPDATE.md).
