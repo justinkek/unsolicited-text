@@ -10,8 +10,11 @@ notice="$UNSOLICITED_TEXT_STATE/new-version"
 checked="$UNSOLICITED_TEXT_STATE/version-checked"
 
 if [ -f "$notice" ]; then
-  cat "$notice"
+  said="$(cat "$notice")"
   rm -f "$notice"
+  # systemMessage reaches the user; the context reaches the agent either way.
+  printf '{"systemMessage":"%s","hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' \
+    "$said" "$said"
 fi
 
 [ "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK on)" = "on" ] || exit 0
@@ -37,7 +40,7 @@ printf '%s' "$now" > "$checked"
   [ -n "$latest" ] || exit 0
   [ "$latest" = "$installed" ] && exit 0
   [ "$(printf '%s\n%s\n' "$installed" "$latest" | sort --version-sort | tail -1)" = "$latest" ] || exit 0
-  printf '[unsolicited-text] version %s is now available (current: %s). Update with unsolicited-text:update\nTo stop being told, use unsolicited-text:settings\n' \
+  printf '[unsolicited-text] version %s is now available (current: %s). Update with unsolicited-text:update, or stop being told with unsolicited-text:settings' \
     "$latest" "$installed" > "$notice"
 ) >/dev/null 2>&1 &
 
