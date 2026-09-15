@@ -96,8 +96,9 @@ and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
 No hook runs on either, so the reply rules never reach a session and a setting
-changes nothing. Paste `rules/reply-shape.md` into a preference or a custom
-style to shape replies there.
+changes nothing. Ask for the reload skill in your first message and it prints
+the rules; a preference or a custom style holding `rules/reply-shape.md` does it
+without asking.
 
 # Updating
 
