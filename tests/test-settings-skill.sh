@@ -74,6 +74,10 @@ assert "it is named update" "$?" "the name is missing or carries the plugin pref
 grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE_SKILL"
 assert "its description is one line" "$?" "the description has grown"
 
+grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
+assert "the settings skill looks for a reader before it writes" "$?" \
+  "a session with no hook is told a setting took effect when the file it wrote is read by nobody"
+
 grep --quiet --fixed-strings 'UPDATE.md' "$UPDATE_SKILL"
 assert "it points at the page that carries the commands" "$?" \
   "the skill neither holds them nor says where they are"

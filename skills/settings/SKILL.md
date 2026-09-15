@@ -22,6 +22,17 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 `UNSOLICITED_TEXT_HOME` moves the settings file and the state under it together.
 
+## Before writing anything
+
+Find the hook that reads the file:
+
+    find ~ /opt -name load-rules.sh 2>/dev/null
+
+Nothing found means no hook runs here, so the file would be written and never
+read. Write nothing. Say the setting cannot take effect in this session, and
+that the reload skill prints the rules and a preference or custom style holds
+them across sessions.
+
 ## How to update settings
 
 If the file is not there, create and add the setting.
