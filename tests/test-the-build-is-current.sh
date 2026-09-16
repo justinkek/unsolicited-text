@@ -47,9 +47,7 @@ DISTRIBUTIONS="$REPOSITORY/distributions.json"
 
 ships() { jq --exit-status --arg product "$1" --arg part "$2" '.[$product].ships | index($part)' "$DISTRIBUTIONS" >/dev/null; }
 
-declared() { jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$DISTRIBUTIONS"; }
-
-shares() { jq --raw-output 'to_entries[] | select(.value["same-as"]) | "\(.key) \(.value["same-as"])"' "$DISTRIBUTIONS"; }
+declared() { jq --raw-output 'keys[]' "$DISTRIBUTIONS"; }
 
 for product in $(declared); do
   for part in hooks rules skills commands; do
@@ -86,16 +84,6 @@ for product in $(declared); do
   grep --quiet --fixed-strings 'Installing' "$REPOSITORY/distributions/$product/README.md"
   assert "$product says how it is installed" "$?" "the folder is there and nothing tells a reader what to do with it"
 done
-
-while read -r named shared; do
-  [ -n "$named" ] || continue
-  [ ! -d "$REPOSITORY/distributions/$named" ]
-  assert "$named has no folder of its own" "$?" \
-    "it installs from $shared, so a folder of its own is a second copy nothing reads"
-
-  [ -d "$REPOSITORY/distributions/$shared" ]
-  assert "and the folder it shares is built" "$?" "$named names $shared and nothing builds it"
-done < <(shares)
 
 for folder in $(sed -n 's@.*(distributions/\([a-z-]*\)).*@\1@p' "$REPOSITORY/COMPATIBILITY.md" | sort --unique); do
   [ -d "$REPOSITORY/distributions/$folder" ]
