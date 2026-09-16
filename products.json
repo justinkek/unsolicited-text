@@ -1,7 +1,17 @@
 {
 	"claude-code": {
-		"title": "Claude Code and ZCode",
-		"installs": "Claude Code, ZCode",
+		"title": "Claude Code",
+		"installs": "Claude Code",
+		"ships": [
+			"hooks",
+			"rules",
+			"skills",
+			"commands"
+		]
+	},
+	"zcode": {
+		"title": "ZCode",
+		"installs": "ZCode",
 		"ships": [
 			"hooks",
 			"rules",

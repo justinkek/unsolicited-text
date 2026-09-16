@@ -10,18 +10,22 @@ and a README with these same steps:
 
 | Product | Folder |
 | --- | --- |
-| Claude Code, ZCode | [dist/claude-code](dist/claude-code) |
+| Claude Code | [dist/claude-code](dist/claude-code) |
+| ZCode | [dist/zcode](dist/zcode) |
 | Claude Code cloud sessions | [dist/claude-cloud](dist/claude-cloud) |
 | Codex | [dist/codex](dist/codex) |
 | Pi | [dist/pi](dist/pi) |
 | Claude Chat, Cowork | [dist/chat-cowork](dist/chat-cowork) |
 
-## Claude Code, ZCode
+## Claude Code
 
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
-In ZCode, add `justinkek/unsolicited-text` through Settings, Marketplace.
+## ZCode
+
+Add `justinkek/unsolicited-text` through Settings, Marketplace. It installs the
+same plugin as Claude Code does.
 
 (audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the next section.
 

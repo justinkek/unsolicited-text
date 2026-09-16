@@ -16,7 +16,7 @@
 | Claude Code | Web GUI     | Hosted                        | [INSTALL.md#cloud-sessions](INSTALL.md#cloud-sessions)         | Supported                                                           |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | Supported                                                           |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported                                                           |
-|             | Desktop GUI | Local                         | [INSTALL.md#claude-code-zcode](INSTALL.md#claude-code-zcode)   | Supported                                                           |
+|             | Desktop GUI | Local                         | [INSTALL.md#claude-code](INSTALL.md#claude-code)   | Supported                                                           |
 |             | CLI         | Local                         | (see above)                                                    | Supported                                                           |
 
 ## OpenAI
@@ -40,7 +40,7 @@
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [INSTALL.md#claude-code-zcode](INSTALL.md#claude-code-zcode) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
+| ZCode   | Desktop GUI | Local                         | [INSTALL.md#claude-code](INSTALL.md#claude-code) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
 
 ## Pi
 

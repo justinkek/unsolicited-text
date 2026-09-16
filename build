@@ -76,20 +76,22 @@ readme() {
     printf '## Installing\n'
     section "$(stated "$product" installs)"
     shift 2
-    printf '%s\n' "$@"
+    [ "$#" -gt 0 ] && printf '%s\n' "$@"
   } > "$target/README.md"
 }
 
 rm -rf "$out"
 
-# Claude Code, ZCode, and the skills a chat client copies out of a plugin.
-target="$out/claude-code"
-payload claude-code "$target"
-mkdir -p "$target/.claude-plugin"
-jq --tab '{name, version, description, author}' "$repository/package.json" \
-  > "$target/.claude-plugin/plugin.json"
-cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
-readme claude-code "$target"
+# Claude Code, and ZCode, which installs the same plugin through its own settings.
+for product in claude-code zcode; do
+  target="$out/$product"
+  payload "$product" "$target"
+  mkdir -p "$target/.claude-plugin"
+  jq --tab '{name, version, description, author}' "$repository/package.json" \
+    > "$target/.claude-plugin/plugin.json"
+  cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
+  readme "$product" "$target"
+done
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-cloud"
@@ -122,10 +124,9 @@ target="$out/chat-cowork"
 mkdir -p "$target"
 payload chat-cowork "$target"
 rm -f "$target/package.json"
-mark_scripts "$out/claude-code"
-mark_scripts "$out/claude-cloud"
-mark_scripts "$out/codex"
-mark_scripts "$out/pi"
+for product in $(jq --raw-output 'keys[]' "$products"); do
+  mark_scripts "$out/$product"
+done
 
 readme chat-cowork "$target" \
   "Nothing is installed from this folder. The client copies these skills out of the plugin, and they are all a session there receives."
