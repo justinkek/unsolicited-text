@@ -25,10 +25,10 @@ printf "Test group: every manifest is readable JSON\n"
 
 for manifest in \
   "$REPOSITORY/.claude-plugin/marketplace.json" \
-  "$REPOSITORY/dist/claude-code/.claude-plugin/plugin.json" \
+  "$REPOSITORY/distributions/claude-code/.claude-plugin/plugin.json" \
   "$REPOSITORY/hooks/hooks.json" \
   "$REPOSITORY/.agents/plugins/marketplace.json" \
-  "$REPOSITORY/dist/codex/.codex-plugin/plugin.json" \
+  "$REPOSITORY/distributions/codex/.codex-plugin/plugin.json" \
   "$ADAPTERS/codex/hooks.json" \
   "$REPOSITORY/package.json"
 do
@@ -62,8 +62,8 @@ check_reachable() {
   done < <(commands_of "$manifest")
 }
 
-check_reachable "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/dist/claude-code" CLAUDE_PLUGIN_ROOT "claude-code"
-check_reachable "$ADAPTERS/codex/hooks.json" "$REPOSITORY/dist/codex" PLUGIN_ROOT "codex"
+check_reachable "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/distributions/claude-code" CLAUDE_PLUGIN_ROOT "claude-code"
+check_reachable "$ADAPTERS/codex/hooks.json" "$REPOSITORY/distributions/codex" PLUGIN_ROOT "codex"
 
 printf "\nTest group: each marketplace points at a plugin directory it carries\n"
 

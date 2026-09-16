@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/dist/claude-cloud"
+ADAPTER="$REPOSITORY/distributions/claude-cloud"
 
 pass=0
 fail=0
@@ -50,7 +50,7 @@ outside="$(jq --raw-output --arg checkout "$cloned/" \
 assert "every registration names a command inside it" "$?" \
   "$(printf '%s' "$outside" | tr '\n' ' ')sits outside the checkout, and nothing is there to run"
 
-grep --quiet --fixed-strings "$cloned/dist/claude-cloud/install.sh" "$REPOSITORY/INSTALL.md"
+grep --quiet --fixed-strings "$cloned/distributions/claude-cloud/install.sh" "$REPOSITORY/INSTALL.md"
 assert "and the install script runs the install from it" "$?" \
   "it clones to one place and installs from another"
 

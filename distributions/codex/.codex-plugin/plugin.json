@@ -1,0 +1,10 @@
+{
+	"name": "unsolicited-text",
+	"version": "0.2.1",
+	"description": "Consent is important.",
+	"hooks": "./hooks/hooks.json",
+	"interface": {
+		"displayName": "unsolicited-text",
+		"shortDescription": "Consent is important."
+	}
+}

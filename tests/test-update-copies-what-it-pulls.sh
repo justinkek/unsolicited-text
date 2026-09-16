@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/dist/claude-cloud"
+ADAPTER="$REPOSITORY/distributions/claude-cloud"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -49,14 +49,14 @@ git init --quiet --bare --initial-branch=main "$origin"
 
 work="$TMPDIR/work"
 git clone --quiet "$origin" "$work" 2>/dev/null
-cp -R "$REPOSITORY/dist" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
+cp -R "$REPOSITORY/distributions" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
   "$REPOSITORY/commands" "$REPOSITORY/rules" "$work/"
 cp "$REPOSITORY/package.json" "$work/package.json"
 
 publish() {
   python3 -c '
 import json, sys
-for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/dist/claude-cloud/package.json"):
+for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/distributions/claude-cloud/package.json"):
     package = json.load(open(p))
     package["version"] = sys.argv[2]
     json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"
@@ -71,16 +71,16 @@ running="$TMPDIR/running"
 git clone --quiet --depth 1 "$origin" "$running" 2>/dev/null
 
 home="$TMPDIR/home"
-env HOME="$home" bash "$running/dist/claude-cloud/install.sh"
+env HOME="$home" bash "$running/distributions/claude-cloud/install.sh"
 
-mkdir -p "$work/dist/claude-cloud/skills/newcomer"
+mkdir -p "$work/distributions/claude-cloud/skills/newcomer"
 printf -- '---\nname: newcomer\ndescription: added by the new version\n---\n' \
-  > "$work/dist/claude-cloud/skills/newcomer/SKILL.md"
+  > "$work/distributions/claude-cloud/skills/newcomer/SKILL.md"
 printf -- '---\ndescription: added by the new version\n---\n\nInvoke it.\n' \
-  > "$work/dist/claude-cloud/commands/newcomer.md"
+  > "$work/distributions/claude-cloud/commands/newcomer.md"
 publish 0.0.2
 
-said="$(printf '{}' | env HOME="$home" bash "$running/dist/claude-cloud/refresh.sh" 2>/dev/null)"
+said="$(printf '{}' | env HOME="$home" bash "$running/distributions/claude-cloud/refresh.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]
