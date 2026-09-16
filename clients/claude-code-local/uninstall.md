@@ -1,5 +1,6 @@
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
+    rm -rf ~/.unsolicited-text
 
-`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
-~/.unsolicited-text` where nothing should be left.
+The last of the three takes the settings and the state with it, so nothing is
+left.

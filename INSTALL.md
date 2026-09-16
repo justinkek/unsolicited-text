@@ -25,9 +25,8 @@ Or read `package.json` beside the hooks in the folder the install copied.
 
 ## What a removal leaves behind
 
-The directory the plugin keeps to itself, whichever client it ran in:
-
-    rm -rf ~/.unsolicited-text
+Nothing: the uninstall steps remove the directory the plugin keeps to itself,
+`~/.unsolicited-text`, along with the plugin.
 
 ## Note
 

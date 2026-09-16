@@ -1,4 +1,5 @@
     pi remove git:github.com/justinkek/unsolicited-text
 
-`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
-~/.unsolicited-text` where nothing should be left.
+    rm -rf ~/.unsolicited-text
+
+That takes the settings and the state with it, so nothing is left.

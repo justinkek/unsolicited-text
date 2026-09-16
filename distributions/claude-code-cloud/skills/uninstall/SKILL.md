@@ -10,8 +10,9 @@ Say what was removed and what was left.
 
 Stop and ask before removing anything they do not name.
 
-The settings and state are in `~/.unsolicited-text`. The steps below say what
-becomes of them, and removing them is a separate ask.
+The settings and state are in `~/.unsolicited-text`, and the steps below remove
+them with the plugin. Where `UNSOLICITED_TEXT_HOME` is set, that is the
+directory to remove.
 
 ## Afterwards
 
