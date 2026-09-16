@@ -1,60 +1,53 @@
 {
 	"claude-code-local": {
-		"title": "Claude Code",
+		"name": "Claude Code (Local)",
 		"ships": [
 			"hooks",
 			"rules",
 			"skills"
-		],
-		"heading": "Claude Code"
+		]
 	},
 	"zcode": {
-		"title": "ZCode",
-		"same-as": "claude-code-local",
-		"heading": "ZCode"
+		"name": "ZCode",
+		"same-as": "claude-code-local"
 	},
 	"claude-code-cloud": {
-		"title": "Claude Code cloud sessions",
+		"name": "Claude Code (Cloud)",
 		"ships": [
 			"hooks",
 			"rules",
 			"skills",
 			"commands",
 			"cloud"
-		],
-		"heading": "Claude Code cloud sessions"
+		]
 	},
 	"codex": {
-		"title": "Codex",
+		"name": "Codex",
 		"ships": [
 			"hooks",
 			"rules",
 			"skills"
-		],
-		"heading": "Codex"
+		]
 	},
 	"pi": {
-		"title": "Pi",
+		"name": "Pi",
 		"ships": [
 			"hooks",
 			"rules",
 			"skills",
 			"shim"
-		],
-		"heading": "Pi"
+		]
 	},
 	"claude-chat": {
-		"title": "Claude Chat",
+		"name": "Claude Chat",
 		"ships": [
 			"skills"
-		],
-		"heading": "Claude Chat"
+		]
 	},
 	"claude-cowork": {
-		"title": "Cowork",
+		"name": "Cowork",
 		"ships": [
 			"skills"
-		],
-		"heading": "Cowork"
+		]
 	}
 }

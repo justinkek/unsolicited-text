@@ -86,7 +86,7 @@ while read -r harness; do
   grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATE.md"
   assert "UPDATE.md says how to update on $harness" "$?" \
     "$harness is installable from INSTALL.md and has no way forward from there"
-done < <(jq --raw-output '.[].heading' "$REPOSITORY/distributions.json" \
+done < <(jq --raw-output '.[].name' "$REPOSITORY/distributions.json" \
   | tr ',' '\n' | sed 's/^ *//' | sort --unique)
 
 printf "\nTest group: a change reaches the session that made it\n"
@@ -113,7 +113,7 @@ while read -r harness; do
   grep --quiet --fixed-strings "$harness" "$RELOAD"
   assert "RELOAD.md says where the loader is on $harness" "$?" \
     "$harness is installable from INSTALL.md and cannot reload its rules"
-done < <(jq --raw-output '.[].heading' "$REPOSITORY/distributions.json" \
+done < <(jq --raw-output '.[].name' "$REPOSITORY/distributions.json" \
   | tr ',' '\n' | sed 's/^ *//' | sort --unique)
 
 printf "\nTest group: a setting another one turns off says so\n"

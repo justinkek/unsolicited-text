@@ -78,7 +78,7 @@ payload() {
 readme() {
   local distribution="$1" target="$2" page
   page="$({
-    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$distribution" title)"
+    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$distribution" name)"
     printf '## Installing\n\n'
     steps installs "$distribution"
     shift 2
@@ -99,7 +99,7 @@ readme() {
   printf 'client and follow its README:\n\n'
   printf '| Client | Folder |\n| --- | --- |\n'
   for distribution in $(jq --raw-output 'keys_unsorted[]' "$distributions"); do
-    printf '| %s | [distributions/%s](distributions/%s) |\n' "$(stated "$distribution" heading)" \
+    printf '| %s | [distributions/%s](distributions/%s) |\n' "$(stated "$distribution" name)" \
       "$(folder_of "$distribution")" "$(folder_of "$distribution")"
   done
   printf '\n'
@@ -112,7 +112,7 @@ page_of() {
   {
     cat "$repository/$folder/intro.md"
     for distribution in $(jq --raw-output 'keys_unsorted[]' "$distributions"); do
-      printf '\n## %s\n\n' "$(stated "$distribution" heading)"
+      printf '\n## %s\n\n' "$(stated "$distribution" name)"
       steps "$folder" "$distribution"
     done
     printf '\n'

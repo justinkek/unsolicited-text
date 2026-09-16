@@ -1,4 +1,4 @@
-# unsolicited-text for Claude Code
+# unsolicited-text for Claude Code (Local)
 
 (audience: humans)
 

@@ -15,7 +15,7 @@ The script reads a line on standard input and prints nothing without one, so it
 waits forever if the pipe is left off. The print opens by saying it replaces the
 unsolicited-text rules the session already read, and nothing else.
 
-## Claude Code
+## Claude Code (Local)
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
 a shell cannot read that variable, so find the file instead:
@@ -29,7 +29,7 @@ a shell cannot read that variable, so find the file instead:
 
     find ~ -name load-rules.sh 2>/dev/null
 
-## Claude Code cloud sessions
+## Claude Code (Cloud)
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 

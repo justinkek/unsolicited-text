@@ -58,7 +58,7 @@ for folder in "$REPOSITORY"/distributions/*/skills/update/SKILL.md; do
   assert "the $named update skill carries its own steps" "$?" \
     "it links them, or carries every install method the plugin knows"
 
-  others="$(jq --raw-output --arg named "$named" 'to_entries[] | select(.key != $named) | .value.heading' \
+  others="$(jq --raw-output --arg named "$named" 'to_entries[] | select(.key != $named) | .value.title' \
     "$REPOSITORY/distributions.json" | tr ',' '\n' | sed 's/^ *//' | sort --unique)"
   wrong=""
   while read -r heading; do

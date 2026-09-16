@@ -5,7 +5,7 @@
 Each client drops the plugin its own way, and none of them touches what the hooks
 wrote.
 
-## Claude Code
+## Claude Code (Local)
 
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
@@ -14,7 +14,7 @@ wrote.
 
 Remove it under Settings, Marketplace, where it was added.
 
-## Claude Code cloud sessions
+## Claude Code (Cloud)
 
 Clear the Setup script field of your cloud environment, and start a new session.
 The container is rebuilt without it, and nothing of the old one is left.

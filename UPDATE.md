@@ -4,7 +4,7 @@
 
 You update the way you installed.
 
-## Claude Code
+## Claude Code (Local)
 
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
@@ -28,7 +28,7 @@ move in 0.2.0. Delete it at 0.3.0. -->
 The same commands as Claude Code, run from your terminal, or through Settings,
 Marketplace where it was added.
 
-## Claude Code cloud sessions
+## Claude Code (Cloud)
 
 Installed by the Cloud Session Install Script from
 🔗 [the install instructions](https://github.com/justinkek/unsolicited-text/blob/main/INSTALL.md), where the checkout lives at
