@@ -29,18 +29,38 @@ section() {
     | cat -s
 }
 
+ships() {
+  local product="$1" part="$2"
+  sed -n "s/^$product: //p" "$repository/products" | grep --quiet --word-regexp "$part"
+}
+
 payload() {
-  local target="$1"
-  mkdir -p "$target/hooks" "$target/rules" "$target/skills" "$target/commands"
-  cp "$repository"/hooks/*.sh "$target/hooks/"
-  cp "$repository/rules/reply-shape.md" "$target/rules/"
-  cp "$repository"/commands/*.md "$target/commands/"
-  for skill in "$repository"/skills/*/SKILL.md; do
-    named="$(basename "$(dirname "$skill")")"
-    mkdir -p "$target/skills/$named"
-    cp "$skill" "$target/skills/$named/SKILL.md"
-  done
+  local product="$1" target="$2" skill named
+  mkdir -p "$target"
   cp "$repository/package.json" "$target/package.json"
+
+  if ships "$product" hooks; then
+    mkdir -p "$target/hooks"
+    cp "$repository"/hooks/*.sh "$target/hooks/"
+  fi
+
+  if ships "$product" rules; then
+    mkdir -p "$target/rules"
+    cp "$repository/rules/reply-shape.md" "$target/rules/"
+  fi
+
+  if ships "$product" skills; then
+    for skill in "$repository"/skills/*/SKILL.md; do
+      named="$(basename "$(dirname "$skill")")"
+      mkdir -p "$target/skills/$named"
+      cp "$skill" "$target/skills/$named/SKILL.md"
+    done
+  fi
+
+  if ships "$product" commands; then
+    mkdir -p "$target/commands"
+    cp "$repository"/commands/*.md "$target/commands/"
+  fi
 }
 
 readme() {
@@ -59,7 +79,7 @@ rm -rf "$out"
 
 # Claude Code, ZCode, and the skills a chat client copies out of a plugin.
 target="$out/claude-code"
-payload "$target"
+payload claude-code "$target"
 mkdir -p "$target/.claude-plugin"
 jq --tab '{name, version, description, author}' "$repository/package.json" \
   > "$target/.claude-plugin/plugin.json"
@@ -68,7 +88,7 @@ readme "$target" "unsolicited-text for Claude Code and ZCode" "$(section 'Claude
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-cloud"
-payload "$target"
+payload claude-cloud "$target"
 cp "$repository/harness-adapters/claude-code/cloud-settings.json" "$target/settings.json"
 cp "$repository/harness-adapters/claude-code/install-cloud.sh" "$target/install.sh"
 cp "$repository/harness-adapters/claude-code/refresh-cloud.sh" "$target/refresh.sh"
@@ -77,7 +97,7 @@ readme "$target" "unsolicited-text for Claude Code cloud sessions" "$(section 'C
 
 # Codex, which registers the hooks by hand.
 target="$out/codex"
-payload "$target"
+payload codex "$target"
 mkdir -p "$target/.codex-plugin"
 jq --tab '{name, version, description, hooks: "./hooks/hooks.json",
   interface: { displayName, shortDescription: .description }}' "$repository/package.json" \
@@ -87,19 +107,16 @@ readme "$target" "unsolicited-text for Codex" "$(section 'Codex')"
 
 # Pi, which loads a shim that runs the same hooks.
 target="$out/pi"
-payload "$target"
+payload pi "$target"
 mkdir -p "$target/src"
 cp "$repository/harness-adapters/pi/src/index.ts" "$target/src/index.ts"
 readme "$target" "unsolicited-text for Pi" "$(section 'Pi')"
 
 # Claude Chat and Cowork, which copy the skills out of an installed plugin.
 target="$out/chat-cowork"
-mkdir -p "$target/skills"
-for skill in "$repository"/skills/*/SKILL.md; do
-  named="$(basename "$(dirname "$skill")")"
-  mkdir -p "$target/skills/$named"
-  cp "$skill" "$target/skills/$named/SKILL.md"
-done
+mkdir -p "$target"
+payload chat-cowork "$target"
+rm -f "$target/package.json"
 mark_scripts "$out/claude-code"
 mark_scripts "$out/claude-cloud"
 mark_scripts "$out/codex"

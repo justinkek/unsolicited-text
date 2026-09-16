@@ -27,17 +27,42 @@ diff --recursive --unified "$REPOSITORY/dist" "$TMPDIR/dist" > "$TMPDIR/drift"
 assert "and dist matches it" "$?" \
   "an install would copy something no source says - run ./build"
 
-printf "\nTest group: every folder carries what its install needs\n"
+printf "\nTest group: every folder holds what it declares, and nothing else\n"
 
-for product in claude-code claude-cloud codex pi; do
-  for wanted in README.md rules/reply-shape.md hooks/load-rules.sh skills/reload/SKILL.md; do
-    [ -e "$REPOSITORY/dist/$product/$wanted" ]
-    assert "$product ships $wanted" "$?" "an install from that folder is missing it"
+ships() { sed -n "s/^$1: //p" "$REPOSITORY/products" | grep --quiet --word-regexp "$2"; }
+
+declared() { sed -n 's/^\([a-z-]*\): .*/\1/p' "$REPOSITORY/products"; }
+
+for product in $(declared); do
+  for part in hooks rules skills commands; do
+    case "$part" in
+      hooks) file="hooks/load-rules.sh" ;;
+      rules) file="rules/reply-shape.md" ;;
+      skills) file="skills/reload/SKILL.md" ;;
+      commands) file="commands/reload.md" ;;
+    esac
+
+    if ships "$product" "$part"; then
+      [ -e "$REPOSITORY/dist/$product/$file" ]
+      assert "$product ships $part" "$?" "it declares $part and an install from that folder is missing it"
+    else
+      [ ! -e "$REPOSITORY/dist/$product/$part" ]
+      assert "$product ships no $part" "$?" \
+        "it declares none and the folder holds $part anyway, so an install copies what nothing there reads"
+    fi
   done
 done
 
-[ -f "$REPOSITORY/dist/chat-cowork/skills/reload/SKILL.md" ]
-assert "chat-cowork ships the skills a client copies" "$?" "the folder says nothing about what a session there receives"
+for product in $(declared); do
+  [ -d "$REPOSITORY/dist/$product" ]
+  assert "$product has a folder" "$?" "products names it and the build writes nothing"
+done
+
+for folder in "$REPOSITORY"/dist/*/; do
+  named="$(basename "$folder")"
+  declared | grep --quiet --line-regexp "$named"
+  assert "$named is declared in products" "$?" "the build writes a folder nothing says belongs there"
+done
 
 for product in claude-code claude-cloud codex pi chat-cowork; do
   grep --quiet --fixed-strings 'Installing' "$REPOSITORY/dist/$product/README.md"

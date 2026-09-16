@@ -1,0 +1,14 @@
+# What each product's install copies, and nothing more.
+#
+# hooks    the hook scripts, and the registrations that name them
+# rules    rules/reply-shape.md, which a hook prints at session start
+# skills   the three skills, each carrying its page
+# commands the menu entries that invoke those skills
+# cloud    the install, refresh and merge scripts a container runs
+# shim     the Pi extension, which runs the hooks itself
+
+claude-code: hooks rules skills commands
+claude-cloud: hooks rules skills commands cloud
+codex: hooks rules skills commands
+pi: hooks rules shim
+chat-cowork: skills
