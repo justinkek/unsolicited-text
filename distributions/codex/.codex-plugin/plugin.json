@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.2.13",
+	"version": "0.2.14",
 	"description": "Consent is important.",
 	"hooks": "./hooks/hooks.json",
 	"interface": {

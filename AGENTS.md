@@ -66,7 +66,8 @@ the version it was built from into the skill.
 
 Skills are written as `skills/<name>/body.md` and built into every distribution
 by `./build`, which appends that distribution's own steps: `updates/` for the
-update skill, `uninstalls/` for uninstall, `reloads/` for settings. The reload
+update skill, `uninstalls/` for uninstall, `settings-steps/` for settings,
+`reloads/` for reload. The reload
 skill carries `rules/reply-shape.md` with every setting at its default. No
 `SKILL.md` is written by hand, and a test fails when one drifts from its sources.
 

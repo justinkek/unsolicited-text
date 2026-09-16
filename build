@@ -62,11 +62,12 @@ payload() {
 
   if ships "$distribution" skills; then
     mkdir -p "$target/skills/reload"
-    "$repository/skills/reload/render" "$target/skills/reload/SKILL.md"
+    "$repository/skills/reload/render" "$target/skills/reload/SKILL.md" \
+      "$repository/reloads/$distribution.md"
 
     carries update updates "$distribution" "$target"
     carries uninstall uninstalls "$distribution" "$target"
-    carries settings reloads "$distribution" "$target"
+    carries settings settings-steps "$distribution" "$target"
   fi
 
   if ships "$distribution" commands; then
