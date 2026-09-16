@@ -23,12 +23,23 @@ setting_value() {
   printf '%s' "${value:-$default}"
 }
 
+# A ceiling is counted against, so a value that is not a number is no ceiling
+# at all: the default stands rather than the count failing in silence.
+counted() {
+  case "$1" in
+    '' | *[!0-9]*) printf '%s' "$2" ;;
+    *) printf '%s' "$1" ;;
+  esac
+}
+
 prose_line_ceiling() {
-  setting_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT"
+  counted "$(setting_value UNSOLICITED_TEXT_PROSE_LINE_CEILING "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT")" \
+    "$UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT"
 }
 
 prose_word_ceiling() {
-  setting_value UNSOLICITED_TEXT_PROSE_WORD_CEILING "$UNSOLICITED_TEXT_PROSE_WORD_CEILING_DEFAULT"
+  counted "$(setting_value UNSOLICITED_TEXT_PROSE_WORD_CEILING "$UNSOLICITED_TEXT_PROSE_WORD_CEILING_DEFAULT")" \
+    "$UNSOLICITED_TEXT_PROSE_WORD_CEILING_DEFAULT"
 }
 
 queue_emoji() {
