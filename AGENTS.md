@@ -30,7 +30,7 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | which hooks a distribution registers | `adapters/<distribution>/` |
 | how each install method works | `clients/<client>/install.md`, with `update.md`, `uninstall.md`, `reload.md`, `settings.md` and `support.md` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
 | what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
-| the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
+| the rules a session without hooks reads | nothing by hand - `./build` runs the render beside the reload skill |
 
 Every setting is read through `setting_value`, takes the `UNSOLICITED_TEXT_`
 prefix, and is named in the settings skill. A test holds all three together.
@@ -48,17 +48,15 @@ with an `unsolicited-text-` prefix. Where the install registers a plugin, a
 command and a skill of the same name both answer to `unsolicited-text:<name>`,
 the command wins, and its body only points back at the name it was invoked by.
 
-One folder under `clients/` holds everything about one name: its pages, its
-`signature.md` where a session has to recognise itself, and its `adapter/` where
-the harness needs one. The prose around the table in `INSTALL.md` is the one
-thing that belongs to no client, and it is in `install-page/`.
-
 A folder under `clients/` is a client, and nothing else: its pages, its
-`signature.md`, and `client.json` holding its name. A page that would be a copy
-of another client's holds one line instead, `{same as claude-code-local}`, and
-the build reads that client's page in its place. A test fails on a copy that
-does not say so. A folder under `adapters/`
-is a distribution's, and holds what registers the hooks with that harness.
+`signature.md` where a session has to recognise itself, and `client.json`
+holding its name. A page that would be a copy of another client's holds one line
+instead, `{same as claude-code-local}`, and the build reads that client's page
+in its place. A test fails on a copy that does not say so.
+
+A folder under `adapters/` is a distribution's, and holds what registers the
+hooks with that harness. The prose around the table in `INSTALL.md` is the one
+thing that belongs to no client, and it is in `install-page/`.
 
 Every key in `distributions.json` builds a folder under `distributions/`, says
 which parts it `ships`, and lists the clients it `serves`, itself included. One
@@ -68,10 +66,10 @@ signature matches what it can see. Such a distribution says its own `name`; one
 serving a single client is called what that client is called. A test holds every
 folder to it, so a part nothing there reads cannot ship by accident.
 
-Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
-and `package.json` together when a change has to reach an installed copy: an
-install caches by version. Then run `skills/reload/render`, which stamps
-the version it was built from into the skill.
+Raise the version in `package.json` when a change has to reach an installed
+copy: an install caches by version, so a fix nobody's install fetches is a fix
+nobody has. Then run `./build`, which writes it into both plugin manifests and
+stamps it into every reload skill.
 
 ## What not to hand-edit
 
