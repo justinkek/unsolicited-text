@@ -15,45 +15,18 @@ The script reads a line on standard input and prints nothing without one, so it
 waits forever if the pipe is left off. The print opens by saying it replaces the
 unsolicited-text rules the session already read, and nothing else.
 
-## Claude Code (Local)
+Every install copies one folder under `distributions/`. Open the one for your
+client and read its Reloading section:
 
-The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
-a shell cannot read that variable, so find the file instead:
-
-    find ~ -name load-rules.sh 2>/dev/null
-
-## ZCode
-
-The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
-a shell cannot read that variable, so find the file instead:
-
-    find ~ -name load-rules.sh 2>/dev/null
-
-## Claude Code (Cloud)
-
-    printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
-
-## Codex
-
-The path is the one written by hand in `~/.codex/config.toml`:
-
-    printf '{}' | <path to this checkout>/hooks/load-rules.sh
-
-## Pi
-
-The path is the checkout the Pi adapter names:
-
-    find ~ -name load-rules.sh 2>/dev/null
-
-## Claude Chat
-
-Nowhere - no hook runs here, so the reload skill carries the rules itself. Ask
-for it, and it prints them.
-
-## Cowork
-
-Nowhere - no hook runs here, so the reload skill carries the rules itself. Ask
-for it, and it prints them.
+| Client | Folder |
+| --- | --- |
+| Claude Code (Local) | [distributions/claude-code-local](distributions/claude-code-local/README.md#reloading) |
+| ZCode | [distributions/claude-code-local](distributions/claude-code-local/README.md#reloading) |
+| Claude Code (Cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud/README.md#reloading) |
+| Codex | [distributions/codex](distributions/codex/README.md#reloading) |
+| Pi | [distributions/pi](distributions/pi/README.md#reloading) |
+| Claude Chat | [distributions/claude-chat](distributions/claude-chat/README.md#reloading) |
+| Cowork | [distributions/claude-cowork](distributions/claude-cowork/README.md#reloading) |
 
 A restart is the last resort, for a session where the file cannot be found.
 

@@ -5,39 +5,18 @@
 Each client drops the plugin its own way, and none of them touches what the hooks
 wrote.
 
-## Claude Code (Local)
+Every install copies one folder under `distributions/`. Open the one for your
+client and read its Uninstalling section:
 
-    claude plugin uninstall unsolicited-text@unsolicited-text
-    claude plugin marketplace remove unsolicited-text
-
-## ZCode
-
-Remove it under Settings, Marketplace, where it was added.
-
-## Claude Code (Cloud)
-
-Clear the Setup script field of your cloud environment, and start a new session.
-The container is rebuilt without it, and nothing of the old one is left.
-
-## Codex
-
-    codex plugin remove unsolicited-text@unsolicited-text
-
-Then delete the four `[[hooks.*]]` blocks from `~/.codex/config.toml` yourself. You
-registered them by hand because Codex does not run a plugin's own hooks yet, and
-dropping the plugin leaves them behind, still naming scripts that are gone.
-
-## Pi
-
-    pi remove git:github.com/justinkek/unsolicited-text
-
-## Claude Chat
-
-Open the plus menu, then Plugins, then Manage plugins, and remove it there.
-
-## Cowork
-
-Open the plus menu, then Plugins, then Manage plugins, and remove it there.
+| Client | Folder |
+| --- | --- |
+| Claude Code (Local) | [distributions/claude-code-local](distributions/claude-code-local/README.md#uninstalling) |
+| ZCode | [distributions/claude-code-local](distributions/claude-code-local/README.md#uninstalling) |
+| Claude Code (Cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud/README.md#uninstalling) |
+| Codex | [distributions/codex](distributions/codex/README.md#uninstalling) |
+| Pi | [distributions/pi](distributions/pi/README.md#uninstalling) |
+| Claude Chat | [distributions/claude-chat](distributions/claude-chat/README.md#uninstalling) |
+| Cowork | [distributions/claude-cowork](distributions/claude-cowork/README.md#uninstalling) |
 
 ## What is left on the machine
 

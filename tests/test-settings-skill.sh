@@ -82,16 +82,15 @@ grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
 assert "it carries the commands for the install it ships in" "$?" \
   "the skill neither holds them nor says where they are"
 
-while read -r harness; do
-  grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATE.md"
-  assert "UPDATE.md says how to update on $harness" "$?" \
-    "$harness is installable from INSTALL.md and has no way forward from there"
-done < <(jq --raw-output '.[].name' "$REPOSITORY/distributions.json" \
-  | tr ',' '\n' | sed 's/^ *//' | sort --unique)
+while read -r distribution; do
+  [ -s "$REPOSITORY/updates/$distribution.md" ]
+  assert "$distribution says how it is updated" "$?" \
+    "it is installable and has no way forward from there"
+done < <(jq --raw-output 'keys[]' "$REPOSITORY/distributions.json")
 
 printf "\nTest group: a change reaches the session that made it\n"
 
-RELOAD="$REPOSITORY/RELOAD.md"
+RELOAD="$(cat "$REPOSITORY"/reloads/*.md)"
 
 grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
 assert "the settings skill carries the reload steps for its install" "$?" \
@@ -101,20 +100,19 @@ grep --quiet --fixed-strings 'reload skill' "$UPDATE_SKILL"
 assert "the update skill sends a reader to the reload skill" "$?" \
   "the rules were printed at session start, and a change would wait for a restart"
 
-grep --quiet --fixed-strings 'load-rules.sh' "$RELOAD"
-assert "the page names the loader" "$?" "there is no script to run"
+printf '%s' "$RELOAD" | grep --quiet --fixed-strings 'load-rules.sh'
+assert "the reload steps name the loader" "$?" "there is no script to run"
 
-[ "$(grep --count --fixed-strings 'load-rules.sh' "$RELOAD")" \
-  -ge "$(grep --count --extended-regexp "printf '\{\}' \|" "$RELOAD")" ]
-assert "and pipes a line into every command it gives" "$?" \
+[ "$(printf '%s' "$RELOAD" | grep --count --fixed-strings 'load-rules.sh')" \
+  -ge "$(printf '%s' "$RELOAD" | grep --count --extended-regexp "printf '\{\}' \|")" ]
+assert "and pipe a line into every command they give" "$?" \
   "the script waits on standard input, so a command without the pipe hangs"
 
-while read -r harness; do
-  grep --quiet --fixed-strings "$harness" "$RELOAD"
-  assert "RELOAD.md says where the loader is on $harness" "$?" \
-    "$harness is installable from INSTALL.md and cannot reload its rules"
-done < <(jq --raw-output '.[].name' "$REPOSITORY/distributions.json" \
-  | tr ',' '\n' | sed 's/^ *//' | sort --unique)
+while read -r distribution; do
+  [ -s "$REPOSITORY/reloads/$distribution.md" ]
+  assert "$distribution says where its loader is" "$?" \
+    "it is installable and cannot reload its rules"
+done < <(jq --raw-output 'keys[]' "$REPOSITORY/distributions.json")
 
 printf "\nTest group: a setting another one turns off says so\n"
 
