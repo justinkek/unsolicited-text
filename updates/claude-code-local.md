@@ -11,3 +11,6 @@ plugin used to live. Install it again from the refreshed one:
     claude plugin install unsolicited-text@unsolicited-text
 
 Your settings are in `~/.unsolicited-text` and no install touches them.
+
+<!-- The paragraph above, from "If the version does not move", exists for the
+move in 0.2.0. Delete it at 0.3.0. -->
