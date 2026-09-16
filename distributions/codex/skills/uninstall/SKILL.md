@@ -10,6 +10,9 @@ Say what was removed and what was left.
 
 Stop and ask before removing anything they do not name.
 
+The settings and state are in `~/.unsolicited-text`. The steps below say what
+becomes of them, and removing them is a separate ask.
+
 ## Afterwards
 
 The session already running still holds the rules that were printed into it.
@@ -19,9 +22,12 @@ Say so: they go when the session ends.
 
     codex plugin remove unsolicited-text@unsolicited-text
 
-Then delete the four `[[hooks.*]]` blocks from `~/.codex/config.toml` yourself. You
+Then delete the `[[hooks.*]]` blocks you added to `~/.codex/config.toml`. You
 registered them by hand because Codex does not run a plugin's own hooks yet, and
 dropping the plugin leaves them behind, still naming scripts that are gone.
+
+`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
+~/.unsolicited-text` where nothing should be left.
 
 ## Note
 

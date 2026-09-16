@@ -100,17 +100,28 @@ Open the plus menu, then Plugins, then Manage plugins, and update it there.
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
 
+`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
+~/.unsolicited-text` where nothing should be left.
+
 ### ZCode
 
 Remove it under Settings, Marketplace, where it was added.
+
+`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
+~/.unsolicited-text` where nothing should be left.
 
 ### Claude Chat
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
+Nothing here writes `~/.unsolicited-text`, so the removal leaves nothing behind.
+
 ### Cowork
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
+
+`~/.unsolicited-text` is inside the session's container, which is discarded when
+the session ends, so nothing is left after that.
 
 ## Note
 

@@ -10,6 +10,9 @@ Say what was removed and what was left.
 
 Stop and ask before removing anything they do not name.
 
+The settings and state are in `~/.unsolicited-text`. The steps below say what
+becomes of them, and removing them is a separate ask.
+
 ## Afterwards
 
 The session already running still holds the rules that were printed into it.
@@ -18,6 +21,9 @@ Say so: they go when the session ends.
 ## The steps for this install
 
     pi remove git:github.com/justinkek/unsolicited-text
+
+`~/.unsolicited-text` stays, settings and all. Remove it with `rm -rf
+~/.unsolicited-text` where nothing should be left.
 
 ## Note
 
