@@ -177,13 +177,16 @@ hooks and reloads support on each product and surface.
 
     tests/run-tests
 
-Each pair is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt` and
-`demo/<name>-after.txt`. Edit any of them and record again:
+## 6. Recordings and the logo
+
+Each pair above is typed out from `demo/<name>.prompt`, `demo/<name>-before.txt`
+and `demo/<name>-after.txt`. Edit any of them and record again:
 
     brew install vhs
     demo/record
 
-## 6. Docs
-The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
+They are typed in Commit Mono at the palette in `demo/record`. Without that face
+installed the recording falls back to another one, and `demo/record` says so
+before it starts.
 
-They are typed in Commit Mono at the palette in `demo/record`. Without that face installed the recording falls back to another one, and `demo/record` says so before it starts.
+The logo is drawn in `logo/logo.svg` and rendered by `logo/render`.
