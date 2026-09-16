@@ -24,7 +24,7 @@ and a README with these same steps:
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
-(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the cloud session section.
+(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the session is a cloud one: say so, and use the cloud install instructions at 🔗 [dist/claude-cloud](https://github.com/justinkek/unsolicited-text/tree/main/dist/claude-cloud) instead.
 
 ## ZCode
 
