@@ -121,12 +121,18 @@ done
 printf "\nTest group: a client a distribution serves is one it can tell apart\n"
 
 while read -r distribution; do
+  serves="$(jq --raw-output --arg d "$distribution" '.[$d].serves // [] | length' "$DISTRIBUTIONS")"
+  [ "$serves" -gt 0 ]
+  assert "$distribution says which clients it serves" "$?" \
+    "the build cannot tell whether its skills carry one set of steps or four"
+
   while read -r client; do
     [ -n "$(jq --raw-output '.name' "$REPOSITORY/clients/$client/client.json" 2>/dev/null)" ]
     assert "$client says what it is called" "$?" \
       "the section for it in a skill would open with a blank heading"
 
-    [ -s "$REPOSITORY/clients/$client/signature.md" ]
+    # One client needs no signature: a session in that folder is already it.
+    [ "$serves" = "1" ] || [ -s "$REPOSITORY/clients/$client/signature.md" ]
     assert "$distribution can recognise $client" "$?" \
       "the skills branch on a signature that is not written down"
 

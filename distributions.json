@@ -19,6 +19,9 @@
 			"skills",
 			"commands",
 			"cloud"
+		],
+		"serves": [
+			"claude-code-cloud"
 		]
 	},
 	"codex": {
@@ -26,6 +29,9 @@
 			"hooks",
 			"rules",
 			"skills"
+		],
+		"serves": [
+			"codex"
 		]
 	},
 	"pi": {
@@ -34,6 +40,9 @@
 			"rules",
 			"skills",
 			"adapter"
+		],
+		"serves": [
+			"pi"
 		]
 	}
 }

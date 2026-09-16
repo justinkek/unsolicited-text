@@ -39,9 +39,10 @@ folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as
 
 distributes() { jq --raw-output 'keys_unsorted[]' "$distributions"; }
 
+# Every distribution says which clients it serves, itself included.
 served() {
-  jq --raw-output --arg distribution "$1" \
-    '(.[$distribution].serves // [$distribution])[]' "$distributions"
+  jq --exit-status --raw-output --arg distribution "$1" \
+    '.[$distribution].serves[]' "$distributions"
 }
 
 # A skill carries the steps for the clients its distribution serves, and no others.
