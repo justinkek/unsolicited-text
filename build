@@ -20,8 +20,19 @@ mark_scripts() {
 }
 
 # One page of one client: clients/<client>/<page>.md, with its links published.
+# A page holding {same as <client>} is that client's page, read in its place.
 page() {
-  sed -E "s@\]\(([A-Za-z-]+\.md)([^)]*)\)@](PUBLISHED/\1\2)@g" "$repository/clients/$2/$1.md" \
+  local named="$1" source="$repository/clients/$2/$1.md" pointed
+  pointed="$(sed -n "1s/^{same as \\([a-z-]*\\)}$/\\1/p" "$source")"
+  if [ -n "$pointed" ]; then
+    source="$repository/clients/$pointed/$named.md"
+    if sed -n '1p' "$source" | grep --quiet '^{same as '; then
+      printf 'clients/%s/%s.md points at %s, which points on again\n' "$2" "$named" "$pointed" >&2
+      exit 1
+    fi
+  fi
+
+  sed -E "s@\]\(([A-Za-z-]+\.md)([^)]*)\)@](PUBLISHED/\1\2)@g" "$source" \
     | sed "s@PUBLISHED@$published@g"
 }
 

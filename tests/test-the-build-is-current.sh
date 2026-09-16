@@ -118,6 +118,34 @@ for folder in "$REPOSITORY"/distributions/*/; do
     "both resolve to unsolicited-text:<name>, the command wins, and it only points back at itself"
 done
 
+printf "\nTest group: a page a client shares says so, and no page is a copy\n"
+
+points_at() { sed -n "1s/^{same as \\([a-z-]*\\)}$/\\1/p" "$1"; }
+
+for source in "$REPOSITORY"/clients/*/*.md; do
+  pointed="$(points_at "$source")"
+  [ -n "$pointed" ] || continue
+  named="$(basename "$source")"
+
+  [ -s "$REPOSITORY/clients/$pointed/$named" ] && [ -z "$(points_at "$REPOSITORY/clients/$pointed/$named")" ]
+  assert "${source#$REPOSITORY/} points at a page that is there" "$?" \
+    "clients/$pointed/$named is missing, or points on again"
+done
+
+for named in install update uninstall reload settings support; do
+  copied=""
+  for source in "$REPOSITORY"/clients/*/"$named.md"; do
+    [ -f "$source" ] && [ -z "$(points_at "$source")" ] || continue
+    for other in "$REPOSITORY"/clients/*/"$named.md"; do
+      [ "$other" != "$source" ] && [ -f "$other" ] && [ -z "$(points_at "$other")" ] || continue
+      cmp --silent "$source" "$other" && copied="$copied $(basename "$(dirname "$source")")"
+    done
+  done
+  [ -z "$copied" ]
+  assert "no $named.md is a copy of another" "$?" \
+    "$copied hold the same page twice - one of them says {same as <client>}"
+done
+
 printf "\nTest group: a folder holds a client, an adapter holds a distribution\n"
 
 for folder in "$REPOSITORY"/clients/*/; do

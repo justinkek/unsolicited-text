@@ -54,7 +54,10 @@ the harness needs one. The prose around the table in `INSTALL.md` is the one
 thing that belongs to no client, and it is in `install-page/`.
 
 A folder under `clients/` is a client, and nothing else: its pages, its
-`signature.md`, and `client.json` holding its name. A folder under `adapters/`
+`signature.md`, and `client.json` holding its name. A page that would be a copy
+of another client's holds one line instead, `{same as claude-code-local}`, and
+the build reads that client's page in its place. A test fails on a copy that
+does not say so. A folder under `adapters/`
 is a distribution's, and holds what registers the hooks with that harness.
 
 Every key in `distributions.json` builds a folder under `distributions/`, says
