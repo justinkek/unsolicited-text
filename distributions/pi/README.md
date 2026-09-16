@@ -4,17 +4,21 @@
 
 ## What works
 
-The adapter reminds a session to keep a reply short and carries a drift note
-into the next prompt. It does not print the rules themselves: nothing here runs
-at session start, so the full rules never reach a session.
+The adapter runs the same hooks as everywhere else: the rules are printed when
+the first turn of a session starts, a long reply is noted and the note is
+replayed on the next prompt, and a new version is announced. Settings are kept
+in `~/.unsolicited-text` and outlive the session.
+
+No session has confirmed it, so the row in the compatibility table reads Not
+verified rather than Supported.
 
 ## Installing
 
     pi install git:github.com/justinkek/unsolicited-text
 
-The adapter runs the reminder before each turn and carries a drift note into the
-next prompt. It does not print the rules at session start, so ask for the reload
-skill in your first message.
+The adapter prints the rules when the first turn of a session starts, reminds
+each turn to keep the reply short, and carries a drift note into the next
+prompt.
 
 ## Updating
 

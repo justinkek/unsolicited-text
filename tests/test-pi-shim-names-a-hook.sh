@@ -30,6 +30,22 @@ while read -r script; do
   assert "the shim spawns $script" "$?" "hooks/$script is not an executable file"
 done <<< "$named"
 
+printf "\nTest group: a session there is given the rules, once\n"
+
+grep --quiet --fixed-strings 'load-rules.sh' "$SHIM"
+assert "the shim loads the rules" "$?" \
+  "every other hook runs and a session there is never told the rules"
+
+grep --quiet --extended-regexp 'started \? "" :' "$SHIM"
+assert "and prints them once, not before every turn" "$?" \
+  "the rules would be repeated in full at the top of every prompt"
+
+printf "\nTest group: what a hook answers in JSON is read before it is shown\n"
+
+grep --quiet --fixed-strings 'JSON.parse' "$SHIM"
+assert "the shim reads a JSON answer" "$?" \
+  "the version notice reaches a reader there as the raw JSON the hook printed"
+
 printf "\nTest group: the shim reaches them through the one hooks directory\n"
 
 grep --quiet --fixed-strings '"..", "hooks"' "$SHIM"
