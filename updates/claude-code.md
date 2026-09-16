@@ -3,3 +3,11 @@
 
 A session already running holds the old copy, so restart it or run
 `/reload-plugins`.
+
+If the version does not move, the marketplace snapshot still names where the
+plugin used to live. Install it again from the refreshed one:
+
+    claude plugin uninstall unsolicited-text@unsolicited-text
+    claude plugin install unsolicited-text@unsolicited-text
+
+Your settings are in `~/.unsolicited-text` and no install touches them.
