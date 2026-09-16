@@ -45,7 +45,7 @@
 - A queue question blocks the action it gates. Act on everything that does not depend on it.
 - Draw the queue as a tree in every reply. {queue-tree=always-on}
 - Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again. {queue-tree=on-switch-only}
-- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list. A branch holding one item is written as that item: {queue-tree=always-on|on-switch-only}
+- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list.: {queue-tree=always-on|on-switch-only}
 
   ```
   unsolicited-text
@@ -53,7 +53,7 @@
   │   ├── 🔍 Investigate: a leaf runs off the side of a phone  ← CURRENT
   │   └── (2 pending)
   ├── queue marks (3 pending)
-  └── onboarding
+  └── onboarding (1 pending)
   ```
 
   Marked instead `← DONE` on the item closed this reply, and, on the item that
@@ -61,7 +61,7 @@
   `← CURRENT CONTEXT` on the branch it left, saying `context switch` moves onto
   it.
 
-- Draw one item under the branch being worked, the marked one or the first one, and count the rest - even when every one of them is waiting on me. A count is written only when it is one or more: a branch with nothing left to count shows its item alone. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand. {queue-tree=always-on|on-switch-only}
+- Draw one item under the branch being worked, the marked one or the first one, and count the rest - even when every one of them is waiting on me. A count is written only when it is one or more: nothing left to count is written as nothing at all. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand. {queue-tree=always-on|on-switch-only}
 - Draw the queue as a list or as a tree, never both in one reply. The list holds every item. {queue-tree=off|on-switch-only} {queue-limit=unset}
 - Draw the queue as a list or as a tree, never both in one reply. The list holds the first {queue-limit} items, then `...N more pending` when any are hidden, N being every item below them. Write no such line when every item is shown. {queue-tree=off|on-switch-only} {queue-limit=set}
 - Do not write a breadcrumb. {breadcrumb=off}
