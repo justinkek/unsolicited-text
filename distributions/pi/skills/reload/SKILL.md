@@ -66,7 +66,7 @@ unsolicited-text rules printed earlier in this session.
 - An item stays listed in every reply until I pick it up or answer it, and comes off the moment I do. I decide when that is.
 - A queue question blocks the action it gates. Act on everything that does not depend on it.
 - Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again.
-- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list.:
+- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list:
 
   ```
   unsolicited-text
