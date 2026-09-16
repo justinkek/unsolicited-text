@@ -163,7 +163,7 @@ jq --tab '{name, version, description, hooks: "./hooks/hooks.json",
 cp "$repository/harness-adapters/codex/hooks.json" "$target/hooks/hooks.json"
 readme codex "$target"
 
-# Pi, which loads a shim that runs the same hooks.
+# Pi, which loads an adapter that runs the same hooks.
 target="$out/pi"
 payload pi "$target"
 mkdir -p "$target/src"
