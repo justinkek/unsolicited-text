@@ -20,18 +20,22 @@ A plugin directory under `~/.claude/plugins`, and a project directory you can
 write to. Everything works, and settings persist.
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
-a shell cannot read that variable, so find the file instead:
+a shell cannot read that variable, so find the file and run it:
 
     find ~ -name load-rules.sh 2>/dev/null
+
+    printf '{}' | <the path it finds>
 
 ### ZCode
 
 As Claude Code, installed through Settings, Marketplace.
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
-a shell cannot read that variable, so find the file instead:
+a shell cannot read that variable, so find the file and run it:
 
     find ~ -name load-rules.sh 2>/dev/null
+
+    printf '{}' | <the path it finds>
 
 ### Claude Chat
 

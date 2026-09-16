@@ -107,10 +107,15 @@ assert "the update skill sends a reader to the reload skill" "$?" \
 printf '%s' "$RELOAD" | grep --quiet --fixed-strings 'load-rules.sh'
 assert "the reload steps name the loader" "$?" "there is no script to run"
 
-[ "$(printf '%s' "$RELOAD" | grep --count --fixed-strings 'load-rules.sh')" \
-  -ge "$(printf '%s' "$RELOAD" | grep --count --extended-regexp "printf '\{\}' \|")" ]
+missing=""
+for page in "$REPOSITORY"/clients/*/reload.md; do
+  grep --quiet --fixed-strings 'load-rules.sh' "$page" || continue
+  grep --quiet --extended-regexp "printf '\{\}' \|" "$page" \
+    || missing="$missing $(basename "$(dirname "$page")")"
+done
+[ -z "$missing" ]
 assert "and pipe a line into every command they give" "$?" \
-  "the script waits on standard input, so a command without the pipe hangs"
+  "$missing names the script and never says to run it, and it waits on standard input"
 
 while read -r client; do
   [ -s "$REPOSITORY/clients/$client/reload.md" ]
