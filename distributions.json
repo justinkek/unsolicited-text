@@ -4,8 +4,7 @@
 		"ships": [
 			"hooks",
 			"rules",
-			"skills",
-			"commands"
+			"skills"
 		],
 		"heading": "Claude Code"
 	},
@@ -30,8 +29,7 @@
 		"ships": [
 			"hooks",
 			"rules",
-			"skills",
-			"commands"
+			"skills"
 		],
 		"heading": "Codex"
 	},
@@ -41,7 +39,6 @@
 			"hooks",
 			"rules",
 			"skills",
-			"commands",
 			"shim"
 		],
 		"heading": "Pi"
