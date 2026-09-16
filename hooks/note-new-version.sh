@@ -35,8 +35,10 @@ mkdir -p "$UNSOLICITED_TEXT_STATE"
 printf '%s' "$now" > "$checked"
 
 (
+  # A version is digits, dots and dashes. Anything else is not read, so nothing
+  # a published file says can end up inside the JSON this hook prints.
   latest="$(curl --silent --fail --max-time 5 "$published" 2>/dev/null \
-    | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)"
+    | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([0-9A-Za-z.+-]*\)".*/\1/p' | head -1)"
   [ -n "$latest" ] || exit 0
   [ "$latest" = "$installed" ] && exit 0
   [ "$(printf '%s\n%s\n' "$installed" "$latest" | sort --version-sort | tail -1)" = "$latest" ] || exit 0
