@@ -2,48 +2,52 @@
 
 (audience: humans)
 
+Supported means the rules are printed and drift is caught. Partial means some of
+that is missing, and the folder linked in the row says which. Where no folder is
+linked, nothing installs there yet.
+
 ## Anthropic
 
 | Product     | Surface     | Harness execution environment | Installation                                                   | Support                                                             |
 | ----------- | ----------- | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Claude Chat | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Partial Support. Functionality may drift over time as no hook runs. |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | (see above)                                                         |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | (see above)                                                         |
-| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported, verified on the desktop GUI. The four skills appear and all three hooks run: the rules are printed, a long reply is noted, and the note is replayed. Settings are written inside the session's container and go when it ends.                                                                 |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | TBD                                                                 |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | TBD                                                                 |
-|             | Desktop GUI | Local                         | (see above)                                                    | TBD                                                                 |
-| Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported                                                           |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | Supported                                                           |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported                                                           |
-|             | Desktop GUI | Local                         | [distributions/claude](distributions/claude)   | Supported                                                           |
-|             | CLI         | Local                         | (see above)                                                    | Supported                                                           |
+| Claude Chat | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Partial |
+|             | Desktop GUI | Hosted                        | (see above)                                                    | Partial |
+|             | Mobile GUI  | Hosted                        | (see above)                                                    | Partial |
+| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported |
+|             | Desktop GUI | Hosted                        | (see above)                                                    | Not verified |
+|             | Mobile GUI  | Hosted                        | (see above)                                                    | Not verified |
+|             | Desktop GUI | Local                         | (see above)                                                    | Not verified |
+| Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported |
+|             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
+|             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported |
+|             | Desktop GUI | Local                         | [distributions/claude](distributions/claude)   | Supported |
+|             | CLI         | Local                         | (see above)                                                    | Supported |
 
 ## OpenAI
 
 | Product      | Surface       | Harness execution environment | Installation                                      | Support                                                                                                                                                                                                                                                                |
 | ------------ | ------------- | ----------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ChatGPT Chat | Web GUI       | Hosted                        |                                                   | Partial in principle. Chat can use plugin skills, but it does not run the Codex lifecycle hooks that provide unsolicited-text's reply rules and drift checks. There are no rules to reload, and hook settings have no effect. This plugin has not been tested in Chat. |
-|              | Desktop GUI   | Hosted                        |                                                   | Partial in principle, for the same reason as the web GUI.                                                                                                                                                                                                              |
-|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Partial in principle, for the same reason as the web GUI.                                                                                                                                                                                                              |
-| ChatGPT Work | Web GUI       | Hosted                        |                                                   | Not yet supported. Work can run hooks, but installing on the web does not deploy this plugin's hook scripts into the execution environment.                                                                                                                            |
-|              | Desktop GUI   | Local                         |                                                   | Not verified. Work can run hooks, but this repository does not yet install or register their scripts for Work.                                                                                                                                                         |
-|              | Desktop GUI   | Hosted                        |                                                   | Not yet supported. This repository does not deploy the hook scripts into a hosted session.                                                                                                                                                                             |
-|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not yet supported, as in the web GUI row.                                                                                                                                                                                                                              |
-| Codex        | Web GUI       | Hosted                        |                                                   | Not supported. OpenAI documents plugin use for Codex in the ChatGPT desktop app and Codex CLI, not Codex cloud.                                                                                                                                                        |
-|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Supported after the hooks are registered. A new session loads the rules automatically; the current session needs the reload skill. Settings live in `~/.unsolicited-text/settings`.                                                                 |
-|              | Desktop GUI   | Hosted                        |                                                   | Not yet supported. This repository does not install or register the hook scripts into a hosted session.                                                                                                                                                                |
-|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported, as in the desktop GUI row.                                                                                                                                                                                                                                  |
-|              | IDE extension | Local                         |                                                   | Not supported. The IDE extension does not support plugins.                                                                                                                                                                                                             |
+| ChatGPT Chat | Web GUI       | Hosted                        |                                                   | Partial |
+|              | Desktop GUI   | Hosted                        |                                                   | Partial |
+|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Partial |
+| ChatGPT Work | Web GUI       | Hosted                        |                                                   | Not supported |
+|              | Desktop GUI   | Local                         |                                                   | Not verified |
+|              | Desktop GUI   | Hosted                        |                                                   | Not supported |
+|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not supported |
+| Codex        | Web GUI       | Hosted                        |                                                   | Not supported |
+|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Supported |
+|              | Desktop GUI   | Hosted                        |                                                   | Not supported |
+|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported |
+|              | IDE extension | Local                         |                                                   | Not supported |
 
 ## ZCode
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or run the reload skill in the current one. Settings live in `~/.unsolicited-text/settings`. |
+| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported |
 
 ## Pi
 
 | Product | Surface | Harness execution environment | Installation                   | Support                                                                                                                                                                                                                                                                                               |
 | ------- | ------- | ----------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pi      | CLI     | Local                         | [distributions/pi](distributions/pi) | Partial. The adapter supplies the short reply reminder and carries drift notes into the next prompt, but Pi has no session-start hook here to load or reload the full rules automatically. Its hooks read settings from `~/.unsolicited-text/settings` or `UNSOLICITED_TEXT_*` environment variables. |
+| Pi      | CLI     | Local                         | [distributions/pi](distributions/pi) | Partial |
