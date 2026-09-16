@@ -124,8 +124,8 @@ for script in "$REPOSITORY"/hooks/*.sh; do
   assert "the readme lists $name" "$outcome" "it ships and the readme never says so"
 done
 
-for skill in "$REPOSITORY"/skills/*/SKILL.md; do
-  named="$(basename "$(dirname "$skill")")"
+for skill in "$REPOSITORY"/skills/*/; do
+  named="$(basename "$skill")"
   grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/README.md"
   outcome="$?"
   assert "the readme names unsolicited-text:$named" "$outcome" "it ships and the readme never says so"

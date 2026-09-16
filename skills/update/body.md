@@ -8,8 +8,7 @@ description: Update unsolicited-text to the latest version
 Running this skill is the go-ahead. Update, then say which version was
 installed and which one is now.
 
-Work out which harness the session is in, and how the plugin was installed.
-The commands for every install method are at the end of this file.
+The commands for this install are at the end of this file.
 
 Stop and ask before anything they do not carry, and before a command that
 removes an install rather than moving it forward.

@@ -27,7 +27,7 @@ for manifest in distributions/claude-code/.claude-plugin/plugin.json distributio
     "it states $stated, and an install caches by version, so the two disagree about what a reader is running"
 done
 
-grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/skills/reload/SKILL.md"
+grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/distributions/claude-code/skills/reload/SKILL.md"
 assert "the reload skill was rendered from $declared" "$?" \
   "it names another version, and a session with no checkout would report that one - run skills/reload/render"
 
