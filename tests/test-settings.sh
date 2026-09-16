@@ -97,6 +97,30 @@ assert_equal "the note names the configured ceiling" \
   "$(grep --count 'ceiling of 3' "$TMPDIR/notes-3/test-config.stop-notes")" "1"
 assert_equal "five lines against a ceiling of 20 is silence" "$(run_with_ceiling 20)" "silent"
 
+# A value that is not a number counts against nothing, so the default stands.
+long_transcript="$TMPDIR/long.jsonl"
+jq --null-input --compact-output --arg t "$(seq 1 10 | sed 's/^/point /')" \
+  '{type:"assistant",message:{content:[{type:"text",text:$t}]}}' > "$long_transcript"
+
+run_long_with_ceiling() {
+  local notes="$TMPDIR/long-notes-$1"
+  rm -rf "$notes"
+  printf '%s\n' "UNSOLICITED_TEXT_PROSE_LINE_CEILING=$1" > "$SETTINGS"
+  (
+    unset UNSOLICITED_TEXT_PROSE_LINE_CEILING
+    jq --null-input --compact-output --arg p "$long_transcript" \
+      '{hook_event_name:"Stop",session_id:"test-config",transcript_path:$p}' \
+      | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY="$notes" \
+        bash "$HOOKS_DIR/note-long-reply.sh" >/dev/null 2>&1
+  )
+  cat "$notes/test-config.stop-notes" 2>/dev/null
+}
+
+assert_equal "a ceiling written as a word counts against the default" \
+  "$(run_long_with_ceiling two | grep --count 'ceiling of 8')" "1"
+assert_equal "and a number counts against itself" \
+  "$(run_long_with_ceiling 9 | grep --count 'ceiling of 9')" "1"
+
 printf "\nTest group: every setting carries the plugin's own prefix\n"
 
 unprefixed="$(grep --recursive --only-matching 'setting_value [A-Z_][A-Z_]*' "$HOOKS_DIR" \
