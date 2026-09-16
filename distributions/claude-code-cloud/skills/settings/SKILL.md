@@ -40,15 +40,6 @@ The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules are printed at session start, so print them again from the same hook, and the session reads the new copy.
 The reload skill does it, and the command and the path for every install method are at the end of this file.
 
-### A session in a container
-
-The file is written inside the container, which is discarded with the session,
-so say the setting lasts as long as this session does. Where the container is
-built from settings you keep - a Claude Code cloud environment - the way to keep
-it is an `UNSOLICITED_TEXT_` environment variable there, see
-[the docs](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
-The steps at the end of this file say which kind of session this is.
-
 ## Inform the user of their settings
 
 Name each key the file sets, and the default above for keys that are unset / empty.
@@ -76,8 +67,10 @@ Do not export a variable by hand to make a change stick.
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
-The container is rebuilt for every session, so a setting you want to keep goes
-in an `UNSOLICITED_TEXT_` environment variable on the cloud environment.
+The container is rebuilt for every session, so a setting written to the file
+lasts as long as this session does. To keep one, set an `UNSOLICITED_TEXT_`
+environment variable on the cloud environment, see
+[the docs](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
 
 ## Note
 
