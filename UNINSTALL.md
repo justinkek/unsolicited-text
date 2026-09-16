@@ -5,21 +5,21 @@
 Each client drops the plugin its own way, and none of them touches what the hooks
 wrote.
 
-## Claude Code
+## Claude Code (local)
 
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
 
-## ZCode
+## ZCode (local)
 
 Remove it under Settings, Marketplace, where it was added.
 
-## Claude Code cloud sessions
+## Claude Code (cloud)
 
 Clear the Setup script field of your cloud environment, and start a new session.
 The container is rebuilt without it, and nothing of the old one is left.
 
-## Codex
+## Codex (local)
 
     codex plugin remove unsolicited-text@unsolicited-text
 
@@ -27,15 +27,15 @@ Then delete the four `[[hooks.*]]` blocks from `~/.codex/config.toml` yourself. 
 registered them by hand because Codex does not run a plugin's own hooks yet, and
 dropping the plugin leaves them behind, still naming scripts that are gone.
 
-## Pi
+## Pi (local)
 
     pi remove git:github.com/justinkek/unsolicited-text
 
-## Claude Chat
+## Claude Chat (hosted)
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
-## Cowork
+## Cowork (hosted)
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 

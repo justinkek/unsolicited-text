@@ -4,7 +4,7 @@
 
 You update the way you installed.
 
-## Claude Code
+## Claude Code (local)
 
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
@@ -23,12 +23,12 @@ Your settings are in `~/.unsolicited-text` and no install touches them.
 <!-- The paragraph above, from "If the version does not move", exists for the
 move in 0.2.0. Delete it at 0.3.0. -->
 
-## ZCode
+## ZCode (local)
 
 The same commands as Claude Code, run from your terminal, or through Settings,
 Marketplace where it was added.
 
-## Claude Code cloud sessions
+## Claude Code (cloud)
 
 Installed by the Cloud Session Install Script from
 🔗 [the install instructions](https://github.com/justinkek/unsolicited-text/blob/main/INSTALL.md), where the checkout lives at
@@ -50,7 +50,7 @@ update unsolicited-text.
 
 Run `/reload-skills` to finish.
 
-## Codex
+## Codex (local)
 
     codex plugin marketplace upgrade unsolicited-text
     codex plugin add unsolicited-text@unsolicited-text
@@ -58,15 +58,15 @@ Run `/reload-skills` to finish.
 Running `add` again re-installs at the snapshot's version; there is no separate
 update command.
 
-## Pi
+## Pi (local)
 
     pi update git:github.com/justinkek/unsolicited-text
 
-## Claude Chat
+## Claude Chat (hosted)
 
 Open the plus menu, then Plugins, then Manage plugins, and update it there.
 
-## Cowork
+## Cowork (hosted)
 
 Open the plus menu, then Plugins, then Manage plugins, and update it there.
 

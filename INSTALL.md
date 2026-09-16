@@ -10,13 +10,13 @@ client and follow its README:
 
 | Client | Folder |
 | --- | --- |
-| Claude Code | [distributions/claude-code-local](distributions/claude-code-local) |
-| ZCode | [distributions/claude-code-local](distributions/claude-code-local) |
-| Claude Code cloud sessions | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
-| Codex | [distributions/codex](distributions/codex) |
-| Pi | [distributions/pi](distributions/pi) |
-| Claude Chat | [distributions/claude-chat](distributions/claude-chat) |
-| Cowork | [distributions/claude-cowork](distributions/claude-cowork) |
+| Claude Code (local) | [distributions/claude-code-local](distributions/claude-code-local) |
+| ZCode (local) | [distributions/claude-code-local](distributions/claude-code-local) |
+| Claude Code (cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
+| Codex (local) | [distributions/codex](distributions/codex) |
+| Pi (local) | [distributions/pi](distributions/pi) |
+| Claude Chat (hosted) | [distributions/claude-chat](distributions/claude-chat) |
+| Cowork (hosted) | [distributions/claude-cowork](distributions/claude-cowork) |
 
 # Updating
 

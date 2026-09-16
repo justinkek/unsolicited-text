@@ -1,4 +1,4 @@
-# unsolicited-text for Pi
+# unsolicited-text for Pi (local)
 
 (audience: humans)
 

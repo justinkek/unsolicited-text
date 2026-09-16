@@ -15,42 +15,42 @@ The script reads a line on standard input and prints nothing without one, so it
 waits forever if the pipe is left off. The print opens by saying it replaces the
 unsolicited-text rules the session already read, and nothing else.
 
-## Claude Code
+## Claude Code (local)
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
 a shell cannot read that variable, so find the file instead:
 
     find ~ -name load-rules.sh 2>/dev/null
 
-## ZCode
+## ZCode (local)
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
 a shell cannot read that variable, so find the file instead:
 
     find ~ -name load-rules.sh 2>/dev/null
 
-## Claude Code cloud sessions
+## Claude Code (cloud)
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
-## Codex
+## Codex (local)
 
 The path is the one written by hand in `~/.codex/config.toml`:
 
     printf '{}' | <path to this checkout>/hooks/load-rules.sh
 
-## Pi
+## Pi (local)
 
 The path is the checkout the Pi adapter names:
 
     find ~ -name load-rules.sh 2>/dev/null
 
-## Claude Chat
+## Claude Chat (hosted)
 
 Nowhere - no hook runs here, so the reload skill carries the rules itself. Ask
 for it, and it prints them.
 
-## Cowork
+## Cowork (hosted)
 
 Nowhere - no hook runs here, so the reload skill carries the rules itself. Ask
 for it, and it prints them.
