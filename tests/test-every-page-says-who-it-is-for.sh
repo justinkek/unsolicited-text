@@ -45,7 +45,7 @@ assert "every mark reads humans or agents" "$?" \
 
 printf "\nTest group: a page whose audience changes says where\n"
 
-for page in installs/claude-code.md UPDATE.md; do
+for page in installs/claude-code-local.md UPDATE.md; do
   grep --quiet --fixed-strings '(audience: agents)' "$REPOSITORY/$page"
   assert "$page marks the paragraph written for an agent" "$?" \
     "it is written for a reader and holds a paragraph only an agent acts on, with nothing saying so"

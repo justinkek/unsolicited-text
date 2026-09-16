@@ -128,22 +128,22 @@ page_of uninstalls "$repository/UNINSTALL.md"
 rm -rf "$out"
 
 # Claude Code. ZCode installs the same folder through its own settings.
-target="$out/claude-code"
-payload claude-code "$target"
+target="$out/claude-code-local"
+payload claude-code-local "$target"
 mkdir -p "$target/.claude-plugin"
 jq --tab '{name, version, description, author}' "$repository/package.json" \
   > "$target/.claude-plugin/plugin.json"
 cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
-readme claude-code "$target"
+readme claude-code-local "$target"
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
-target="$out/claude-cloud"
-payload claude-cloud "$target"
+target="$out/claude-code-cloud"
+payload claude-code-cloud "$target"
 cp "$repository/harness-adapters/claude-code/cloud-settings.json" "$target/settings.json"
 cp "$repository/harness-adapters/claude-code/install-cloud.sh" "$target/install.sh"
 cp "$repository/harness-adapters/claude-code/refresh-cloud.sh" "$target/refresh.sh"
 cp "$repository/harness-adapters/claude-code/merge-settings.sh" "$target/merge-settings.sh"
-readme claude-cloud "$target"
+readme claude-code-cloud "$target"
 
 # Codex, which registers the hooks by hand.
 target="$out/codex"

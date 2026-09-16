@@ -40,7 +40,7 @@ update unsolicited-text.
 
 (audience: agents) Run the refresh script. Pulling the checkout on its own is not an update.
 
-    printf '{}' | /opt/unsolicited-text/distributions/claude-cloud/refresh.sh
+    printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh
 
 (audience: agents) Then follow 🔗 [RELOAD.md](https://github.com/justinkek/unsolicited-text/blob/main/RELOAD.md) to print the rules again.
 

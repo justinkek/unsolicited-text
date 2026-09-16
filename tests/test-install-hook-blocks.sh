@@ -2,9 +2,9 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 CODEX="$REPOSITORY/installs/codex.md"
-CLOUD_STEPS="$REPOSITORY/installs/claude-cloud.md"
-MARKETPLACE="$REPOSITORY/installs/claude-code.md"
-CLOUD="$REPOSITORY/distributions/claude-cloud/settings.json"
+CLOUD_STEPS="$REPOSITORY/installs/claude-code-cloud.md"
+MARKETPLACE="$REPOSITORY/installs/claude-code-local.md"
+CLOUD="$REPOSITORY/distributions/claude-code-cloud/settings.json"
 
 pass=0
 fail=0
@@ -27,7 +27,7 @@ while read -r script; do
   [ -n "$script" ] || continue
   registered=$((registered + 1))
 
-  grep --quiet --fixed-strings "/opt/unsolicited-text/distributions/claude-cloud/hooks/$script" "$CLOUD"
+  grep --quiet --fixed-strings "/opt/unsolicited-text/distributions/claude-code-cloud/hooks/$script" "$CLOUD"
   assert "the cloud settings name $script" "$?" \
     "hooks.json registers it and a cloud session would not run it"
 
@@ -58,12 +58,12 @@ assert "and the settings it copies are readable JSON" "$?" "the block writes som
 
 printf "\nTest group: the pasted script hands the work to the checkout\n"
 
-INSTALLER="$REPOSITORY/distributions/claude-cloud/install.sh"
+INSTALLER="$REPOSITORY/distributions/claude-code-cloud/install.sh"
 
 [ -x "$INSTALLER" ]
 assert "the cloud install script is there and runnable" "$?" "the pasted script would run nothing"
 
-printf '%s' "$script" | grep --quiet --fixed-strings 'distributions/claude-cloud/install.sh'
+printf '%s' "$script" | grep --quiet --fixed-strings 'distributions/claude-code-cloud/install.sh'
 assert "the pasted script runs it" "$?" "it copies files itself, and a later version cannot change what is copied"
 
 bash -n "$INSTALLER"

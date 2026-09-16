@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPOSITORY/distributions/claude-code/skills/settings/SKILL.md"
+SKILL="$REPOSITORY/distributions/claude-code-local/skills/settings/SKILL.md"
 HOOKS_DIR="$REPOSITORY/hooks"
 UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
@@ -63,7 +63,7 @@ assert "and names the file a rebuilt container takes away" "$?" \
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
-UPDATE_SKILL="$REPOSITORY/distributions/claude-code/skills/update/SKILL.md"
+UPDATE_SKILL="$REPOSITORY/distributions/claude-code-local/skills/update/SKILL.md"
 
 [ -f "$UPDATE_SKILL" ]
 assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
@@ -146,7 +146,7 @@ done
 for named in update settings; do
   grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
   assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
-  [ -f "$REPOSITORY/distributions/claude-code/skills/$named/SKILL.md" ]
+  [ -f "$REPOSITORY/distributions/claude-code-local/skills/$named/SKILL.md" ]
   assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
 done
 

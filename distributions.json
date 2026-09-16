@@ -1,5 +1,5 @@
 {
-	"claude-code": {
+	"claude-code-local": {
 		"title": "Claude Code",
 		"ships": [
 			"hooks",
@@ -11,10 +11,10 @@
 	},
 	"zcode": {
 		"title": "ZCode",
-		"same-as": "claude-code",
+		"same-as": "claude-code-local",
 		"heading": "ZCode"
 	},
-	"claude-cloud": {
+	"claude-code-cloud": {
 		"title": "Claude Code cloud sessions",
 		"ships": [
 			"hooks",

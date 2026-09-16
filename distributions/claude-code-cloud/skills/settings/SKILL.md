@@ -76,7 +76,7 @@ Do not export a variable by hand to make a change stick.
 
 ## The steps for this install
 
-    printf '{}' | /opt/unsolicited-text/distributions/claude-cloud/hooks/load-rules.sh
+    printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
 ## Note
 

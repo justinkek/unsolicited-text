@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/distributions/claude-cloud"
+ADAPTER="$REPOSITORY/distributions/claude-code-cloud"
 
 pass=0
 fail=0
@@ -20,7 +20,7 @@ assert() {
 printf "Test group: the install script names the checkout once and for all\n"
 
 cloned="$(sed -n 's/^[[:space:]]*mv [^ ]*\.new \(\/opt\/[A-Za-z0-9._-]*\)$/\1/p' \
-  "$REPOSITORY/installs/claude-cloud.md" | head -1)"
+  "$REPOSITORY/installs/claude-code-cloud.md" | head -1)"
 
 [ -n "$cloned" ]
 assert "the install script says where it clones to" "$?" \
@@ -50,7 +50,7 @@ outside="$(jq --raw-output --arg checkout "$cloned/" \
 assert "every registration names a command inside it" "$?" \
   "$(printf '%s' "$outside" | tr '\n' ' ')sits outside the checkout, and nothing is there to run"
 
-grep --quiet --fixed-strings "$cloned/distributions/claude-cloud/install.sh" "$REPOSITORY/installs/claude-cloud.md"
+grep --quiet --fixed-strings "$cloned/distributions/claude-code-cloud/install.sh" "$REPOSITORY/installs/claude-code-cloud.md"
 assert "and the install script runs the install from it" "$?" \
   "it clones to one place and installs from another"
 
