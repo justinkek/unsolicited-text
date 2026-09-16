@@ -11,10 +11,52 @@ read off disk.
 
 ## The steps for this install
 
+One install serves several clients. Read the signatures, then follow the
+steps under the one that matches.
+
+### Claude Code, on your machine
+
+A plugin directory under `~/.claude/plugins`, and a project directory you can
+write to. Everything works, and settings persist.
+
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
 a shell cannot read that variable, so find the file instead:
 
     find ~ -name load-rules.sh 2>/dev/null
+
+### ZCode
+
+As Claude Code, installed through Settings, Marketplace.
+
+The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
+a shell cannot read that variable, so find the file instead:
+
+    find ~ -name load-rules.sh 2>/dev/null
+
+### Claude Chat
+
+Skills under `/mnt/skills/plugins/`, no plugin directory, and no
+`~/.unsolicited-text` written by anything but you. No hook runs, so nothing
+reads a settings file and the rules only arrive when this skill prints them.
+
+No hook runs here, so nothing prints the rules on their own and there is no
+script to run. The copy below is what a session would have been given.
+
+To have them from the first message instead, put them in a preference or a
+custom style.
+
+### Cowork
+
+A plugin directory under `~/.claude/plugins`, with `~/.unsolicited-text/state`
+written this session. Every hook runs, and the container is discarded when the
+session ends.
+
+The hooks run here, so the rules are printed at session start. Print them again
+with the loader the plugin carries:
+
+    find ~ -name load-rules.sh 2>/dev/null
+
+    printf '{}' | <the path it finds>
 
 ## The rules, with every setting at its default
 

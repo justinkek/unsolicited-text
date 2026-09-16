@@ -118,6 +118,22 @@ for folder in "$REPOSITORY"/distributions/*/; do
     "both resolve to unsolicited-text:<name>, the command wins, and it only points back at itself"
 done
 
+printf "\nTest group: a folder holds a client, an adapter holds a distribution\n"
+
+for folder in "$REPOSITORY"/clients/*/; do
+  named="$(basename "$folder")"
+  jq --raw-output '.[].serves[]' "$DISTRIBUTIONS" | grep --quiet --line-regexp "$named"
+  assert "clients/$named is a client something serves" "$?" \
+    "nothing installs for it, so its pages are read by nobody"
+done
+
+for folder in "$REPOSITORY"/adapters/*/; do
+  named="$(basename "$folder")"
+  declared | grep --quiet --line-regexp "$named"
+  assert "adapters/$named belongs to a distribution" "$?" \
+    "it is built into no folder, so nothing it registers ever runs"
+done
+
 printf "\nTest group: a client a distribution serves is one it can tell apart\n"
 
 while read -r distribution; do

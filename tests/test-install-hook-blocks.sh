@@ -35,7 +35,7 @@ while read -r script; do
   assert "the codex block names $script" "$?" \
     "hooks.json registers it and a Codex session registered from $CODEX would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
-  "$REPOSITORY/clients/claude/adapter/hooks.json" | sed 's#.*/##' | sort --unique)
+  "$REPOSITORY/adapters/claude/hooks.json" | sed 's#.*/##' | sort --unique)
 
 [ "$registered" -gt 0 ]
 assert "hooks.json registers anything at all" "$?" "no commands read out of the Claude adapter's hooks.json"
