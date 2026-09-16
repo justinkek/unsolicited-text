@@ -31,6 +31,16 @@ diff --unified "$REPOSITORY/INSTALL.md" "$TMPDIR/INSTALL.md" > "$TMPDIR/page-dri
 assert "and the install page matches it too" "$?" \
   "the page and the folders say different things - run ./build"
 
+for section in Installing Updating Uninstalling; do
+  missing=""
+  for folder in "$REPOSITORY"/distributions/*/; do
+    grep --quiet --fixed-strings "## $section" "$folder/README.md" || missing="$missing $(basename "$folder")"
+  done
+  [ -z "$missing" ]
+  assert "every distribution has a $section section" "$?" \
+    "$missing leaves a reader in that folder with nowhere to go"
+done
+
 printf "\nTest group: every folder holds what it declares, and nothing else\n"
 
 DISTRIBUTIONS="$REPOSITORY/distributions.json"
