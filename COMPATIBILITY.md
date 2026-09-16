@@ -3,8 +3,8 @@
 (audience: humans)
 
 Supported means the rules are printed and drift is caught. Partial means some of
-that is missing, and the folder linked in the row says which. Where no folder is
-linked, nothing installs there yet.
+that is missing, and the What works section of the folder linked in the row says
+what. Where no folder is linked, nothing installs there yet.
 
 ## Anthropic
 
@@ -13,8 +13,8 @@ linked, nothing installs there yet.
 | Claude Chat | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Partial |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | Partial |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Partial |
-| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | Not verified |
+| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Not verified |
+|             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Not verified |
 |             | Desktop GUI | Local                         | (see above)                                                    | Not verified |
 | Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported |
