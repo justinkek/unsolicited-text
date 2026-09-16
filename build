@@ -134,13 +134,13 @@ cp "$repository/harness-adapters/pi/src/index.ts" "$target/src/index.ts"
 readme pi "$target"
 
 # Claude Chat and Cowork, which copy the skills out of an installed plugin.
-target="$out/chat-cowork"
+target="$out/claude-chat-cowork"
 mkdir -p "$target"
-payload chat-cowork "$target"
+payload claude-chat-cowork "$target"
 rm -f "$target/package.json"
 for distribution in $(jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$distributions"); do
   mark_scripts "$out/$distribution"
 done
 
-readme chat-cowork "$target" \
+readme claude-chat-cowork "$target" \
   "Nothing is installed from this folder. The client copies these skills out of the plugin, and they are all a session there receives."

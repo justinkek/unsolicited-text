@@ -17,7 +17,7 @@ with these same steps:
 | Claude Code cloud sessions | [distributions/claude-cloud](distributions/claude-cloud) |
 | Codex | [distributions/codex](distributions/codex) |
 | Pi | [distributions/pi](distributions/pi) |
-| Claude Chat, Cowork | [distributions/chat-cowork](distributions/chat-cowork) |
+| Claude Chat, Cowork | [distributions/claude-chat-cowork](distributions/claude-chat-cowork) |
 
 ## Claude Code
 
