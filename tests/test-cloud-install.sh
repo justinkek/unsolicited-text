@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-INSTALL="$REPOSITORY/dist/claude-cloud/install.sh"
+INSTALL="$REPOSITORY/distributions/claude-cloud/install.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -37,10 +37,10 @@ assert "the settings skill is in place" "$?" "the skill never appears"
 [ -f "$home/.claude/commands/unsolicited-text-update.md" ]
 assert "the update command is in place" "$?" "the menu entry never appears"
 
-[ "$(held SessionStart "$REPOSITORY/dist/claude-cloud/hooks/load-rules.sh")" = "1" ]
+[ "$(held SessionStart "$REPOSITORY/distributions/claude-cloud/hooks/load-rules.sh")" = "1" ]
 assert "the rules are printed at session start" "$?" "a session would be handed no rules"
 
-[ "$(held UserPromptSubmit "$REPOSITORY/dist/claude-cloud/hooks/note-new-version.sh")" = "1" ]
+[ "$(held UserPromptSubmit "$REPOSITORY/distributions/claude-cloud/hooks/note-new-version.sh")" = "1" ]
 assert "and every other hook is registered too" "$?" "some of them never fire"
 
 printf "\nTest group: installing over a settings file keeps what it holds\n"
@@ -55,7 +55,7 @@ assert "the install exits 0" "$?" "the setup script would report a failure"
 assert "a hook the reader registered themselves survives it" "$?" \
   "every install and every refresh takes it away again"
 
-[ "$(held SessionStart "$REPOSITORY/dist/claude-cloud/hooks/load-rules.sh")" = "1" ]
+[ "$(held SessionStart "$REPOSITORY/distributions/claude-cloud/hooks/load-rules.sh")" = "1" ]
 assert "and this plugin is registered once, not twice" "$?" "the rules print again for each copy"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"

@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"pi": {
 		"extensions": [
-			"./dist/pi/src/index.ts"
+			"./distributions/pi/src/index.ts"
 		]
 	},
 	"author": {

@@ -28,14 +28,14 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | a setting, and its default | `hooks/hook-settings-lib.sh` |
 | what the settings skill tells the user | `skills/settings/SKILL.md` |
 | which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
-| how each install method works | `installs/<product>.md`, which builds both `INSTALL.md` and that folder's README; `UNINSTALL.md` for taking it back off |
-| what an install copies | nothing by hand - `dist/` is built by `./build` from the sources above |
+| how each install method works | `installs/<distribution>.md`, which builds both `INSTALL.md` and that folder's README; `UNINSTALL.md` for taking it back off |
+| what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
 
 Every setting is read through `setting_value`, takes the `UNSOLICITED_TEXT_`
 prefix, and is named in the settings skill. A test holds all three together.
 
-`dist/` is generated and committed, one folder per product, because an install
+`distributions/` is generated and committed, one folder per distribution, because an install
 fetches files from the repository. Run `./build` after changing anything it
 copies. A test rebuilds and fails on any difference. Every generated file opens by
 saying so, and its diff is reviewed like any other.
@@ -43,9 +43,9 @@ saying so, and its diff is reviewed like any other.
 The two plugin manifests are generated from `package.json`, which is where the
 version, the description and the author are written.
 
-`products.json` says which parts each product's folder takes, and the title and
+`distributions.json` says which parts each distribution's folder takes, and the title and
 install steps its README carries. An entry with `same-as` installs from another
-product's folder and builds none of its own. A test holds every
+distribution's folder and builds none of its own. A test holds every
 folder to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`

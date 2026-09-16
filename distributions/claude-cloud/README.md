@@ -34,7 +34,7 @@ else
 	echo "unsolicited-text: the clone failed, keeping whatever was already there" >&2
 	rm -rf /opt/unsolicited-text.new
 fi
-/opt/unsolicited-text/dist/claude-cloud/install.sh || true
+/opt/unsolicited-text/distributions/claude-cloud/install.sh || true
 ```
 
 ## Note

@@ -20,7 +20,7 @@ printf "Test group: every manifest states the same version\n"
 
 declared="$(jq --raw-output '.version' "$REPOSITORY/package.json")"
 
-for manifest in dist/claude-code/.claude-plugin/plugin.json dist/codex/.codex-plugin/plugin.json; do
+for manifest in distributions/claude-code/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json; do
   stated="$(jq --raw-output '.version' "$REPOSITORY/$manifest")"
   [ "$stated" = "$declared" ]
   assert "$manifest states $declared" "$?" \
@@ -35,13 +35,13 @@ printf "\nTest group: every manifest carries the same description\n"
 
 said="$(jq --raw-output '.description' "$REPOSITORY/package.json")"
 
-for manifest in dist/claude-code/.claude-plugin/plugin.json dist/codex/.codex-plugin/plugin.json .claude-plugin/marketplace.json; do
+for manifest in distributions/claude-code/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json .claude-plugin/marketplace.json; do
   stated="$(jq --raw-output '.description' "$REPOSITORY/$manifest")"
   [ "$stated" = "$said" ]
   assert "$manifest says \"$said\"" "$?" "it says \"$stated\""
 done
 
-for manifest in dist/codex/.codex-plugin/plugin.json .agents/plugins/marketplace.json; do
+for manifest in distributions/codex/.codex-plugin/plugin.json .agents/plugins/marketplace.json; do
   stated="$(jq --raw-output '.interface.shortDescription' "$REPOSITORY/$manifest")"
   [ "$stated" = "$said" ]
   assert "$manifest shows the same to a browsing user" "$?" "it shows \"$stated\""
