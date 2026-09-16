@@ -37,7 +37,8 @@ a shell cannot read that variable, so find the file instead:
 
 Skills under `/mnt/skills/plugins/`, no plugin directory, and no
 `~/.unsolicited-text` written by anything but you. No hook runs, so nothing
-reads a settings file and the rules only arrive when this skill prints them.
+reads a settings file and the rules only arrive when the reload skill prints
+them.
 
 No hook runs here, so nothing prints the rules on their own and there is no
 script to run. The copy below is what a session would have been given.
