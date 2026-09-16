@@ -68,12 +68,10 @@ readme() {
   local product="$1" target="$2" page
   page="$({
     printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$product" title)"
-    printf '%s\n\n' "$generated"
-    printf 'Everything this install needs is in this folder.\n\n'
-    printf '## Installing\n\n'
     steps "$(jq --raw-output --arg product "$product" '.[$product]["same-as"] // $product' "$products")"
     shift 2
-    if [ "$#" -gt 0 ]; then printf '%s\n' "$@"; fi
+    if [ "$#" -gt 0 ]; then printf '\n%s\n' "$@"; fi
+    printf '\n%s\n' "$generated"
   })"
   printf '%s\n' "$page" > "$target/README.md"
 }
