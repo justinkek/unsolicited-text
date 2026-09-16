@@ -11,7 +11,7 @@ and a README with these same steps:
 | Product | Folder |
 | --- | --- |
 | Claude Code | [dist/claude-code](dist/claude-code) |
-| ZCode | [dist/zcode](dist/zcode) |
+| ZCode | [dist/claude-code](dist/claude-code) |
 | Claude Code cloud sessions | [dist/claude-cloud](dist/claude-cloud) |
 | Codex | [dist/codex](dist/codex) |
 | Pi | [dist/pi](dist/pi) |

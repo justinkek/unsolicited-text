@@ -43,7 +43,9 @@ saying so, and its diff is reviewed like any other.
 The two plugin manifests are generated from `package.json`, which is where the
 version, the description and the author are written.
 
-`products.json` says which parts each product's folder takes, and the title and install steps its README carries. A test holds every
+`products.json` says which parts each product's folder takes, and the title and
+install steps its README carries. An entry with `same-as` installs from another
+product's folder and builds none of its own. A test holds every
 folder to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`

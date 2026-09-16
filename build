@@ -83,16 +83,14 @@ readme() {
 
 rm -rf "$out"
 
-# Claude Code, and ZCode, which installs the same plugin through its own settings.
-for product in claude-code zcode; do
-  target="$out/$product"
-  payload "$product" "$target"
-  mkdir -p "$target/.claude-plugin"
-  jq --tab '{name, version, description, author}' "$repository/package.json" \
-    > "$target/.claude-plugin/plugin.json"
-  cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
-  readme "$product" "$target"
-done
+# Claude Code. ZCode installs the same folder through its own settings.
+target="$out/claude-code"
+payload claude-code "$target"
+mkdir -p "$target/.claude-plugin"
+jq --tab '{name, version, description, author}' "$repository/package.json" \
+  > "$target/.claude-plugin/plugin.json"
+cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
+readme claude-code "$target"
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-cloud"
@@ -125,7 +123,7 @@ target="$out/chat-cowork"
 mkdir -p "$target"
 payload chat-cowork "$target"
 rm -f "$target/package.json"
-for product in $(jq --raw-output 'keys[]' "$products"); do
+for product in $(jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$products"); do
   mark_scripts "$out/$product"
 done
 

@@ -12,12 +12,7 @@
 	"zcode": {
 		"title": "ZCode",
 		"installs": "ZCode",
-		"ships": [
-			"hooks",
-			"rules",
-			"skills",
-			"commands"
-		]
+		"same-as": "claude-code"
 	},
 	"claude-cloud": {
 		"title": "Claude Code cloud sessions",
