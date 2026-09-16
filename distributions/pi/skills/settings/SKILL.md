@@ -24,14 +24,8 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 ## Before writing anything
 
-Find the hook that reads the file:
-
-    find ~ /opt -name load-rules.sh 2>/dev/null
-
-Nothing found means no hook runs here, so the file would be written and never
-read. Write nothing. Say the setting cannot take effect in this session, and
-that the reload skill prints the rules and a preference or custom style holds
-them across sessions.
+Read the steps at the end of this file. Where they say no hook runs, write no
+file - follow them instead, since nothing would ever read what you wrote.
 
 ## How to update settings
 
