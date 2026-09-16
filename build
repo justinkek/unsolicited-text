@@ -101,10 +101,14 @@ readme() {
   local distribution="$1" target="$2" page
   page="$({
     printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$distribution" name)"
+    # A distribution that is not supported everywhere says here what is missing.
+    if [ -s "$repository/support/$distribution.md" ]; then
+      printf '## What works\n\n'
+      steps support "$distribution"
+      printf '\n'
+    fi
     printf '## Installing\n\n'
     steps installs "$distribution"
-    shift 2
-    if [ "$#" -gt 0 ]; then printf '\n%s\n' "$@"; fi
     printf '\n## Updating\n\n'
     steps updates "$distribution"
     printf '\n## Uninstalling\n\n'

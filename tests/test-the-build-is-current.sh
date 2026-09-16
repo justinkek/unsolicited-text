@@ -103,6 +103,14 @@ for folder in $(sed -n 's@.*(distributions/\([a-z-]*\)).*@\1@p' "$REPOSITORY/COM
     "a reader following that row lands nowhere"
 done
 
+# A row that says Partial owes the reader the part that is missing.
+for folder in $(grep --fixed-strings '| Partial' "$REPOSITORY/COMPATIBILITY.md" \
+  | sed -n 's@.*(distributions/\([a-z-]*\)).*@\1@p' | sort --unique); do
+  grep --quiet --fixed-strings '## What works' "$REPOSITORY/distributions/$folder/README.md"
+  assert "the folder a Partial row links says what works: $folder" "$?" \
+    "the table sends a reader there to find out what is missing and the folder never says"
+done
+
 for folder in "$REPOSITORY"/distributions/*/; do
   named="$(basename "$folder")"
   [ ! -d "$folder/commands" ] || [ ! -d "$folder/skills" ] || ships "$named" cloud
