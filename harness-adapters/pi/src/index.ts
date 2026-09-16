@@ -10,6 +10,7 @@ const hooks = join(dirname(fileURLToPath(import.meta.url)), "..", "hooks");
 const notes = mkdtempSync(join(tmpdir(), "unsolicited-text-notes-"));
 const session = "pi";
 let held = "";
+let started = false;
 
 function spawnHook(script: string, payload: Record<string, unknown>): string {
 	try {
@@ -20,6 +21,17 @@ function spawnHook(script: string, payload: Record<string, unknown>): string {
 		}).trim();
 	} catch {
 		return "";
+	}
+}
+
+// A hook may answer with JSON meant for a harness that reads it; Pi shows text.
+function said(output: string): string {
+	if (!output.startsWith("{")) return output;
+	try {
+		const answer = JSON.parse(output);
+		return answer?.hookSpecificOutput?.additionalContext ?? answer?.systemMessage ?? "";
+	} catch {
+		return output;
 	}
 }
 
@@ -34,7 +46,15 @@ function textOf(message: any): string {
 
 export default function (pi: ExtensionAPI) {
 	pi.on("before_agent_start", async () => {
-		const content = [spawnHook("remind-response-length.sh", {}), held, spawnHook("note-new-version.sh", {})]
+		// The rules are printed once, when the first turn of the session starts.
+		const rules = started ? "" : spawnHook("load-rules.sh", { hook_event_name: "SessionStart" });
+		started = true;
+		const content = [
+			rules,
+			said(spawnHook("remind-response-length.sh", {})),
+			held,
+			said(spawnHook("note-new-version.sh", {})),
+		]
 			.filter(Boolean)
 			.join("\n");
 		held = "";
@@ -46,6 +66,6 @@ export default function (pi: ExtensionAPI) {
 		writeFileSync(transcript, `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: textOf(event?.message) }] } })}\n`);
 		spawnHook("note-long-reply.sh", { transcript_path: transcript });
 		spawnHook("note-long-queue.sh", { transcript_path: transcript });
-		held = spawnHook("replay-stop-notes.sh", {});
+		held = said(spawnHook("replay-stop-notes.sh", {}));
 	});
 }
