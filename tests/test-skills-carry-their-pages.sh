@@ -59,8 +59,15 @@ for folder in "$REPOSITORY"/distributions/*/skills/update/SKILL.md; do
   assert "the $named update skill carries its own steps" "$?" \
     "it links them, or carries every install method the plugin knows"
 
-  others="$(jq --raw-output --arg named "$named" 'to_entries[] | select(.key != $named) | .value.title' \
-    "$REPOSITORY/clients.json" | tr ',' '\n' | sed 's/^ *//' | sort --unique)"
+  # Its own name, and the clients it serves, are headings it is meant to carry.
+  carried="$named $(jq --raw-output --arg named "$named" '.[$named].serves // [] | .[]' \
+    "$REPOSITORY/distributions.json" | tr '\n' ' ')"
+  others="$(for entry in "$REPOSITORY"/clients/*/client.json; do
+    case " $carried " in
+      *" $(basename "$(dirname "$entry")") "*) continue ;;
+    esac
+    jq --raw-output '.name' "$entry"
+  done | sort --unique)"
   wrong=""
   while read -r heading; do
     [ -n "$heading" ] || continue

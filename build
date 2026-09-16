@@ -25,23 +25,23 @@ page() {
     | sed "s@PUBLISHED@$published@g"
 }
 
-clients="$repository/clients.json"
+# A folder says what it is; distributions.json says how the folders relate.
+named_client() { jq --raw-output '.name' "$repository/clients/$1/client.json"; }
+
+distributions="$repository/distributions.json"
 
 ships() {
   jq --exit-status --arg distribution "$1" --arg part "$2" \
-    '.[$distribution].ships | index($part)' "$clients" >/dev/null
+    '.[$distribution].ships | index($part)' "$distributions" >/dev/null
 }
 
-stated() { jq --raw-output --arg distribution "$1" ".[\$distribution].$2" "$clients"; }
+folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$distributions"; }
 
-folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$clients"; }
-
-# Every distribution builds a folder; the rest are clients one of them serves.
-distributes() { jq --raw-output 'to_entries[] | select(.value.ships) | .key' "$clients"; }
+distributes() { jq --raw-output 'keys_unsorted[]' "$distributions"; }
 
 served() {
   jq --raw-output --arg distribution "$1" \
-    '(.[$distribution].serves // [$distribution])[]' "$clients"
+    '(.[$distribution].serves // [$distribution])[]' "$distributions"
 }
 
 # A skill carries the steps for the clients its distribution serves, and no others.
@@ -58,7 +58,7 @@ carries() {
     printf 'One install serves several clients. Read the signatures, then follow the\n' >> "$out"
     printf 'steps under the one that matches.\n' >> "$out"
     for client in $(served "$distribution"); do
-      printf '\n### %s\n\n' "$(jq --raw-output --arg client "$client" '.[$client].name' "$clients")" >> "$out"
+      printf '\n### %s\n\n' "$(named_client "$client")" >> "$out"
       cat "$repository/clients/$client/signature.md" >> "$out"
       printf '\n' >> "$out"
       page "$page" "$client" >> "$out"
@@ -102,7 +102,7 @@ payload() {
 readme() {
   local distribution="$1" target="$2" page
   page="$({
-    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$distribution" name)"
+    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(named_client "$distribution")"
     # A distribution that is not supported everywhere says here what is missing.
     if [ -s "$repository/clients/$distribution/support.md" ]; then
       printf '## What works\n\n'
@@ -127,7 +127,7 @@ readme() {
   printf 'client and follow its README:\n\n'
   printf '| Client | Folder |\n| --- | --- |\n'
   for distribution in $(distributes); do
-    printf '| %s | [distributions/%s](distributions/%s) |\n' "$(stated "$distribution" name)" \
+    printf '| %s | [distributions/%s](distributions/%s) |\n' "$(named_client "$distribution")" \
       "$(folder_of "$distribution")" "$(folder_of "$distribution")"
   done
   printf '\n'

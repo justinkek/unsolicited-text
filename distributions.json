@@ -1,20 +1,18 @@
 {
 	"claude": {
-		"name": "Claude",
+		"ships": [
+			"hooks",
+			"rules",
+			"skills"
+		],
 		"serves": [
 			"claude-code-local",
 			"zcode",
 			"claude-chat",
 			"claude-cowork"
-		],
-		"ships": [
-			"hooks",
-			"rules",
-			"skills"
 		]
 	},
 	"claude-code-cloud": {
-		"name": "Claude Code (Cloud)",
 		"ships": [
 			"hooks",
 			"rules",
@@ -24,7 +22,6 @@
 		]
 	},
 	"codex": {
-		"name": "Codex",
 		"ships": [
 			"hooks",
 			"rules",
@@ -32,24 +29,11 @@
 		]
 	},
 	"pi": {
-		"name": "Pi",
 		"ships": [
 			"hooks",
 			"rules",
 			"skills",
 			"adapter"
 		]
-	},
-	"claude-code-local": {
-		"name": "Claude Code, on your machine"
-	},
-	"zcode": {
-		"name": "ZCode"
-	},
-	"claude-chat": {
-		"name": "Claude Chat"
-	},
-	"claude-cowork": {
-		"name": "Cowork"
 	}
 }

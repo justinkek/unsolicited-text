@@ -53,16 +53,17 @@ One folder under `clients/` holds everything about one name: its pages, its
 the harness needs one. The prose around the table in `INSTALL.md` is the one
 thing that belongs to no client, and it is in `install-page/`.
 
-`clients.json` has an entry per folder. An entry that `ships` parts is a
-distribution and builds a folder under `distributions/`; the rest are clients a
-distribution `serves`. One install serves every Claude client that reads the
-marketplace, so its skills carry each served client's signature and steps, and a
-session follows the branch that matches what it can see.
+A folder says what it is and `distributions.json` says how the folders relate.
+`clients/<client>/client.json` holds the name: the product, with where it runs
+in parentheses only where one product has more than one distribution.
 
-The `name` is the product, with where it runs in parentheses only where one
-product has more than one distribution. An entry with `same-as` installs from
-another distribution's folder and builds none of its own. A test holds every
-folder to it, so a part nothing there reads cannot ship by accident.
+Every key in `distributions.json` builds a folder under `distributions/` and
+says which parts it `ships`. A key with `serves` installs for the clients listed
+there, which build no folder of their own: one install serves every Claude
+client that reads the marketplace, so its skills carry each served client's
+signature and steps, and a session follows the branch that matches what it can
+see. A key with `same-as` installs from another distribution's folder. A test
+holds every folder to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
