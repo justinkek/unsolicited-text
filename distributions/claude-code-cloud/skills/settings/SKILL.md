@@ -40,11 +40,6 @@ The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules are printed at session start, so print them again from the same hook, and the session reads the new copy.
 The reload skill does it, and the command and the path for every install method are at the end of this file.
 
-### Cloud sessions
-
-Cloud sessions do not share the settings file, so inform the user to update the environment variables for their cloud session.
-For Claude Code cloud, see instructions [here](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
-
 ## Inform the user of their settings
 
 Name each key the file sets, and the default above for keys that are unset / empty.
@@ -71,6 +66,11 @@ Do not export a variable by hand to make a change stick.
 ## The steps for this install
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
+
+The container is rebuilt for every session, so a setting written to the file
+lasts as long as this session does. To keep one, set an `UNSOLICITED_TEXT_`
+environment variable on the cloud environment, see
+[the docs](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
 
 ## Note
 

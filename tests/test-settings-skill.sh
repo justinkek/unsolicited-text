@@ -53,8 +53,9 @@ assert "and the skill spells that same path out" "$?" "the skill names a differe
 
 printf "\nTest group: where the skill sends a reader for a setting that outlives the session\n"
 
-grep --quiet --ignore-case --fixed-strings 'environment variable' "$SKILL"
-assert "the settings skill says where a setting outlives the session" "$?" \
+grep --quiet --ignore-case --fixed-strings 'environment variable' \
+  "$REPOSITORY/distributions/claude-code-cloud/skills/settings/SKILL.md"
+assert "the cloud settings skill says where a setting outlives the session" "$?" \
   "a reader loses every setting on the next rebuild with nothing saying why"
 
 grep --quiet --fixed-strings "$UNSOLICITED_TEXT_SETTINGS_PATH" "$SKILL"

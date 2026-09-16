@@ -40,11 +40,6 @@ The hooks read the file every time they run, so a ceiling takes effect at once.
 The rules are printed at session start, so print them again from the same hook, and the session reads the new copy.
 The reload skill does it, and the command and the path for every install method are at the end of this file.
 
-### Cloud sessions
-
-Cloud sessions do not share the settings file, so inform the user to update the environment variables for their cloud session.
-For Claude Code cloud, see instructions [here](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
-
 ## Inform the user of their settings
 
 Name each key the file sets, and the default above for keys that are unset / empty.
@@ -70,15 +65,14 @@ Do not export a variable by hand to make a change stick.
 
 ## The steps for this install
 
-No hook runs here, so nothing on disk is read and no file is worth writing.
+The hooks run here. Print the rules again with the loader, which the plugin
+carries:
 
-A setting still holds for this conversation: say which rule it changes and how,
-restate that rule with the new value, and follow it from your next reply. Say
-that it lasts until this conversation ends.
+    find ~ -name load-rules.sh 2>/dev/null
 
-To keep it, put the rules in a preference or a custom style with the value
-already changed. The reload skill prints them, and they can be edited before
-they are pasted in.
+Settings live in `~/.unsolicited-text/settings` inside the session's container,
+which is discarded when the session ends, so write the setting and say it lasts
+as long as this session does.
 
 ## Note
 
