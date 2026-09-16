@@ -43,6 +43,11 @@ saying so, and its diff is reviewed like any other.
 The two plugin manifests are generated from `package.json`, which is where the
 version, the description and the author are written.
 
+Only the cloud distribution ships `commands/`, because its install renames them
+with an `unsolicited-text-` prefix. Where the install registers a plugin, a
+command and a skill of the same name both answer to `unsolicited-text:<name>`,
+the command wins, and its body only points back at the name it was invoked by.
+
 `distributions.json` says which parts each distribution's folder takes, and the title and
 install steps its README carries. An entry with `same-as` installs from another
 distribution's folder and builds none of its own. A test holds every

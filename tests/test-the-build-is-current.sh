@@ -103,6 +103,13 @@ for folder in $(sed -n 's@.*(distributions/\([a-z-]*\)).*@\1@p' "$REPOSITORY/COM
     "a reader following that row lands nowhere"
 done
 
+for folder in "$REPOSITORY"/distributions/*/; do
+  named="$(basename "$folder")"
+  [ ! -d "$folder/commands" ] || [ ! -d "$folder/skills" ] || ships "$named" cloud
+  assert "$named ships no command that shares a skill name" "$?" \
+    "both resolve to unsolicited-text:<name>, the command wins, and it only points back at itself"
+done
+
 printf "\nTest group: a generated file says so\n"
 
 for generated in "$REPOSITORY"/distributions/*/README.md "$REPOSITORY"/distributions/*/hooks/load-rules.sh \
