@@ -29,10 +29,14 @@ section() {
     | cat -s
 }
 
+products="$repository/products.json"
+
 ships() {
-  local product="$1" part="$2"
-  sed -n "s/^$product: //p" "$repository/products" | grep --quiet --word-regexp "$part"
+  jq --exit-status --arg product "$1" --arg part "$2" \
+    '.[$product].ships | index($part)' "$products" >/dev/null
 }
+
+stated() { jq --raw-output --arg product "$1" ".[\$product].$2" "$products"; }
 
 payload() {
   local product="$1" target="$2" skill named
@@ -64,12 +68,13 @@ payload() {
 }
 
 readme() {
-  local target="$1" title="$2"
+  local product="$1" target="$2"
   {
-    printf '# %s\n\n(audience: humans)\n\n' "$title"
+    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$product" title)"
     printf '%s\n\n' "$generated"
     printf 'Everything this install needs is in this folder.\n\n'
     printf '## Installing\n'
+    section "$(stated "$product" installs)"
     shift 2
     printf '%s\n' "$@"
   } > "$target/README.md"
@@ -84,7 +89,7 @@ mkdir -p "$target/.claude-plugin"
 jq --tab '{name, version, description, author}' "$repository/package.json" \
   > "$target/.claude-plugin/plugin.json"
 cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
-readme "$target" "unsolicited-text for Claude Code and ZCode" "$(section 'Claude Code, ZCode')"
+readme claude-code "$target"
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-cloud"
@@ -93,7 +98,7 @@ cp "$repository/harness-adapters/claude-code/cloud-settings.json" "$target/setti
 cp "$repository/harness-adapters/claude-code/install-cloud.sh" "$target/install.sh"
 cp "$repository/harness-adapters/claude-code/refresh-cloud.sh" "$target/refresh.sh"
 cp "$repository/harness-adapters/claude-code/merge-settings.sh" "$target/merge-settings.sh"
-readme "$target" "unsolicited-text for Claude Code cloud sessions" "$(section 'Claude Code cloud sessions')"
+readme claude-cloud "$target"
 
 # Codex, which registers the hooks by hand.
 target="$out/codex"
@@ -103,14 +108,14 @@ jq --tab '{name, version, description, hooks: "./hooks/hooks.json",
   interface: { displayName, shortDescription: .description }}' "$repository/package.json" \
   > "$target/.codex-plugin/plugin.json"
 cp "$repository/harness-adapters/codex/hooks.json" "$target/hooks/hooks.json"
-readme "$target" "unsolicited-text for Codex" "$(section 'Codex')"
+readme codex "$target"
 
 # Pi, which loads a shim that runs the same hooks.
 target="$out/pi"
 payload pi "$target"
 mkdir -p "$target/src"
 cp "$repository/harness-adapters/pi/src/index.ts" "$target/src/index.ts"
-readme "$target" "unsolicited-text for Pi" "$(section 'Pi')"
+readme pi "$target"
 
 # Claude Chat and Cowork, which copy the skills out of an installed plugin.
 target="$out/chat-cowork"
@@ -122,5 +127,5 @@ mark_scripts "$out/claude-cloud"
 mark_scripts "$out/codex"
 mark_scripts "$out/pi"
 
-readme "$target" "unsolicited-text for Claude Chat and Cowork" "$(section 'Claude Chat, Cowork')" \
+readme chat-cowork "$target" \
   "Nothing is installed from this folder. The client copies these skills out of the plugin, and they are all a session there receives."

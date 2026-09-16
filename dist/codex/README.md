@@ -41,3 +41,5 @@ them by hand in `~/.codex/config.toml`:
     [[hooks.Stop.hooks]]
     type = "command"
     command = "<path to this checkout>/hooks/note-long-queue.sh"
+
+

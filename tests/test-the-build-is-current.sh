@@ -29,9 +29,11 @@ assert "and dist matches it" "$?" \
 
 printf "\nTest group: every folder holds what it declares, and nothing else\n"
 
-ships() { sed -n "s/^$1: //p" "$REPOSITORY/products" | grep --quiet --word-regexp "$2"; }
+PRODUCTS="$REPOSITORY/products.json"
 
-declared() { sed -n 's/^\([a-z-]*\): .*/\1/p' "$REPOSITORY/products"; }
+ships() { jq --exit-status --arg product "$1" --arg part "$2" '.[$product].ships | index($part)' "$PRODUCTS" >/dev/null; }
+
+declared() { jq --raw-output 'keys[]' "$PRODUCTS"; }
 
 for product in $(declared); do
   for part in hooks rules skills commands; do
@@ -61,7 +63,7 @@ done
 for folder in "$REPOSITORY"/dist/*/; do
   named="$(basename "$folder")"
   declared | grep --quiet --line-regexp "$named"
-  assert "$named is declared in products" "$?" "the build writes a folder nothing says belongs there"
+  assert "$named is declared in products.json" "$?" "the build writes a folder nothing says belongs there"
 done
 
 for product in claude-code claude-cloud codex pi chat-cowork; do

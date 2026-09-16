@@ -40,3 +40,5 @@ else
 fi
 /opt/unsolicited-text/dist/claude-cloud/install.sh || true
 ```
+
+
