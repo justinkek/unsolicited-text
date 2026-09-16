@@ -26,9 +26,9 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | --- | --- |
 | a rule a session must follow | `rules/reply-shape.md` |
 | a setting, and its default | `hooks/hook-settings-lib.sh` |
-| what the settings skill tells the user | `skills/settings/SKILL.md` |
-| which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
-| how each install method works | `installs/<distribution>.md`, with `updates/`, `uninstalls/` and `reloads/` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
+| what the settings skill tells the user | `skills/settings/body.md` |
+| which hooks a client registers | `clients/<client>/adapter/` |
+| how each install method works | `clients/<client>/install.md`, with `update.md`, `uninstall.md`, `reload.md`, `settings.md` and `support.md` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
 | what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
 
@@ -48,16 +48,22 @@ with an `unsolicited-text-` prefix. Where the install registers a plugin, a
 command and a skill of the same name both answer to `unsolicited-text:<name>`,
 the command wins, and its body only points back at the name it was invoked by.
 
-`distributions.json` says which parts each distribution's folder takes, its name,
-and the clients it `serves`. One install serves every Claude client that reads
-the marketplace, so its skills carry a signature per client from `clients/` and
-the steps for each, and a session follows the branch that matches what it can
-see. `clients.json` names them.
+One folder under `clients/` holds everything about one name: its pages, its
+`signature.md` where a session has to recognise itself, and its `adapter/` where
+the harness needs one. The prose around the table in `INSTALL.md` is the one
+thing that belongs to no client, and it is in `install-page/`.
 
-`distributions.json` also says its name: the product, and where it runs in parentheses only where one product has
-more than one distribution. An entry with `same-as` installs from another
-distribution's folder and builds none of its own. A test holds every
-folder to it, so a part nothing there reads cannot ship by accident.
+A folder says what it is and `distributions.json` says how the folders relate.
+`clients/<client>/client.json` holds the name: the product, with where it runs
+in parentheses only where one product has more than one distribution.
+
+Every key in `distributions.json` builds a folder under `distributions/` and
+says which parts it `ships`. A key with `serves` installs for the clients listed
+there, which build no folder of their own: one install serves every Claude
+client that reads the marketplace, so its skills carry each served client's
+signature and steps, and a session follows the branch that matches what it can
+see. A key with `same-as` installs from another distribution's folder. A test
+holds every folder to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
@@ -67,9 +73,9 @@ the version it was built from into the skill.
 ## What not to hand-edit
 
 Skills are written as `skills/<name>/body.md` and built into every distribution
-by `./build`, which appends that distribution's own steps: `updates/` for the
-update skill, `uninstalls/` for uninstall, `settings-steps/` for settings,
-`reloads/` for reload. The reload
+by `./build`, which appends that distribution's own page: `update.md` for the
+update skill, `uninstall.md` for uninstall, `settings.md` for settings,
+`reload.md` for reload. The reload
 skill carries `rules/reply-shape.md` with every setting at its default. No
 `SKILL.md` is written by hand, and a test fails when one drifts from its sources.
 

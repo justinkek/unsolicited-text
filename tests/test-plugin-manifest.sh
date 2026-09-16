@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTERS="$REPOSITORY/harness-adapters"
+CLIENTS="$REPOSITORY/clients"
 
 pass=0
 fail=0
@@ -26,10 +26,10 @@ printf "Test group: every manifest is readable JSON\n"
 for manifest in \
   "$REPOSITORY/.claude-plugin/marketplace.json" \
   "$REPOSITORY/distributions/claude/.claude-plugin/plugin.json" \
-  "$REPOSITORY/hooks/hooks.json" \
+  "$REPOSITORY/clients/claude/adapter/hooks.json" \
   "$REPOSITORY/.agents/plugins/marketplace.json" \
   "$REPOSITORY/distributions/codex/.codex-plugin/plugin.json" \
-  "$ADAPTERS/codex/hooks.json" \
+  "$CLIENTS/codex/adapter/hooks.json" \
   "$REPOSITORY/package.json"
 do
   jq --exit-status . "$manifest" >/dev/null 2>&1
@@ -62,8 +62,8 @@ check_reachable() {
   done < <(commands_of "$manifest")
 }
 
-check_reachable "$REPOSITORY/hooks/hooks.json" "$REPOSITORY/distributions/claude" CLAUDE_PLUGIN_ROOT "claude"
-check_reachable "$ADAPTERS/codex/hooks.json" "$REPOSITORY/distributions/codex" PLUGIN_ROOT "codex"
+check_reachable "$REPOSITORY/clients/claude/adapter/hooks.json" "$REPOSITORY/distributions/claude" CLAUDE_PLUGIN_ROOT "claude"
+check_reachable "$CLIENTS/codex/adapter/hooks.json" "$REPOSITORY/distributions/codex" PLUGIN_ROOT "codex"
 
 printf "\nTest group: each marketplace points at a plugin directory it carries\n"
 
@@ -100,10 +100,10 @@ assert "the pages name the scripts at all" "$?" "only $named named between them"
 printf "\nTest group: every hook this repository carries is registered somewhere\n"
 
 registered="$(
-  for manifest in "$REPOSITORY/hooks/hooks.json" "$ADAPTERS/codex/hooks.json"; do
+  for manifest in "$REPOSITORY/clients/claude/adapter/hooks.json" "$CLIENTS/codex/adapter/hooks.json"; do
     commands_of "$manifest"
   done
-  grep --only-matching --extended-regexp '[a-z-]+\.sh' "$ADAPTERS/pi/src/index.ts"
+  grep --only-matching --extended-regexp '[a-z-]+\.sh' "$CLIENTS/pi/adapter/src/index.ts"
 )"
 
 for script in "$REPOSITORY"/hooks/*.sh; do

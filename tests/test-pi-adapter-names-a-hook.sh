@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/harness-adapters/pi/src/index.ts"
+ADAPTER="$REPOSITORY/clients/pi/adapter/src/index.ts"
 
 pass=0
 fail=0

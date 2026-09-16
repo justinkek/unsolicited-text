@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-CODEX="$REPOSITORY/installs/codex.md"
-CLOUD_STEPS="$REPOSITORY/installs/claude-code-cloud.md"
-MARKETPLACE="$REPOSITORY/installs/claude-code-local.md"
+CODEX="$REPOSITORY/clients/codex/install.md"
+CLOUD_STEPS="$REPOSITORY/clients/claude-code-cloud/install.md"
+MARKETPLACE="$REPOSITORY/clients/claude-code-local/install.md"
 CLOUD="$REPOSITORY/distributions/claude-code-cloud/settings.json"
 
 pass=0
@@ -35,10 +35,10 @@ while read -r script; do
   assert "the codex block names $script" "$?" \
     "hooks.json registers it and a Codex session registered from $CODEX would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
-  "$REPOSITORY/hooks/hooks.json" | sed 's#.*/##' | sort --unique)
+  "$REPOSITORY/clients/claude/adapter/hooks.json" | sed 's#.*/##' | sort --unique)
 
 [ "$registered" -gt 0 ]
-assert "hooks.json registers anything at all" "$?" "no commands read out of hooks/hooks.json"
+assert "hooks.json registers anything at all" "$?" "no commands read out of the Claude adapter's hooks.json"
 
 printf "\nTest group: the setup script is one a container can run\n"
 
@@ -86,7 +86,7 @@ grep --quiet --fixed-strings 'reload skill' "$CLOUD_STEPS"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"
 
-grep --quiet --fixed-strings 'reload skill' "$REPOSITORY/installs/claude-chat.md"
+grep --quiet --fixed-strings 'reload skill' "$REPOSITORY/clients/claude-chat/install.md"
 assert "and what to do on a harness that runs no hooks" "$?" \
   "a reader on such a harness is told nothing works and nothing else"
 

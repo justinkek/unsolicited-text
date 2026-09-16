@@ -21,7 +21,7 @@ assert() {
 
 printf "Test group: one page carries the command, and the rest send a reader to it\n"
 
-for page in installs/claude-code-cloud.md updates/claude-code-cloud.md; do
+for page in clients/claude-code-cloud/install.md clients/claude-code-cloud/update.md; do
   grep --quiet --fixed-strings '/rules/reply-shape.md' "$REPOSITORY/$page"
   outcome="$?"
   [ "$outcome" != "0" ]
@@ -32,7 +32,7 @@ for page in installs/claude-code-cloud.md updates/claude-code-cloud.md; do
   assert "and sends them to $PAGE instead" "$?" "it says to print the rules and never says how"
 done
 
-cat "$REPOSITORY"/reloads/*.md | grep --quiet --fixed-strings 'load-rules.sh'
+cat "$REPOSITORY"/clients/*/reload.md | grep --quiet --fixed-strings 'load-rules.sh'
 assert "the reload steps name the hook" "$?" "nothing carries the command to run"
 
 grep --quiet --fixed-strings 'load-rules.sh' \
