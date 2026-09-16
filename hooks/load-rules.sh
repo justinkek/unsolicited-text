@@ -36,7 +36,12 @@ keep="$keep queue-tree=$(queue_tree)"
 visible="$(queue_visible_items)"
 if [ -n "$visible" ]; then
   keep="$keep queue-limit=set"
-  rewrite="$rewrite;s/{queue-limit}/$visible/"
+  case "$visible" in
+    0) held_items="no items" ;;
+    1) held_items="the first item" ;;
+    *) held_items="the first $visible items" ;;
+  esac
+  rewrite="$rewrite;s/{queue-limit}/$held_items/"
 else
   keep="$keep queue-limit=unset"
 fi
