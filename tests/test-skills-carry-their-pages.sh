@@ -35,7 +35,7 @@ assert "and carries the rules for a session that cannot" "$?" \
 printf "\nTest group: the copy in the skill is the rules as they stand\n"
 
 "$REPOSITORY/skills/reload/render" "$TMPDIR/SKILL.md" \
-  "$REPOSITORY/reloads/claude-code-local.md"
+  "$REPOSITORY/clients/claude-code-local/reload.md"
 assert "the generator runs" "$?" "the skill cannot be rebuilt from the rules"
 
 diff --unified "$SKILL" "$TMPDIR/SKILL.md" >"$TMPDIR/drift"
@@ -60,7 +60,7 @@ for folder in "$REPOSITORY"/distributions/*/skills/update/SKILL.md; do
     "it links them, or carries every install method the plugin knows"
 
   others="$(jq --raw-output --arg named "$named" 'to_entries[] | select(.key != $named) | .value.title' \
-    "$REPOSITORY/distributions.json" | tr ',' '\n' | sed 's/^ *//' | sort --unique)"
+    "$REPOSITORY/clients.json" | tr ',' '\n' | sed 's/^ *//' | sort --unique)"
   wrong=""
   while read -r heading; do
     [ -n "$heading" ] || continue

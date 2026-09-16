@@ -87,14 +87,14 @@ assert "it carries the commands for the clients it ships to" "$?" \
   "the skill neither holds them nor says where they are"
 
 while read -r distribution; do
-  [ -s "$REPOSITORY/updates/$distribution.md" ]
+  [ -s "$REPOSITORY/clients/$distribution/update.md" ]
   assert "$distribution says how it is updated" "$?" \
     "it is installable and has no way forward from there"
-done < <(jq --raw-output 'keys[]' "$REPOSITORY/distributions.json")
+done < <(jq --raw-output 'keys[]' "$REPOSITORY/clients.json")
 
 printf "\nTest group: a change reaches the session that made it\n"
 
-RELOAD="$(cat "$REPOSITORY"/reloads/*.md)"
+RELOAD="$(cat "$REPOSITORY"/clients/*/reload.md)"
 
 grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
 assert "the settings skill carries the reload steps for its clients" "$?" \
@@ -113,10 +113,10 @@ assert "and pipe a line into every command they give" "$?" \
   "the script waits on standard input, so a command without the pipe hangs"
 
 while read -r distribution; do
-  [ -s "$REPOSITORY/reloads/$distribution.md" ]
+  [ -s "$REPOSITORY/clients/$distribution/reload.md" ]
   assert "$distribution says where its loader is" "$?" \
     "it is installable and cannot reload its rules"
-done < <(jq --raw-output 'keys[]' "$REPOSITORY/distributions.json")
+done < <(jq --raw-output 'keys[]' "$REPOSITORY/clients.json")
 
 printf "\nTest group: a setting another one turns off says so\n"
 

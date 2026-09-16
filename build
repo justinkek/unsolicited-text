@@ -19,47 +19,49 @@ mark_scripts() {
   done
 }
 
-steps() {
-  sed -E "s@\]\(([A-Za-z-]+\.md)([^)]*)\)@](PUBLISHED/\1\2)@g" "$repository/$1/$2.md" \
+# One page of one client: clients/<client>/<page>.md, with its links published.
+page() {
+  sed -E "s@\]\(([A-Za-z-]+\.md)([^)]*)\)@](PUBLISHED/\1\2)@g" "$repository/clients/$2/$1.md" \
     | sed "s@PUBLISHED@$published@g"
 }
 
-distributions="$repository/distributions.json"
+clients="$repository/clients.json"
 
 ships() {
   jq --exit-status --arg distribution "$1" --arg part "$2" \
-    '.[$distribution].ships | index($part)' "$distributions" >/dev/null
+    '.[$distribution].ships | index($part)' "$clients" >/dev/null
 }
 
-stated() { jq --raw-output --arg distribution "$1" ".[\$distribution].$2" "$distributions"; }
+stated() { jq --raw-output --arg distribution "$1" ".[\$distribution].$2" "$clients"; }
 
-folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$distributions"; }
+folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$clients"; }
 
-clients="$repository/clients.json"
+# Every distribution builds a folder; the rest are clients one of them serves.
+distributes() { jq --raw-output 'to_entries[] | select(.value.ships) | .key' "$clients"; }
 
 served() {
   jq --raw-output --arg distribution "$1" \
-    '(.[$distribution].serves // [$distribution])[]' "$distributions"
+    '(.[$distribution].serves // [$distribution])[]' "$clients"
 }
 
 # A skill carries the steps for the clients its distribution serves, and no others.
 carries() {
-  local named="$1" folder="$2" distribution="$3" target="$4" out="$4/skills/$1/SKILL.md" client
+  local named="$1" page="$2" distribution="$3" target="$4" out="$4/skills/$1/SKILL.md" client
   mkdir -p "$target/skills/$named"
   cat "$repository/skills/$named/body.md" > "$out"
 
   if [ "$(served "$distribution" | wc -l)" = "1" ]; then
     printf '\n## The steps for this install\n\n' >> "$out"
-    steps "$folder" "$distribution" >> "$out"
+    page "$page" "$distribution" >> "$out"
   else
     printf '\n## The steps for this install\n\n' >> "$out"
     printf 'One install serves several clients. Read the signatures, then follow the\n' >> "$out"
     printf 'steps under the one that matches.\n' >> "$out"
     for client in $(served "$distribution"); do
       printf '\n### %s\n\n' "$(jq --raw-output --arg client "$client" '.[$client].name' "$clients")" >> "$out"
-      cat "$repository/clients/$client.md" >> "$out"
+      cat "$repository/clients/$client/signature.md" >> "$out"
       printf '\n' >> "$out"
-      steps "$folder" "$client" >> "$out"
+      page "$page" "$client" >> "$out"
     done
   fi
 
@@ -84,11 +86,11 @@ payload() {
   if ships "$distribution" skills; then
     mkdir -p "$target/skills/reload"
     "$repository/skills/reload/render" "$target/skills/reload/SKILL.md" \
-      "$repository/reloads/$distribution.md"
+      "$repository/clients/$distribution/reload.md"
 
-    carries update updates "$distribution" "$target"
-    carries uninstall uninstalls "$distribution" "$target"
-    carries settings settings-steps "$distribution" "$target"
+    carries update update "$distribution" "$target"
+    carries uninstall uninstall "$distribution" "$target"
+    carries settings settings "$distribution" "$target"
   fi
 
   if ships "$distribution" commands; then
@@ -102,17 +104,17 @@ readme() {
   page="$({
     printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$distribution" name)"
     # A distribution that is not supported everywhere says here what is missing.
-    if [ -s "$repository/support/$distribution.md" ]; then
+    if [ -s "$repository/clients/$distribution/support.md" ]; then
       printf '## What works\n\n'
-      steps support "$distribution"
+      page support "$distribution"
       printf '\n'
     fi
     printf '## Installing\n\n'
-    steps installs "$distribution"
+    page install "$distribution"
     printf '\n## Updating\n\n'
-    steps updates "$distribution"
+    page update "$distribution"
     printf '\n## Uninstalling\n\n'
-    steps uninstalls "$distribution"
+    page uninstall "$distribution"
     printf '\n## Note\n\n%s\n' "$generated"
   })"
   printf '%s\n' "$page" > "$target/README.md"
@@ -120,17 +122,17 @@ readme() {
 
 # The install page a person reads on GitHub, from the same sources.
 {
-  cat "$repository/installs/intro.md"
+  cat "$repository/install-page/intro.md"
   printf '\nEvery install copies one folder under `distributions/`. Open the one for your\n'
   printf 'client and follow its README:\n\n'
   printf '| Client | Folder |\n| --- | --- |\n'
-  for distribution in $(jq --raw-output 'keys_unsorted[]' "$distributions"); do
+  for distribution in $(distributes); do
     printf '| %s | [distributions/%s](distributions/%s) |\n' "$(stated "$distribution" name)" \
       "$(folder_of "$distribution")" "$(folder_of "$distribution")"
   done
   printf '\n'
-  cat "$repository/installs/tail.md"
-  printf '\n## Note\n\n%s\n' "Generated by ./build from installs/. Edit those files instead."
+  cat "$repository/install-page/tail.md"
+  printf '\n## Note\n\n%s\n' "Generated by ./build from clients/. Edit those files instead."
 } > "$page"
 
 rm -rf "$out"
@@ -141,16 +143,16 @@ payload claude "$target"
 mkdir -p "$target/.claude-plugin"
 jq --tab '{name, version, description, author}' "$repository/package.json" \
   > "$target/.claude-plugin/plugin.json"
-cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
+cp "$repository/clients/claude/adapter/hooks.json" "$target/hooks/hooks.json"
 readme claude "$target"
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-code-cloud"
 payload claude-code-cloud "$target"
-cp "$repository/harness-adapters/claude-code/cloud-settings.json" "$target/settings.json"
-cp "$repository/harness-adapters/claude-code/install-cloud.sh" "$target/install.sh"
-cp "$repository/harness-adapters/claude-code/refresh-cloud.sh" "$target/refresh.sh"
-cp "$repository/harness-adapters/claude-code/merge-settings.sh" "$target/merge-settings.sh"
+cp "$repository/clients/claude-code-cloud/adapter/settings.json" "$target/settings.json"
+cp "$repository/clients/claude-code-cloud/adapter/install.sh" "$target/install.sh"
+cp "$repository/clients/claude-code-cloud/adapter/refresh.sh" "$target/refresh.sh"
+cp "$repository/clients/claude-code-cloud/adapter/merge-settings.sh" "$target/merge-settings.sh"
 readme claude-code-cloud "$target"
 
 # Codex, which registers the hooks by hand.
@@ -160,17 +162,17 @@ mkdir -p "$target/.codex-plugin"
 jq --tab '{name, version, description, hooks: "./hooks/hooks.json",
   interface: { displayName, shortDescription: .description }}' "$repository/package.json" \
   > "$target/.codex-plugin/plugin.json"
-cp "$repository/harness-adapters/codex/hooks.json" "$target/hooks/hooks.json"
+cp "$repository/clients/codex/adapter/hooks.json" "$target/hooks/hooks.json"
 readme codex "$target"
 
 # Pi, which loads an adapter that runs the same hooks.
 target="$out/pi"
 payload pi "$target"
 mkdir -p "$target/src"
-cp "$repository/harness-adapters/pi/src/index.ts" "$target/src/index.ts"
+cp "$repository/clients/pi/adapter/src/index.ts" "$target/src/index.ts"
 readme pi "$target"
 
-for distribution in $(jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$distributions"); do
+for distribution in $(distributes); do
   mark_scripts "$out/$distribution"
 done
 

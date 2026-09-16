@@ -21,7 +21,7 @@ assert() {
 
 printf "Test group: the update instructions name a script that installs what it pulls\n"
 
-named="$(grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/updates/claude-code-cloud.md" | sort --unique)"
+named="$(grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/clients/claude-code-cloud/update.md" | sort --unique)"
 
 printf '%s' "$named" | grep --quiet --line-regexp --fixed-strings refresh.sh
 assert "the cloud update steps name refresh.sh" "$?" \

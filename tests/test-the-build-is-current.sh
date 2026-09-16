@@ -43,13 +43,13 @@ done
 
 printf "\nTest group: every folder holds what it declares, and nothing else\n"
 
-DISTRIBUTIONS="$REPOSITORY/distributions.json"
+CLIENTS="$REPOSITORY/clients.json"
 
-ships() { jq --exit-status --arg product "$1" --arg part "$2" '.[$product].ships | index($part)' "$DISTRIBUTIONS" >/dev/null; }
+ships() { jq --exit-status --arg product "$1" --arg part "$2" '.[$product].ships | index($part)' "$CLIENTS" >/dev/null; }
 
-declared() { jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$DISTRIBUTIONS"; }
+declared() { jq --raw-output 'to_entries[] | select(.value.ships) | .key' "$CLIENTS"; }
 
-shares() { jq --raw-output 'to_entries[] | select(.value["same-as"]) | "\(.key) \(.value["same-as"])"' "$DISTRIBUTIONS"; }
+shares() { jq --raw-output 'to_entries[] | select(.value["same-as"]) | "\(.key) \(.value["same-as"])"' "$CLIENTS"; }
 
 for product in $(declared); do
   for part in hooks rules skills commands; do
@@ -79,7 +79,7 @@ done
 for folder in "$REPOSITORY"/distributions/*/; do
   named="$(basename "$folder")"
   declared | grep --quiet --line-regexp "$named"
-  assert "$named is declared in distributions.json" "$?" "the build writes a folder nothing says belongs there"
+  assert "$named is declared in clients.json" "$?" "the build writes a folder nothing says belongs there"
 done
 
 for product in $(declared); do
@@ -122,16 +122,16 @@ printf "\nTest group: a client a distribution serves is one it can tell apart\n"
 
 while read -r distribution; do
   while read -r client; do
-    [ -s "$REPOSITORY/clients/$client.md" ]
+    [ -s "$REPOSITORY/clients/$client/signature.md" ]
     assert "$distribution can recognise $client" "$?" \
       "the skills branch on a signature that is not written down"
 
-    for folder in installs updates uninstalls reloads settings-steps; do
-      [ -s "$REPOSITORY/$folder/$client.md" ]
-      assert "and $folder says what $client does" "$?" "the branch for it would be empty"
+    for named in install update uninstall reload settings; do
+      [ -s "$REPOSITORY/clients/$client/$named.md" ]
+      assert "and $named.md says what $client does" "$?" "the branch for it would be empty"
     done
-  done < <(jq --raw-output --arg d "$distribution" '.[$d].serves // [] | .[]' "$DISTRIBUTIONS")
-done < <(jq --raw-output 'keys[]' "$DISTRIBUTIONS")
+  done < <(jq --raw-output --arg d "$distribution" '.[$d].serves // [] | .[]' "$CLIENTS")
+done < <(jq --raw-output 'keys[]' "$CLIENTS")
 
 printf "\nTest group: a generated file says so\n"
 
