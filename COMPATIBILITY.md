@@ -6,10 +6,10 @@
 
 | Product     | Surface     | Harness execution environment | Installation                                                   | Support                                                             |
 | ----------- | ----------- | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Claude Chat | Web GUI     | Hosted                        | [INSTALL.md#claude-chat-cowork](INSTALL.md#claude-chat-cowork) | Partial Support. Functionality may drift over time as no hook runs. |
+| Claude Chat | Web GUI     | Hosted                        | [INSTALL.md#claude-chat](INSTALL.md#claude-chat) | Partial Support. Functionality may drift over time as no hook runs. |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | (see above)                                                         |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | (see above)                                                         |
-| Cowork      | Web GUI     | Hosted                        | [INSTALL.md#claude-chat-cowork](INSTALL.md#claude-chat-cowork) | TBD                                                                 |
+| Cowork      | Web GUI     | Hosted                        | [INSTALL.md#cowork](INSTALL.md#cowork) | TBD                                                                 |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | TBD                                                                 |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | TBD                                                                 |
 |             | Desktop GUI | Local                         | (see above)                                                    | TBD                                                                 |

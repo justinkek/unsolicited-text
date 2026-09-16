@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-INSTALL="$REPOSITORY/INSTALL.md"
+CODEX="$REPOSITORY/installs/codex.md"
+CLOUD_STEPS="$REPOSITORY/installs/claude-cloud.md"
+MARKETPLACE="$REPOSITORY/installs/claude-code.md"
 CLOUD="$REPOSITORY/distributions/claude-cloud/settings.json"
 
 pass=0
@@ -29,9 +31,9 @@ while read -r script; do
   assert "the cloud settings name $script" "$?" \
     "hooks.json registers it and a cloud session would not run it"
 
-  grep --quiet --fixed-strings "<path to this checkout>/hooks/$script" "$INSTALL"
+  grep --quiet --fixed-strings "<path to this checkout>/hooks/$script" "$CODEX"
   assert "the codex block names $script" "$?" \
-    "hooks.json registers it and a Codex session registered from $INSTALL would not run it"
+    "hooks.json registers it and a Codex session registered from $CODEX would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
   "$REPOSITORY/hooks/hooks.json" | sed 's#.*/##' | sort --unique)
 
@@ -40,10 +42,10 @@ assert "hooks.json registers anything at all" "$?" "no commands read out of hook
 
 printf "\nTest group: the setup script is one a container can run\n"
 
-script="$(sed -n '/^```bash$/,/^```$/p' "$INSTALL" | sed '1d;$d')"
+script="$(sed -n '/^```bash$/,/^```$/p' "$CLOUD_STEPS" | sed '1d;$d')"
 
 printf '%s' "$script" | bash -n
-assert "it parses as bash" "$?" "the fenced bash block in $INSTALL is not a runnable script"
+assert "it parses as bash" "$?" "the fenced bash block in $CLOUD_STEPS is not a runnable script"
 
 printf '%s' "$script" | grep --quiet --fixed-strings '|| true'
 assert "a failed clone does not stop the session starting" "$?" \
@@ -77,14 +79,14 @@ rm -rf "$installed"
 
 printf "\nTest group: the page says what a reader has to know before running it\n"
 
-grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$INSTALL"
-assert "why the install above does nothing in a container" "$?" "no detection signal in $INSTALL"
+grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$MARKETPLACE"
+assert "why the install above does nothing in a container" "$?" "no detection signal in $MARKETPLACE"
 
-grep --quiet --fixed-strings 'RELOAD.md' "$INSTALL"
+grep --quiet --fixed-strings 'RELOAD.md' "$CLOUD_STEPS"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"
 
-grep --quiet --fixed-strings 'reload skill' "$INSTALL"
+grep --quiet --fixed-strings 'reload skill' "$REPOSITORY/installs/claude-chat.md"
 assert "and what to do on a harness that runs no hooks" "$?" \
   "a reader on such a harness is told nothing works and nothing else"
 
