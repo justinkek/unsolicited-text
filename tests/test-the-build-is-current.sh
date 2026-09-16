@@ -97,6 +97,12 @@ while read -r named shared; do
   assert "and the folder it shares is built" "$?" "$named names $shared and nothing builds it"
 done < <(shares)
 
+for folder in $(sed -n 's@.*(distributions/\([a-z-]*\)).*@\1@p' "$REPOSITORY/COMPATIBILITY.md" | sort --unique); do
+  [ -d "$REPOSITORY/distributions/$folder" ]
+  assert "the compatibility table links a folder that exists: $folder" "$?" \
+    "a reader following that row lands nowhere"
+done
+
 printf "\nTest group: a generated file says so\n"
 
 for generated in "$REPOSITORY"/distributions/*/README.md "$REPOSITORY"/distributions/*/hooks/load-rules.sh \
