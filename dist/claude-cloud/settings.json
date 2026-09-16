@@ -1,0 +1,23 @@
+{
+	"hooks": {
+		"SessionStart": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/refresh.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/load-rules.sh" }
+			] }
+		],
+		"UserPromptSubmit": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/remind-response-length.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/replay-stop-notes.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/note-new-version.sh" }
+			] }
+		],
+		"Stop": [
+			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/note-long-reply.sh" },
+				{ "type": "command", "command": "/opt/unsolicited-text/dist/claude-cloud/hooks/note-long-queue.sh" }
+			] }
+		]
+	}
+}

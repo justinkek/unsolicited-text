@@ -1,0 +1,16 @@
+{
+	"name": "unsolicited-text",
+	"version": "0.2.0",
+	"description": "Consent is important.",
+	"license": "MIT",
+	"pi": {
+		"extensions": [
+			"./dist/pi/src/index.ts"
+		]
+	},
+	"author": {
+		"name": "Justin Kek",
+		"email": "justinkekjq@gmail.com"
+	},
+	"displayName": "unsolicited-text"
+}

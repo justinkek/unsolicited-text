@@ -76,7 +76,7 @@ readme() {
     printf '## Installing\n'
     section "$(stated "$product" installs)"
     shift 2
-    [ "$#" -gt 0 ] && printf '%s\n' "$@"
+    if [ "$#" -gt 0 ]; then printf '%s\n' "$@"; fi
   } > "$target/README.md"
 }
 
