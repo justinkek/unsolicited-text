@@ -74,9 +74,12 @@ assert "it is named update" "$?" "the name is missing or carries the plugin pref
 grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE_SKILL"
 assert "its description is one line" "$?" "the description has grown"
 
-grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
-assert "the settings skill looks for a reader before it writes" "$?" \
-  "a session with no hook is told a setting took effect when the file it wrote is read by nobody"
+grep --quiet --fixed-strings 'no hook runs' "$REPOSITORY/distributions/claude-chat/skills/settings/SKILL.md"
+assert "a settings skill with no hook says so" "$?" \
+  "a session there is told a setting took effect when the file it wrote is read by nobody"
+
+grep --quiet --fixed-strings 'holds for this conversation' "$REPOSITORY/distributions/claude-chat/skills/settings/SKILL.md"
+assert "and says what it can do instead" "$?" "the skill is left with nothing to offer"
 
 grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
 assert "it carries the commands for the install it ships in" "$?" \

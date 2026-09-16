@@ -24,14 +24,8 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 ## Before writing anything
 
-Find the hook that reads the file:
-
-    find ~ /opt -name load-rules.sh 2>/dev/null
-
-Nothing found means no hook runs here, so the file would be written and never
-read. Write nothing. Say the setting cannot take effect in this session, and
-that the reload skill prints the rules and a preference or custom style holds
-them across sessions.
+Read the steps at the end of this file. Where they say no hook runs, write no
+file - follow them instead, since nothing would ever read what you wrote.
 
 ## How to update settings
 
@@ -76,8 +70,15 @@ Do not export a variable by hand to make a change stick.
 
 ## The steps for this install
 
-Nowhere - no hook runs here, so the reload skill carries the rules itself. Ask
-for it, and it prints them.
+No hook runs here, so nothing on disk is read and no file is worth writing.
+
+A setting still holds for this conversation: say which rule it changes and how,
+restate that rule with the new value, and follow it from your next reply. Say
+that it lasts until this conversation ends.
+
+To keep it, put the rules in a preference or a custom style with the value
+already changed. The reload skill prints them, and they can be edited before
+they are pasted in.
 
 ## Note
 
