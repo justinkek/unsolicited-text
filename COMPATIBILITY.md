@@ -40,7 +40,7 @@
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [INSTALL.md#claude-code](INSTALL.md#claude-code) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
+| ZCode   | Desktop GUI | Local                         | [INSTALL.md#zcode](INSTALL.md#zcode) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or use the [manual rule reload](RELOAD.md) in the current one. Settings live in `~/.unsolicited-text/settings`. |
 
 ## Pi
 
