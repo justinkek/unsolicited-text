@@ -42,7 +42,7 @@ elided="$(printf '%s\n' 'Some answer.' '' '`[queue]`' '' \
 printf "Test group: a reply showing more than the setting allows is noted\n"
 
 said="$(note_for 2 "$four_items")"
-printf '%s' "$said" | grep --quiet --fixed-strings 'showed 4 queue items with 2 visible allowed'
+printf '%s' "$said" | grep --quiet --fixed-strings 'showed 4 queue items with 2 allowed'
 assert "four shown against two allowed is noted" "$?" "it said '$said'"
 
 [ -z "$(note_for 4 "$four_items")" ]
@@ -51,19 +51,26 @@ assert "four shown against four allowed is silent" "$?" "it complained anyway"
 [ -z "$(note_for 8 "$four_items")" ]
 assert "and fewer than allowed is silent" "$?" "it complained anyway"
 
+printf "\nTest group: one of anything is written as one\n"
+
+one_item="$(printf '%s\n' 'Some answer.' '' '`[queue]`' '' '1. Question: one?')"
+said="$(note_for 0 "$one_item")"
+printf '%s' "$said" | grep --quiet --fixed-strings 'showed 1 queue item with none allowed'
+assert "one item shown at zero is one item" "$?" "it said '$said'"
+
 printf "\nTest group: what is raised below the elision does not count\n"
 
 [ -z "$(note_for 2 "$elided")" ]
 assert "an elided reply passes, whatever sits below the line" "$?" "the item below the elision was counted"
 
 said="$(note_for 1 "$elided")"
-printf '%s' "$said" | grep --quiet --fixed-strings 'showed 2 queue items with 1 visible allowed'
+printf '%s' "$said" | grep --quiet --fixed-strings 'showed 2 queue items with one allowed'
 assert "only the items above the line are counted" "$?" "it said '$said'"
 
 printf "\nTest group: zero means the count alone\n"
 
 said="$(note_for 0 "$four_items")"
-printf '%s' "$said" | grep --quiet --fixed-strings 'with 0 visible allowed'
+printf '%s' "$said" | grep --quiet --fixed-strings 'with none allowed'
 assert "any item shown at zero is noted" "$?" "it said '$said'"
 
 [ -z "$(note_for 0 "$(printf '%s\n' 'Some answer.' '' '`[queue]` 4 pending')")" ]

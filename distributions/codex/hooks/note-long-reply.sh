@@ -45,10 +45,13 @@ counted="$(printf '%s\n' "$last" | awk -v fence="$fence" -v queue_tag="$queue_ta
 prose_lines="${counted% *}"
 prose_words="${counted#* }"
 
+# One over a ceiling of nothing is one line, not "1 lines".
 if [ "$prose_lines" -gt "$UNSOLICITED_TEXT_PROSE_LINE_CEILING" ]; then
-  ran="$prose_lines lines of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING"
+  if [ "$prose_lines" = "1" ]; then counted_word="line"; else counted_word="lines"; fi
+  ran="$prose_lines $counted_word of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING"
 elif [ "$prose_words" -gt "$UNSOLICITED_TEXT_PROSE_WORD_CEILING" ]; then
-  ran="$prose_words words of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_WORD_CEILING"
+  if [ "$prose_words" = "1" ]; then counted_word="word"; else counted_word="words"; fi
+  ran="$prose_words $counted_word of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_WORD_CEILING"
 else
   exit 0
 fi
