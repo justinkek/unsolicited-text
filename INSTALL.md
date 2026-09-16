@@ -17,7 +17,8 @@ with these same steps:
 | Claude Code cloud sessions | [distributions/claude-cloud](distributions/claude-cloud) |
 | Codex | [distributions/codex](distributions/codex) |
 | Pi | [distributions/pi](distributions/pi) |
-| Claude Chat, Cowork | [distributions/claude-cowork](distributions/claude-cowork) |
+| Claude Chat | [distributions/claude-chat](distributions/claude-chat) |
+| Cowork | [distributions/claude-cowork](distributions/claude-cowork) |
 
 ## Claude Code
 
@@ -106,16 +107,26 @@ them by hand in `~/.codex/config.toml`:
 
     pi install git:github.com/justinkek/unsolicited-text
 
-## Claude Chat, Cowork
+## Claude Chat
 
 Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-No hook runs on either, so the reply rules never reach a session and a setting
+No hook runs in Chat, so the reply rules never reach a session and a setting
 changes nothing. Ask for the reload skill in your first message and it prints
 the rules; a preference or a custom style holding `rules/reply-shape.md` does it
 without asking.
+
+## Cowork
+
+Open the plus menu beside the message box, then Plugins, then Browse plugins,
+and install unsolicited-text. Its skills appear under the plugin's own entry
+in that menu.
+
+Whether Cowork runs the hooks has not been verified here, so treat the rules as
+absent until a session shows otherwise: ask for the reload skill in your first
+message and it prints them.
 
 # Updating
 

@@ -46,11 +46,18 @@
 		],
 		"heading": "Pi"
 	},
-	"claude-cowork": {
-		"title": "Claude Chat and Cowork",
+	"claude-chat": {
+		"title": "Claude Chat",
 		"ships": [
 			"skills"
 		],
-		"heading": "Claude Chat, Cowork"
+		"heading": "Claude Chat"
+	},
+	"claude-cowork": {
+		"title": "Cowork",
+		"ships": [
+			"skills"
+		],
+		"heading": "Cowork"
 	}
 }
