@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-PAGE=RELOAD.md
+PAGE='reload skill'
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -32,8 +32,13 @@ for page in installs/claude-code-cloud.md updates/claude-code-cloud.md; do
   assert "and sends them to $PAGE instead" "$?" "it says to print the rules and never says how"
 done
 
-grep --quiet --fixed-strings 'load-rules.sh' "$REPOSITORY/$PAGE"
-assert "$PAGE names the hook" "$?" "the one page that carries the command does not name it"
+cat "$REPOSITORY"/reloads/*.md | grep --quiet --fixed-strings 'load-rules.sh'
+assert "the reload steps name the hook" "$?" "nothing carries the command to run"
+
+grep --quiet --fixed-strings 'load-rules.sh' \
+  "$REPOSITORY/distributions/claude-code-local/skills/reload/SKILL.md"
+assert "and the reload skill carries it" "$?" \
+  "the skill a session is told to run cannot print the rules"
 
 printf "\nTest group: the hook gives a session something the file on disk does not\n"
 

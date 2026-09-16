@@ -82,7 +82,7 @@ printf "\nTest group: the page says what a reader has to know before running it\
 grep --quiet --fixed-strings 'SKIP_PLUGIN_MARKETPLACE' "$MARKETPLACE"
 assert "why the install above does nothing in a container" "$?" "no detection signal in $MARKETPLACE"
 
-grep --quiet --fixed-strings 'RELOAD.md' "$CLOUD_STEPS"
+grep --quiet --fixed-strings 'reload skill' "$CLOUD_STEPS"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"
 

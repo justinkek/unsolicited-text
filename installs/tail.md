@@ -1,7 +1,13 @@
-# Updating
+Each folder's README also carries the steps to update and to uninstall.
 
-For updating, see 🔗 [the update instructions](UPDATE.md).
+## Which version is installed
 
-# Uninstalling
+    claude plugin list
 
-For uninstalling, see 🔗 [the uninstall instructions](UNINSTALL.md).
+Or read `package.json` beside the hooks in the folder the install copied.
+
+## What a removal leaves behind
+
+The directory the plugin keeps to itself, whichever client it ran in:
+
+    rm -rf ~/.unsolicited-text

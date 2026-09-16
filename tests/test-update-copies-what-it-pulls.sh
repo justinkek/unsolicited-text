@@ -40,7 +40,7 @@ grep --quiet --fixed-strings refresh.sh "$REPOSITORY/skills/update/body.md"
 outcome="$?"
 [ "$outcome" != "0" ]
 assert "the hand-written half of the update skill names no script" "$?" \
-  "it holds a second copy of what UPDATE.md says, and the two drift apart"
+  "it holds a second copy of the cloud update steps, and the two drift apart"
 
 printf "\nTest group: an update in a session hands it what the new version added\n"
 
