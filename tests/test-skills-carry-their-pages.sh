@@ -34,8 +34,9 @@ assert "and carries the rules for a session that cannot" "$?" \
 
 printf "\nTest group: the copy in the skill is the rules as they stand\n"
 
-"$REPOSITORY/skills/reload/render" "$TMPDIR/SKILL.md" \
-  "$REPOSITORY/clients/claude-code-local/reload.md"
+# The skill under test is the Claude one, whose steps branch over four clients.
+"$REPOSITORY/build" "$TMPDIR/distributions" "$TMPDIR/INSTALL.md" >/dev/null
+cp "$TMPDIR/distributions/claude/skills/reload/SKILL.md" "$TMPDIR/SKILL.md"
 assert "the generator runs" "$?" "the skill cannot be rebuilt from the rules"
 
 diff --unified "$SKILL" "$TMPDIR/SKILL.md" >"$TMPDIR/drift"

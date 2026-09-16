@@ -117,7 +117,7 @@ rm -rf "$renamed"
 
 printf "\nTest group: the check runs where a long session reaches it\n"
 
-for manifest in "$REPOSITORY/clients/claude/adapter/hooks.json" "$REPOSITORY/clients/codex/adapter/hooks.json" \
+for manifest in "$REPOSITORY/adapters/claude/hooks.json" "$REPOSITORY/adapters/codex/hooks.json" \
   "$REPOSITORY/distributions/claude-code-cloud/settings.json"; do
   named="$(basename "$(dirname "$manifest")")"
 
@@ -134,7 +134,7 @@ CHECK
     "a session that never restarts never checks, and never prints what it found"
 done
 
-grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/clients/pi/adapter/src/index.ts"
+grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/adapters/pi/src/index.ts"
 assert "the pi adapter asks too" "$?" "pi is told about no version but the one it installed"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"

@@ -4,27 +4,70 @@
 
 ## What works
 
-Claude Code and ZCode run every hook: the rules are printed when a session
-starts, a long reply is noted and the note is replayed on the next prompt, and
-a new version is announced. Settings are kept in `~/.unsolicited-text` and
-outlive the session.
+### Claude Code, on your machine
 
-Cowork runs every hook too, and writes the settings inside the session's
-container, which is discarded when the session ends.
+Every hook runs: the rules are printed when a session starts, a long reply is
+noted and the note is replayed on the next prompt, and a new version is
+announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
 
-Claude Chat runs no hook. The rules arrive only when the reload skill prints
-them, so nothing prints them again once they fall out of the conversation,
-nothing notes a long reply, and a new version goes unannounced. A setting holds
-for the conversation it is asked for and no longer.
+### ZCode
+
+Every hook runs: the rules are printed when a session starts, a long reply is
+noted and the note is replayed on the next prompt, and a new version is
+announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
+
+### Claude Chat
+
+No hook runs. The rules arrive only when the reload skill prints them, so
+nothing prints them again once they fall out of the conversation, nothing notes
+a long reply, and a new version goes unannounced. A setting holds for the
+conversation it is asked for and no longer.
+
+### Cowork
+
+Every hook runs, as on your own machine, but the settings are written inside
+the session's container, which is discarded when the session ends.
 
 ## Installing
+
+### Claude Code, on your machine
 
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
 (audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the session is a cloud one: say so, and use the cloud install instructions at 🔗 [distributions/claude-code-cloud](https://github.com/justinkek/unsolicited-text/tree/main/distributions/claude-code-cloud) instead.
 
+### ZCode
+
+Add `justinkek/unsolicited-text` through Settings, Marketplace. It installs the
+same plugin as Claude Code does.
+
+### Claude Chat
+
+Open the plus menu beside the message box, then Plugins, then Browse plugins,
+and install unsolicited-text. Its skills appear under the plugin's own entry
+in that menu.
+
+No hook runs in Chat, so the reply rules never reach a session and a setting
+changes nothing. Ask for the reload skill in your first message and it prints
+the rules; a preference or a custom style holding `rules/reply-shape.md` does it
+without asking.
+
+### Cowork
+
+Open the plus menu beside the message box, then Plugins, then Browse plugins,
+and install unsolicited-text. Its skills appear under the plugin's own entry
+in that menu.
+
+The hooks run here, so the rules are printed at session start. A session that
+started before the install has none until you ask for the reload skill.
+
+Settings are written inside the session's container, which is discarded when the
+session ends.
+
 ## Updating
+
+### Claude Code, on your machine
 
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
@@ -37,10 +80,37 @@ the two commands failed or was skipped.
 
 Your settings are in `~/.unsolicited-text` and no install touches them.
 
+### ZCode
+
+The same commands as Claude Code, run from your terminal, or through Settings,
+Marketplace where it was added.
+
+### Claude Chat
+
+Open the plus menu, then Plugins, then Manage plugins, and update it there.
+
+### Cowork
+
+Open the plus menu, then Plugins, then Manage plugins, and update it there.
+
 ## Uninstalling
+
+### Claude Code, on your machine
 
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
+
+### ZCode
+
+Remove it under Settings, Marketplace, where it was added.
+
+### Claude Chat
+
+Open the plus menu, then Plugins, then Manage plugins, and remove it there.
+
+### Cowork
+
+Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
 ## Note
 

@@ -1,5 +1,6 @@
 {
 	"claude": {
+		"name": "Claude",
 		"ships": [
 			"hooks",
 			"rules",

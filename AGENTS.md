@@ -27,7 +27,7 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | a rule a session must follow | `rules/reply-shape.md` |
 | a setting, and its default | `hooks/hook-settings-lib.sh` |
 | what the settings skill tells the user | `skills/settings/body.md` |
-| which hooks a client registers | `clients/<client>/adapter/` |
+| which hooks a distribution registers | `adapters/<distribution>/` |
 | how each install method works | `clients/<client>/install.md`, with `update.md`, `uninstall.md`, `reload.md`, `settings.md` and `support.md` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
 | what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
@@ -53,17 +53,18 @@ One folder under `clients/` holds everything about one name: its pages, its
 the harness needs one. The prose around the table in `INSTALL.md` is the one
 thing that belongs to no client, and it is in `install-page/`.
 
-A folder says what it is and `distributions.json` says how the folders relate.
-`clients/<client>/client.json` holds the name: the product, with where it runs
-in parentheses only where one product has more than one distribution.
+A folder under `clients/` is a client, and nothing else: its pages, its
+`signature.md`, and `client.json` holding its name. A folder under `adapters/`
+is a distribution's, and holds what registers the hooks with that harness.
 
-Every key in `distributions.json` builds a folder under `distributions/` and
-says which parts it `ships`. A key with `serves` installs for the clients listed
-there, which build no folder of their own: one install serves every Claude
-client that reads the marketplace, so its skills carry each served client's
-signature and steps, and a session follows the branch that matches what it can
-see. A key with `same-as` installs from another distribution's folder. A test
-holds every folder to it, so a part nothing there reads cannot ship by accident.
+Every key in `distributions.json` builds a folder under `distributions/`, says
+which parts it `ships`, and lists the clients it `serves`, itself included. One
+install serves every Claude client that reads the marketplace, so its skills and
+its README carry a section per client, and a session follows the branch whose
+signature matches what it can see. Such a distribution says its own `name`; one
+serving a single client is called what that client is called. A key with
+`same-as` installs from another distribution's folder. A test holds every folder
+to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
