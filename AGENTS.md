@@ -38,7 +38,7 @@ prefix, and is named in the settings skill. A test holds all three together.
 `dist/` is generated and committed, one folder per product, because an install
 fetches files from the repository. Run `./build` after changing anything it
 copies. A test rebuilds and fails on any difference. Every generated file opens by
-saying so, and `.gitattributes` folds `dist/` out of a diff.
+saying so, and its diff is reviewed like any other.
 
 The two plugin manifests are generated from `package.json`, which is where the
 version, the description and the author are written.

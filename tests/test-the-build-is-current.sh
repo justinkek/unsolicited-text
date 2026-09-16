@@ -53,8 +53,5 @@ for generated in "$REPOSITORY"/dist/*/README.md "$REPOSITORY"/dist/*/hooks/load-
     "a reader edits it, runs the build, and loses the edit"
 done
 
-grep --quiet --fixed-strings 'dist/** linguist-generated=true' "$REPOSITORY/.gitattributes"
-assert "and a diff of dist is folded away" "$?" "every build fills a pull request with noise"
-
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
