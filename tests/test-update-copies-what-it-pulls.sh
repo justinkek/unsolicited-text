@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-ADAPTER="$REPOSITORY/harness-adapters/claude-code"
+ADAPTER="$REPOSITORY/dist/claude-cloud"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -23,8 +23,8 @@ printf "Test group: the update instructions name a script that installs what it 
 
 named="$(grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/UPDATE.md" | sort --unique)"
 
-printf '%s' "$named" | grep --quiet --line-regexp --fixed-strings refresh-cloud.sh
-assert "UPDATE.md names refresh-cloud.sh" "$?" \
+printf '%s' "$named" | grep --quiet --line-regexp --fixed-strings refresh.sh
+assert "UPDATE.md names refresh.sh" "$?" \
   "it names $(printf '%s' "$named" | tr '\n' ' '), none of which installs what it pulls"
 
 for script in $named; do
@@ -32,11 +32,11 @@ for script in $named; do
   assert "and $script is a script this repository carries" "$?" "there is nothing to run"
 done
 
-grep --quiet --fixed-strings install-cloud.sh "$ADAPTER/refresh-cloud.sh"
+grep --quiet --fixed-strings install.sh "$ADAPTER/refresh.sh"
 assert "the script it names runs the install" "$?" \
   "an update pulls the checkout and copies none of it, so a new skill waits for the next session"
 
-grep --quiet --fixed-strings refresh-cloud.sh "$REPOSITORY/skills/update/body.md"
+grep --quiet --fixed-strings refresh.sh "$REPOSITORY/skills/update/body.md"
 outcome="$?"
 [ "$outcome" != "0" ]
 assert "the hand-written half of the update skill names no script" "$?" \
@@ -49,17 +49,17 @@ git init --quiet --bare --initial-branch=main "$origin"
 
 work="$TMPDIR/work"
 git clone --quiet "$origin" "$work" 2>/dev/null
-cp -R "$REPOSITORY/harness-adapters" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
+cp -R "$REPOSITORY/dist" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
   "$REPOSITORY/commands" "$REPOSITORY/rules" "$work/"
 cp "$REPOSITORY/package.json" "$work/package.json"
 
 publish() {
   python3 -c '
 import json, sys
-p = sys.argv[1] + "/package.json"
-package = json.load(open(p))
-package["version"] = sys.argv[2]
-json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"
+for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/dist/claude-cloud/package.json"):
+    package = json.load(open(p))
+    package["version"] = sys.argv[2]
+    json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"
   git -C "$work" add --all
   git -C "$work" -c user.email=test -c user.name=test commit --quiet --message "version $1"
   git -C "$work" push --quiet origin HEAD:main 2>/dev/null
@@ -71,16 +71,16 @@ running="$TMPDIR/running"
 git clone --quiet --depth 1 "$origin" "$running" 2>/dev/null
 
 home="$TMPDIR/home"
-env HOME="$home" bash "$running/harness-adapters/claude-code/install-cloud.sh"
+env HOME="$home" bash "$running/dist/claude-cloud/install.sh"
 
-mkdir -p "$work/skills/newcomer"
+mkdir -p "$work/dist/claude-cloud/skills/newcomer"
 printf -- '---\nname: newcomer\ndescription: added by the new version\n---\n' \
-  > "$work/skills/newcomer/SKILL.md"
+  > "$work/dist/claude-cloud/skills/newcomer/SKILL.md"
 printf -- '---\ndescription: added by the new version\n---\n\nInvoke it.\n' \
-  > "$work/commands/newcomer.md"
+  > "$work/dist/claude-cloud/commands/newcomer.md"
 publish 0.0.2
 
-said="$(printf '{}' | env HOME="$home" bash "$running/harness-adapters/claude-code/refresh-cloud.sh" 2>/dev/null)"
+said="$(printf '{}' | env HOME="$home" bash "$running/dist/claude-cloud/refresh.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]

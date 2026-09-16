@@ -19,7 +19,7 @@ unsolicited-text rules the session already read, and nothing else.
 
 | Install method | Path |
 | --- | --- |
-| Cloud session | `/opt/unsolicited-text/hooks/load-rules.sh` |
+| Claude Code cloud sessions | `/opt/unsolicited-text/hooks/load-rules.sh` |
 | Claude Code, ZCode | under the plugin directory - the hook registers it as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and a shell cannot read that variable |
 | Codex | the path written by hand in `~/.codex/config.toml` |
 | Pi | the checkout the shim names |

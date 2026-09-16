@@ -1,8 +1,8 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.1.68",
+	"version": "0.2.0",
 	"description": "Consent is important.",
-	"hooks": "./harness-adapters/codex/hooks.json",
+	"hooks": "./hooks/hooks.json",
 	"interface": {
 		"displayName": "unsolicited-text",
 		"shortDescription": "Consent is important."

@@ -9,7 +9,7 @@
 			"name": "unsolicited-text",
 			"source": {
 				"source": "local",
-				"path": "./"
+				"path": "./dist/codex"
 			}
 		}
 	]

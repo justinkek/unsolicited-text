@@ -12,7 +12,7 @@ You update the way you installed.
 A session already running holds the old copy, so restart it or run
 `/reload-plugins`.
 
-### Cloud sessions
+### Claude Code cloud sessions
 
 Installed by the Cloud Session Install Script from
 🔗 [the install instructions](INSTALL.md), where the checkout lives at
@@ -28,7 +28,7 @@ update unsolicited-text.
 
 (audience: agents) Run the refresh script. Pulling the checkout on its own is not an update.
 
-    printf '{}' | /opt/unsolicited-text/harness-adapters/claude-code/refresh-cloud.sh
+    printf '{}' | /opt/unsolicited-text/dist/claude-cloud/refresh.sh
 
 (audience: agents) Then follow 🔗 [RELOAD.md](RELOAD.md) to print the rules again.
 

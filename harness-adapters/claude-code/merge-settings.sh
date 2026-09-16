@@ -3,7 +3,7 @@
 registrations="$1"
 settings="$2"
 checkout="$3"
-stated=/opt/unsolicited-text
+stated=/opt/unsolicited-text/dist/claude-cloud
 
 if ! command -v jq >/dev/null 2>&1; then
   printf 'unsolicited-text: no jq to merge with, so %s was left as it was and no hooks are registered\n' \
