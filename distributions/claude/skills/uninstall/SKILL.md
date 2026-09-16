@@ -15,7 +15,7 @@ Stop and ask before removing anything they do not name.
 The session already running still holds the rules that were printed into it.
 Say so: they go when the session ends.
 
-## Which client is this
+## The steps for this install
 
 One install serves several clients. Read the signatures, then follow the
 steps under the one that matches.

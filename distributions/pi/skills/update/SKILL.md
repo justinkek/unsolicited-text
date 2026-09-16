@@ -8,7 +8,7 @@ description: Update unsolicited-text to the latest version
 Running this skill is the go-ahead. Update, then say which version was
 installed and which one is now.
 
-The commands for this install are at the end of this file.
+The commands are below.
 
 Stop and ask before anything they do not carry, and before a command that
 removes an install rather than moving it forward.

@@ -82,7 +82,7 @@ assert "the settings skill covers a client with no hook" "$?" \
 grep --quiet --fixed-strings 'holds for this conversation' "$SKILL"
 assert "and says what it can do instead" "$?" "the skill is left with nothing to offer"
 
-grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$UPDATE_SKILL"
+grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
 assert "it carries the commands for the clients it ships to" "$?" \
   "the skill neither holds them nor says where they are"
 
@@ -96,7 +96,7 @@ printf "\nTest group: a change reaches the session that made it\n"
 
 RELOAD="$(cat "$REPOSITORY"/reloads/*.md)"
 
-grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$SKILL"
+grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
 assert "the settings skill carries the reload steps for its clients" "$?" \
   "the rules were printed at session start, and a change would wait for a restart"
 
