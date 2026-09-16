@@ -8,7 +8,7 @@ description: Update unsolicited-text to the latest version
 Running this skill is the go-ahead. Update, then say which version was
 installed and which one is now.
 
-The commands for this install are at the end of this file.
+The commands are below.
 
 Stop and ask before anything they do not carry, and before a command that
 removes an install rather than moving it forward.
@@ -19,7 +19,7 @@ The session already running holds the old copy, so run the reload skill.
 
 If it was already the latest, say so and change nothing.
 
-## Which client is this
+## The steps for this install
 
 One install serves several clients. Read the signatures, then follow the
 steps under the one that matches.

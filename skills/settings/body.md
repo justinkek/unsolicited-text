@@ -24,7 +24,7 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 ## Before writing anything
 
-Read the steps at the end of this file. Where they say no hook runs, write no
+Read the steps below. Where they say no hook runs, write no
 file: follow them instead, since nothing would read what you wrote.
 
 ## How to update settings
@@ -35,8 +35,8 @@ Leave the rest of the file as it is, comments included.
 
 ## How to apply settings
 
-The steps at the end of this file say what reads the file here, and what to do
-so the session reads the new copy.
+The steps below say what reads the file here, and what to do so the session
+reads the new copy.
 
 ## Inform the user of their settings
 
@@ -59,4 +59,6 @@ Two pairs do this. `UNSOLICITED_TEXT_QUEUE_TREE = always-on` draws no list, so
 Do not edit `rules/reply-shape.md` to change the ceiling. The session start hook rewrites
 the ceiling in the rules it prints, from whatever is configured.
 
-Do not export a variable by hand to make a change stick.
+Do not export a variable in a shell to make a change stick: it lasts as long as
+that shell. An environment variable set on a cloud environment is a different
+thing, and the steps below say when it is the right one.

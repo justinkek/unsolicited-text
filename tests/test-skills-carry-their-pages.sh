@@ -55,7 +55,7 @@ printf "\nTest group: a skill carries the steps for its own distribution\n"
 for folder in "$REPOSITORY"/distributions/*/skills/update/SKILL.md; do
   named="$(basename "$(dirname "$(dirname "$(dirname "$folder")")")")"
 
-  grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$folder"
+  grep --quiet --fixed-strings '## The steps for this install' "$folder"
   assert "the $named update skill carries its own steps" "$?" \
     "it links them, or carries every install method the plugin knows"
 

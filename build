@@ -52,7 +52,7 @@ carries() {
     printf '\n## The steps for this install\n\n' >> "$out"
     steps "$folder" "$distribution" >> "$out"
   else
-    printf '\n## Which client is this\n\n' >> "$out"
+    printf '\n## The steps for this install\n\n' >> "$out"
     printf 'One install serves several clients. Read the signatures, then follow the\n' >> "$out"
     printf 'steps under the one that matches.\n' >> "$out"
     for client in $(served "$distribution"); do
