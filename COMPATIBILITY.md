@@ -27,9 +27,9 @@ what. Where no folder is linked, nothing installs there yet.
 
 | Product      | Surface       | Harness execution environment | Installation                                      | Support                                                                                                                                                                                                                                                                |
 | ------------ | ------------- | ----------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ChatGPT Chat | Web GUI       | Hosted                        |                                                   | Partial |
-|              | Desktop GUI   | Hosted                        |                                                   | Partial |
-|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Partial |
+| ChatGPT Chat | Web GUI       | Hosted                        |                                                   | Not verified |
+|              | Desktop GUI   | Hosted                        |                                                   | Not verified |
+|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not verified |
 | ChatGPT Work | Web GUI       | Hosted                        |                                                   | Not supported |
 |              | Desktop GUI   | Local                         |                                                   | Not verified |
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
