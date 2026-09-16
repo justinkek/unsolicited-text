@@ -5,7 +5,7 @@ description: Print the unsolicited-text reply rules into this session when none 
 
 # Reloading the rules
 
-Rendered from unsolicited-text 0.2.4. Say that version when asked which one
+Rendered from unsolicited-text 0.2.5. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
@@ -78,7 +78,7 @@ printed earlier in this session.
 - Every open question sits in the queue at once, none of them asked outside it. `Question:` is the only marker a question carries.
 - An item stays listed in every reply until I pick it up or answer it, and comes off the moment I do. I decide when that is.
 - A queue question blocks the action it gates. Act on everything that does not depend on it.
-- Draw the queue as a list, and as a tree in the one reply that raises an item which neither serves nor closes the open thread. Go back to the list in the reply after that.
+- Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again.
 - The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list:
 
   ```

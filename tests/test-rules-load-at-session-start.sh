@@ -142,7 +142,7 @@ shape_of() {
 }
 
 for shape in "" on-switch-only; do
-  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'Draw the queue as a list, and as a tree in the one reply'
+  printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'except in the one reply that raises an item'
   assert "${shape:-unset} draws a list until a switch is raised" "$?" "the rules say otherwise"
 
   printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'The tree is drawn inside a fenced block'
