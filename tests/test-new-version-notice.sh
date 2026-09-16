@@ -135,7 +135,7 @@ CHECK
 done
 
 grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/harness-adapters/pi/src/index.ts"
-assert "the pi shim asks too" "$?" "pi is told about no version but the one it installed"
+assert "the pi adapter asks too" "$?" "pi is told about no version but the one it installed"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
