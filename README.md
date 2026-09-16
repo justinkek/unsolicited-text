@@ -110,6 +110,7 @@ The agent remains concise even with longer sessions via skills, hooks and local 
 | `unsolicited-text:settings` | allows you to configure different settings (e.g. queue in tree format, emojis) |
 | `unsolicited-text:update`   | updates the plugin                                                             |
 | `unsolicited-text:reload`   | prints the rules into a session that never got them                            |
+| `unsolicited-text:uninstall` | removes the plugin from this install |
 
 
 <details>

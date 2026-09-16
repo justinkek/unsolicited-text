@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPOSITORY/skills/settings/SKILL.md"
+SKILL="$REPOSITORY/distributions/claude-code/skills/settings/SKILL.md"
 HOOKS_DIR="$REPOSITORY/hooks"
 UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
@@ -63,7 +63,7 @@ assert "and names the file a rebuilt container takes away" "$?" \
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
-UPDATE_SKILL="$REPOSITORY/skills/update/SKILL.md"
+UPDATE_SKILL="$REPOSITORY/distributions/claude-code/skills/update/SKILL.md"
 
 [ -f "$UPDATE_SKILL" ]
 assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
@@ -78,8 +78,8 @@ grep --quiet --fixed-strings 'load-rules.sh' "$SKILL"
 assert "the settings skill looks for a reader before it writes" "$?" \
   "a session with no hook is told a setting took effect when the file it wrote is read by nobody"
 
-grep --quiet --fixed-strings 'UPDATE.md' "$UPDATE_SKILL"
-assert "it points at the page that carries the commands" "$?" \
+grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
+assert "it carries the commands for the install it ships in" "$?" \
   "the skill neither holds them nor says where they are"
 
 while read -r harness; do
@@ -93,12 +93,13 @@ printf "\nTest group: a change reaches the session that made it\n"
 
 RELOAD="$REPOSITORY/RELOAD.md"
 
-for skill in "$SKILL" "$UPDATE_SKILL"; do
-  named="$(basename "$(dirname "$skill")")"
-  grep --quiet --fixed-strings 'RELOAD.md' "$skill"
-  assert "the $named skill points at the reloading page" "$?" \
-    "the rules were printed at session start, and a change would wait for a restart"
-done
+grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
+assert "the settings skill carries the reload steps for its install" "$?" \
+  "the rules were printed at session start, and a change would wait for a restart"
+
+grep --quiet --fixed-strings 'reload skill' "$UPDATE_SKILL"
+assert "the update skill sends a reader to the reload skill" "$?" \
+  "the rules were printed at session start, and a change would wait for a restart"
 
 grep --quiet --fixed-strings 'load-rules.sh' "$RELOAD"
 assert "the page names the loader" "$?" "there is no script to run"
@@ -137,7 +138,7 @@ for skill in "$REPOSITORY"/skills/*/; do
     "skills/$named has no menu entry, and a skill alone never reaches the slash menu"
 
   [ "$(sed -n 's/^description: //p' "$command" | head -1)" \
-    = "$(sed -n 's/^description: //p' "$skill/SKILL.md" | head -1)" ]
+    = "$(sed -n 's/^description: //p' "$skill/body.md" | head -1)" ]
   assert "and describes $named the same way the skill does" "$?" \
     "the menu and the skill list would say different things about it"
 done
@@ -145,7 +146,7 @@ done
 for named in update settings; do
   grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
   assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
-  [ -f "$REPOSITORY/skills/$named/SKILL.md" ]
+  [ -f "$REPOSITORY/distributions/claude-code/skills/$named/SKILL.md" ]
   assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
 done
 

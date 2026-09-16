@@ -35,6 +35,16 @@ stated() { jq --raw-output --arg distribution "$1" ".[\$distribution].$2" "$dist
 
 folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$distributions"; }
 
+# A skill carries the steps for the distribution it ships in, and no other.
+carries() {
+  local named="$1" folder="$2" distribution="$3" target="$4" out="$4/skills/$1/SKILL.md"
+  mkdir -p "$target/skills/$named"
+  cat "$repository/skills/$named/body.md" > "$out"
+  printf '\n## The steps for this install\n\n' >> "$out"
+  steps "$folder" "$distribution" >> "$out"
+  printf '\n## Note\n\n%s\n' "$generated" >> "$out"
+}
+
 payload() {
   local distribution="$1" target="$2" skill named
   mkdir -p "$target"
@@ -51,11 +61,12 @@ payload() {
   fi
 
   if ships "$distribution" skills; then
-    for skill in "$repository"/skills/*/SKILL.md; do
-      named="$(basename "$(dirname "$skill")")"
-      mkdir -p "$target/skills/$named"
-      cp "$skill" "$target/skills/$named/SKILL.md"
-    done
+    mkdir -p "$target/skills/reload"
+    "$repository/skills/reload/render" "$target/skills/reload/SKILL.md"
+
+    carries update updates "$distribution" "$target"
+    carries uninstall uninstalls "$distribution" "$target"
+    carries settings reloads "$distribution" "$target"
   fi
 
   if ships "$distribution" commands; then
@@ -110,6 +121,7 @@ page_of() {
   } > "$out"
 }
 
+page_of reloads "$repository/RELOAD.md"
 page_of updates "$repository/UPDATE.md"
 page_of uninstalls "$repository/UNINSTALL.md"
 
