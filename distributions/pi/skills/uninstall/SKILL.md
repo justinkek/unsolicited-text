@@ -10,6 +10,10 @@ Say what was removed and what was left.
 
 Stop and ask before removing anything they do not name.
 
+The settings and state are in `~/.unsolicited-text`, and the steps below remove
+them with the plugin. Where `UNSOLICITED_TEXT_HOME` is set, that is the
+directory to remove.
+
 ## Afterwards
 
 The session already running still holds the rules that were printed into it.
@@ -18,6 +22,10 @@ Say so: they go when the session ends.
 ## The steps for this install
 
     pi remove git:github.com/justinkek/unsolicited-text
+
+    rm -rf ~/.unsolicited-text
+
+That takes the settings and the state with it, so nothing is left.
 
 ## Note
 

@@ -10,6 +10,10 @@ Say what was removed and what was left.
 
 Stop and ask before removing anything they do not name.
 
+The settings and state are in `~/.unsolicited-text`, and the steps below remove
+them with the plugin. Where `UNSOLICITED_TEXT_HOME` is set, that is the
+directory to remove.
+
 ## Afterwards
 
 The session already running still holds the rules that were printed into it.
@@ -27,12 +31,20 @@ write to. Everything works, and settings persist.
 
     claude plugin uninstall unsolicited-text@unsolicited-text
     claude plugin marketplace remove unsolicited-text
+    rm -rf ~/.unsolicited-text
+
+The last of the three takes the settings and the state with it, so nothing is
+left.
 
 ### ZCode
 
 As Claude Code, installed through Settings, Marketplace.
 
 Remove it under Settings, Marketplace, where it was added.
+
+    rm -rf ~/.unsolicited-text
+
+That takes the settings and the state with it, so nothing is left.
 
 ### Claude Chat
 
@@ -43,6 +55,8 @@ them.
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
+Nothing here writes `~/.unsolicited-text`, so the removal leaves nothing behind.
+
 ### Cowork
 
 A plugin directory under `~/.claude/plugins`, with `~/.unsolicited-text/state`
@@ -50,6 +64,9 @@ written this session. Every hook runs, and the container is discarded when the
 session ends.
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
+
+`~/.unsolicited-text` is inside the session's container, which is discarded when
+the session ends, so nothing is left after that.
 
 ## Note
 
