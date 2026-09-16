@@ -38,7 +38,8 @@ Remove it under Settings, Marketplace, where it was added.
 
 Skills under `/mnt/skills/plugins/`, no plugin directory, and no
 `~/.unsolicited-text` written by anything but you. No hook runs, so nothing
-reads a settings file and the rules only arrive when this skill prints them.
+reads a settings file and the rules only arrive when the reload skill prints
+them.
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
