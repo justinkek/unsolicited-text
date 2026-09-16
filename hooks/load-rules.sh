@@ -15,8 +15,14 @@ rules="$(dirname "$0")/../rules/reply-shape.md"
 
 apply_migrations
 
-rewrite="s/at most [0-9][0-9]* non-blank lines of prose/at most $(prose_line_ceiling) non-blank lines of prose/"
-rewrite="$rewrite;s/at most [0-9][0-9]* words of it/at most $(prose_word_ceiling) words of it/"
+# A ceiling of one is one line and one word, not "1 lines" and "1 words".
+lines="$(prose_line_ceiling)"
+words="$(prose_word_ceiling)"
+if [ "$lines" = "1" ]; then line_word="line"; else line_word="lines"; fi
+if [ "$words" = "1" ]; then word_word="word"; else word_word="words"; fi
+
+rewrite="s/at most [0-9][0-9]* non-blank lines\{0,1\} of prose/at most $lines non-blank $line_word of prose/"
+rewrite="$rewrite;s/at most [0-9][0-9]* words\{0,1\} of it/at most $words $word_word of it/"
 
 if ! queue_emoji; then
   for emoji in ❓ 🔍 🚦 🌱 💤; do
