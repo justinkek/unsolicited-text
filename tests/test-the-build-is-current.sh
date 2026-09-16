@@ -20,12 +20,16 @@ assert() {
 
 printf "Test group: what ships is what the sources build\n"
 
-"$REPOSITORY/build" "$TMPDIR/dist" >/dev/null
+"$REPOSITORY/build" "$TMPDIR/dist" "$TMPDIR/INSTALL.md" >/dev/null
 assert "the build runs" "$?" "nothing can be shipped from these sources"
 
 diff --recursive --unified "$REPOSITORY/dist" "$TMPDIR/dist" > "$TMPDIR/drift"
 assert "and dist matches it" "$?" \
   "an install would copy something no source says - run ./build"
+
+diff --unified "$REPOSITORY/INSTALL.md" "$TMPDIR/INSTALL.md" > "$TMPDIR/page-drift"
+assert "and the install page matches it too" "$?" \
+  "the page and the folders say different things - run ./build"
 
 printf "\nTest group: every folder holds what it declares, and nothing else\n"
 
