@@ -27,7 +27,8 @@
   | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
   | `💤 Later:` | anything I deferred - acknowledge it in a few words and write no analysis, short answer or restatement of it |
 
-- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up:
+- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up.
+- The list is written like this: {queue-tree=off|on-switch-only}
 
   ```
   `[queue]`
@@ -43,7 +44,7 @@
 - Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
 - An item stays listed in every reply until I pick it up or answer it, and comes off the moment I do. I decide when that is.
 - A queue question blocks the action it gates. Act on everything that does not depend on it.
-- Draw the queue as a tree in every reply. {queue-tree=always-on}
+- Draw the queue as a tree in every reply, and never as a list as well. {queue-tree=always-on}
 - Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again. {queue-tree=on-switch-only}
 - The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list: {queue-tree=always-on|on-switch-only}
 
