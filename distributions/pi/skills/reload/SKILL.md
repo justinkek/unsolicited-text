@@ -11,9 +11,12 @@ read off disk.
 
 ## The steps for this install
 
-The path is the checkout the Pi adapter names:
+The path is inside the checkout the Pi adapter loads, so find the file and run
+it:
 
     find ~ -name load-rules.sh 2>/dev/null
+
+    printf '{}' | <the path it finds>
 
 ## The rules, with every setting at its default
 
