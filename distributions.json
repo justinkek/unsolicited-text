@@ -47,6 +47,8 @@
 	"claude-cowork": {
 		"name": "Cowork",
 		"ships": [
+			"hooks",
+			"rules",
 			"skills"
 		]
 	}

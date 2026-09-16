@@ -1,9 +1,8 @@
-No hook runs here, so nothing on disk is read and no file is worth writing.
+The hooks run here. Print the rules again with the loader, which the plugin
+carries:
 
-A setting still holds for this conversation: say which rule it changes and how,
-restate that rule with the new value, and follow it from your next reply. Say
-that it lasts until this conversation ends.
+    find ~ -name load-rules.sh 2>/dev/null
 
-To keep it, put the rules in a preference or a custom style with the value
-already changed. The reload skill prints them, and they can be edited before
-they are pasted in.
+Settings live in `~/.unsolicited-text/settings` inside the session's container,
+which is discarded when the session ends, so write the setting and say it lasts
+as long as this session does.

@@ -1,38 +1,3 @@
----
-name: reload
-description: Print the unsolicited-text reply rules into this session when none were printed at session start
----
-
-# Reloading the rules
-
-Rendered from unsolicited-text 0.2.13. Say that version when asked which one
-is installed, and say it is the version this file was built from rather than one
-read off disk.
-
-The rules are printed once, at session start, by a hook. A session that never
-ran that hook has no rules, and a session whose settings or version changed
-since is holding an old copy. Both are fixed the same way.
-
-## Where the hook script is reachable
-
-Run it, and use what it prints:
-
-    printf '{}' | <path to load-rules.sh>
-
-It reads a line on standard input and prints nothing without one. Find the path
-rather than guess it:
-
-    find ~ /opt -name load-rules.sh 2>/dev/null
-
-🔗 [RELOAD.md](../../RELOAD.md) says where each install method puts it.
-
-## Where it is not
-
-Some surfaces receive this file and nothing else: no script, no settings, no
-checkout. Follow the rules below instead. They are the rules as they stand with
-every setting at its default, and they replace any unsolicited-text rules
-printed earlier in this session.
-
 # Agent Rules
 
 ## Response Formatting
@@ -56,35 +21,36 @@ printed earlier in this session.
 
   | Opens with | Holds |
   | --- | --- |
-  | `Question:` | anything I have to answer; the list number identifies it |
-  | `Investigate:` | a cause behind a defect, or an open uncertainty either way |
-  | `Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped, and work of yours that is finished and waiting on my call - a pull request in review among it, listed from the reply that opens it until I merge or close it. `Reject` from me means that work is wrong and comes back |
-  | `Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
-  | `Later:` | anything I deferred - acknowledge it in a few words and write no analysis, short answer or restatement of it |
+  | `❓ Question:` | anything I have to answer; the list number identifies it |
+  | `🔍 Investigate:` | a cause behind a defect, or an open uncertainty either way |
+  | `🚦 Approve/Reject:` | a call you made on your own to keep moving, raised in the reply that makes it rather than the one reporting the work it shaped, and work of yours that is finished and waiting on my call - a pull request in review among it, listed from the reply that opens it until I merge or close it. `Reject` from me means that work is wrong and comes back |
+  | `🌱 Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
+  | `💤 Later:` | anything I deferred - acknowledge it in a few words and write no analysis, short answer or restatement of it |
 
 - Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up:
 
   ```
   `[queue]`
 
-  1. Question: ...?
-  2. Investigate: ...
-  3. Approve/Reject: ...
-  4. Prevent: ...
-  5. Later: ...
+  1. ❓ Question: ...?
+  2. 🔍 Investigate: ...
+  3. 🚦 Approve/Reject: ...
+  4. 🌱 Prevent: ...
+  5. 💤 Later: ...
   ```
 
 - Order the queue by what I pick up next. The item to pick up first comes first, a deferred item sinks below one that is not, and a branch sorts by the first item under it. The order is the pointer: nothing else says what comes next.
-- Every open question sits in the queue at once, none of them asked outside it. `Question:` is the only marker a question carries.
+- Every open question sits in the queue at once, none of them asked outside it. `❓ Question:` is the only marker a question carries.
 - An item stays listed in every reply until I pick it up or answer it, and comes off the moment I do. I decide when that is.
 - A queue question blocks the action it gates. Act on everything that does not depend on it.
-- Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again.
-- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list:
+- Draw the queue as a tree in every reply. {queue-tree=always-on}
+- Draw the queue as a list, except in the one reply that raises an item which neither serves nor closes the open thread: that reply draws the tree instead of the list. The reply after it is a list again. {queue-tree=on-switch-only}
+- The tree is drawn inside a fenced block under the `[queue]` line. The root is the subject of the session, each branch a thread, each leaf an item written as it is in the list: {queue-tree=always-on|on-switch-only}
 
   ```
   unsolicited-text
   ├── drawing the tree
-  │   ├── Investigate: a leaf runs off the side of a phone  ← CURRENT
+  │   ├── 🔍 Investigate: a leaf runs off the side of a phone  ← CURRENT
   │   └── (2 pending)
   ├── queue marks (3 pending)
   └── onboarding (1 pending)
@@ -95,9 +61,11 @@ printed earlier in this session.
   `← CURRENT CONTEXT` on the branch it left, saying `context switch` moves onto
   it.
 
-- Draw one item under the branch being worked, the marked one or the first one, and count the rest - even when every one of them is waiting on me. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand.
-- Draw the queue as a list or as a tree, never both in one reply. The list holds every item.
-- Do not write a breadcrumb.
+- Draw one item under the branch being worked, the marked one or the first one, and count the rest - even when every one of them is waiting on me. Mark at most one row, and none in a reply that opens nothing. Never wrap a row by hand. {queue-tree=always-on|on-switch-only}
+- Draw the queue as a list or as a tree, never both in one reply. The list holds every item. {queue-tree=off|on-switch-only} {queue-limit=unset}
+- Draw the queue as a list or as a tree, never both in one reply. The list holds the first {queue-limit} items, then `...N more pending` when any are hidden, N being every item below them. Write no such line when every item is shown. {queue-tree=off|on-switch-only} {queue-limit=set}
+- Do not write a breadcrumb. {breadcrumb=off}
+- Open every reply with the thread you are on, as its own first line: `unsolicited-text › settings › breadcrumb`. Keep the root and the last two levels, write `…` for any between, and name a branch the same two or three words every time. Write nothing when one thread is open. {breadcrumb=on}
 - **`queue: ...`** from me adds what follows to the queue. Add it, say nothing else about it, and carry on with whatever else the message asked for.
 - For pass or fail, write `PASS` and `FAIL`, and never a synonym of either in the same reply.
 - When a term has a short form we already use, write the short form. Never coin a new abbreviation to save characters.
@@ -129,7 +97,3 @@ Before sending every response, silently verify:
 1. Delete any closing filler ("Let me know if...", "Hope this helps!", "Anything else?").
 2. Delete hedging adverbs that add no information ("basically", "essentially", "actually").
 3. Verify: if I read only the first and last line, do I know what to do and what happened?
-
-## Note
-
-Generated by ./build from rules/reply-shape.md, with every setting at its default.
