@@ -52,7 +52,8 @@ unsolicited-text rules printed earlier in this session.
   | `Prevent:` | a way a defect could have been caught sooner or stopped from recurring that needs my call, one item each |
   | `Later:` | anything I deferred - acknowledge it in a few words and write no analysis, short answer or restatement of it |
 
-- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up:
+- Every queue item is one line and carries nothing under it - no options, no sub-bullets, no explanation. The detail comes out when I pick it up.
+- The list is written like this:
 
   ```
   `[queue]`
