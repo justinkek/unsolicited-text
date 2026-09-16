@@ -110,6 +110,21 @@ for folder in "$REPOSITORY"/distributions/*/; do
     "both resolve to unsolicited-text:<name>, the command wins, and it only points back at itself"
 done
 
+printf "\nTest group: a client a distribution serves is one it can tell apart\n"
+
+while read -r distribution; do
+  while read -r client; do
+    [ -s "$REPOSITORY/clients/$client.md" ]
+    assert "$distribution can recognise $client" "$?" \
+      "the skills branch on a signature that is not written down"
+
+    for folder in installs updates uninstalls reloads settings-steps; do
+      [ -s "$REPOSITORY/$folder/$client.md" ]
+      assert "and $folder says what $client does" "$?" "the branch for it would be empty"
+    done
+  done < <(jq --raw-output --arg d "$distribution" '.[$d].serves // [] | .[]' "$DISTRIBUTIONS")
+done < <(jq --raw-output 'keys[]' "$DISTRIBUTIONS")
+
 printf "\nTest group: a generated file says so\n"
 
 for generated in "$REPOSITORY"/distributions/*/README.md "$REPOSITORY"/distributions/*/hooks/load-rules.sh \

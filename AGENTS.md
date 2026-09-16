@@ -48,14 +48,16 @@ with an `unsolicited-text-` prefix. Where the install registers a plugin, a
 command and a skill of the same name both answer to `unsolicited-text:<name>`,
 the command wins, and its body only points back at the name it was invoked by.
 
-`distributions.json` says which parts each distribution's folder takes, and its
-name: the product, and where it runs in parentheses only where one product has
+`distributions.json` says which parts each distribution's folder takes, its name,
+and the clients it `serves`. One install serves every Claude client that reads
+the marketplace, so its skills carry a signature per client from `clients/` and
+the steps for each, and a session follows the branch that matches what it can
+see. `clients.json` names them.
+
+`distributions.json` also says its name: the product, and where it runs in parentheses only where one product has
 more than one distribution. An entry with `same-as` installs from another
 distribution's folder and builds none of its own. A test holds every
 folder to it, so a part nothing there reads cannot ship by accident.
-
-At 0.3.0, delete the stale-snapshot paragraph from `updates/claude-code-local.md`.
-It exists for readers crossing the 0.2.0 move.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an

@@ -10,13 +10,10 @@ client and follow its README:
 
 | Client | Folder |
 | --- | --- |
-| Claude Code (Local) | [distributions/claude-code-local](distributions/claude-code-local) |
-| ZCode | [distributions/claude-code-local](distributions/claude-code-local) |
+| Claude | [distributions/claude](distributions/claude) |
 | Claude Code (Cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
 | Codex | [distributions/codex](distributions/codex) |
 | Pi | [distributions/pi](distributions/pi) |
-| Claude Chat | [distributions/claude-chat](distributions/claude-chat) |
-| Cowork | [distributions/claude-cowork](distributions/claude-cowork) |
 
 Each folder's README also carries the steps to update and to uninstall.
 

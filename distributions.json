@@ -1,15 +1,17 @@
 {
-	"claude-code-local": {
-		"name": "Claude Code (Local)",
+	"claude": {
+		"name": "Claude",
+		"serves": [
+			"claude-code-local",
+			"zcode",
+			"claude-chat",
+			"claude-cowork"
+		],
 		"ships": [
 			"hooks",
 			"rules",
 			"skills"
 		]
-	},
-	"zcode": {
-		"name": "ZCode",
-		"same-as": "claude-code-local"
 	},
 	"claude-code-cloud": {
 		"name": "Claude Code (Cloud)",
@@ -36,20 +38,6 @@
 			"rules",
 			"skills",
 			"shim"
-		]
-	},
-	"claude-chat": {
-		"name": "Claude Chat",
-		"ships": [
-			"skills"
-		]
-	},
-	"claude-cowork": {
-		"name": "Cowork",
-		"ships": [
-			"hooks",
-			"rules",
-			"skills"
 		]
 	}
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPOSITORY/distributions/claude-code-local/skills/settings/SKILL.md"
+SKILL="$REPOSITORY/distributions/claude/skills/settings/SKILL.md"
 HOOKS_DIR="$REPOSITORY/hooks"
 UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
@@ -64,7 +64,7 @@ assert "and names the file a rebuilt container takes away" "$?" \
 
 printf "\nTest group: the update skill covers every harness the plugin installs into\n"
 
-UPDATE_SKILL="$REPOSITORY/distributions/claude-code-local/skills/update/SKILL.md"
+UPDATE_SKILL="$REPOSITORY/distributions/claude/skills/update/SKILL.md"
 
 [ -f "$UPDATE_SKILL" ]
 assert "skills/update/SKILL.md is there" "$?" "no skill at $UPDATE"
@@ -75,15 +75,15 @@ assert "it is named update" "$?" "the name is missing or carries the plugin pref
 grep --quiet --line-regexp --fixed-strings 'description: Update unsolicited-text to the latest version' "$UPDATE_SKILL"
 assert "its description is one line" "$?" "the description has grown"
 
-grep --quiet --fixed-strings 'no hook runs' "$REPOSITORY/distributions/claude-chat/skills/settings/SKILL.md"
-assert "a settings skill with no hook says so" "$?" \
+grep --quiet --fixed-strings 'no hook runs' "$SKILL"
+assert "the settings skill covers a client with no hook" "$?" \
   "a session there is told a setting took effect when the file it wrote is read by nobody"
 
-grep --quiet --fixed-strings 'holds for this conversation' "$REPOSITORY/distributions/claude-chat/skills/settings/SKILL.md"
+grep --quiet --fixed-strings 'holds for this conversation' "$SKILL"
 assert "and says what it can do instead" "$?" "the skill is left with nothing to offer"
 
-grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
-assert "it carries the commands for the install it ships in" "$?" \
+grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$UPDATE_SKILL"
+assert "it carries the commands for the clients it ships to" "$?" \
   "the skill neither holds them nor says where they are"
 
 while read -r distribution; do
@@ -96,8 +96,8 @@ printf "\nTest group: a change reaches the session that made it\n"
 
 RELOAD="$(cat "$REPOSITORY"/reloads/*.md)"
 
-grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
-assert "the settings skill carries the reload steps for its install" "$?" \
+grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$SKILL"
+assert "the settings skill carries the reload steps for its clients" "$?" \
   "the rules were printed at session start, and a change would wait for a restart"
 
 grep --quiet --fixed-strings 'reload skill' "$UPDATE_SKILL"
@@ -148,7 +148,7 @@ done
 for named in update settings; do
   grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
   assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
-  [ -f "$REPOSITORY/distributions/claude-code-local/skills/$named/SKILL.md" ]
+  [ -f "$REPOSITORY/distributions/claude/skills/$named/SKILL.md" ]
   assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
 done
 

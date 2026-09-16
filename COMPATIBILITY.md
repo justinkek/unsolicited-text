@@ -6,17 +6,17 @@
 
 | Product     | Surface     | Harness execution environment | Installation                                                   | Support                                                             |
 | ----------- | ----------- | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Claude Chat | Web GUI     | Hosted                        | [distributions/claude-chat](distributions/claude-chat) | Partial Support. Functionality may drift over time as no hook runs. |
+| Claude Chat | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Partial Support. Functionality may drift over time as no hook runs. |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | (see above)                                                         |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | (see above)                                                         |
-| Cowork      | Web GUI     | Hosted                        | [distributions/claude-cowork](distributions/claude-cowork) | Supported, verified on the desktop GUI. The four skills appear and all three hooks run: the rules are printed, a long reply is noted, and the note is replayed. Settings are written inside the session's container and go when it ends.                                                                 |
+| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported, verified on the desktop GUI. The four skills appear and all three hooks run: the rules are printed, a long reply is noted, and the note is replayed. Settings are written inside the session's container and go when it ends.                                                                 |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | TBD                                                                 |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | TBD                                                                 |
 |             | Desktop GUI | Local                         | (see above)                                                    | TBD                                                                 |
 | Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported                                                           |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | Supported                                                           |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported                                                           |
-|             | Desktop GUI | Local                         | [distributions/claude-code-local](distributions/claude-code-local)   | Supported                                                           |
+|             | Desktop GUI | Local                         | [distributions/claude](distributions/claude)   | Supported                                                           |
 |             | CLI         | Local                         | (see above)                                                    | Supported                                                           |
 
 ## OpenAI
@@ -40,7 +40,7 @@
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [distributions/claude-code-local](distributions/claude-code-local) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or run the reload skill in the current one. Settings live in `~/.unsolicited-text/settings`. |
+| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported through its Claude Code plugin compatibility. Start a new session after installation, or run the reload skill in the current one. Settings live in `~/.unsolicited-text/settings`. |
 
 ## Pi
 
