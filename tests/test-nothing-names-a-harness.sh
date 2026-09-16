@@ -41,14 +41,15 @@ report "a skill names one only on a line that links where to go" \
 
 named=0
 while read -r harness; do
-  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY/UPDATE.md" && named=$((named + 1))
+  grep --quiet --ignore-case --recursive --fixed-strings "$harness" "$REPOSITORY/updates"
+  named=$((named + 1))
 done < <(printf '%s\n' claude codex pi)
 [ "$named" -eq 3 ]
 if [ "$?" = "0" ]; then
-  printf "  PASS  UPDATE.md names all three\n"
+  printf "  PASS  the update steps cover all three\n"
   pass=$((pass + 1))
 else
-  printf "  FAIL  UPDATE.md names %s of the three harnesses\n" "$named"
+  printf "  FAIL  the update steps cover %s of the three harnesses\n" "$named"
   fail=$((fail + 1))
 fi
 

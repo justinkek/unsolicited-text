@@ -28,7 +28,7 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | a setting, and its default | `hooks/hook-settings-lib.sh` |
 | what the settings skill tells the user | `skills/settings/SKILL.md` |
 | which hooks a harness registers | `hooks/hooks.json`, and the adapter under `harness-adapters/` |
-| how each install method works | `installs/<distribution>.md`, with `updates/`, `uninstalls/` and `reloads/` beside it. Each builds that distribution's README; `INSTALL.md` is the table pointing at them, and `UPDATE.md` and `UNINSTALL.md` carry every section |
+| how each install method works | `installs/<distribution>.md`, with `updates/`, `uninstalls/` and `reloads/` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
 | what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - run the `render` beside the skill after editing its page |
 

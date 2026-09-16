@@ -42,7 +42,7 @@ update unsolicited-text.
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh
 
-(audience: agents) Then follow 🔗 [RELOAD.md](https://github.com/justinkek/unsolicited-text/blob/main/RELOAD.md) to print the rules again.
+(audience: agents) Then run the reload skill to print the rules again.
 
 Run `/reload-skills` to finish.
 

@@ -10,7 +10,7 @@ A cloud session resolves no marketplace, so the marketplace install does not wor
 
 1. Set your permission mode to accept edits, or the auto-permissions classifier refuses the write.
 2. Ask the agent to run the "Cloud Session Install Script" (see below).
-3. The hooks take effect from your next message. Session start has passed, so the agent prints the rules into the session once, with the command in 🔗 [RELOAD.md](RELOAD.md).
+3. The hooks take effect from your next message. Session start has passed, so the agent prints the rules into the session once, by running the reload skill.
 4. Run `/reload-skills` to list the settings and update skills. `/reload-plugins` does not work over a remote connection, and this install method adds no plugin. The `/unsolicited-text-settings` and `/unsolicited-text-update` menu entries arrive on their own a moment later.
 
 The container takes all of it away when the session ends.
