@@ -25,7 +25,7 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 ## Before writing anything
 
 Read the steps at the end of this file. Where they say no hook runs, write no
-file - follow them instead, since nothing would ever read what you wrote.
+file: follow them instead, since nothing would read what you wrote.
 
 ## How to update settings
 
@@ -35,10 +35,8 @@ Leave the rest of the file as it is, comments included.
 
 ## How to apply settings
 
-The hooks read the file every time they run, so a ceiling takes effect at once.
-
-The rules are printed at session start, so print them again from the same hook, and the session reads the new copy.
-The reload skill does it, and the command and the path for every install method are at the end of this file.
+The steps at the end of this file say what reads the file here, and what to do
+so the session reads the new copy.
 
 ## Inform the user of their settings
 

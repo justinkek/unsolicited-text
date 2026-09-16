@@ -5,33 +5,22 @@ description: Print the unsolicited-text reply rules into this session when none 
 
 # Reloading the rules
 
-Rendered from unsolicited-text 0.2.13. Say that version when asked which one
+Rendered from unsolicited-text 0.2.14. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
-The rules are printed once, at session start, by a hook. A session that never
-ran that hook has no rules, and a session whose settings or version changed
-since is holding an old copy. Both are fixed the same way.
+## The steps for this install
 
-## Where the hook script is reachable
+No hook runs here, so nothing prints the rules on their own and there is no
+script to run. The copy below is what a session would have been given.
 
-Run it, and use what it prints:
+To have them from the first message instead, put them in a preference or a
+custom style.
 
-    printf '{}' | <path to load-rules.sh>
+## The rules, with every setting at its default
 
-It reads a line on standard input and prints nothing without one. Find the path
-rather than guess it:
-
-    find ~ /opt -name load-rules.sh 2>/dev/null
-
-🔗 [RELOAD.md](../../RELOAD.md) says where each install method puts it.
-
-## Where it is not
-
-Some surfaces receive this file and nothing else: no script, no settings, no
-checkout. Follow the rules below instead. They are the rules as they stand with
-every setting at its default, and they replace any unsolicited-text rules
-printed earlier in this session.
+Where the steps above cannot be followed, follow these instead. They replace any
+unsolicited-text rules printed earlier in this session.
 
 # Agent Rules
 
