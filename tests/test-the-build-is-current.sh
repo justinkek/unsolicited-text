@@ -82,7 +82,7 @@ for folder in "$REPOSITORY"/distributions/*/; do
   assert "$named is declared in distributions.json" "$?" "the build writes a folder nothing says belongs there"
 done
 
-for product in claude-code claude-cloud codex pi claude-cowork; do
+for product in $(declared); do
   grep --quiet --fixed-strings 'Installing' "$REPOSITORY/distributions/$product/README.md"
   assert "$product says how it is installed" "$?" "the folder is there and nothing tells a reader what to do with it"
 done

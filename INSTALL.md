@@ -10,9 +10,9 @@ client and follow its README:
 
 | Client | Folder |
 | --- | --- |
-| Claude Code | [distributions/claude-code](distributions/claude-code) |
-| ZCode | [distributions/claude-code](distributions/claude-code) |
-| Claude Code cloud sessions | [distributions/claude-cloud](distributions/claude-cloud) |
+| Claude Code | [distributions/claude-code-local](distributions/claude-code-local) |
+| ZCode | [distributions/claude-code-local](distributions/claude-code-local) |
+| Claude Code cloud sessions | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
 | Codex | [distributions/codex](distributions/codex) |
 | Pi | [distributions/pi](distributions/pi) |
 | Claude Chat | [distributions/claude-chat](distributions/claude-chat) |

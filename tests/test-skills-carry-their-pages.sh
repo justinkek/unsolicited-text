@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPOSITORY/distributions/claude-code/skills/reload/SKILL.md"
+SKILL="$REPOSITORY/distributions/claude-code-local/skills/reload/SKILL.md"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

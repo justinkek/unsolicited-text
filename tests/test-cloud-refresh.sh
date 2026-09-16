@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-CLOUD="$REPOSITORY/distributions/claude-cloud/settings.json"
+CLOUD="$REPOSITORY/distributions/claude-code-cloud/settings.json"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -52,7 +52,7 @@ cp "$REPOSITORY/package.json" "$work/package.json"
 publish() {
   python3 -c '
 import json, sys
-for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/distributions/claude-cloud/package.json"):
+for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/distributions/claude-code-cloud/package.json"):
     package = json.load(open(p))
     package["version"] = sys.argv[2]
     json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"
@@ -69,7 +69,7 @@ git clone --quiet --depth 1 "$origin" "$behind" 2>/dev/null
 publish 0.0.2
 
 said="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  bash "$behind/distributions/claude-cloud/refresh.sh" 2>/dev/null)"
+  bash "$behind/distributions/claude-code-cloud/refresh.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]
@@ -88,13 +88,13 @@ assert "the new version installs itself" "$?" "the skills and registrations stay
 printf "\nTest group: a refresh that cannot reach the remote changes nothing\n"
 
 said="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  bash "$behind/distributions/claude-cloud/refresh.sh" 2>/dev/null)"
+  bash "$behind/distributions/claude-code-cloud/refresh.sh" 2>/dev/null)"
 [ -z "$said" ]
 assert "a checkout already current says nothing" "$?" "it said '$said'"
 
 git -C "$behind" remote set-url origin "$TMPDIR/gone"
 said="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  bash "$behind/distributions/claude-cloud/refresh.sh" 2>/dev/null)"
+  bash "$behind/distributions/claude-code-cloud/refresh.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]

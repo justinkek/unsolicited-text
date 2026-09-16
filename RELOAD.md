@@ -31,7 +31,7 @@ a shell cannot read that variable, so find the file instead:
 
 ## Claude Code cloud sessions
 
-    printf '{}' | /opt/unsolicited-text/distributions/claude-cloud/hooks/load-rules.sh
+    printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
 ## Codex
 
