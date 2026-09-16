@@ -1,7 +1,7 @@
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
 
-A session already running holds the old copy, so restart it or run
+Load the new copy into a session already running by restarting it or running
 `/reload-plugins`.
 
 If the version does not move, the marketplace snapshot is stale: the first of
