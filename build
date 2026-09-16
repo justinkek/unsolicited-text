@@ -54,8 +54,6 @@ ships() {
     '.[$distribution].ships | index($part)' "$distributions" >/dev/null
 }
 
-folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$distributions"; }
-
 distributes() { jq --raw-output 'keys_unsorted[]' "$distributions"; }
 
 # Every distribution says which clients it serves, itself included.
@@ -169,7 +167,7 @@ readme() {
   printf '| Client | Folder |\n| --- | --- |\n'
   for distribution in $(distributes); do
     printf '| %s | [distributions/%s](distributions/%s) |\n' "$(named_distribution "$distribution")" \
-      "$(folder_of "$distribution")" "$(folder_of "$distribution")"
+      "$distribution" "$distribution"
   done
   printf '\n'
   cat "$repository/install-page/tail.md"

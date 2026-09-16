@@ -65,9 +65,8 @@ which parts it `ships`, and lists the clients it `serves`, itself included. One
 install serves every Claude client that reads the marketplace, so its skills and
 its README carry a section per client, and a session follows the branch whose
 signature matches what it can see. Such a distribution says its own `name`; one
-serving a single client is called what that client is called. A key with
-`same-as` installs from another distribution's folder. A test holds every folder
-to it, so a part nothing there reads cannot ship by accident.
+serving a single client is called what that client is called. A test holds every
+folder to it, so a part nothing there reads cannot ship by accident.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
