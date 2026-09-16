@@ -121,6 +121,16 @@ limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
 printf '%s' "$limited" | grep --quiet --fixed-strings 'The list holds the first 2 items'
 assert "a limit of 2 reaches the rules as 2" "$?" "the rules do not name it"
 
+for pair in "1 the first item" "0 no items"; do
+  set -- $pair
+  count="$1"
+  shift
+  said="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+    UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS="$count" bash "$LOADER" 2>/dev/null)"
+  printf '%s' "$said" | grep --quiet --fixed-strings "The list holds $*,"
+  assert "a limit of $count reads as $*" "$?" "it reads as something else"
+done
+
 printf '%s' "$limited" | grep --quiet --fixed-strings 'The list holds every item'
 [ "$?" = "1" ]
 assert "and the unlimited rule is gone when one is set" "$?" "both rules are printed"
