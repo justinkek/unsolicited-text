@@ -118,6 +118,11 @@ assert "unset tells the reader to show every item" "$?" "the rules say otherwise
 
 limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
   UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS=2 bash "$LOADER" 2>/dev/null)"
+one="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+  UNSOLICITED_TEXT_PROSE_LINE_CEILING=1 UNSOLICITED_TEXT_PROSE_WORD_CEILING=1 bash "$LOADER" 2>/dev/null)"
+printf '%s' "$one" | grep --quiet --fixed-strings 'at most 1 non-blank line of prose, and at most 1 word of it'
+assert "a ceiling of one reads as one line and one word" "$?" "it reads as 1 lines and 1 words"
+
 printf '%s' "$limited" | grep --quiet --fixed-strings 'The list holds the first 2 items'
 assert "a limit of 2 reaches the rules as 2" "$?" "the rules do not name it"
 
