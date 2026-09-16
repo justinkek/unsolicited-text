@@ -12,4 +12,3 @@ Add `justinkek/unsolicited-text` through Settings, Marketplace. It installs the
 same plugin as Claude Code does.
 
 (audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the user is in a cloud session and needs the next section.
-

@@ -68,8 +68,8 @@ payload() {
 }
 
 readme() {
-  local product="$1" target="$2"
-  {
+  local product="$1" target="$2" page
+  page="$({
     printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(stated "$product" title)"
     printf '%s\n\n' "$generated"
     printf 'Everything this install needs is in this folder.\n\n'
@@ -77,7 +77,8 @@ readme() {
     section "$(stated "$product" installs)"
     shift 2
     if [ "$#" -gt 0 ]; then printf '%s\n' "$@"; fi
-  } > "$target/README.md"
+  })"
+  printf '%s\n' "$page" > "$target/README.md"
 }
 
 rm -rf "$out"

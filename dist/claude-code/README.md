@@ -10,4 +10,3 @@ Everything this install needs is in this folder.
 
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
-
