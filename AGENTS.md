@@ -48,6 +48,9 @@ install steps its README carries. An entry with `same-as` installs from another
 distribution's folder and builds none of its own. A test holds every
 folder to it, so a part nothing there reads cannot ship by accident.
 
+At 0.3.0, delete the stale-snapshot paragraph from `updates/claude-code-local.md`.
+It exists for readers crossing the 0.2.0 move.
+
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an
 install caches by version. Then run `skills/reload/render`, which stamps

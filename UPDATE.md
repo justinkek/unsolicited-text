@@ -20,6 +20,9 @@ plugin used to live. Install it again from the refreshed one:
 
 Your settings are in `~/.unsolicited-text` and no install touches them.
 
+<!-- The paragraph above, from "If the version does not move", exists for the
+move in 0.2.0. Delete it at 0.3.0. -->
+
 ## ZCode
 
 The same commands as Claude Code, run from your terminal, or through Settings,
