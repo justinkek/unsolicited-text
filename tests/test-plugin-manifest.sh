@@ -25,10 +25,10 @@ printf "Test group: every manifest is readable JSON\n"
 
 for manifest in \
   "$REPOSITORY/.claude-plugin/marketplace.json" \
-  "$REPOSITORY/.claude-plugin/plugin.json" \
+  "$REPOSITORY/dist/claude-code/.claude-plugin/plugin.json" \
   "$REPOSITORY/hooks/hooks.json" \
   "$REPOSITORY/.agents/plugins/marketplace.json" \
-  "$REPOSITORY/.codex-plugin/plugin.json" \
+  "$REPOSITORY/dist/codex/.codex-plugin/plugin.json" \
   "$ADAPTERS/codex/hooks.json" \
   "$REPOSITORY/package.json"
 do

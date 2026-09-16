@@ -37,7 +37,11 @@ prefix, and is named in the settings skill. A test holds all three together.
 
 `dist/` is generated and committed, one folder per product, because an install
 fetches files from the repository. Run `./build` after changing anything it
-copies. A test rebuilds and fails on any difference.
+copies. A test rebuilds and fails on any difference. Every generated file opens by
+saying so, and `.gitattributes` folds `dist/` out of a diff.
+
+The two plugin manifests are generated from `package.json`, which is where the
+version, the description and the author are written.
 
 Raise the version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`
 and `package.json` together when a change has to reach an installed copy: an

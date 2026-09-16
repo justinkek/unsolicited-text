@@ -29,7 +29,7 @@ session() {
 }
 
 installed="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
-  "$REPOSITORY/.claude-plugin/plugin.json" | head -1)"
+  "$REPOSITORY/package.json" | head -1)"
 
 printf "Test group: a newer version is noticed once and said once\n"
 
