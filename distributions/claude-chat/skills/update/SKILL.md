@@ -13,6 +13,11 @@ The commands for this install are at the end of this file.
 Stop and ask before anything they do not carry, and before a command that
 removes an install rather than moving it forward.
 
+When one of them fails on the machine rather than on the plugin - a licence to
+accept, a credential to enter, a tool that is missing - say which command failed
+and what it asked for, and hand that fix to me to run myself. Never run a
+command that asks for a password, and never run one the steps do not carry.
+
 ## Afterwards
 
 The session already running holds the old copy, so run the reload skill, which

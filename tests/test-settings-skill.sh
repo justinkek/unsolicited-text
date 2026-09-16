@@ -82,6 +82,10 @@ grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
 assert "it carries the commands for the install it ships in" "$?" \
   "the skill neither holds them nor says where they are"
 
+grep --quiet --fixed-strings 'asks for a password' "$UPDATE_SKILL"
+assert "and refuses a command that asks for a password" "$?" \
+  "a failure the machine caused is answered with sudo, in a session that cannot type one"
+
 while read -r harness; do
   grep --quiet --fixed-strings "$harness" "$REPOSITORY/UPDATE.md"
   assert "UPDATE.md says how to update on $harness" "$?" \
