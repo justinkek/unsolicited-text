@@ -35,13 +35,34 @@ stated() { jq --raw-output --arg distribution "$1" ".[\$distribution].$2" "$dist
 
 folder_of() { jq --raw-output --arg distribution "$1" '.[$distribution]["same-as"] // $distribution' "$distributions"; }
 
-# A skill carries the steps for the distribution it ships in, and no other.
+clients="$repository/clients.json"
+
+served() {
+  jq --raw-output --arg distribution "$1" \
+    '(.[$distribution].serves // [$distribution])[]' "$distributions"
+}
+
+# A skill carries the steps for the clients its distribution serves, and no others.
 carries() {
-  local named="$1" folder="$2" distribution="$3" target="$4" out="$4/skills/$1/SKILL.md"
+  local named="$1" folder="$2" distribution="$3" target="$4" out="$4/skills/$1/SKILL.md" client
   mkdir -p "$target/skills/$named"
   cat "$repository/skills/$named/body.md" > "$out"
-  printf '\n## The steps for this install\n\n' >> "$out"
-  steps "$folder" "$distribution" >> "$out"
+
+  if [ "$(served "$distribution" | wc -l)" = "1" ]; then
+    printf '\n## The steps for this install\n\n' >> "$out"
+    steps "$folder" "$distribution" >> "$out"
+  else
+    printf '\n## Which client is this\n\n' >> "$out"
+    printf 'One install serves several clients. Read the signatures, then follow the\n' >> "$out"
+    printf 'steps under the one that matches.\n' >> "$out"
+    for client in $(served "$distribution"); do
+      printf '\n### %s\n\n' "$(jq --raw-output --arg client "$client" '.[$client].name' "$clients")" >> "$out"
+      cat "$repository/clients/$client.md" >> "$out"
+      printf '\n' >> "$out"
+      steps "$folder" "$client" >> "$out"
+    done
+  fi
+
   printf '\n## Note\n\n%s\n' "$generated" >> "$out"
 }
 
@@ -110,14 +131,14 @@ readme() {
 
 rm -rf "$out"
 
-# Claude Code. ZCode installs the same folder through its own settings.
-target="$out/claude-code-local"
-payload claude-code-local "$target"
+# One plugin, installed by every Claude client that reads the marketplace.
+target="$out/claude"
+payload claude "$target"
 mkdir -p "$target/.claude-plugin"
 jq --tab '{name, version, description, author}' "$repository/package.json" \
   > "$target/.claude-plugin/plugin.json"
 cp "$repository/hooks/hooks.json" "$target/hooks/hooks.json"
-readme claude-code-local "$target"
+readme claude "$target"
 
 # Claude Code cloud sessions, where a container is rebuilt and no marketplace answers.
 target="$out/claude-code-cloud"
@@ -145,14 +166,6 @@ mkdir -p "$target/src"
 cp "$repository/harness-adapters/pi/src/index.ts" "$target/src/index.ts"
 readme pi "$target"
 
-# Claude Chat and Cowork, which copy the skills out of an installed plugin.
-for distribution in claude-chat claude-cowork; do
-  target="$out/$distribution"
-  payload "$distribution" "$target"
-  rm -f "$target/package.json"
-  readme "$distribution" "$target" \
-    "Nothing is installed from this folder. The client copies these skills out of the plugin, and they are all a session there receives."
-done
 for distribution in $(jq --raw-output 'to_entries[] | select(.value["same-as"] | not) | .key' "$distributions"); do
   mark_scripts "$out/$distribution"
 done

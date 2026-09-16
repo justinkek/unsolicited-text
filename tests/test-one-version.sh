@@ -20,14 +20,14 @@ printf "Test group: every manifest states the same version\n"
 
 declared="$(jq --raw-output '.version' "$REPOSITORY/package.json")"
 
-for manifest in distributions/claude-code-local/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json; do
+for manifest in distributions/claude/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json; do
   stated="$(jq --raw-output '.version' "$REPOSITORY/$manifest")"
   [ "$stated" = "$declared" ]
   assert "$manifest states $declared" "$?" \
     "it states $stated, and an install caches by version, so the two disagree about what a reader is running"
 done
 
-grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/distributions/claude-code-local/skills/reload/SKILL.md"
+grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/distributions/claude/skills/reload/SKILL.md"
 assert "the reload skill was rendered from $declared" "$?" \
   "it names another version, and a session with no checkout would report that one - run skills/reload/render"
 
@@ -35,7 +35,7 @@ printf "\nTest group: every manifest carries the same description\n"
 
 said="$(jq --raw-output '.description' "$REPOSITORY/package.json")"
 
-for manifest in distributions/claude-code-local/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json .claude-plugin/marketplace.json; do
+for manifest in distributions/claude/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json .claude-plugin/marketplace.json; do
   stated="$(jq --raw-output '.description' "$REPOSITORY/$manifest")"
   [ "$stated" = "$said" ]
   assert "$manifest says \"$said\"" "$?" "it says \"$stated\""

@@ -61,7 +61,49 @@ the ceiling in the rules it prints, from whatever is configured.
 
 Do not export a variable by hand to make a change stick.
 
-## The steps for this install
+## Which client is this
+
+One install serves several clients. Read the signatures, then follow the
+steps under the one that matches.
+
+### Claude Code, on your machine
+
+A plugin directory under `~/.claude/plugins`, and a project directory you can
+write to. Everything works, and settings persist.
+
+The hooks read the file every time they run, so a ceiling takes effect at once.
+The rules were printed at session start, so run the reload skill to print them
+again.
+
+### ZCode
+
+As Claude Code, installed through Settings, Marketplace.
+
+The hooks read the file every time they run, so a ceiling takes effect at once.
+The rules were printed at session start, so run the reload skill to print them
+again.
+
+### Claude Chat
+
+Skills under `/mnt/skills/plugins/`, no plugin directory, and no
+`~/.unsolicited-text` written by anything but you. No hook runs, so nothing
+reads a settings file and the rules only arrive when this skill prints them.
+
+No hook runs here, so nothing reads the file and none is worth writing.
+
+A setting still holds for this conversation: say which rule it changes and how,
+restate that rule with the new value, and follow it from your next reply. Say
+that it lasts until this conversation ends.
+
+To keep it, put the rules in a preference or a custom style with the value
+already changed. The reload skill prints them, and they can be edited before
+they are pasted in.
+
+### Cowork
+
+A plugin directory under `~/.claude/plugins`, with `~/.unsolicited-text/state`
+written this session. Every hook runs, and the container is discarded when the
+session ends.
 
 The hooks read the file every time they run, so a ceiling takes effect at once,
 and the reload skill prints the rules again.

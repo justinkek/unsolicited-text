@@ -36,7 +36,7 @@ cat "$REPOSITORY"/reloads/*.md | grep --quiet --fixed-strings 'load-rules.sh'
 assert "the reload steps name the hook" "$?" "nothing carries the command to run"
 
 grep --quiet --fixed-strings 'load-rules.sh' \
-  "$REPOSITORY/distributions/claude-code-local/skills/reload/SKILL.md"
+  "$REPOSITORY/distributions/claude/skills/reload/SKILL.md"
 assert "and the reload skill carries it" "$?" \
   "the skill a session is told to run cannot print the rules"
 

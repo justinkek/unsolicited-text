@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL="$REPOSITORY/distributions/claude-code-local/skills/reload/SKILL.md"
+SKILL="$REPOSITORY/distributions/claude/skills/reload/SKILL.md"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -55,7 +55,7 @@ printf "\nTest group: a skill carries the steps for its own distribution\n"
 for folder in "$REPOSITORY"/distributions/*/skills/update/SKILL.md; do
   named="$(basename "$(dirname "$(dirname "$(dirname "$folder")")")")"
 
-  grep --quiet --fixed-strings '## The steps for this install' "$folder"
+  grep --quiet --extended-regexp '^## (The steps for this install|Which client is this)$' "$folder"
   assert "the $named update skill carries its own steps" "$?" \
     "it links them, or carries every install method the plugin knows"
 
