@@ -1,4 +1,4 @@
-# unsolicited-text for Cowork (hosted)
+# unsolicited-text for Cowork
 
 (audience: humans)
 

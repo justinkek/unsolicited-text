@@ -1,4 +1,4 @@
-# unsolicited-text for Claude Code (cloud)
+# unsolicited-text for Claude Code (Cloud)
 
 (audience: humans)
 

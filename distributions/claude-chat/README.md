@@ -1,4 +1,4 @@
-# unsolicited-text for Claude Chat (hosted)
+# unsolicited-text for Claude Chat
 
 (audience: humans)
 

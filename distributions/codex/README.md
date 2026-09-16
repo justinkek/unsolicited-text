@@ -1,4 +1,4 @@
-# unsolicited-text for Codex (local)
+# unsolicited-text for Codex
 
 (audience: humans)
 
