@@ -15,6 +15,8 @@ removes an install rather than moving it forward.
 
 ## Afterwards
 
-The session already running holds the old copy, so run the reload skill.
+A session already running holds the old copy. The steps below say how to load
+the new one, and the rules it prints come from the copy that is loaded, so run
+the reload skill after that and not before.
 
 If it was already the latest, say so and change nothing.

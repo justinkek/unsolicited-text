@@ -15,7 +15,9 @@ removes an install rather than moving it forward.
 
 ## Afterwards
 
-The session already running holds the old copy, so run the reload skill.
+A session already running holds the old copy. The steps below say how to load
+the new one, and the rules it prints come from the copy that is loaded, so run
+the reload skill after that and not before.
 
 If it was already the latest, say so and change nothing.
 
@@ -32,7 +34,7 @@ write to. Everything works, and settings persist.
     claude plugin marketplace update unsolicited-text
     claude plugin update unsolicited-text@unsolicited-text
 
-A session already running holds the old copy, so restart it or run
+Load the new copy into a session already running by restarting it or running
 `/reload-plugins`.
 
 If the version does not move, the marketplace snapshot is stale: the first of
