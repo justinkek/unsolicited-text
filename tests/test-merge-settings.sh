@@ -86,6 +86,30 @@ assert "the second merge does not register load-rules.sh twice" "$?" \
 [ "$(held SessionStart "/somewhere/theirs.sh")" = "1" ]
 assert "and still holds their hook once" "$?" "their hook was duplicated or dropped"
 
+printf "\nTest group: what an older install of this plugin registered is replaced\n"
+
+rm -f "$settings"
+cat > "$settings" <<'OLD'
+{
+	"hooks": {
+		"SessionStart": [
+			{ "hooks": [ { "type": "command", "command": "/opt/unsolicited-text/hooks/load-rules.sh" } ] }
+		],
+		"UserPromptSubmit": [
+			{ "hooks": [ { "type": "command", "command": "/opt/unsolicited-text/hooks/remind-response-length.sh" } ] }
+		]
+	}
+}
+OLD
+merge
+
+[ "$(held SessionStart '/opt/unsolicited-text/hooks/load-rules.sh')" = "0" ]
+assert "the path an older version registered is gone" "$?" \
+  "both copies run, so the rules print twice and every note is recorded twice"
+
+[ "$(held SessionStart "$checkout/hooks/load-rules.sh")" = "1" ]
+assert "and the current one is there, once" "$?" "an upgraded session would run none or two"
+
 printf "\nTest group: a group this plugin filled on its own goes away rather than sitting empty\n"
 
 jq --tab '{ hooks: { Stop: [ { hooks: [ { type: "command", command: "'"$checkout"'/hooks/note-long-reply.sh" } ] } ] } }' \
