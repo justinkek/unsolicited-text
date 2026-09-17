@@ -43,12 +43,26 @@ prose_word_ceiling() {
     "$UNSOLICITED_TEXT_PROSE_WORD_CEILING_DEFAULT"
 }
 
+# On and off are read whatever the case, and anything else is the default.
+switched() {
+  local key="$1" default="$2" value
+  value="$(setting_value "$key" "$default" | tr '[:upper:]' '[:lower:]')"
+  case "$value" in
+    on | off) printf '%s' "$value" ;;
+    *) printf '%s' "$default" ;;
+  esac
+}
+
 queue_emoji() {
-  [ "$(setting_value UNSOLICITED_TEXT_QUEUE_EMOJI off)" = "on" ]
+  [ "$(switched UNSOLICITED_TEXT_QUEUE_EMOJI off)" = "on" ]
 }
 
 breadcrumb() {
-  [ "$(setting_value UNSOLICITED_TEXT_BREADCRUMB off)" = "on" ]
+  [ "$(switched UNSOLICITED_TEXT_BREADCRUMB off)" = "on" ]
+}
+
+update_check() {
+  [ "$(switched UNSOLICITED_TEXT_UPDATE_CHECK on)" = "on" ]
 }
 
 # A value outside the three matches no rule, and every queue rule would be

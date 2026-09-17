@@ -17,7 +17,7 @@ if [ -f "$notice" ]; then
     "$said" "$said"
 fi
 
-[ "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK on)" = "on" ] || exit 0
+update_check || exit 0
 command -v curl >/dev/null 2>&1 || exit 0
 
 interval="$(( $(counted "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK_DAYS 1)" 1) * 86400 ))"
