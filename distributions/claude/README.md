@@ -23,7 +23,7 @@ nothing prints them again once they fall out of the conversation, nothing notes
 a long reply, and a new version goes unannounced. A setting holds for the
 conversation it is asked for and no longer.
 
-Run at 0.3.4 on the mobile app, on the web and in the desktop app: the four skills are there, the
+Last verified at 0.3.4, on the mobile app, on the web and in the desktop app: the four skills are there, the
 reload skill prints the rules, a setting holds for the conversation, and
 nothing has written `~/.unsolicited-text`. A session cannot tell the three
 surfaces apart, so the signature names the client and stops there.
@@ -38,7 +38,7 @@ when the session ends.
 The rules are not printed when a conversation starts. Ask for the reload skill
 in your first message, or put them in a preference or a custom style.
 
-Run at 0.3.5 on the mobile app: a new conversation carried the reply reminder
+Last verified at 0.3.5 on the mobile app: a new conversation carried the reply reminder
 and no rules, the reload skill printed them, a ceiling written to the settings
 file was enforced, and the note about a long reply came back on the next
 message naming that ceiling.

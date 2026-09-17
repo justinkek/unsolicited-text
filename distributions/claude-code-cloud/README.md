@@ -2,6 +2,18 @@
 
 (audience: humans)
 
+## What works
+
+Every hook runs: the rules are printed when a session starts, a long reply is
+noted and the note is replayed on the next prompt, and a new version is
+announced. The settings are written inside the container, which is rebuilt for
+every session, so a setting you want to keep goes in an `UNSOLICITED_TEXT_`
+environment variable on the cloud environment.
+
+Last verified at 0.3.6: the install script left four skills under
+`~/.claude/skills`, four commands with the `unsolicited-text-` prefix, the
+hooks registered once each, and `~/.unsolicited-text/state` written.
+
 ## Installing
 
 A cloud session resolves no marketplace, so the marketplace install does not work. There are two ways to install it there. An agent asks which of the two you want before doing anything:
