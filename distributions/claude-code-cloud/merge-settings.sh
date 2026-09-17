@@ -41,7 +41,9 @@ if ! jq --exit-status 'type == "object"' "$settings" >/dev/null 2>&1; then
 fi
 
 merge=$(cat <<'JQ'
-def mine: (.command? // "") | startswith($checkout + "/");
+# A registration of this plugin, wherever an older install put it.
+def mine: (.command? // "") as $command
+  | ($command | startswith($checkout + "/")) or ($command | contains("/unsolicited-text/"));
 
 def kept($event):
   [ (.hooks[$event] // [])[]
