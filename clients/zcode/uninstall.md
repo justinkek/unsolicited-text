@@ -1,4 +1,4 @@
-Remove it under Settings, Marketplace, where it was added.
+Remove it under Settings, Plugin Management, where it was added.
 
     rm -rf ~/.unsolicited-text
 
