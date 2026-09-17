@@ -123,6 +123,21 @@ while read -r client; do
     "it is installable and cannot reload its rules"
 done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
 
+printf "\nTest group: the skill knows what a value may be\n"
+
+grep --quiet --fixed-strings '## What a value may be' "$SKILL"
+assert "the skill says what a value may be" "$?" \
+  "nothing checks a value, and the hooks read a wrong one as the default in silence"
+
+for value in 'always-on' 'on-switch-only' '`on` or `off`' 'digits'; do
+  grep --quiet --fixed-strings "$value" "$SKILL"
+  assert "and names $value among them" "$?" "a value it does not name cannot be checked against"
+done
+
+grep --quiet --fixed-strings 'which default is' "$SKILL"
+assert "and says to report a value the hooks will not use" "$?" \
+  "a file holding a wrong value reads as applied"
+
 printf "\nTest group: a setting another one turns off says so\n"
 
 grep --quiet --fixed-strings 'n.a.' "$SKILL"
