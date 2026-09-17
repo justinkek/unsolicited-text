@@ -123,6 +123,15 @@ while read -r client; do
     "it is installable and cannot reload its rules"
 done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
 
+printf "\nTest group: a value the table does not allow is refused\n"
+
+grep --quiet --fixed-strings 'Refuse a value the table above does not allow' "$SKILL"
+assert "the skill refuses a value outside the table" "$?" \
+  "it writes whatever it is handed, and the hooks read it as the default in silence"
+
+grep --quiet --fixed-strings 'the hooks read it as' "$SKILL"
+assert "and says when the file already holds one" "$?" "a wrong value reads as applied"
+
 printf "\nTest group: a setting another one turns off says so\n"
 
 grep --quiet --fixed-strings 'n.a.' "$SKILL"

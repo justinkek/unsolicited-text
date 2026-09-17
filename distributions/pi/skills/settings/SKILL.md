@@ -29,6 +29,10 @@ file: follow them instead, since nothing would read what you wrote.
 
 ## How to update settings
 
+Refuse a value the table above does not allow, saying what it takes and writing
+nothing; where the file already holds one, say so, since the hooks read it as
+the default.
+
 If the file is not there, create and add the setting.
 Else, read the file, replace or add the setting, and write it back.
 Leave the rest of the file as it is, comments included.
