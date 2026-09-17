@@ -35,16 +35,16 @@ what. Where no folder is linked, nothing installs there yet.
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
 |              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not supported |
 | Codex        | Web GUI       | Hosted                        |                                                   | Not supported |
-|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Supported |
+|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Not verified |
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
-|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported |
+|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Not verified |
 |              | IDE extension | Local                         |                                                   | Not supported |
 
 ## ZCode
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported |
+| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Not verified |
 
 ## Pi
 
