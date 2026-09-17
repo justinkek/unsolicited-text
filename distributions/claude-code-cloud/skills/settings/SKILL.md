@@ -27,24 +27,11 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 Read the steps below. Where they say no hook runs, write no
 file: follow them instead, since nothing would read what you wrote.
 
-## What a value may be
-
-| Key                                                                                          | Value                            |
-| -------------------------------------------------------------------------------------------- | -------------------------------- |
-| `UNSOLICITED_TEXT_PROSE_LINE_CEILING`, `UNSOLICITED_TEXT_PROSE_WORD_CEILING`                   | digits                           |
-| `UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS`, `UNSOLICITED_TEXT_UPDATE_CHECK_DAYS`               | digits                           |
-| `UNSOLICITED_TEXT_QUEUE_EMOJI`, `UNSOLICITED_TEXT_BREADCRUMB`, `UNSOLICITED_TEXT_UPDATE_CHECK` | `on` or `off`                    |
-| `UNSOLICITED_TEXT_QUEUE_TREE`                                                                  | `always-on`, `on-switch-only`, `off` |
-| `UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY`, `UNSOLICITED_TEXT_HOME`                                | a path                           |
-
-Write nothing else. Asked for a value outside these, say what the values are
-and write nothing.
-
-The hooks read a value outside them as the default, and say nothing. So when a
-file already holds one, say which key it is, what it says, and which default is
-being used in its place.
-
 ## How to update settings
+
+Refuse a value the table above does not allow, saying what it takes and writing
+nothing; where the file already holds one, say so, since the hooks read it as
+the default.
 
 If the file is not there, create and add the setting.
 Else, read the file, replace or add the setting, and write it back.
