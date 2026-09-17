@@ -38,9 +38,10 @@ left.
 
 ### ZCode
 
-As Claude Code, installed through Settings, Marketplace.
+As Claude Code, installed through Settings, Plugin Management, with the
+plugin cached under `~/.zcode`.
 
-Remove it under Settings, Marketplace, where it was added.
+Remove it under Settings, Plugin Management, where it was added.
 
     rm -rf ~/.unsolicited-text
 

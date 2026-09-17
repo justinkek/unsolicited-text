@@ -15,7 +15,7 @@ announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
 Every hook runs, as on Claude Code, since it is the same install. Settings are
 kept in `~/.unsolicited-text` and outlive the session.
 
-Last verified at 0.3.7: installed through Settings, Marketplace, and the
+Last verified at 0.3.7: installed through Settings, Plugin Management, and the
 bundled command line lists it as enabled, with seven hooks and four skills on
 disk under `~/.zcode`. A session already running does not have the hooks, so
 the rules arrive in the next one. Nothing else has been checked here yet.
@@ -58,8 +58,17 @@ message naming that ceiling.
 
 ### ZCode
 
-Add `justinkek/unsolicited-text` through Settings, Marketplace. It installs the
-same plugin as Claude Code does.
+Open Settings, then Plugin Management, then Discover, and add
+`justinkek/unsolicited-text` with the `+` button. It installs the same plugin
+as Claude Code does.
+
+The hooks load when a session starts, so the session you installed from does
+not have them: open a new one, or reload the plugins in this one.
+
+The bundled command line cannot install a plugin, but it does say what is
+installed:
+
+    node /Applications/ZCode.app/Contents/Resources/glm/zcode.cjs plugins list
 
 ### Claude Chat
 
@@ -103,8 +112,9 @@ Your settings are in `~/.unsolicited-text` and no install touches them.
 
 ### ZCode
 
-Update it under Settings, Marketplace, where it was added. The bundled command
-line cannot install or update a plugin, so the only way in is the window.
+Update it under Settings, Plugin Management, where it was added. The bundled
+command line cannot install or update a plugin, so the only way in is the
+window.
 
 Your settings are in `~/.unsolicited-text` and no update touches them.
 
@@ -129,7 +139,7 @@ left.
 
 ### ZCode
 
-Remove it under Settings, Marketplace, where it was added.
+Remove it under Settings, Plugin Management, where it was added.
 
     rm -rf ~/.unsolicited-text
 

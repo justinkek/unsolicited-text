@@ -28,7 +28,8 @@ a shell cannot read that variable, so find the file and run it:
 
 ### ZCode
 
-As Claude Code, installed through Settings, Marketplace.
+As Claude Code, installed through Settings, Plugin Management, with the
+plugin cached under `~/.zcode`.
 
 The hook registers the script as `${CLAUDE_PLUGIN_ROOT}/hooks/load-rules.sh`, and
 a shell cannot read that variable, so find the file and run it:
