@@ -15,6 +15,13 @@ rules="$(dirname "$0")/../rules/reply-shape.md"
 
 apply_migrations
 
+# A session that has been given the rules is marked, so nothing gives them twice.
+session_id="$(printf '%s' "$payload" | sed -n 's/.*"session_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')"
+if [ -n "$session_id" ]; then
+  mkdir -p "$UNSOLICITED_TEXT_STATE/printed" 2>/dev/null \
+    && : > "$UNSOLICITED_TEXT_STATE/printed/$session_id" 2>/dev/null
+fi
+
 # A ceiling of one is one line and one word, not "1 lines" and "1 words".
 lines="$(prose_line_ceiling)"
 words="$(prose_word_ceiling)"

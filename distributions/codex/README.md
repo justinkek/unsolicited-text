@@ -19,6 +19,10 @@ them by hand in `~/.codex/config.toml`:
     [[hooks.UserPromptSubmit]]
     [[hooks.UserPromptSubmit.hooks]]
     type = "command"
+    command = "<path to this checkout>/hooks/print-rules-if-missed.sh"
+
+    [[hooks.UserPromptSubmit.hooks]]
+    type = "command"
     command = "<path to this checkout>/hooks/remind-response-length.sh"
 
     [[hooks.UserPromptSubmit.hooks]]

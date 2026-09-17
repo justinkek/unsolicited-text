@@ -8,6 +8,7 @@
 		],
 		"UserPromptSubmit": [
 			{ "hooks": [
+				{ "type": "command", "command": "/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-rules-if-missed.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/distributions/claude-code-cloud/hooks/remind-response-length.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/distributions/claude-code-cloud/hooks/replay-stop-notes.sh" },
 				{ "type": "command", "command": "/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh" }

@@ -15,6 +15,10 @@
 				"hooks": [
 					{
 						"type": "command",
+						"command": "${PLUGIN_ROOT}/hooks/print-rules-if-missed.sh"
+					},
+					{
+						"type": "command",
 						"command": "${PLUGIN_ROOT}/hooks/remind-response-length.sh"
 					},
 					{
