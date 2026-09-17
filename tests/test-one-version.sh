@@ -27,9 +27,11 @@ for manifest in distributions/claude/.claude-plugin/plugin.json distributions/co
     "it states $stated, and an install caches by version, so the two disagree about what a reader is running"
 done
 
-grep --quiet --fixed-strings "unsolicited-text $declared" "$REPOSITORY/distributions/claude/skills/reload/SKILL.md"
-assert "the reload skill was rendered from $declared" "$?" \
-  "it names another version, and a session with no checkout would report that one - run skills/reload/render"
+for skill in "$REPOSITORY"/distributions/*/skills/*/SKILL.md; do
+  grep --quiet --fixed-strings "unsolicited-text $declared" "$skill"
+  assert "${skill#$REPOSITORY/} was rendered from $declared" "$?" \
+    "it names another version, and a session asked which one is installed would report that one - run ./build"
+done
 
 printf "\nTest group: every manifest carries the same description\n"
 
