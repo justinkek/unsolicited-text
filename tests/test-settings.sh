@@ -121,6 +121,20 @@ assert_equal "a ceiling written as a word counts against the default" \
 assert_equal "and a number counts against itself" \
   "$(run_long_with_ceiling 9 | grep --count 'ceiling of 9')" "1"
 
+printf "\nTest group: on and off are read whatever the case\n"
+
+emoji_with() {
+  printf '%s\n' "UNSOLICITED_TEXT_QUEUE_EMOJI=$1" > "$SETTINGS"
+  (
+    unset UNSOLICITED_TEXT_QUEUE_EMOJI
+    printf '{"hook_event_name":"SessionStart"}' \
+      | env HOME="$TMPDIR/home" bash "$HOOKS_DIR/load-rules.sh" 2>/dev/null
+  ) | grep --count '❓'
+}
+
+assert_equal "ON turns the emoji on" "$(emoji_with ON | head -1)" "$(emoji_with on | head -1)"
+assert_equal "and a value that is neither is the default" "$(emoji_with yes | head -1)" "0"
+
 printf "\nTest group: every setting carries the plugin's own prefix\n"
 
 unprefixed="$(grep --recursive --only-matching 'setting_value [A-Z_][A-Z_]*' "$HOOKS_DIR" \
