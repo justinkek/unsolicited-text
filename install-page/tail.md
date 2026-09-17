@@ -4,7 +4,8 @@ Each folder's README also carries the steps to update and to uninstall.
 
     claude plugin list
 
-Or read `package.json` beside the hooks in the folder the install copied.
+ZCode lists it in Settings, Marketplace instead, and any session can be asked:
+every skill says the version it was built from.
 
 ## What a removal leaves behind
 

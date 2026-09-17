@@ -170,8 +170,10 @@ readme() {
   printf 'client and follow its README:\n\n'
   printf '| Client | Folder |\n| --- | --- |\n'
   for distribution in $(distributes); do
-    printf '| %s | [distributions/%s](distributions/%s) |\n' "$(named_distribution "$distribution")" \
-      "$distribution" "$distribution"
+    for client in $(served "$distribution"); do
+      printf '| %s | [distributions/%s](distributions/%s) |\n' "$(named_client "$client")" \
+        "$distribution" "$distribution"
+    done
   done
   printf '\n'
   cat "$repository/install-page/tail.md"

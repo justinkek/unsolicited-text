@@ -1,2 +1,4 @@
-The same commands as Claude Code, run from your terminal, or through Settings,
-Marketplace where it was added.
+Update it under Settings, Marketplace, where it was added. The bundled command
+line cannot install or update a plugin, so the only way in is the window.
+
+Your settings are in `~/.unsolicited-text` and no update touches them.
