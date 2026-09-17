@@ -12,9 +12,13 @@ announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
 
 ### ZCode
 
-Every hook runs: the rules are printed when a session starts, a long reply is
-noted and the note is replayed on the next prompt, and a new version is
-announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
+Every hook runs, as on Claude Code, since it is the same install. Settings are
+kept in `~/.unsolicited-text` and outlive the session.
+
+Last verified at 0.3.7: installed through Settings, Marketplace, and the
+bundled command line lists it as enabled, with seven hooks and four skills on
+disk under `~/.zcode`. A session already running does not have the hooks, so
+the rules arrive in the next one. Nothing else has been checked here yet.
 
 ### Claude Chat
 
@@ -99,8 +103,10 @@ Your settings are in `~/.unsolicited-text` and no install touches them.
 
 ### ZCode
 
-The same commands as Claude Code, run from your terminal, or through Settings,
-Marketplace where it was added.
+Update it under Settings, Marketplace, where it was added. The bundled command
+line cannot install or update a plugin, so the only way in is the window.
+
+Your settings are in `~/.unsolicited-text` and no update touches them.
 
 ### Claude Chat
 

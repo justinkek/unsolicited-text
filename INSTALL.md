@@ -10,7 +10,10 @@ client and follow its README:
 
 | Client | Folder |
 | --- | --- |
-| Claude | [distributions/claude](distributions/claude) |
+| Claude Code, on your machine | [distributions/claude](distributions/claude) |
+| ZCode | [distributions/claude](distributions/claude) |
+| Claude Chat | [distributions/claude](distributions/claude) |
+| Cowork | [distributions/claude](distributions/claude) |
 | Claude Code (Cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
 | Codex | [distributions/codex](distributions/codex) |
 | Pi | [distributions/pi](distributions/pi) |
@@ -21,7 +24,8 @@ Each folder's README also carries the steps to update and to uninstall.
 
     claude plugin list
 
-Or read `package.json` beside the hooks in the folder the install copied.
+ZCode lists it in Settings, Marketplace instead, and any session can be asked:
+every skill says the version it was built from.
 
 ## What a removal leaves behind
 
