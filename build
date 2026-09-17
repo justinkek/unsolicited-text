@@ -150,8 +150,30 @@ section() {
   printf '\n'
 }
 
+# One page for one client, so a reader who fetches it gets that client's steps
+# and no other's.
+client_page() {
+  local client="$1" distribution="$2" target="$3" out="$3/clients/$1.md"
+  mkdir -p "$target/clients"
+  {
+    printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(named_client "$client")"
+    if [ -s "$repository/clients/$client/support.md" ]; then
+      printf '## What works\n\n'
+      page support "$client"
+      printf '\n'
+    fi
+    printf '## Installing\n\n'
+    page install "$client"
+    printf '\n## Updating\n\n'
+    page update "$client"
+    printf '\n## Uninstalling\n\n'
+    page uninstall "$client"
+    printf '\n## Note\n\n%s\n' "$generated"
+  } > "$out"
+}
+
 readme() {
-  local distribution="$1" target="$2" body
+  local distribution="$1" target="$2" body client
   body="$({
     printf '# unsolicited-text for %s\n\n(audience: humans)\n\n' "$(named_distribution "$distribution")"
     section support "What works" "$distribution"
@@ -161,18 +183,22 @@ readme() {
     printf '## Note\n\n%s\n' "$generated"
   })"
   printf '%s\n' "$body" > "$target/README.md"
+
+  for client in $(served "$distribution"); do
+    client_page "$client" "$distribution" "$target"
+  done
 }
 
 # The install page a person reads on GitHub, from the same sources.
 {
   cat "$repository/install-page/intro.md"
-  printf '\nEvery install copies one folder under `distributions/`. Open the one for your\n'
-  printf 'client and follow its README:\n\n'
-  printf '| Client | Folder |\n| --- | --- |\n'
+  printf '\nOpen the page for your client and follow it. Each one carries that client\n'
+  printf 'and no other, and the folder it sits in is what the install copies:\n\n'
+  printf '| Client | Page |\n| --- | --- |\n'
   for distribution in $(distributes); do
     for client in $(served "$distribution"); do
-      printf '| %s | [distributions/%s](distributions/%s) |\n' "$(named_client "$client")" \
-        "$distribution" "$distribution"
+      printf '| %s | [distributions/%s/clients/%s.md](distributions/%s/clients/%s.md) |\n' \
+        "$(named_client "$client")" "$distribution" "$client" "$distribution" "$client"
     done
   done
   printf '\n'

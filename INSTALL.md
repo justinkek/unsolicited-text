@@ -5,20 +5,21 @@
 Before installing, check 🔗 [product compatibility](COMPATIBILITY.md) for
 what works on the product and surface you use.
 
-Every install copies one folder under `distributions/`. Open the one for your
-client and follow its README:
+Open the page for your client and follow it. Each one carries that client
+and no other, and the folder it sits in is what the install copies:
 
-| Client | Folder |
+| Client | Page |
 | --- | --- |
-| Claude Code, on your machine | [distributions/claude](distributions/claude) |
-| ZCode | [distributions/claude](distributions/claude) |
-| Claude Chat | [distributions/claude](distributions/claude) |
-| Cowork | [distributions/claude](distributions/claude) |
-| Claude Code (Cloud) | [distributions/claude-code-cloud](distributions/claude-code-cloud) |
-| Codex | [distributions/codex](distributions/codex) |
-| Pi | [distributions/pi](distributions/pi) |
+| Claude Code, on your machine | [distributions/claude/clients/claude-code-local.md](distributions/claude/clients/claude-code-local.md) |
+| ZCode | [distributions/claude/clients/zcode.md](distributions/claude/clients/zcode.md) |
+| Claude Chat | [distributions/claude/clients/claude-chat.md](distributions/claude/clients/claude-chat.md) |
+| Cowork | [distributions/claude/clients/claude-cowork.md](distributions/claude/clients/claude-cowork.md) |
+| Claude Code (Cloud) | [distributions/claude-code-cloud/clients/claude-code-cloud.md](distributions/claude-code-cloud/clients/claude-code-cloud.md) |
+| Codex | [distributions/codex/clients/codex.md](distributions/codex/clients/codex.md) |
+| Pi | [distributions/pi/clients/pi.md](distributions/pi/clients/pi.md) |
 
-Each folder's README also carries the steps to update and to uninstall.
+Each page carries the steps to update and to uninstall as well. The README in
+the folder above it holds every client it serves, in one place.
 
 ## Which version is installed
 
