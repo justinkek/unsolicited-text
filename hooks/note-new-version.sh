@@ -9,12 +9,25 @@ apply_migrations
 notice="$UNSOLICITED_TEXT_STATE/new-version"
 checked="$UNSOLICITED_TEXT_STATE/version-checked"
 
+installed="$(installed_version)" || installed=""
+
+newer_than_installed() {
+  [ -n "$installed" ] || return 1
+  [ "$1" = "$installed" ] && return 1
+  [ "$(printf '%s\n%s\n' "$installed" "$1" | sort --version-sort | tail -1)" = "$1" ]
+}
+
+# A notice written before an update names a version this copy has already
+# passed, so it goes without being said.
 if [ -f "$notice" ]; then
-  said="$(cat "$notice")"
+  waiting="$(cat "$notice")"
   rm -f "$notice"
-  # systemMessage reaches the user; the context reaches the agent either way.
-  printf '{"systemMessage":"%s","hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' \
-    "$said" "$said"
+  if newer_than_installed "$waiting"; then
+    said="[unsolicited-text] version $waiting is now available (current: $installed). Update with unsolicited-text:update, or stop being told with unsolicited-text:settings"
+    # systemMessage reaches the user; the context reaches the agent either way.
+    printf '{"systemMessage":"%s","hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' \
+      "$said" "$said"
+  fi
 fi
 
 update_check || exit 0
@@ -24,8 +37,6 @@ interval="$(( $(counted "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK_DAYS 1)" 
 now="$(date +%s)"
 [ -f "$checked" ] && [ "$((now - $(cat "$checked")))" -lt "$interval" ] && exit 0
 
-installed="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
-  "$(dirname "$0")/../package.json" | head -1)"
 [ -n "$installed" ] || exit 0
 
 published="$(setting_value UNSOLICITED_TEXT_VERSION_SOURCE \
@@ -40,10 +51,10 @@ printf '%s' "$now" > "$checked"
   latest="$(curl --silent --fail --max-time 5 "$published" 2>/dev/null \
     | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([0-9A-Za-z.+-]*\)".*/\1/p' | head -1)"
   [ -n "$latest" ] || exit 0
-  [ "$latest" = "$installed" ] && exit 0
-  [ "$(printf '%s\n%s\n' "$installed" "$latest" | sort --version-sort | tail -1)" = "$latest" ] || exit 0
-  printf '[unsolicited-text] version %s is now available (current: %s). Update with unsolicited-text:update, or stop being told with unsolicited-text:settings' \
-    "$latest" "$installed" > "$notice"
+  newer_than_installed "$latest" || exit 0
+  # The notice holds the version, and the sentence is written when it is said,
+  # against whatever is installed by then.
+  printf '%s' "$latest" > "$notice"
 ) >/dev/null 2>&1 &
 
 exit 0
