@@ -14,6 +14,10 @@ update unsolicited-text.
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh
 
-(audience: agents) Then run the reload skill to print the rules again.
+(audience: agents) Then print the rules again with the loader, since the copy in
+the menu is the one loaded before the update:
 
-Run `/reload-skills` to finish.
+    printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
+
+Run `/reload-skills` when you want the menu to list the new copy. The skills on
+disk are already the new ones, and an agent reads them there.

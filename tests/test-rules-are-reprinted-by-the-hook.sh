@@ -28,8 +28,9 @@ for page in clients/claude-code-cloud/install.md clients/claude-code-cloud/updat
   assert "$page names no path to the rules file" "$?" \
     "it tells a reader to print the file as it sits on disk, which is not what a session is given"
 
-  grep --quiet --fixed-strings "$PAGE" "$REPOSITORY/$page"
-  assert "and sends them to $PAGE instead" "$?" "it says to print the rules and never says how"
+  grep --quiet --extended-regexp "$PAGE|load-rules\.sh" "$REPOSITORY/$page"
+  assert "and gives the loader, or sends them to $PAGE" "$?" \
+    "it says to print the rules and never says how"
 done
 
 cat "$REPOSITORY"/clients/*/reload.md | grep --quiet --fixed-strings 'load-rules.sh'
