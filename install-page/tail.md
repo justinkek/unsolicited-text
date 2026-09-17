@@ -1,4 +1,5 @@
-Each folder's README also carries the steps to update and to uninstall.
+Each page carries the steps to update and to uninstall as well. The README in
+the folder above it holds every client it serves, in one place.
 
 ## Which version is installed
 

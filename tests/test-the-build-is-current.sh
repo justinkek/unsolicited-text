@@ -134,6 +134,28 @@ for named in install update uninstall reload settings support; do
     "$copied hold the same page twice - one of them says {same as <client>}"
 done
 
+printf "\nTest group: a client has a page of its own, carrying nobody else\n"
+
+while read -r distribution; do
+  while read -r client; do
+    page="$REPOSITORY/distributions/$distribution/clients/$client.md"
+    [ -s "$page" ]
+    assert "$client has a page under $distribution" "$?" \
+      "the install table links it and a reader lands nowhere"
+
+    wrong=""
+    for other in "$REPOSITORY"/clients/*/client.json; do
+      named="$(basename "$(dirname "$other")")"
+      [ "$named" = "$client" ] && continue
+      grep --quiet --fixed-strings "$(jq --raw-output '.name' "$other")" "$page" \
+        && wrong="$wrong $named"
+    done
+    [ -z "$wrong" ]
+    assert "and it names no other client" "$?" \
+      "a reader who fetches it is handed$wrong as well, and may follow the wrong steps"
+  done < <(jq --raw-output --arg d "$distribution" '.[$d].serves[]' "$DISTRIBUTIONS")
+done < <(jq --raw-output 'keys[]' "$DISTRIBUTIONS")
+
 printf "\nTest group: a folder holds a client, an adapter holds a distribution\n"
 
 for folder in "$REPOSITORY"/clients/*/; do
