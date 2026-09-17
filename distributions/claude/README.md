@@ -38,7 +38,7 @@ when the session ends.
 The rules are not printed when a conversation starts. Ask for the reload skill
 in your first message, or put them in a preference or a custom style.
 
-Run at 0.3.5 on the mobile app: a new conversation carried the reply reminder
+Run at 0.3.5 in a container, from a session the mobile app was viewing: a new conversation carried the reply reminder
 and no rules, the reload skill printed them, a ceiling written to the settings
 file was enforced, and the note about a long reply came back on the next
 message naming that ceiling.
