@@ -156,9 +156,10 @@ shape_of() {
     ${1:+UNSOLICITED_TEXT_QUEUE_TREE="$1"} bash "$LOADER" 2>/dev/null
 }
 
-for shape in "" on-switch-only; do
+for shape in "" on-switch-only alwayson; do
   printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'except in the one reply that raises an item'
-  assert "${shape:-unset} draws a list until a switch is raised" "$?" "the rules say otherwise"
+  assert "${shape:-unset} draws a list until a switch is raised" "$?" \
+    "the rules say otherwise, and a value outside the three drops every queue rule"
 
   printf '%s' "$(shape_of "$shape")" | grep --quiet --fixed-strings 'The tree is drawn inside a fenced block'
   assert "${shape:-unset} carries the drawing it switches to" "$?" "the tree has no description to follow"

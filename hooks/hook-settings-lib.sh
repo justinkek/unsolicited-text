@@ -50,8 +50,15 @@ breadcrumb() {
   [ "$(setting_value UNSOLICITED_TEXT_BREADCRUMB off)" = "on" ]
 }
 
+# A value outside the three matches no rule, and every queue rule would be
+# dropped, so anything else reads as the default.
 queue_tree() {
-  setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only
+  local value
+  value="$(setting_value UNSOLICITED_TEXT_QUEUE_TREE on-switch-only)"
+  case "$value" in
+    always-on | on-switch-only | off) printf '%s' "$value" ;;
+    *) printf '%s' on-switch-only ;;
+  esac
 }
 
 onboarding_is_done() {
