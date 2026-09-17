@@ -9,3 +9,6 @@ The bundled command line cannot install a plugin, but it does say what is
 installed:
 
     node /Applications/ZCode.app/Contents/Resources/glm/zcode.cjs plugins list
+
+(audience: agents) You cannot do this part: the window is the person's to
+click. Print these steps for them and stop.

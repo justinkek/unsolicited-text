@@ -8,3 +8,6 @@ custom style holding `rules/reply-shape.md` does it without asking.
 
 Nothing reads a settings file either, so a setting you ask for lasts as long as
 that conversation does.
+
+(audience: agents) You cannot do this part: the window is the person's to
+click. Print these steps for them and stop.

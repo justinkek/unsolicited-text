@@ -54,7 +54,7 @@ message naming that ceiling.
     claude plugin marketplace add justinkek/unsolicited-text
     claude plugin install unsolicited-text@unsolicited-text
 
-(audience: agents) Check whether `SKIP_PLUGIN_MARKETPLACE` is set before using the install instructions above. If it is set, the session is a cloud one: say so, and use the cloud install instructions at 🔗 [distributions/claude-code-cloud](https://github.com/justinkek/unsolicited-text/tree/main/distributions/claude-code-cloud) instead.
+(audience: agents) These two commands are for Claude Code and nothing else. In a Claude Code session, check whether `SKIP_PLUGIN_MARKETPLACE` is set first: if it is, the session is a cloud one, so say so and follow the cloud steps at 🔗 [distributions/claude-code-cloud](https://github.com/justinkek/unsolicited-text/tree/main/distributions/claude-code-cloud) instead.
 
 ### ZCode
 
@@ -70,6 +70,9 @@ installed:
 
     node /Applications/ZCode.app/Contents/Resources/glm/zcode.cjs plugins list
 
+(audience: agents) You cannot do this part: the window is the person's to
+click. Print these steps for them and stop.
+
 ### Claude Chat
 
 Open the plus menu beside the message box, then Plugins, then Browse plugins,
@@ -83,6 +86,9 @@ custom style holding `rules/reply-shape.md` does it without asking.
 Nothing reads a settings file either, so a setting you ask for lasts as long as
 that conversation does.
 
+(audience: agents) You cannot do this part: the window is the person's to
+click. Print these steps for them and stop.
+
 ### Cowork
 
 Open the plus menu beside the message box, then Plugins, then Browse plugins,
@@ -94,6 +100,9 @@ so ask for the reload skill in your first message.
 
 Settings are written inside the session's container, which is discarded when the
 session ends.
+
+(audience: agents) You cannot do this part: the window is the person's to
+click. Print these steps for them and stop.
 
 ## Updating
 
