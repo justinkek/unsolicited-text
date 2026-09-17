@@ -165,6 +165,7 @@ hooks and reloads support on each product and surface.
 | File                              | When it runs  | What it does                                                             | Tokens                                   |
 | --------------------------------- | ------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
 | `hooks/load-rules.sh`             | session start | prints `rules/reply-shape.md` into the session                           | ~1,900                                   |
+| `hooks/print-rules-if-missed.sh`  | every prompt  | prints the rules where session start did not, once a session             | ~1,900, and only in a session that missed them |
 | `hooks/remind-response-length.sh` | every prompt  | restates the shortest-form rule                                          | ~50                                      |
 | `hooks/replay-stop-notes.sh`      | every prompt  | prints the note the last turn recorded                                   | ~70, and only when there is one          |
 | `hooks/note-long-reply.sh`        | turn end      | records a note when the reply ran over the ceiling                       | none, it prints nothing into the session |
