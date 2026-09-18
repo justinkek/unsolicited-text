@@ -2,8 +2,8 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-The hooks run here, but the rules are not printed when a conversation starts,
-so ask for the reload skill in your first message.
+The hooks run here, so a conversation started after the install is given the
+rules. One started before it has none until you ask for the reload skill.
 
 Settings are written inside the session's container, which is discarded when the
 session ends.

@@ -34,18 +34,14 @@ surfaces apart, so the signature names the client and stops there.
 
 ### Cowork
 
-Every hook but one runs: a long reply is noted and the note is replayed on the
-next prompt, a new version is announced, and a setting takes effect at once.
-The settings are written inside the session's container, which is discarded
-when the session ends.
+Every hook runs: the rules are printed when a conversation starts, a long
+reply is noted and the note is replayed on the next message, and a new version
+is announced. The settings are written inside the session's container, which
+is discarded when the session ends.
 
-The rules are not printed when a conversation starts. Ask for the reload skill
-in your first message, or put them in a preference or a custom style.
-
-Last verified at 0.3.5 on the mobile app: a new conversation carried the reply reminder
-and no rules, the reload skill printed them, a ceiling written to the settings
-file was enforced, and the note about a long reply came back on the next
-message naming that ceiling.
+Last verified at 0.3.12: a new conversation carried the rules, the reminder
+arrived with every message, and a ten-line reply came back as a note naming
+the ceiling of eight.
 
 ## Installing
 
@@ -95,8 +91,8 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-The hooks run here, but the rules are not printed when a conversation starts,
-so ask for the reload skill in your first message.
+The hooks run here, so a conversation started after the install is given the
+rules. One started before it has none until you ask for the reload skill.
 
 Settings are written inside the session's container, which is discarded when the
 session ends.
