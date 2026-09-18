@@ -212,6 +212,19 @@ assert_silent "words weighed in thinking are not words sent" \
   "$(run_payload "$(jq --null-input --compact-output --arg p "$thinking" \
     '{hook_event_name:"Stop",session_id:"test-length",transcript_path:$p}')")"
 
+printf "\nTest group: a payload that spells its keys the other way is read too\n"
+
+run_other_spelling() {
+  local payload
+  payload="$(jq --null-input --compact-output --arg said "$1" \
+    '{hookEventName:"Stop",sessionId:"test-length",stopHookActive:false,responseText:$said}')"
+  run_payload "$payload"
+}
+
+assert_records "twelve lines, with camel case keys and no transcript" \
+  "$(run_other_spelling "$(seq 1 12 | sed 's/^/point /')")"
+assert_silent "and one line there is left alone" "$(run_other_spelling "one line")"
+
 printf "\nTest group: a reply handed over in the payload is counted too\n"
 
 long_reply="$(seq 1 12 | sed 's/^/point /')"

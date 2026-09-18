@@ -4,7 +4,9 @@ input="$(cat)"
 
 command -v jq >/dev/null 2>&1 || exit 0
 
-session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
+. "$(dirname "$0")/hook-payload-lib.sh"
+
+session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
 . "$(dirname "$0")/hook-stop-note-lib.sh"

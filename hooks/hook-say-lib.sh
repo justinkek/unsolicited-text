@@ -3,11 +3,10 @@
 # Clients differ in what they read from a hook. Every one of them reads this
 # shape, and some read nothing else, so a hook that speaks says it this way.
 
+. "$(dirname "${BASH_SOURCE[0]}")/hook-payload-lib.sh"
+
 # The event a hook was called for, out of the payload it was handed.
-hook_event_of() {
-  printf '%s' "$1" \
-    | sed -n 's/.*"hook_event_name"[[:space:]]*:[[:space:]]*"\([A-Za-z]*\)".*/\1/p' | head -1
-}
+hook_event_of() { hook_field "$1" hook_event_name; }
 
 # Text on standard input, as the inside of a JSON string.
 hook_escaped() {

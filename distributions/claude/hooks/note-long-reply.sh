@@ -5,11 +5,13 @@ input="$(cat)"
 
 command -v jq >/dev/null 2>&1 || exit 0
 
-[ "$(printf '%s' "$input" | jq --raw-output '.stop_hook_active // false')" = "true" ] && exit 0
+. "$(dirname "$0")/hook-payload-lib.sh"
 
-transcript="$(printf '%s' "$input" | jq --raw-output '.transcript_path // empty')"
+[ "$(hook_field "$input" stop_hook_active)" = "true" ] && exit 0
 
-session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
+transcript="$(hook_field "$input" transcript_path)"
+
+session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
 . "$(dirname "$0")/hook-transcript-lib.sh"
