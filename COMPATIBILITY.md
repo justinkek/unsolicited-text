@@ -44,7 +44,7 @@ what. Where no folder is linked, nothing installs there yet.
 
 | Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
 | ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Not verified |
+| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported |
 
 ## Pi
 
