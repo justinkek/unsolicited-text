@@ -7,7 +7,6 @@ command -v jq >/dev/null 2>&1 || exit 0
 [ "$(printf '%s' "$input" | jq --raw-output '.stop_hook_active // false')" = "true" ] && exit 0
 
 transcript="$(printf '%s' "$input" | jq --raw-output '.transcript_path // empty')"
-[ -n "$transcript" ] && [ -f "$transcript" ] || exit 0
 
 session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
 [ -n "$session_id" ] || exit 0
@@ -15,7 +14,7 @@ session_id="$(printf '%s' "$input" | jq --raw-output '.session_id // empty')"
 . "$(dirname "$0")/hook-transcript-lib.sh"
 . "$(dirname "$0")/hook-stop-note-lib.sh"
 
-last="$(hook_last_reply "$transcript")"
+last="$(hook_last_reply "$input" "$transcript")"
 [ -n "$last" ] || exit 0
 
 UNSOLICITED_TEXT_PROSE_LINE_CEILING="$(prose_line_ceiling)"
