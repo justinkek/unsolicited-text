@@ -11,9 +11,11 @@ read off disk.
 
 ## The steps for this install
 
-The path is the one written by hand in `~/.codex/config.toml`:
+printf '{}' | "$(codex plugin list | sed -n 's/.*\(\/.*unsolicited-text\/[0-9.]*\).*/\1/p' | head -1)/hooks/load-rules.sh"
 
-    printf '{}' | <path to this checkout>/hooks/load-rules.sh
+If that prints nothing, take the plugin root from the line
+`Installed plugin root:` that the install printed, and run the script inside its
+`hooks` directory.
 
 ## The rules, with every setting at its default
 
