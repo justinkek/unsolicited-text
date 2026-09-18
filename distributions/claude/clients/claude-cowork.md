@@ -16,6 +16,11 @@ The phone run reported its home directory inside a cloud container, so a
 conversation driven from a phone runs where every other Cowork conversation
 runs.
 
+Every conversation runs on Anthropic's servers, whichever app it is started
+from. A conversation can reach the files in a folder you connect while the
+desktop app is open, but it never runs on your own machine, so there is no
+local surface to install into.
+
 ## Installing
 
 Open the plus menu beside the message box, then Plugins, then Browse plugins,

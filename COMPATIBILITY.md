@@ -16,7 +16,6 @@ what. Where no folder is linked, nothing installs there yet.
 | Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported |
-|             | Desktop GUI | Local                         | (see above)                                                    | Not verified |
 | Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported |
 |             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
 |             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported |
