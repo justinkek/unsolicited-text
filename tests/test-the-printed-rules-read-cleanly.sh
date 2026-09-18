@@ -39,7 +39,7 @@ printed() {
   mkdir -p "$home/.unsolicited-text/state"
   : > "$home/.unsolicited-text/state/onboarded"
   shift
-  printf '{"hook_event_name":"SessionStart"}' | env HOME="$home" $@ bash "$LOADER" 2>/dev/null
+  printf '{"hook_event_name":"SessionStart"}' | env HOME="$home" UNSOLICITED_TEXT_PLAIN=1 $@ bash "$LOADER" 2>/dev/null
 }
 
 printf "Test group: whatever the settings, the rules a session reads are written English\n"

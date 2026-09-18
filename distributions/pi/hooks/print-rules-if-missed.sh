@@ -10,9 +10,11 @@ session_id="$(printf '%s' "$input" \
 [ -n "$session_id" ] || exit 0
 
 . "$(dirname "$0")/hook-settings-lib.sh"
+. "$(dirname "$0")/hook-say-lib.sh"
 
 [ -f "$UNSOLICITED_TEXT_STATE/printed/$session_id" ] && exit 0
 
 printf '{"hook_event_name":"UserPromptSubmit","session_id":"%s"}' "$session_id" \
-  | "$(dirname "$0")/load-rules.sh"
+  | UNSOLICITED_TEXT_PLAIN=1 "$(dirname "$0")/load-rules.sh" \
+  | hook_say UserPromptSubmit
 exit 0

@@ -13,6 +13,11 @@ rules="$(dirname "$0")/../rules/reply-shape.md"
 [ -f "$rules" ] || exit 0
 
 . "$(dirname "$0")/hook-settings-lib.sh"
+. "$(dirname "$0")/hook-say-lib.sh"
+
+# A hand run, and the rendering of the reload skill, want the text itself.
+event="$(hook_event_of "$payload")"
+if [ -n "$UNSOLICITED_TEXT_PLAIN" ]; then event=""; fi
 
 apply_migrations
 
@@ -74,21 +79,29 @@ for tag in $(grep --only-matching '{[a-z][a-z|-]*=[a-z][a-z|-]*}' "$rules" | tr 
   fi
 done
 
-[ -n "$reprint" ] && printf 'These unsolicited-text rules replace the unsolicited-text rules printed earlier in this session, and nothing else.\n\n'
+printed() {
+  [ -n "$reprint" ] && printf 'These unsolicited-text rules replace the unsolicited-text rules printed earlier in this session, and nothing else.\n\n'
 
-sed "$rewrite" "$rules" | awk '
-  /^@@drop@@$/ { dropping = 1; next }
-  dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
-  { dropping = 0; print }
-'
+  sed "$rewrite" "$rules" | awk '
+    /^@@drop@@$/ { dropping = 1; next }
+    dropping && ($0 ~ /^[[:space:]]*$/ || $0 ~ /^[[:space:]]/) { next }
+    { dropping = 0; print }
+  '
 
-if ! onboarding_is_done; then
-  if queue_emoji; then
-    later="💤 Later:"
-  else
-    later="Later:"
+  if ! onboarding_is_done; then
+    if queue_emoji; then
+      later="💤 Later:"
+    else
+      later="Later:"
+    fi
+    printf '\n## First session\n\nStart the queue with these two items:\n\n'
+    printf '1. %s try the settings skill - it changes any of these rules\n' "$later"
+    printf '2. %s try the update skill - it fetches a newer copy\n' "$later"
   fi
-  printf '\n## First session\n\nStart the queue with these two items:\n\n'
-  printf '1. %s try the settings skill - it changes any of these rules\n' "$later"
-  printf '2. %s try the update skill - it fetches a newer copy\n' "$later"
+}
+
+if [ -n "$event" ]; then
+  printed | hook_say "$event"
+else
+  printed
 fi

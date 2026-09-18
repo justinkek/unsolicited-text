@@ -49,7 +49,7 @@ disk are already the new ones, and an agent reads them there.
 
 ## Note
 
-Rendered from unsolicited-text 0.3.10. Say that version when asked which one is
+Rendered from unsolicited-text 0.3.11. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
