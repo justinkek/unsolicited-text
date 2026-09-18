@@ -5,7 +5,7 @@ description: Print the unsolicited-text reply rules into this session when none 
 
 # Reloading the rules
 
-Rendered from unsolicited-text 0.3.8. Say that version when asked which one
+Rendered from unsolicited-text 0.3.9. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
