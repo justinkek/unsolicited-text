@@ -44,7 +44,9 @@ assert "merge-settings.sh rewrites away a path inside the checkout" "$?" \
   "it rewrites $stated, so a registration written from another checkout is never recognised as this plugin's"
 
 outside="$(jq --raw-output --arg checkout "$cloned/" \
-  '.hooks | to_entries[] | .value[] | .hooks[] | .command | select(startswith($checkout) | not)' \
+  '.hooks | to_entries[] | .value[] | .hooks[] | .command
+     | sub("^bash \""; "") | sub("\"$"; "")
+     | select(startswith($checkout) | not)' \
   "$ADAPTER/settings.json")"
 [ -z "$outside" ]
 assert "every registration names a command inside it" "$?" \

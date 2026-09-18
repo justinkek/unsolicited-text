@@ -42,7 +42,7 @@ fi
 merge=$(cat <<'JQ'
 # A registration of this plugin, wherever an older install put it.
 def mine: (.command? // "") as $command
-  | ($command | startswith($checkout + "/")) or ($command | contains("/unsolicited-text/"));
+  | ($command | contains($checkout + "/")) or ($command | contains("/unsolicited-text/"));
 
 def kept($event):
   [ (.hooks[$event] // [])[]

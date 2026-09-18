@@ -5,7 +5,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/load-rules.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/load-rules.sh\""
 					}
 				]
 			}
@@ -15,19 +15,19 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/print-rules-if-missed.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/print-rules-if-missed.sh\""
 					},
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/remind-response-length.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/remind-response-length.sh\""
 					},
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/replay-stop-notes.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/replay-stop-notes.sh\""
 					},
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/note-new-version.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/note-new-version.sh\""
 					}
 				]
 			}
@@ -37,11 +37,11 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/note-long-reply.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/note-long-reply.sh\""
 					},
 					{
 						"type": "command",
-						"command": "${PLUGIN_ROOT}/hooks/note-long-queue.sh"
+						"command": "bash \"${PLUGIN_ROOT}/hooks/note-long-queue.sh\""
 					}
 				]
 			}
