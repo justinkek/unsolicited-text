@@ -49,4 +49,4 @@ what. Where no folder is linked, nothing installs there yet.
 
 | Product | Surface | Harness execution environment | Installation                   | Support                                                                                                                                                                                                                                                                                               |
 | ------- | ------- | ----------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pi      | CLI     | Local                         | [distributions/pi](distributions/pi) | Not verified |
+| Pi      | CLI     | Local                         | [distributions/pi](distributions/pi) | Supported |
