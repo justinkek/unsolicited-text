@@ -16,7 +16,7 @@ rules="$(printf '{"hook_event_name":"SessionStart"}' \
         -u UNSOLICITED_TEXT_BREADCRUMB \
         -u UNSOLICITED_TEXT_QUEUE_TREE \
         -u UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS \
-        UNSOLICITED_TEXT_HOME="$home" \
+        UNSOLICITED_TEXT_HOME="$home" UNSOLICITED_TEXT_PLAIN=1 \
         "$repository/hooks/load-rules.sh")"
 
 version="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \

@@ -21,7 +21,7 @@ assert() {
 
 payload="$(jq --null-input --compact-output \
   '{hook_event_name:"SessionStart",session_id:"test-load",source:"startup"}')"
-printed="$(printf '%s' "$payload" | bash "$LOADER" 2>/dev/null)"
+printed="$(printf '%s' "$payload" | env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 
 printf "Test group: the rules reach the session\n"
 
@@ -45,7 +45,7 @@ printf "\nTest group: no rules file, no output\n"
 
 mkdir -p "$TMPDIR/hooks"
 cp "$LOADER" "$TMPDIR/hooks/load-rules.sh"
-absent="$(printf '%s' "$payload" | bash "$TMPDIR/hooks/load-rules.sh" 2>/dev/null)"
+absent="$(printf '%s' "$payload" | env UNSOLICITED_TEXT_PLAIN=1 bash "$TMPDIR/hooks/load-rules.sh" 2>/dev/null)"
 status="$?"
 
 [ "$status" = "0" ]
@@ -62,14 +62,14 @@ moved_on() { rm -f "$TMPDIR/home/.unsolicited-text/state/applied-version"; }
 mkdir -p "$superseded/notes"
 printf 'a note\n' > "$superseded/notes/session.stop-notes"
 moved_on
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" >/dev/null 2>&1
 [ ! -d "$superseded" ]
 assert "the old notes directory goes" "$?" "it is still there"
 
 mkdir -p "$superseded/notes"
 printf 'not ours\n' > "$superseded/keep-me"
 moved_on
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" >/dev/null 2>&1
 [ -f "$superseded/keep-me" ]
 assert "anything else in it stays" "$?" "it was removed"
 
@@ -80,14 +80,14 @@ mkdir -p "$home"
 rm -f "$home/settings"
 printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING = 11\n' > "$home/config"
 moved_on
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" >/dev/null 2>&1
 
 [ ! -f "$home/config" ] && [ -f "$home/settings" ]
 assert "the old file becomes the settings file" "$?" "it was not moved"
 
 printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING = 9\n' > "$home/config"
 moved_on
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" >/dev/null 2>&1
 
 grep --quiet --fixed-strings '11' "$home/settings"
 assert "and a settings file already there is not overwritten" "$?" "the old file won"
@@ -102,7 +102,7 @@ grep --quiet --line-regexp --fixed-strings "$version" "$marker"
 assert "the version applied is written down" "$?" "nothing records what has already run"
 
 printf 'UNSOLICITED_TEXT_PROSE_LINE_CEILING = 7\n' > "$home/config"
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" >/dev/null 2>&1
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" >/dev/null 2>&1
 
 [ -f "$home/config" ]
 assert "and a migration does not run again at the same version" "$?" \
@@ -112,14 +112,14 @@ rm -f "$home/config"
 
 printf "\nTest group: the rules carry the visible limit that is set\n"
 
-unlimited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+unlimited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$unlimited" | grep --quiet --fixed-strings 'The list holds every item'
 assert "unset tells the reader to show every item" "$?" "the rules say otherwise"
 
-limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
+limited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 \
   UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS=2 bash "$LOADER" 2>/dev/null)"
 one="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  UNSOLICITED_TEXT_PROSE_LINE_CEILING=1 UNSOLICITED_TEXT_PROSE_WORD_CEILING=1 bash "$LOADER" 2>/dev/null)"
+  UNSOLICITED_TEXT_PROSE_LINE_CEILING=1 UNSOLICITED_TEXT_PROSE_WORD_CEILING=1 env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$one" | grep --quiet --fixed-strings 'at most 1 non-blank line of prose, and at most 1 word of it'
 assert "a ceiling of one reads as one line and one word" "$?" "it reads as 1 lines and 1 words"
 
@@ -131,7 +131,7 @@ for pair in "1 the first item" "0 no items"; do
   count="$1"
   shift
   said="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-    UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS="$count" bash "$LOADER" 2>/dev/null)"
+    UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS="$count" env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
   printf '%s' "$said" | grep --quiet --fixed-strings "The list holds $*,"
   assert "a limit of $count reads as $*" "$?" "it reads as something else"
 done
@@ -153,7 +153,7 @@ printf "\nTest group: the queue is a tree only when it is asked for\n"
 
 shape_of() {
   printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-    ${1:+UNSOLICITED_TEXT_QUEUE_TREE="$1"} bash "$LOADER" 2>/dev/null
+    ${1:+UNSOLICITED_TEXT_QUEUE_TREE="$1"} env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null
 }
 
 for shape in "" on-switch-only alwayson; do
@@ -200,7 +200,7 @@ printf '%s' "$printed" | grep --quiet --fixed-strings 'These unsolicited-text ru
 [ "$?" = "1" ]
 assert "the session start print claims nothing" "$?" "it supersedes rules nobody has read"
 
-reprinted="$(printf '{}' | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+reprinted="$(printf '{}' | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$reprinted" | grep --quiet --line-regexp --fixed-strings \
   'These unsolicited-text rules replace the unsolicited-text rules printed earlier in this session, and nothing else.'
 assert "a hand run opens by superseding the earlier print" "$?" \
@@ -209,8 +209,8 @@ assert "a hand run opens by superseding the earlier print" "$?" \
 printf "\nTest group: the first session on a machine starts with two queue items\n"
 
 fresh="$TMPDIR/fresh"
-first="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
-second="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+first="$(printf '%s' "$payload" | env HOME="$fresh" env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
+second="$(printf '%s' "$payload" | env HOME="$fresh" env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 
 printf '%s' "$first" | grep --quiet --fixed-strings 'try the settings skill'
 assert "the first run seeds the settings item" "$?" "a new install is told nothing"
@@ -223,18 +223,18 @@ printf '%s' "$second" | grep --quiet --fixed-strings 'try the settings skill'
 assert "the run after it seeds nothing" "$?" "every session pays for the demo"
 
 rm -f "$fresh/.unsolicited-text/state/onboarded"
-again="$(printf '%s' "$payload" | env HOME="$fresh" bash "$LOADER" 2>/dev/null)"
+again="$(printf '%s' "$payload" | env HOME="$fresh" env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$again" | grep --quiet --fixed-strings 'try the settings skill'
 assert "deleting the marker shows it again" "$?" "there is no way back to it"
 
 printf "\nTest group: the breadcrumb is written only when it is asked for\n"
 
-off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" 2>/dev/null)"
+off="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$off" | grep --quiet --fixed-strings 'Do not write a breadcrumb.'
 assert "unset tells the reader to write none" "$?" "the rules ask for one by default"
 
 on="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" \
-  UNSOLICITED_TEXT_BREADCRUMB=on bash "$LOADER" 2>/dev/null)"
+  UNSOLICITED_TEXT_BREADCRUMB=on env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
 printf '%s' "$on" | grep --quiet --fixed-strings 'Open every reply with the thread you are on'
 assert "on asks for one" "$?" "the rules do not describe it"
 
@@ -255,11 +255,11 @@ written="$(emoji_in "$REPOSITORY/rules/reply-shape.md")"
 assert "the rules on disk carry emoji at all" "$?" "rules/reply-shape.md has none, so there is nothing to strip"
 
 printed="$TMPDIR/printed"
-printf '%s' "$payload" | env HOME="$TMPDIR/home" bash "$LOADER" > "$printed" 2>/dev/null
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" > "$printed" 2>/dev/null
 [ -z "$(emoji_in "$printed")" ]
 assert "none of them reaches a session by default" "$?" "the rules printed $(emoji_in "$printed")"
 
-printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_QUEUE_EMOJI=on bash "$LOADER" > "$printed" 2>/dev/null
+printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_QUEUE_EMOJI=on env UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" > "$printed" 2>/dev/null
 [ "$(emoji_in "$printed")" = "$written" ]
 assert "and every one of them does when it is on" "$?" \
   "rules/reply-shape.md has $written and the session got $(emoji_in "$printed")"
