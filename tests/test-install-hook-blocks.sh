@@ -2,6 +2,8 @@
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 CODEX="$REPOSITORY/clients/codex/install.md"
+CODEX_MANIFEST="$REPOSITORY/distributions/codex/.codex-plugin/plugin.json"
+CODEX_HOOKS="$REPOSITORY/distributions/codex/hooks/hooks.json"
 CLOUD_STEPS="$REPOSITORY/clients/claude-code-cloud/install.md"
 MARKETPLACE="$REPOSITORY/clients/claude-code-local/install.md"
 CLOUD="$REPOSITORY/distributions/claude-code-cloud/settings.json"
@@ -31,14 +33,26 @@ while read -r script; do
   assert "the cloud settings name $script" "$?" \
     "hooks.json registers it and a cloud session would not run it"
 
-  grep --quiet --fixed-strings "<path to this checkout>/hooks/$script" "$CODEX"
-  assert "the codex block names $script" "$?" \
-    "hooks.json registers it and a Codex session registered from $CODEX would not run it"
+  grep --quiet --fixed-strings "/hooks/$script" "$CODEX_HOOKS"
+  assert "the codex hooks file names $script" "$?" \
+    "the Claude adapter registers it and a Codex session would not run it"
 done < <(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
   "$REPOSITORY/adapters/claude/hooks.json" | sed -e 's/"$//' -e 's#.*/##' | sort --unique)
 
 [ "$registered" -gt 0 ]
 assert "hooks.json registers anything at all" "$?" "no commands read out of the Claude adapter's hooks.json"
+
+[ "$(jq --raw-output '.hooks // empty' "$CODEX_MANIFEST")" = "./hooks/hooks.json" ]
+assert "the codex manifest points at that hooks file" "$?" \
+  "Codex reads hooks from the manifest, and this one names something else"
+
+grep --quiet --fixed-strings '/hooks' "$CODEX"
+assert "the codex page says to trust them" "$?" \
+  "Codex skips a hook until it has been reviewed, and the page never says so"
+
+! grep --quiet --fixed-strings '[[hooks.' "$CODEX"
+assert "and no longer asks for a config file to be edited by hand" "$?" \
+  "the plugin registers its own hooks, so a pasted block would run each one twice"
 
 printf "\nTest group: the setup script is one a container can run\n"
 
