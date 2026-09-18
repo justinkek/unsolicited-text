@@ -65,6 +65,18 @@ raise SystemExit(0 if said["systemMessage"] in said["hookSpecificOutput"]["addit
 assert "and the agent is handed the same words" "$?" \
   "a harness that shows the user cannot also tell the agent what happened"
 
+printf "\nTest group: a notice this copy has passed is dropped, not said\n"
+
+rm -rf "$TMPDIR/home"
+mkdir -p "$STATE"
+printf '{"version":"%s"}\n' "$installed" > "$TMPDIR/published.json"
+printf '0.0.1' > "$STATE/new-version"
+[ -z "$(session)" ]
+assert "a version older than this one says nothing" "$?" "it announced an update backwards"
+
+[ ! -f "$STATE/new-version" ]
+assert "and the notice is gone" "$?" "it waits there to be said at every prompt"
+
 printf "\nTest group: a published file cannot write the notice\n"
 
 rm -rf "$TMPDIR/home"
