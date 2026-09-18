@@ -1,0 +1,11 @@
+{
+	"name": "unsolicited-text",
+	"description": "Consent is important.",
+	"plugins": [
+		{
+			"name": "unsolicited-text-zcode",
+			"source": "./distributions/claude",
+			"description": "Consent is important. This entry is the one ZCode reads."
+		}
+	]
+}
