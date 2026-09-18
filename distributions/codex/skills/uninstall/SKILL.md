@@ -33,7 +33,7 @@ That takes the settings and the state with it, so nothing is left.
 
 ## Note
 
-Rendered from unsolicited-text 0.3.9. Say that version when asked which one is
+Rendered from unsolicited-text 0.3.10. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
