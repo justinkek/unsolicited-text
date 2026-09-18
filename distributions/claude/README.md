@@ -15,11 +15,10 @@ announced. Settings are kept in `~/.unsolicited-text` and outlive the session.
 Every hook runs, as on Claude Code, since it is the same install. Settings are
 kept in `~/.unsolicited-text` and outlive the session.
 
-Last verified at 0.3.8: installed through Settings, Plugin Management, with
-four skills on disk under `~/.zcode` and the settings skill writing the file
-and naming the reload skill. A session already running has neither the hooks
-nor the skills, so both arrive in the next one, and what a new session is
-given has not been checked here yet.
+Last verified at 0.3.13: a new session is given the rules, the short-reply
+reminder arrives with every message, a setting written to the file is enforced
+at once, and a reply over the ceiling is noted and replayed on the next
+message, naming the ceiling that was set.
 
 ### Claude Chat
 
@@ -35,18 +34,17 @@ surfaces apart, so the signature names the client and stops there.
 
 ### Cowork
 
-Every hook but one runs: a long reply is noted and the note is replayed on the
-next prompt, a new version is announced, and a setting takes effect at once.
-The settings are written inside the session's container, which is discarded
-when the session ends.
+Every hook runs: the rules are printed when a conversation starts, a long
+reply is noted and the note is replayed on the next message, and a new version
+is announced. The settings are written inside the session's container, which
+is discarded when the session ends.
 
-The rules are not printed when a conversation starts. Ask for the reload skill
-in your first message, or put them in a preference or a custom style.
-
-Last verified at 0.3.5 on the mobile app: a new conversation carried the reply reminder
-and no rules, the reload skill printed them, a ceiling written to the settings
-file was enforced, and the note about a long reply came back on the next
-message naming that ceiling.
+Last verified at 0.3.12, in the desktop app, in the browser and in the phone
+app: a new conversation carried the rules, the reminder arrived with every
+message, and a ten-line reply came back as a note naming the ceiling of eight.
+The phone run reported its home directory inside a cloud container, so a
+conversation driven from a phone runs where every other Cowork conversation
+runs.
 
 ## Installing
 
@@ -96,8 +94,8 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-The hooks run here, but the rules are not printed when a conversation starts,
-so ask for the reload skill in your first message.
+The hooks run here, so a conversation started after the install is given the
+rules. One started before it has none until you ask for the reload skill.
 
 Settings are written inside the session's container, which is discarded when the
 session ends.
