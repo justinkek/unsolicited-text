@@ -1,15 +1,16 @@
-(audience: agents) Do not install this yourself. Print this page for the person
-and stop. They run the two commands below, or install from the plugin browser
-with `/plugins` in the command line and the Plugins tab in the app, and they
-edit their own `~/.codex/config.toml`.
+(audience: agents) Run the two commands below. Do not clone this repository, and
+do not copy any file into place: those two commands are the whole install, and
+`/plugins` in the command line or the Plugins tab in the app does the same thing.
+Print the hook blocks further down for the person to paste, because
+`~/.codex/config.toml` is theirs to edit.
 
     codex plugin marketplace add justinkek/unsolicited-text
     codex plugin add unsolicited-text@unsolicited-text
 
 Codex does not run a plugin's own hooks yet
 ([openai/codex#16430](https://github.com/openai/codex/issues/16430)), so register
-them by hand in `~/.codex/config.toml`. This prints the path they
-need:
+them by hand in `~/.codex/config.toml`. This prints the path
+they need:
 
     find ~/.codex -name load-rules.sh 2>/dev/null
 
