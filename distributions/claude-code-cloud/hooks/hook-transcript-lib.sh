@@ -7,7 +7,8 @@ hook_last_reply() {
   local payload="$1" transcript="$2" said
 
   if [ -n "$payload" ]; then
-    said="$(printf '%s' "$payload" | jq --raw-output '.last_assistant_message // empty' 2>/dev/null)"
+    said="$(printf '%s' "$payload" | jq --raw-output '
+      .responseText // .last_assistant_message // .lastAssistantMessage // empty' 2>/dev/null)"
     if [ -n "$said" ]; then
       printf '%s' "$said"
       return 0

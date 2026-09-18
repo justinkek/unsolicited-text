@@ -22,7 +22,7 @@ if [ -n "$UNSOLICITED_TEXT_PLAIN" ]; then event=""; fi
 apply_migrations
 
 # A session that has been given the rules is marked, so nothing gives them twice.
-session_id="$(printf '%s' "$payload" | sed -n 's/.*"session_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')"
+session_id="$(hook_field "$payload" session_id)"
 if [ -n "$session_id" ]; then
   mkdir -p "$UNSOLICITED_TEXT_STATE/printed" 2>/dev/null \
     && : > "$UNSOLICITED_TEXT_STATE/printed/$session_id" 2>/dev/null

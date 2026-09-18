@@ -4,8 +4,9 @@
 # The rules arrive on the first prompt instead, once.
 input="$(cat)"
 
-session_id="$(printf '%s' "$input" \
-  | sed -n 's/.*"session_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')"
+. "$(dirname "$0")/hook-payload-lib.sh"
+
+session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
 . "$(dirname "$0")/hook-settings-lib.sh"
