@@ -40,6 +40,14 @@ run_hook() {
   run_payload "$payload"
 }
 
+# A client that hands the reply over in the payload names no transcript at all.
+run_payload_only() {
+  local text="$1" payload
+  payload="$(jq --null-input --compact-output --arg said "$text" \
+    '{hook_event_name:"Stop",session_id:"test-length",last_assistant_message:$said}')"
+  run_payload "$payload"
+}
+
 assert_records() {
   local label="$1" note="$2"
   if [ -n "$note" ] && [ "${note#THE REPLY WAS DISCARDED}" = "$note" ]; then
@@ -203,6 +211,12 @@ jq --null-input --compact-output --arg think "$(prose_of 40)" \
 assert_silent "words weighed in thinking are not words sent" \
   "$(run_payload "$(jq --null-input --compact-output --arg p "$thinking" \
     '{hook_event_name:"Stop",session_id:"test-length",transcript_path:$p}')")"
+
+printf "\nTest group: a reply handed over in the payload is counted too\n"
+
+long_reply="$(seq 1 12 | sed 's/^/point /')"
+assert_records "twelve lines with no transcript named" "$(run_payload_only "$long_reply")"
+assert_silent "and a short one there is left alone" "$(run_payload_only "one line")"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
 [ "$fail" -eq 0 ]
