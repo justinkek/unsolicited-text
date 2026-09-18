@@ -47,7 +47,7 @@ function textOf(message: any): string {
 export default function (pi: ExtensionAPI) {
 	pi.on("before_agent_start", async () => {
 		// The rules are printed once, when the first turn of the session starts.
-		const rules = started ? "" : spawnHook("load-rules.sh", { hook_event_name: "SessionStart" });
+		const rules = started ? "" : said(spawnHook("load-rules.sh", { hook_event_name: "SessionStart" }));
 		started = true;
 		const content = [
 			rules,

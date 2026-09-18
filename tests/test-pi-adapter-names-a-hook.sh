@@ -46,6 +46,10 @@ grep --quiet --fixed-strings 'JSON.parse' "$ADAPTER"
 assert "the adapter reads a JSON answer" "$?" \
   "the version notice reaches a reader there as the raw JSON the hook printed"
 
+awk '/spawnHook\(/ && !/function spawnHook/ { line = $0; sub(/^[[:space:]]+/, "", line); if (line !~ /^spawnHook\(/ && line !~ /said\(spawnHook\(/) { print line; bare++ } } END { exit bare > 0 }' "$ADAPTER"
+assert "every hook it shows is read through said()" "$?" \
+  "a hook answering in JSON reaches a reader there as the raw envelope"
+
 printf "\nTest group: the adapter reaches them through the one hooks directory\n"
 
 grep --quiet --fixed-strings '"..", "hooks"' "$ADAPTER"
