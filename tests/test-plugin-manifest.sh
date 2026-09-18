@@ -17,6 +17,9 @@ assert() {
   fi
 }
 
+# A command is "bash \"<path>\"", so the path comes out of the middle of it.
+scripted() { sed -e 's/^bash "//' -e 's/"$//'; }
+
 commands_of() {
   jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' "$1"
 }
@@ -59,7 +62,7 @@ check_reachable() {
 
     [ -x "$plugin/$inside" ]
     assert "$label ships $inside" "$?" "no executable file there, so a copy of the plugin cannot run it"
-  done < <(commands_of "$manifest")
+  done < <(commands_of "$manifest" | scripted)
 }
 
 check_reachable "$REPOSITORY/adapters/claude/hooks.json" "$REPOSITORY/distributions/claude" CLAUDE_PLUGIN_ROOT "claude"
@@ -97,11 +100,25 @@ done)
 [ "$named" -gt 3 ]
 assert "the pages name the scripts at all" "$?" "only $named named between them"
 
+printf "\nTest group: a registration runs the script through an interpreter\n"
+
+for manifest in "$REPOSITORY/adapters/claude/hooks.json" "$REPOSITORY/adapters/codex/hooks.json"; do
+  wrong="$(commands_of "$manifest" | grep --invert-match '^bash "' || true)"
+  [ -z "$wrong" ]
+  assert "${manifest#$REPOSITORY/} runs every hook through bash" "$?" \
+    "$wrong needs the executable bit, and a client that extracts without it runs nothing"
+done
+
+wrong="$(jq --raw-output '.hooks | to_entries[] | .value[] | .hooks[] | .command' \
+  "$REPOSITORY/adapters/claude-code-cloud/settings.json" | grep --invert-match '^bash "' || true)"
+[ -z "$wrong" ]
+assert "the cloud settings do too" "$?" "$wrong needs the executable bit"
+
 printf "\nTest group: every hook this repository carries is registered somewhere\n"
 
 registered="$(
   for manifest in "$REPOSITORY/adapters/claude/hooks.json" "$REPOSITORY/adapters/codex/hooks.json"; do
-    commands_of "$manifest"
+    commands_of "$manifest" | scripted
   done
   grep --only-matching --extended-regexp '[a-z-]+\.sh' "$REPOSITORY/adapters/pi/src/index.ts"
 )"
