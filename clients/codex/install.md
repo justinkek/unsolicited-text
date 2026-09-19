@@ -15,6 +15,11 @@ In the command line, run `/hooks`, read the seven commands and trust each one.
 Then quit and start again. Until you do, a session there is a session without
 the plugin: no rules at the start, no reminder, no note about a long reply.
 
+In the desktop app there is no `/hooks` to run. Open Settings, then Hooks, then
+Plugin, and turn on the Trust switch beside each of the seven. Then quit the app
+and start it again. Ask a session there and it may tell you the app has no way
+to do this and send you to the command line; it has, and the screen above is it.
+
 Two things send you back to that screen:
 
 1. Trust is recorded against the Codex home you are in. Run `printenv
