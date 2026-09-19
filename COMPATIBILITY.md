@@ -34,7 +34,7 @@ what. Where no folder is linked, nothing installs there yet.
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
 |              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not supported |
 | Codex        | Web GUI       | Hosted                        |                                                   | Not supported |
-|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Not verified |
+|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Supported |
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
 |              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported |
 |              | IDE extension | Local                         |                                                   | Not supported |
