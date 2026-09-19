@@ -36,7 +36,7 @@ what. Where no folder is linked, nothing installs there yet.
 | Codex        | Web GUI       | Hosted                        |                                                   | Not supported |
 |              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Not verified |
 |              | Desktop GUI   | Hosted                        |                                                   | Not supported |
-|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Not verified |
+|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported |
 |              | IDE extension | Local                         |                                                   | Not supported |
 
 ## ZCode
