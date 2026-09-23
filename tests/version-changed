@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Every merge to main is a release: an install names no ref, so whatever the
+# default branch points at is what a person gets. The cloud path does not even
+# check the version before resetting its checkout to main. A merge that does not move
+# the version leaves every skill, and every session asked which version it is
+# running, naming something that is no longer what is running.
+#
+#   tests/version-changed <base-ref>
+#
+# Run by CI on a pull request. It is not in tests/run-tests, because a branch
+# is allowed to be mid-change; it is the merge that has to carry the bump.
+
+set -e
+
+repository="$(cd "$(dirname "$0")/.." && pwd)"
+base="${1:-origin/main}"
+
+version_in() { git -C "$repository" show "$1:plugin.json" 2>/dev/null | jq --raw-output '.version // empty'; }
+
+was="$(version_in "$base")"
+now="$(jq --raw-output '.version' "$repository/plugin.json")"
+
+if [ -z "$was" ]; then
+  printf 'no plugin.json on %s to compare against, so nothing to check\n' "$base"
+  exit 0
+fi
+
+# A bump that goes backwards, or sideways into a typo, is a bump that names a
+# version somebody already has.
+newest() { printf '%s\n%s\n' "$1" "$2" | sort --version-sort | tail -1; }
+
+if [ "$was" != "$now" ] && [ "$(newest "$was" "$now")" != "$now" ]; then
+  printf 'the version went from %s back to %s.\n\n' "$was" "$now" >&2
+  printf 'An install caches by version, so a number somebody already has is a\n' >&2
+  printf 'number that reaches nobody. Raise it instead.\n' >&2
+  exit 1
+fi
+
+if [ "$was" = "$now" ]; then
+  printf 'the version is still %s.\n\n' "$now" >&2
+  printf 'Every merge to main is a release here: an install names no ref, so what\n' >&2
+  printf 'main points at is what a person gets. Raise the version in plugin.json and\n' >&2
+  printf 'package.json, or this ships as a version that already means something else.\n\n' >&2
+  printf 'Minor when a plugin built against %s would break on this one; patch\n' "$was" >&2
+  printf 'when it would not. AGENTS.md has the rule.\n' >&2
+  exit 1
+fi
+
+printf 'version %s -> %s\n' "$was" "$now"

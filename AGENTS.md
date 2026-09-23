@@ -12,9 +12,24 @@ hook to see what a session gets:
 
 This file is what a session working *on* the plugin reads.
 
+This plugin is built by the ai-plugin-sdk. `./build` calls it: the SDK is a
+checkout at `../ai-plugin-sdk`, or wherever `AI_PLUGIN_SDK` names.
+
 ## Before you push
 
-    tests/run-tests
+    tests/run-tests                                 this plugin's own behaviour
+    ../ai-plugin-sdk/tests/run-tests "$PWD"         the SDK's, against this plugin
+
+The second one is not optional. The SDK's suite takes a plugin directory, and
+what used to be tested here about registrations, folder shapes, client pages
+and the skills is tested there now, against this plugin. CI runs both.
+
+## Every merge is a release
+
+An install names no ref, so what main points at is what a person gets — and the
+cloud path resets its checkout to main before it looks at the version at all.
+So every merge raises the version, in `plugin.json` and in `package.json`, which
+a test holds together. CI fails a pull request whose version matches its base.
 
 `test-logo-is-current.sh` and `test-readme-demo-holds.sh` compare file times, so
 they fail on a fresh clone where git wrote everything at once. On a checkout you
@@ -25,9 +40,11 @@ have been editing, they mean what they say: run `logo/render` or `demo/record`.
 | Change | File |
 | --- | --- |
 | a rule a session must follow | `rules/reply-shape.md` |
-| a setting, and its default | `hooks/hook-settings-lib.sh` |
-| what the settings skill tells the user | `skills/settings/body.md` |
-| which hooks a distribution registers | `adapters/<distribution>/` |
+| a setting, its kind and its default | `plugin.json` |
+| what this plugin calls a setting in its own hooks | `hooks/settings-lib.sh` |
+| what the settings skill tells the user | `plugin.json` - the SDK writes the skill from it |
+| which hooks run on which event | `plugin.json` |
+| what an older version left behind | `hooks/migrations.sh` |
 | how each install method works | `clients/<client>/install.md`, with `update.md`, `uninstall.md`, `reload.md`, `settings.md` and `support.md` beside it. Each builds a section of that distribution's README; `INSTALL.md` is the table pointing at them |
 | what an install copies | nothing by hand - `distributions/` is built by `./build` from the sources above |
 | the rules a session without hooks reads | nothing by hand - `./build` runs the render beside the reload skill |

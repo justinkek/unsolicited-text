@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-HOOK="$REPOSITORY/hooks/note-long-queue.sh"
+HOOK="$BUILT_HOOKS/note-long-queue.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

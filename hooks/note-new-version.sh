@@ -2,12 +2,12 @@
 
 cat >/dev/null
 
-. "$(dirname "$0")/hook-settings-lib.sh"
+. "$(dirname "$0")/lib/settings-lib.sh"
 
 apply_migrations
 
-notice="$UNSOLICITED_TEXT_STATE/new-version"
-checked="$UNSOLICITED_TEXT_STATE/version-checked"
+notice="$PLUGIN_STATE/new-version"
+checked="$PLUGIN_STATE/version-checked"
 
 installed="$(installed_version)" || installed=""
 
@@ -33,16 +33,15 @@ fi
 update_check || exit 0
 command -v curl >/dev/null 2>&1 || exit 0
 
-interval="$(( $(counted "$(setting_value UNSOLICITED_TEXT_UPDATE_CHECK_DAYS 1)" 1) * 86400 ))"
+interval="$(( $(setting_value UPDATE_CHECK_DAYS) * 86400 ))"
 now="$(date +%s)"
 [ -f "$checked" ] && [ "$((now - $(cat "$checked")))" -lt "$interval" ] && exit 0
 
 [ -n "$installed" ] || exit 0
 
-published="$(setting_value UNSOLICITED_TEXT_VERSION_SOURCE \
-  https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json)"
+published="$(setting_value VERSION_SOURCE)"
 
-mkdir -p "$UNSOLICITED_TEXT_STATE"
+mkdir -p "$PLUGIN_STATE"
 printf '%s' "$now" > "$checked"
 
 (

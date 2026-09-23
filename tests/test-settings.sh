@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-HOOKS_DIR="$REPOSITORY/hooks"
+HOOKS_DIR="$BUILT_HOOKS"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -22,13 +24,13 @@ assert_equal() {
 read_setting() {
   (
     unset UNSOLICITED_TEXT_PROSE_LINE_CEILING UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY
-    env "$@" bash -c '. "$0"/hook-settings-lib.sh; setting_value "$1" "$2"' "$HOOKS_DIR" "$SETTING" "$DEFAULT"
+    env "$@" bash -c '. "$0"/lib/settings-lib.sh; setting_value "$1"' "$HOOKS_DIR" "$SETTING"
   )
 }
 
 printf "Test group: no config file, and the default stands\n"
 
-SETTING=UNSOLICITED_TEXT_PROSE_LINE_CEILING DEFAULT=8
+SETTING=PROSE_LINE_CEILING
 assert_equal "an unwritten setting falls back" \
   "$(HOME="$TMPDIR/empty" read_setting)" "8"
 
@@ -61,14 +63,14 @@ assert_equal "the last assignment is the one that counts" \
 
 printf "\nTest group: state sits under the same home, and moves with it\n"
 
-SETTING=UNSOLICITED_TEXT_STOP_NOTE_DIRECTORY DEFAULT=""
+SETTING=STOP_NOTE_DIRECTORY
 assert_equal "notes default to the state directory" \
-  "$(HOME="$TMPDIR/home" bash -c '. "$0"/hook-settings-lib.sh; printf "%s" "$UNSOLICITED_TEXT_STATE"' "$HOOKS_DIR")" \
+  "$(HOME="$TMPDIR/home" bash -c '. "$0"/lib/settings-lib.sh; printf "%s" "$PLUGIN_STATE"' "$HOOKS_DIR")" \
   "$TMPDIR/home/.unsolicited-text/state"
 
 assert_equal "UNSOLICITED_TEXT_HOME moves the whole tree" \
   "$(HOME="$TMPDIR/home" UNSOLICITED_TEXT_HOME="$TMPDIR/elsewhere" \
-    bash -c '. "$0"/hook-settings-lib.sh; printf "%s" "$UNSOLICITED_TEXT_STATE"' "$HOOKS_DIR")" \
+    bash -c '. "$0"/lib/settings-lib.sh; printf "%s" "$PLUGIN_STATE"' "$HOOKS_DIR")" \
   "$TMPDIR/elsewhere/state"
 
 printf "\nTest group: the ceiling a hook enforces is the ceiling configured\n"
@@ -135,11 +137,22 @@ emoji_with() {
 assert_equal "ON turns the emoji on" "$(emoji_with ON | head -1)" "$(emoji_with on | head -1)"
 assert_equal "and a value that is neither is the default" "$(emoji_with yes | head -1)" "0"
 
-printf "\nTest group: every setting carries the plugin's own prefix\n"
+printf "\nTest group: every setting this plugin reads is one it declares\n"
 
-unprefixed="$(grep --recursive --only-matching 'setting_value [A-Z_][A-Z_]*' "$HOOKS_DIR" \
-  | grep --invert-match 'setting_value UNSOLICITED_TEXT_')"
-assert_equal "no setting is read under a bare name" "$unprefixed" ""
+# The prefix is the library's to add, so a hook asks for the key without it.
+# Asking with the prefix would look for UNSOLICITED_TEXT_UNSOLICITED_TEXT_...
+prefixed="$(grep --only-matching 'setting_value UNSOLICITED_TEXT_[A-Z_]*' "$REPOSITORY"/hooks/*.sh || true)"
+assert_equal "no hook reads a setting under its prefixed name" "$prefixed" ""
+
+undeclared=""
+while read -r key; do
+  [ -n "$key" ] || continue
+  jq --exit-status --arg k "$key" \
+    '(.settings | has($k)) or $k == "STOP_NOTE_DIRECTORY"' "$REPOSITORY/plugin.json" >/dev/null \
+    || undeclared="$undeclared $key"
+done < <(grep --only-matching --no-filename 'setting_value [A-Z_][A-Z_]*' "$REPOSITORY"/hooks/*.sh \
+  | sed 's/^setting_value //' | sort --unique)
+assert_equal "every key a hook reads is declared in plugin.json" "$undeclared" ""
 
 printf "\nTest group: the rules reach the session carrying that same ceiling\n"
 

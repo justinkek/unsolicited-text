@@ -28,7 +28,7 @@ assert "the cloud update steps name refresh.sh" "$?" \
   "it names $(printf '%s' "$named" | tr '\n' ' '), none of which installs what it pulls"
 
 for script in $named; do
-  [ -x "$ADAPTER/$script" ] || [ -x "$REPOSITORY/hooks/$script" ]
+  [ -x "$ADAPTER/$script" ] || [ -x "$ADAPTER/hooks/$script" ]
   assert "and $script is a script this repository carries" "$?" "there is nothing to run"
 done
 
@@ -36,10 +36,8 @@ grep --quiet --fixed-strings install.sh "$ADAPTER/refresh.sh"
 assert "the script it names runs the install" "$?" \
   "an update pulls the checkout and copies none of it, so a new skill waits for the next session"
 
-grep --quiet --fixed-strings refresh.sh "$REPOSITORY/skills/update/body.md"
-outcome="$?"
-[ "$outcome" != "0" ]
-assert "the hand-written half of the update skill names no script" "$?" \
+grep --quiet --fixed-strings refresh.sh "$REPOSITORY/clients/claude-code-cloud/update.md"
+assert "the cloud page is where the script is named" "$?" \
   "it holds a second copy of the cloud update steps, and the two drift apart"
 
 printf "\nTest group: an update in a session hands it what the new version added\n"
@@ -49,14 +47,15 @@ git init --quiet --bare --initial-branch=main "$origin"
 
 work="$TMPDIR/work"
 git clone --quiet "$origin" "$work" 2>/dev/null
-cp -R "$REPOSITORY/distributions" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
+cp -R "$REPOSITORY/distributions" "$REPOSITORY/hooks" "$REPOSITORY/plugin.json" \
   "$REPOSITORY/commands" "$REPOSITORY/rules" "$work/"
 cp "$REPOSITORY/package.json" "$work/package.json"
+cp "$REPOSITORY/plugin.json" "$work/plugin.json"
 
 publish() {
   python3 -c '
 import json, sys
-for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/distributions/claude-code-cloud/package.json"):
+for p in (sys.argv[1] + "/plugin.json", sys.argv[1] + "/distributions/claude-code-cloud/plugin.json"):
     package = json.load(open(p))
     package["version"] = sys.argv[2]
     json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"

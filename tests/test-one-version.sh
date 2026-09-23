@@ -18,7 +18,18 @@ assert() {
 
 printf "Test group: every manifest states the same version\n"
 
-declared="$(jq --raw-output '.version' "$REPOSITORY/package.json")"
+declared="$(jq --raw-output '.version' "$REPOSITORY/plugin.json")"
+
+# The build reads plugin.json. package.json stays for the Pi extension pointer
+# and for the update check, which fetches it from the repository, so the two
+# have to agree or a session is told a version nothing else is running.
+[ "$(jq --raw-output '.version' "$REPOSITORY/package.json")" = "$declared" ]
+assert "package.json states the same version as plugin.json" "$?" \
+  "the update check fetches package.json and the build reads plugin.json"
+
+[ "$(jq --raw-output '.description' "$REPOSITORY/package.json")" \
+  = "$(jq --raw-output '.description' "$REPOSITORY/plugin.json")" ]
+assert "and the same description" "$?" "the two manifests describe the plugin differently"
 
 for manifest in distributions/claude/.claude-plugin/plugin.json distributions/codex/.codex-plugin/plugin.json; do
   stated="$(jq --raw-output '.version' "$REPOSITORY/$manifest")"

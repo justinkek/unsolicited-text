@@ -1,24 +1,54 @@
 {
 	"hooks": {
 		"SessionStart": [
-			{ "hooks": [
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh\"" },
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh\"" }
-			] }
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh\""
+					}
+				]
+			}
 		],
 		"UserPromptSubmit": [
-			{ "hooks": [
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-rules-if-missed.sh\"" },
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/remind-response-length.sh\"" },
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/replay-stop-notes.sh\"" },
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh\"" }
-			] }
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-rules-if-missed.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/remind-response-length.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/replay-stop-notes.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh\""
+					}
+				]
+			}
 		],
 		"Stop": [
-			{ "hooks": [
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-long-reply.sh\"" },
-				{ "type": "command", "command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-long-queue.sh\"" }
-			] }
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-long-reply.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-long-queue.sh\""
+					}
+				]
+			}
 		]
 	}
 }

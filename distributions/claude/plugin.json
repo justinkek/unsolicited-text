@@ -1,0 +1,103 @@
+{
+	"name": "unsolicited-text",
+	"version": "0.4.0",
+	"description": "Consent is important.",
+	"displayName": "unsolicited-text",
+	"license": "MIT",
+	"repository": "justinkek/unsolicited-text",
+	"author": {
+		"name": "Justin Kek",
+		"email": "justinkekjq@gmail.com"
+	},
+	"clients": [
+		"claude-code-local",
+		"zcode",
+		"claude-chat",
+		"claude-cowork",
+		"claude-code-cloud",
+		"codex",
+		"pi"
+	],
+	"ships": [
+		"rules"
+	],
+	"hooks": {
+		"SessionStart": [
+			"load-rules.sh"
+		],
+		"UserPromptSubmit": [
+			"print-rules-if-missed.sh",
+			"remind-response-length.sh",
+			"replay-stop-notes.sh",
+			"note-new-version.sh"
+		],
+		"Stop": [
+			"note-long-reply.sh",
+			"note-long-queue.sh"
+		]
+	},
+	"settings": {
+		"PROSE_LINE_CEILING": {
+			"kind": "count",
+			"default": "8",
+			"says": "the most non-blank lines of prose a reply may hold"
+		},
+		"PROSE_WORD_CEILING": {
+			"kind": "count",
+			"default": "120",
+			"says": "the most words of prose a reply may hold"
+		},
+		"UPDATE_CHECK": {
+			"kind": "switch",
+			"default": "on",
+			"says": "asks once a day whether a newer version is out"
+		},
+		"UPDATE_CHECK_DAYS": {
+			"kind": "count",
+			"default": "1",
+			"says": "days between those asks",
+			"idle": {
+				"key": "UPDATE_CHECK",
+				"value": "off",
+				"because": "asks nothing",
+				"so": "throttles nothing"
+			}
+		},
+		"QUEUE_MAX_VISIBLE_ITEMS": {
+			"kind": "count",
+			"unset": "unset, every item shown",
+			"says": "shows only that many items, with a count of the rest. Say that an item out of sight may not come back, and that `0` shows the count alone",
+			"idle": {
+				"key": "QUEUE_TREE",
+				"value": "always-on",
+				"because": "draws no list",
+				"so": "limits nothing"
+			}
+		},
+		"QUEUE_EMOJI": {
+			"kind": "switch",
+			"default": "off",
+			"says": "`on` opens each item with an emoji as well as its word: \u2753 Question, \ud83d\udd0d Investigate, \ud83d\udea6 Approve/Reject, \ud83c\udf31 Prevent, \ud83d\udca4 Later. Say that a terminal with no emoji font shows a box instead"
+		},
+		"BREADCRUMB": {
+			"kind": "switch",
+			"default": "off",
+			"says": "`on` opens every reply with the thread being worked on, `unsolicited-text \u203a settings \u203a breadcrumb`. Say that a session with one thread open shows nothing"
+		},
+		"QUEUE_TREE": {
+			"kind": "choice",
+			"values": [
+				"always-on",
+				"on-switch-only",
+				"off"
+			],
+			"default": "on-switch-only",
+			"says": "draws the queue as a tree of threads rather than a numbered list, on the reply that raises an item off the open thread. `always-on` draws it in every reply, `off` in none. Say that only the branch being worked is drawn, the rest carrying a count, and that an item is opened by naming it rather than by its number"
+		},
+		"VERSION_SOURCE": {
+			"kind": "text",
+			"default": "https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json",
+			"says": "where the update check reads the published version from"
+		}
+	}
+}

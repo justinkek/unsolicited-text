@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
 tests_directory="$(cd "$(dirname "$0")" && pwd)"
+
+# One build for the whole suite. Each test runs the hooks an install copies,
+# not the sources, and building them thirty times over is thirty times the wait.
+built="$(mktemp -d)"
+trap 'rm -rf "$built"' EXIT
+if ! "$tests_directory/../build" "$built/distributions" "$built/INSTALL.md" >/dev/null; then
+  printf 'the build failed, so there is nothing to test\n' >&2
+  exit 1
+fi
+export UNSOLICITED_TEXT_BUILT="$built/distributions"
 pass=0
 fail=0
 failures=""

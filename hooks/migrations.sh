@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# What earlier versions left behind. Sourced by the SDK's apply_migrations,
+# once per version, before anything reads state.
+
+# 0.1.2 kept its notes under the state directory of the day.
+superseded="$HOME/.local/state/unsolicited-text"
+if [ -d "$superseded" ]; then
+  rm -f "$superseded/notes"/*.stop-notes
+  rmdir "$superseded/notes" 2>/dev/null
+  rmdir "$superseded" 2>/dev/null
+fi
+
+# 0.1.4 called the settings file config.
+superseded="$PLUGIN_HOME/config"
+if [ -f "$superseded" ] && [ ! -f "$PLUGIN_SETTINGS" ]; then
+  mv "$superseded" "$PLUGIN_SETTINGS"
+fi
+
+# 0.1.38 counted the update check in seconds rather than days.
+if [ -f "$PLUGIN_SETTINGS" ]; then
+  seconds="$(settings_file_value UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL)" || seconds=""
+  case "$seconds" in
+    '' | *[!0-9]*) ;;
+    *)
+      days="$(( (seconds + 86399) / 86400 ))"
+      [ "$days" -lt 1 ] && days=1
+      sed "s/^[[:space:]]*UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL[[:space:]]*=.*/UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = $days/" \
+        "$PLUGIN_SETTINGS" > "$PLUGIN_SETTINGS.renamed" \
+        && mv "$PLUGIN_SETTINGS.renamed" "$PLUGIN_SETTINGS"
+      ;;
+  esac
+fi
+
+unset superseded seconds days

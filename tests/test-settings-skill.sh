@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 SKILL="$REPOSITORY/distributions/claude/skills/settings/SKILL.md"
-HOOKS_DIR="$REPOSITORY/hooks"
+HOOKS_DIR="$BUILT_HOOKS"
 UNSOLICITED_TEXT_SETTINGS_PATH="~/.unsolicited-text/settings"
 
 pass=0
@@ -28,25 +30,15 @@ grep --quiet --line-regexp --fixed-strings 'name: settings' "$SKILL"
 assert "it is named settings, and takes the plugin prefix from the manifest" "$?" \
   "the name is missing or carries the prefix itself"
 
-grep --quiet --line-regexp --fixed-strings 'description: Change an unsolicited-text setting' "$SKILL"
+grep --quiet --line-regexp --fixed-strings "description: Change unsolicited-text's settings" "$SKILL"
 assert "its description is the one line every session pays for" "$?" "the description has grown"
 
-printf "\nTest group: what it tells the user matches what the hooks read\n"
+printf "\nTest group: the ceiling it states is the one the manifest declares\n"
 
-while read -r key; do
-  grep --quiet --recursive --fixed-strings "$key" "$HOOKS_DIR"
-  assert "$key is a setting the hooks read" "$?" "no hook reads it, so the skill would set nothing"
-done < <(grep --only-matching --extended-regexp 'UNSOLICITED_TEXT_[A-Z_]+' "$SKILL" | sort --unique)
-
-ceiling="$(grep --only-matching 'UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT=[0-9][0-9]*' \
-  "$HOOKS_DIR/hook-settings-lib.sh" | grep --only-matching '[0-9][0-9]*')"
+ceiling="$(jq --raw-output '.settings.PROSE_LINE_CEILING.default' "$REPOSITORY/plugin.json")"
 grep --quiet --extended-regexp "UNSOLICITED_TEXT_PROSE_LINE_CEILING\` +\| +\`$ceiling\`" "$SKILL"
-assert "the ceiling it states is the ceiling the hooks default to" "$?" \
-  "the hooks default to $ceiling and the skill says otherwise"
-
-notes="$(grep --only-matching 'UNSOLICITED_TEXT_STATE/notes' "$HOOKS_DIR/hook-stop-note-lib.sh" | head -1)"
-[ -n "$notes" ]
-assert "the notes default is still under the state directory" "$?" "hook-stop-note-lib.sh no longer says so"
+assert "the ceiling it states is the ceiling declared" "$?" \
+  "plugin.json says $ceiling and the skill says otherwise"
 
 grep --quiet --fixed-strings '~/.unsolicited-text/state/notes' "$SKILL"
 assert "and the skill spells that same path out" "$?" "the skill names a different one"
@@ -90,7 +82,7 @@ while read -r client; do
   [ -s "$REPOSITORY/clients/$client/update.md" ]
   assert "$client says how it is updated" "$?" \
     "it is installable and has no way forward from there"
-done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
+done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
 
 printf "\nTest group: a change reaches the session that made it\n"
 
@@ -121,7 +113,7 @@ while read -r client; do
   [ -s "$REPOSITORY/clients/$client/reload.md" ]
   assert "$client says where its loader is" "$?" \
     "it is installable and cannot reload its rules"
-done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
+done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
 
 printf "\nTest group: a value the table does not allow is refused\n"
 
@@ -145,16 +137,19 @@ done
 
 printf "\nTest group: each skill has a menu entry that says the same thing\n"
 
-for skill in "$REPOSITORY"/skills/*/; do
+CLOUD_SKILLS="$REPOSITORY/distributions/claude-code-cloud/skills"
+CLOUD_COMMANDS="$REPOSITORY/distributions/claude-code-cloud/commands"
+
+for skill in "$CLOUD_SKILLS"/*/; do
   named="$(basename "$skill")"
-  command="$REPOSITORY/commands/$named.md"
+  command="$CLOUD_COMMANDS/$named.md"
 
   [ -f "$command" ]
   assert "commands/$named.md is there" "$?" \
     "skills/$named has no menu entry, and a skill alone never reaches the slash menu"
 
   [ "$(sed -n 's/^description: //p' "$command" | head -1)" \
-    = "$(sed -n 's/^description: //p' "$skill/body.md" | head -1)" ]
+    = "$(sed -n 's/^description: //p' "$skill/SKILL.md" | head -1)" ]
   assert "and describes $named the same way the skill does" "$?" \
     "the menu and the skill list would say different things about it"
 done

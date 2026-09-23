@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-HOOKS_DIR="$REPOSITORY/hooks"
+HOOKS_DIR="$BUILT_HOOKS"
 LONG_REPLY_HOOK="$HOOKS_DIR/note-long-reply.sh"
 RULES="$REPOSITORY/rules/reply-shape.md"
 
@@ -21,13 +23,13 @@ assert() {
 
 printf "Test group: the ceiling the rules state is the ceiling the hook enforces\n"
 
-enforced="$(grep --only-matching 'UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT=[0-9][0-9]*' "$HOOKS_DIR/hook-settings-lib.sh" \
+enforced="$(jq --raw-output '.settings.PROSE_LINE_CEILING.default' "$REPOSITORY/plugin.json" \
   | grep --only-matching '[0-9][0-9]*' | sort --unique)"
 
 if [ -n "$enforced" ]; then
   assert "the hooks name a ceiling" 0 ""
 else
-  assert "the hooks name a ceiling" 1 "no UNSOLICITED_TEXT_PROSE_LINE_CEILING_DEFAULT in $HOOKS_DIR/hook-settings-lib.sh"
+  assert "the manifest names a ceiling" 1 "no settings.PROSE_LINE_CEILING.default in $REPOSITORY/plugin.json"
 fi
 
 grep --quiet --fixed-strings 'prose_line_ceiling' "$LONG_REPLY_HOOK"

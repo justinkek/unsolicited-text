@@ -4,7 +4,7 @@ input="$(cat)"
 
 command -v jq >/dev/null 2>&1 || exit 0
 
-. "$(dirname "$0")/hook-payload-lib.sh"
+. "$(dirname "$0")/lib/payload.sh"
 
 [ "$(hook_field "$input" stop_hook_active)" = "true" ] && exit 0
 
@@ -13,8 +13,9 @@ transcript="$(hook_field "$input" transcript_path)"
 session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
-. "$(dirname "$0")/hook-transcript-lib.sh"
-. "$(dirname "$0")/hook-stop-note-lib.sh"
+. "$(dirname "$0")/lib/reply.sh"
+. "$(dirname "$0")/lib/notes.sh"
+. "$(dirname "$0")/lib/settings-lib.sh"
 
 visible="$(queue_visible_items)"
 [ -n "$visible" ] || exit 0
