@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-HOOK="$(cd "$(dirname "$0")/../hooks" && pwd)/note-long-reply.sh"
+. "$(dirname "$0")/built.sh"
+
+HOOK="$BUILT_HOOKS/note-long-reply.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

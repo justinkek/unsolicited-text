@@ -1,5 +1,5 @@
 ---
-description: Print the unsolicited-text reply rules into this session when none were printed at session start
+description: Print what unsolicited-text puts into a session at its start, when nothing printed it
 ---
 
 Invoke the skill named `unsolicited-text:reload`, or `reload` if this copy was

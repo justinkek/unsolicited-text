@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
 README="$REPOSITORY/README.md"
 
@@ -34,8 +36,8 @@ trap 'rm -f "$printed"; rm -rf "$settled"' EXIT
 # The first run on a machine seeds the queue as well. The table counts what
 # every run after it costs, so seed one and measure the next.
 start='{"hook_event_name":"SessionStart"}'
-printf '%s' "$start" | env HOME="$settled" UNSOLICITED_TEXT_PLAIN=1 bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
-printf '%s' "$start" | env HOME="$settled" UNSOLICITED_TEXT_PLAIN=1 bash "$REPOSITORY/hooks/load-rules.sh" > "$printed" 2>/dev/null
+printf '%s' "$start" | env HOME="$settled" UNSOLICITED_TEXT_PLAIN=1 bash "$BUILT_HOOKS/load-rules.sh" >/dev/null 2>&1
+printf '%s' "$start" | env HOME="$settled" UNSOLICITED_TEXT_PLAIN=1 bash "$BUILT_HOOKS/load-rules.sh" > "$printed" 2>/dev/null
 
 stated="$(with_separator "$(rounded_tokens "$printed")")"
 grep --quiet --extended-regexp "~$stated +\\|" "$README"
@@ -43,13 +45,13 @@ assert "the rules cost about $stated tokens and the readme says so" "$?" \
   "a session is handed ~$stated, which $README does not state"
 
 for hook in remind-response-length replay-stop-notes; do
-  printed="$(printf '{"session_id":"tokens","prompt":"x"}' | bash "$REPOSITORY/hooks/$hook.sh" 2>/dev/null | wc -c | tr -d ' ')"
+  printed="$(printf '{"session_id":"tokens","prompt":"x"}' | bash "$BUILT_HOOKS/$hook.sh" 2>/dev/null | wc -c | tr -d ' ')"
   [ "$printed" -lt 400 ]
   assert "$hook.sh prints little enough to be the small number it claims" "$?" \
     "it printed $printed characters"
 done
 
-printed="$(printf '{"session_id":"tokens"}' | bash "$REPOSITORY/hooks/note-long-reply.sh" 2>/dev/null | wc -c | tr -d ' ')"
+printed="$(printf '{"session_id":"tokens"}' | bash "$BUILT_HOOKS/note-long-reply.sh" 2>/dev/null | wc -c | tr -d ' ')"
 [ "$printed" -eq 0 ]
 assert "note-long-reply.sh prints nothing into the session" "$?" "it printed $printed characters"
 

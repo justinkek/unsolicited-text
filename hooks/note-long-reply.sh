@@ -4,7 +4,7 @@ input="$(cat)"
 
 command -v jq >/dev/null 2>&1 || exit 0
 
-. "$(dirname "$0")/hook-payload-lib.sh"
+. "$(dirname "$0")/lib/payload.sh"
 
 [ "$(hook_field "$input" stop_hook_active)" = "true" ] && exit 0
 
@@ -13,14 +13,15 @@ transcript="$(hook_field "$input" transcript_path)"
 session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
-. "$(dirname "$0")/hook-transcript-lib.sh"
-. "$(dirname "$0")/hook-stop-note-lib.sh"
+. "$(dirname "$0")/lib/reply.sh"
+. "$(dirname "$0")/lib/notes.sh"
+. "$(dirname "$0")/lib/settings-lib.sh"
 
 last="$(hook_last_reply "$input" "$transcript")"
 [ -n "$last" ] || exit 0
 
-UNSOLICITED_TEXT_PROSE_LINE_CEILING="$(prose_line_ceiling)"
-UNSOLICITED_TEXT_PROSE_WORD_CEILING="$(prose_word_ceiling)"
+line_ceiling="$(prose_line_ceiling)"
+word_ceiling="$(prose_word_ceiling)"
 
 fence="$(printf '\140\140\140')"
 queue_tag="$(printf '\140[queue]\140')"
@@ -46,12 +47,12 @@ prose_lines="${counted% *}"
 prose_words="${counted#* }"
 
 # One over a ceiling of nothing is one line, not "1 lines".
-if [ "$prose_lines" -gt "$UNSOLICITED_TEXT_PROSE_LINE_CEILING" ]; then
+if [ "$prose_lines" -gt "$line_ceiling" ]; then
   if [ "$prose_lines" = "1" ]; then counted_word="line"; else counted_word="lines"; fi
-  ran="$prose_lines $counted_word of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_LINE_CEILING"
-elif [ "$prose_words" -gt "$UNSOLICITED_TEXT_PROSE_WORD_CEILING" ]; then
+  ran="$prose_lines $counted_word of prose against a ceiling of $line_ceiling"
+elif [ "$prose_words" -gt "$word_ceiling" ]; then
   if [ "$prose_words" = "1" ]; then counted_word="word"; else counted_word="words"; fi
-  ran="$prose_words $counted_word of prose against a ceiling of $UNSOLICITED_TEXT_PROSE_WORD_CEILING"
+  ran="$prose_words $counted_word of prose against a ceiling of $word_ceiling"
 else
   exit 0
 fi

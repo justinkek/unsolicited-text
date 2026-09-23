@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# unsolicited-text's own names for its settings, over the SDK's setting_value.
+#
+# The kinds and the defaults are declared in plugin.json, so counted() and
+# switched() are gone with the rest: the SDK refuses a value the kind does not
+# take and hands back the default, which is what those two were for.
+
+. "$(dirname "${BASH_SOURCE[0]}")/settings.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/state.sh"
+
+prose_line_ceiling()  { setting_value PROSE_LINE_CEILING; }
+prose_word_ceiling()  { setting_value PROSE_WORD_CEILING; }
+queue_tree()          { setting_value QUEUE_TREE; }
+queue_visible_items() { setting_value QUEUE_MAX_VISIBLE_ITEMS; }
+queue_emoji()         { setting_on QUEUE_EMOJI; }
+breadcrumb()          { setting_on BREADCRUMB; }
+update_check()        { setting_on UPDATE_CHECK; }
+
+# Marked once per install, so the first session is told about the skills and no
+# session after it is.
+onboarding_is_done()  { plugin_mark_once onboarded; }

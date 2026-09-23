@@ -11,20 +11,17 @@ esac
 rules="$(dirname "$0")/../rules/reply-shape.md"
 [ -f "$rules" ] || exit 0
 
-. "$(dirname "$0")/hook-settings-lib.sh"
-. "$(dirname "$0")/hook-say-lib.sh"
+. "$(dirname "$0")/lib/settings-lib.sh"
+. "$(dirname "$0")/lib/say.sh"
 
-# A hand run, and the rendering of the reload skill, want the text itself.
 event="$(hook_event_of "$payload")"
-if [ -n "$UNSOLICITED_TEXT_PLAIN" ]; then event=""; fi
 
 apply_migrations
 
 # A session that has been given the rules is marked, so nothing gives them twice.
 session_id="$(hook_field "$payload" session_id)"
 if [ -n "$session_id" ]; then
-  mkdir -p "$UNSOLICITED_TEXT_STATE/printed" 2>/dev/null \
-    && : > "$UNSOLICITED_TEXT_STATE/printed/$session_id" 2>/dev/null
+  plugin_mark "printed/$session_id"
 fi
 
 # A ceiling of one is one line and one word, not "1 lines" and "1 words".

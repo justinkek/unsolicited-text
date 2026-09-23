@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-LOADER="$REPOSITORY/hooks/load-rules.sh"
+LOADER="$BUILT_HOOKS/load-rules.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

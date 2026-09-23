@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-HOOK="$REPOSITORY/hooks/note-new-version.sh"
+HOOK="$BUILT_HOOKS/note-new-version.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -129,7 +131,7 @@ printf "\nTest group: an interval in seconds becomes one in days\n"
 renamed="$(mktemp -d)"
 mkdir -p "$renamed/.unsolicited-text"
 printf 'UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL = 172800\n' > "$renamed/.unsolicited-text/settings"
-printf '{}' | env HOME="$renamed" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
+printf '{}' | env HOME="$renamed" bash "$BUILT_HOOKS/load-rules.sh" >/dev/null 2>&1
 
 grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 2' \
   "$renamed/.unsolicited-text/settings"
@@ -138,7 +140,7 @@ assert "two days of seconds is rewritten as two days" "$?" \
 
 printf 'UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL = 600\n' > "$renamed/.unsolicited-text/settings"
 rm -f "$renamed/.unsolicited-text/state/applied-version"
-printf '{}' | env HOME="$renamed" bash "$REPOSITORY/hooks/load-rules.sh" >/dev/null 2>&1
+printf '{}' | env HOME="$renamed" bash "$BUILT_HOOKS/load-rules.sh" >/dev/null 2>&1
 
 grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 1' \
   "$renamed/.unsolicited-text/settings"
@@ -148,7 +150,8 @@ rm -rf "$renamed"
 
 printf "\nTest group: the check runs where a long session reaches it\n"
 
-for manifest in "$REPOSITORY/adapters/claude/hooks.json" "$REPOSITORY/adapters/codex/hooks.json" \
+for manifest in "$REPOSITORY/distributions/claude/hooks/hooks.json" \
+  "$REPOSITORY/distributions/codex/hooks/hooks.json" \
   "$REPOSITORY/distributions/claude-code-cloud/settings.json"; do
   named="$(basename "$(dirname "$manifest")")"
 
@@ -165,7 +168,7 @@ CHECK
     "a session that never restarts never checks, and never prints what it found"
 done
 
-grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/adapters/pi/src/index.ts"
+grep --quiet --fixed-strings 'note-new-version.sh' "$REPOSITORY/distributions/pi/src/index.ts"
 assert "the pi adapter asks too" "$?" "pi is told about no version but the one it installed"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"

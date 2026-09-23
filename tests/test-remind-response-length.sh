@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-HOOK="$(cd "$(dirname "$0")/../hooks" && pwd)/remind-response-length.sh"
+. "$(dirname "$0")/built.sh"
+
+HOOK="$BUILT_HOOKS/remind-response-length.sh"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 

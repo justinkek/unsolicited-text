@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+. "$(dirname "$0")/built.sh"
+
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-HOOK="$REPOSITORY/hooks/note-long-reply.sh"
+HOOK="$BUILT_HOOKS/note-long-reply.sh"
 README="$REPOSITORY/README.md"
 DEMO="$REPOSITORY/demo"
 TMPDIR="$(mktemp -d)"

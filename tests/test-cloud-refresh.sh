@@ -45,14 +45,15 @@ git init --quiet --bare --initial-branch=main "$origin"
 
 work="$TMPDIR/work"
 git clone --quiet "$origin" "$work" 2>/dev/null
-cp -R "$REPOSITORY/distributions" "$REPOSITORY/hooks" "$REPOSITORY/skills" \
+cp -R "$REPOSITORY/distributions" "$REPOSITORY/hooks" "$REPOSITORY/plugin.json" \
   "$REPOSITORY/commands" "$REPOSITORY/rules" "$work/"
 cp "$REPOSITORY/package.json" "$work/package.json"
+cp "$REPOSITORY/plugin.json" "$work/plugin.json"
 
 publish() {
   python3 -c '
 import json, sys
-for p in (sys.argv[1] + "/package.json", sys.argv[1] + "/distributions/claude-code-cloud/package.json"):
+for p in (sys.argv[1] + "/plugin.json", sys.argv[1] + "/distributions/claude-code-cloud/plugin.json"):
     package = json.load(open(p))
     package["version"] = sys.argv[2]
     json.dump(package, open(p, "w"), indent="\t")' "$work" "$1"
@@ -75,7 +76,7 @@ status="$?"
 [ "$status" = "0" ]
 assert "the refresh exits 0" "$?" "exited $status, and a session start would fail"
 
-grep --quiet --fixed-strings '"version": "0.0.2"' "$behind/package.json"
+grep --quiet --fixed-strings '"version": "0.0.2"' "$behind/plugin.json"
 assert "the checkout moves to the published version" "$?" \
   "it stays where the snapshot left it, however old that is"
 
@@ -100,7 +101,7 @@ status="$?"
 [ "$status" = "0" ]
 assert "an unreachable remote exits 0" "$?" "exited $status, and the session would not start"
 
-grep --quiet --fixed-strings '"version": "0.0.2"' "$behind/package.json"
+grep --quiet --fixed-strings '"version": "0.0.2"' "$behind/plugin.json"
 assert "and leaves the checkout it had" "$?" "the checkout was emptied by a failed refresh"
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"

@@ -1,5 +1,5 @@
 ---
-description: Change an unsolicited-text setting
+description: Change unsolicited-text's settings
 ---
 
 Invoke the skill named `unsolicited-text:settings`, or `settings` if this copy

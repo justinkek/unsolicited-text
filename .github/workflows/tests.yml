@@ -1,0 +1,36 @@
+name: tests
+
+# Every merge to main is a release. The cloud path resets its checkout to main
+# before it looks at the version, so what lands here runs in a session from its
+# next message.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The build is the SDK's, so it has to be here to run.
+      - name: Fetch the SDK
+        run: git clone --depth 1 https://github.com/justinkek/ai-plugin-sdk ../ai-plugin-sdk
+
+      - name: Install shellcheck and jq
+        run: sudo apt-get update && sudo apt-get install --yes shellcheck jq
+
+      - name: This plugin's own behaviour
+        run: tests/run-tests
+
+      # The SDK's suite takes a plugin directory. What moved out of this
+      # repository's tests is checked there, against this plugin.
+      - name: The SDK's tests, against this plugin
+        run: ../ai-plugin-sdk/tests/run-tests "$PWD"
+
+      - name: The version moved
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin "$GITHUB_BASE_REF"
+          tests/version-changed "origin/$GITHUB_BASE_REF"

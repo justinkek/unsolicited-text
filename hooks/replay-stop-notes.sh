@@ -4,13 +4,13 @@ input="$(cat)"
 
 command -v jq >/dev/null 2>&1 || exit 0
 
-. "$(dirname "$0")/hook-payload-lib.sh"
+. "$(dirname "$0")/lib/payload.sh"
 
 session_id="$(hook_field "$input" session_id)"
 [ -n "$session_id" ] || exit 0
 
-. "$(dirname "$0")/hook-stop-note-lib.sh"
-. "$(dirname "$0")/hook-say-lib.sh"
+. "$(dirname "$0")/lib/notes.sh"
+. "$(dirname "$0")/lib/say.sh"
 
 notes="$(stop_note_take "$session_id")"
 [ -n "$notes" ] || exit 0

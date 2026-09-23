@@ -6,10 +6,12 @@ import { fileURLToPath } from "node:url";
 
 type ExtensionAPI = { on: (event: string, handler: (event: any, ctx: any) => any) => void };
 
+// The hooks this plugin registers, by the event each one answers to.
+const registered: Record<string, string[]> = {"SessionStart":["load-rules.sh"],"UserPromptSubmit":["print-rules-if-missed.sh","remind-response-length.sh","replay-stop-notes.sh","note-new-version.sh"],"Stop":["note-long-reply.sh","note-long-queue.sh"]};
+
 const hooks = join(dirname(fileURLToPath(import.meta.url)), "..", "hooks");
 const notes = mkdtempSync(join(tmpdir(), "unsolicited-text-notes-"));
 const session = "pi";
-let held = "";
 let started = false;
 
 function spawnHook(script: string, payload: Record<string, unknown>): string {
@@ -35,6 +37,10 @@ function said(output: string): string {
 	}
 }
 
+function ran(event: string, payload: Record<string, unknown>): string[] {
+	return (registered[event] ?? []).map((script) => said(spawnHook(script, { hook_event_name: event, ...payload })));
+}
+
 function textOf(message: any): string {
 	const content = message?.content ?? "";
 	if (typeof content === "string") return content;
@@ -46,26 +52,18 @@ function textOf(message: any): string {
 
 export default function (pi: ExtensionAPI) {
 	pi.on("before_agent_start", async () => {
-		// The rules are printed once, when the first turn of the session starts.
-		const rules = started ? "" : said(spawnHook("load-rules.sh", { hook_event_name: "SessionStart" }));
+		// The session start hooks speak once, when the first turn of the session starts.
+		const opening = started ? [] : ran("SessionStart", {});
 		started = true;
-		const content = [
-			rules,
-			said(spawnHook("remind-response-length.sh", {})),
-			held,
-			said(spawnHook("note-new-version.sh", {})),
-		]
-			.filter(Boolean)
-			.join("\n");
-		held = "";
+		const content = [...opening, ...ran("UserPromptSubmit", {})].filter(Boolean).join("\n");
 		return content ? { message: { customType: "unsolicited-text", content, display: true } } : undefined;
 	});
 
 	pi.on("turn_end", async (event: any) => {
+		// Pi hands over the turn's reply; the stop hooks read a transcript, so
+		// it is written out as one.
 		const transcript = join(notes, "turn.jsonl");
 		writeFileSync(transcript, `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: textOf(event?.message) }] } })}\n`);
-		spawnHook("note-long-reply.sh", { transcript_path: transcript });
-		spawnHook("note-long-queue.sh", { transcript_path: transcript });
-		held = said(spawnHook("replay-stop-notes.sh", {}));
+		ran("Stop", { transcript_path: transcript });
 	});
 }
