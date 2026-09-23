@@ -82,7 +82,7 @@ while read -r client; do
   [ -s "$REPOSITORY/clients/$client/update.md" ]
   assert "$client says how it is updated" "$?" \
     "it is installable and has no way forward from there"
-done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
+done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
 
 printf "\nTest group: a change reaches the session that made it\n"
 
@@ -113,7 +113,7 @@ while read -r client; do
   [ -s "$REPOSITORY/clients/$client/reload.md" ]
   assert "$client says where its loader is" "$?" \
     "it is installable and cannot reload its rules"
-done < <(jq --raw-output '.[].serves[]' "$REPOSITORY/distributions.json" | sort --unique)
+done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
 
 printf "\nTest group: a value the table does not allow is refused\n"
 
