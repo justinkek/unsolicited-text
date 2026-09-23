@@ -1,52 +1,64 @@
-# Product compatibility
+# Where unsolicited-text can be installed
 
 (audience: humans)
 
-Supported means the rules are printed and drift is caught. Partial means some of
-that is missing, and the What works section of the folder linked in the row says
-what. Where no folder is linked, nothing installs there yet.
+Supported means everything this plugin has reaches a session. Partial means
+some of it does not, and the note under the tables says which. A row with no
+link is a product nothing installs on yet.
 
 ## Anthropic
 
-| Product     | Surface     | Harness execution environment | Installation                                                   | Support                                                             |
-| ----------- | ----------- | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Claude Chat | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Partial |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | Partial |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | Partial |
-| Cowork      | Web GUI     | Hosted                        | [distributions/claude](distributions/claude) | Supported |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported |
-| Claude Code | Web GUI     | Hosted                        | [distributions/claude-code-cloud](distributions/claude-code-cloud)         | Supported |
-|             | Desktop GUI | Hosted                        | (see above)                                                    | Supported |
-|             | Mobile GUI  | Hosted                        | (see above)                                                    | Supported |
-|             | Desktop GUI | Local                         | [distributions/claude](distributions/claude)   | Supported |
-|             | CLI         | Local                         | (see above)                                                    | Supported |
+| Product | Surface | Where it runs | Install from | Support |
+| --- | --- | --- | --- | --- |
+| Claude Chat | Web GUI | Hosted | [distributions/claude](distributions/claude) | Partial |
+| Claude Chat | Desktop GUI | Hosted | [distributions/claude](distributions/claude) | Partial |
+| Claude Chat | Mobile GUI | Hosted | [distributions/claude](distributions/claude) | Partial |
+| Cowork | Web GUI | Hosted | [distributions/claude](distributions/claude) | Supported |
+| Cowork | Desktop GUI | Hosted | [distributions/claude](distributions/claude) | Supported |
+| Cowork | Mobile GUI | Hosted | [distributions/claude](distributions/claude) | Supported |
+| Claude Code | Web GUI | Hosted | [distributions/claude-code-cloud](distributions/claude-code-cloud) | Supported |
+| Claude Code | Desktop GUI | Hosted | [distributions/claude-code-cloud](distributions/claude-code-cloud) | Supported |
+| Claude Code | Mobile GUI | Hosted | [distributions/claude-code-cloud](distributions/claude-code-cloud) | Supported |
+| Claude Code | Desktop GUI | Local | [distributions/claude](distributions/claude) | Supported |
+| Claude Code | CLI | Local | [distributions/claude](distributions/claude) | Supported |
 
 ## OpenAI
 
-| Product      | Surface       | Harness execution environment | Installation                                      | Support                                                                                                                                                                                                                                                                |
-| ------------ | ------------- | ----------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ChatGPT Chat | Web GUI       | Hosted                        |                                                   | Not verified |
-|              | Desktop GUI   | Hosted                        |                                                   | Not verified |
-|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not verified |
-| ChatGPT Work | Web GUI       | Hosted                        |                                                   | Not supported |
-|              | Desktop GUI   | Local                         |                                                   | Not verified |
-|              | Desktop GUI   | Hosted                        |                                                   | Not supported |
-|              | Mobile GUI    | Hosted                        | Install the plugin from another supported surface | Not supported |
-| Codex        | Web GUI       | Hosted                        |                                                   | Not supported |
-|              | Desktop GUI   | Local                         | [distributions/codex](distributions/codex)              | Supported |
-|              | Desktop GUI   | Hosted                        |                                                   | Not supported |
-|              | CLI           | Local                         | [distributions/codex](distributions/codex)              | Supported |
-|              | IDE extension | Local                         |                                                   | Not supported |
+| Product | Surface | Where it runs | Install from | Support |
+| --- | --- | --- | --- | --- |
+| ChatGPT Chat | Web GUI | Hosted | | Not verified |
+| ChatGPT Chat | Desktop GUI | Hosted | | Not verified |
+| ChatGPT Chat | Mobile GUI | Hosted | | Not verified |
+| ChatGPT Work | Web GUI | Hosted | | Not supported |
+| ChatGPT Work | Desktop GUI | Local | | Not verified |
+| ChatGPT Work | Desktop GUI | Hosted | | Not supported |
+| ChatGPT Work | Mobile GUI | Hosted | | Not supported |
+| Codex | Web GUI | Hosted | | Not supported |
+| Codex | Desktop GUI | Local | [distributions/codex](distributions/codex) | Supported |
+| Codex | Desktop GUI | Hosted | | Not supported |
+| Codex | CLI | Local | [distributions/codex](distributions/codex) | Supported |
+| Codex | IDE extension | Local | | Not supported |
 
 ## ZCode
 
-| Product | Surface     | Harness execution environment | Installation                                                 | Support                                                                                                                                                                                                         |
-| ------- | ----------- | ----------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZCode   | Desktop GUI | Local                         | [distributions/claude](distributions/claude) | Supported |
+| Product | Surface | Where it runs | Install from | Support |
+| --- | --- | --- | --- | --- |
+| ZCode | Desktop GUI | Local | [distributions/claude](distributions/claude) | Supported |
 
 ## Pi
 
-| Product | Surface | Harness execution environment | Installation                   | Support                                                                                                                                                                                                                                                                                               |
-| ------- | ------- | ----------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pi      | CLI     | Local                         | [distributions/pi](distributions/pi) | Supported |
+| Product | Surface | Where it runs | Install from | Support |
+| --- | --- | --- | --- | --- |
+| Pi | CLI | Local | [distributions/pi](distributions/pi) | Partial |
+
+## What is missing where it says Partial
+
+- **Claude Chat** - No hook runs, so a plugin reaches a conversation only through its skills.
+- **Cowork** - Every conversation runs on Anthropic's servers, whichever app starts it.
+- **Claude Code (Cloud)** - The container is rebuilt for every session, so a setting kept goes in an environment variable.
+- **Codex** - No hook runs until a person has trusted it, and an update un-trusts them all.
+- **Pi** - Skills load from ~/.agents/skills and an extension puts none there, so a plugin's skills do not arrive.
+
+## Note
+
+Generated by the ai-plugin-sdk build. Edit the plugin's own sources instead.
