@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 type ExtensionAPI = { on: (event: string, handler: (event: any, ctx: any) => any) => void };
 
 // The hooks this plugin registers, by the event each one answers to.
-const registered: Record<string, string[]> = {"SessionStart":["load-rules.sh"],"UserPromptSubmit":["print-rules-if-missed.sh","remind-response-length.sh","replay-stop-notes.sh","note-new-version.sh"],"Stop":["note-long-reply.sh","note-long-queue.sh"]};
+const registered: Record<string, string[]> = {"SessionStart":["load-rules.sh","mark-session-started.sh"],"UserPromptSubmit":["print-session-start-if-missed.sh","remind-response-length.sh","replay-stop-notes.sh","note-new-version.sh"],"Stop":["note-long-reply.sh","note-long-queue.sh"]};
 
 const hooks = join(dirname(fileURLToPath(import.meta.url)), "..", "hooks");
 const notes = mkdtempSync(join(tmpdir(), "unsolicited-text-notes-"));

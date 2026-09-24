@@ -19,12 +19,6 @@ event="$(hook_event_of "$payload")"
 
 apply_migrations
 
-# A session that has been given the rules is marked, so nothing gives them twice.
-session_id="$(hook_field "$payload" session_id)"
-if [ -n "$session_id" ]; then
-  plugin_mark "printed/$session_id"
-fi
-
 # A ceiling of one is one line and one word, not "1 lines" and "1 words".
 lines="$(prose_line_ceiling)"
 words="$(prose_word_ceiling)"
