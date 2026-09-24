@@ -23,15 +23,15 @@
 				"hooks": [
 					{
 						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-a-new-version.sh\""
+					},
+					{
+						"type": "command",
 						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-session-start-if-missed.sh\""
 					},
 					{
 						"type": "command",
 						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/remind-response-length.sh\""
-					},
-					{
-						"type": "command",
-						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh\""
 					},
 					{
 						"type": "command",

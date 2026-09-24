@@ -40,7 +40,7 @@ assert "the update command is in place" "$?" "the menu entry never appears"
 [ "$(held SessionStart "$REPOSITORY/distributions/claude-code-cloud/hooks/load-rules.sh")" = "1" ]
 assert "the rules are printed at session start" "$?" "a session would be handed no rules"
 
-[ "$(held UserPromptSubmit "$REPOSITORY/distributions/claude-code-cloud/hooks/note-new-version.sh")" = "1" ]
+[ "$(held UserPromptSubmit "$REPOSITORY/distributions/claude-code-cloud/hooks/note-a-new-version.sh")" = "1" ]
 assert "and every other hook is registered too" "$?" "some of them never fire"
 
 printf "\nTest group: installing over a settings file keeps what it holds\n"

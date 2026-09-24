@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.5.2",
+	"version": "0.6.0",
 	"description": "Consent is important.",
 	"displayName": "unsolicited-text",
 	"license": "MIT",
@@ -17,8 +17,7 @@
 			"load-rules.sh"
 		],
 		"UserPromptSubmit": [
-				"remind-response-length.sh",
-				"note-new-version.sh"
+			"remind-response-length.sh"
 		],
 		"Stop": [
 			"note-long-reply.sh",
@@ -35,22 +34,6 @@
 			"kind": "count",
 			"default": "120",
 			"says": "the most words of prose a reply may hold"
-		},
-		"UPDATE_CHECK": {
-			"kind": "switch",
-			"default": "on",
-			"says": "asks once a day whether a newer version is out"
-		},
-		"UPDATE_CHECK_DAYS": {
-			"kind": "count",
-			"default": "1",
-			"says": "days between those asks",
-			"idle": {
-				"key": "UPDATE_CHECK",
-				"value": "off",
-				"because": "asks nothing",
-				"so": "throttles nothing"
-			}
 		},
 		"QUEUE_MAX_VISIBLE_ITEMS": {
 			"kind": "count",
@@ -82,11 +65,6 @@
 			],
 			"default": "on-switch-only",
 			"says": "draws the queue as a tree of threads rather than a numbered list, on the reply that raises an item off the open thread. `always-on` draws it in every reply, `off` in none. Say that only the branch being worked is drawn, the rest carrying a count, and that an item is opened by naming it rather than by its number"
-		},
-		"VERSION_SOURCE": {
-			"kind": "text",
-			"default": "https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json",
-			"says": "where the update check reads the published version from"
 		}
 	}
 }

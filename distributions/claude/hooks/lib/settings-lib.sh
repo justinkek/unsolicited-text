@@ -16,7 +16,6 @@ queue_tree()          { setting_value QUEUE_TREE; }
 queue_visible_items() { setting_value QUEUE_MAX_VISIBLE_ITEMS; }
 queue_emoji()         { setting_on QUEUE_EMOJI; }
 breadcrumb()          { setting_on BREADCRUMB; }
-update_check()        { setting_on UPDATE_CHECK; }
 
 # Marked once per install, so the first session is told about the skills and no
 # session after it is.

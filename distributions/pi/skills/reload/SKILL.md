@@ -5,7 +5,7 @@ description: Print what unsolicited-text puts into a session at its start, when 
 
 # Reloading unsolicited-text
 
-Rendered from unsolicited-text 0.5.2. Say that version when asked which one
+Rendered from unsolicited-text 0.6.0. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 

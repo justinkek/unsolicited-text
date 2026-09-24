@@ -10,30 +10,30 @@ PLUGIN_DISPLAY_NAME='unsolicited-text'
 plugin_setting_default() {
   case "$1" in
     STOP_NOTE_DIRECTORY) printf '%s' '{state}/notes' ;;
-    PROSE_LINE_CEILING) printf '%s' '8' ;;
-    PROSE_WORD_CEILING) printf '%s' '120' ;;
     UPDATE_CHECK) printf '%s' 'on' ;;
     UPDATE_CHECK_DAYS) printf '%s' '1' ;;
+    VERSION_SOURCE) printf '%s' 'https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json' ;;
+    PROSE_LINE_CEILING) printf '%s' '8' ;;
+    PROSE_WORD_CEILING) printf '%s' '120' ;;
     QUEUE_MAX_VISIBLE_ITEMS) printf '%s' '' ;;
     QUEUE_EMOJI) printf '%s' 'off' ;;
     BREADCRUMB) printf '%s' 'off' ;;
     QUEUE_TREE) printf '%s' 'on-switch-only' ;;
-    VERSION_SOURCE) printf '%s' 'https://raw.githubusercontent.com/justinkek/unsolicited-text/main/package.json' ;;
   esac
 }
 
 plugin_setting_kind() {
   case "$1" in
     STOP_NOTE_DIRECTORY) printf '%s' 'text' ;;
-    PROSE_LINE_CEILING) printf '%s' 'count' ;;
-    PROSE_WORD_CEILING) printf '%s' 'count' ;;
     UPDATE_CHECK) printf '%s' 'switch' ;;
     UPDATE_CHECK_DAYS) printf '%s' 'count' ;;
+    VERSION_SOURCE) printf '%s' 'text' ;;
+    PROSE_LINE_CEILING) printf '%s' 'count' ;;
+    PROSE_WORD_CEILING) printf '%s' 'count' ;;
     QUEUE_MAX_VISIBLE_ITEMS) printf '%s' 'count' ;;
     QUEUE_EMOJI) printf '%s' 'switch' ;;
     BREADCRUMB) printf '%s' 'switch' ;;
     QUEUE_TREE) printf '%s' 'choice' ;;
-    VERSION_SOURCE) printf '%s' 'text' ;;
   esac
 }
 

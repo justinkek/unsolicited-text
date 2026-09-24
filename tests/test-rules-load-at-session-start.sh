@@ -112,6 +112,30 @@ assert "and a migration does not run again at the same version" "$?" \
 
 rm -f "$home/config"
 
+printf "\nTest group: an interval in seconds becomes one in days\n"
+
+renamed="$(mktemp -d)"
+mkdir -p "$renamed/.unsolicited-text"
+
+migrated() {
+  printf 'UNSOLICITED_TEXT_UPDATE_CHECK_INTERVAL = %s\n' "$1" \
+    > "$renamed/.unsolicited-text/settings"
+  rm -f "$renamed/.unsolicited-text/state/applied-version"
+  printf '{}' | env HOME="$renamed" bash "$LOADER" >/dev/null 2>&1
+  cat "$renamed/.unsolicited-text/settings"
+}
+
+printf '%s' "$(migrated 172800)" \
+  | grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 2'
+assert "two days of seconds is rewritten as two days" "$?" \
+  "the old key is left behind and the setting stops holding"
+
+printf '%s' "$(migrated 600)" \
+  | grep --quiet --line-regexp --fixed-strings 'UNSOLICITED_TEXT_UPDATE_CHECK_DAYS = 1'
+assert "anything under a day becomes one day" "$?" "a fraction of a day rounds to no check at all"
+
+rm -rf "$renamed"
+
 printf "\nTest group: the rules carry the visible limit that is set\n"
 
 unlimited="$(printf '%s' "$payload" | env HOME="$TMPDIR/home" UNSOLICITED_TEXT_PLAIN=1 bash "$LOADER" 2>/dev/null)"
