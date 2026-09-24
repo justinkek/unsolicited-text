@@ -42,3 +42,7 @@ plugin_setting_values() {
     QUEUE_TREE) printf '%s' 'always-on on-switch-only off' ;;
   esac
 }
+
+plugin_session_start_hooks() {
+  printf '%s\n' 'load-rules.sh'
+}

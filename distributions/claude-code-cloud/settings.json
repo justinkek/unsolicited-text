@@ -10,6 +10,10 @@
 					{
 						"type": "command",
 						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh\""
+					},
+					{
+						"type": "command",
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/mark-session-started.sh\""
 					}
 				]
 			}
@@ -19,7 +23,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-rules-if-missed.sh\""
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/print-session-start-if-missed.sh\""
 					},
 					{
 						"type": "command",

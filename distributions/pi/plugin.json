@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"description": "Consent is important.",
 	"displayName": "unsolicited-text",
 	"license": "MIT",
@@ -17,8 +17,7 @@
 			"load-rules.sh"
 		],
 		"UserPromptSubmit": [
-			"print-rules-if-missed.sh",
-			"remind-response-length.sh",
+				"remind-response-length.sh",
 			"replay-stop-notes.sh",
 			"note-new-version.sh"
 		],

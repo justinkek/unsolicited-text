@@ -39,7 +39,7 @@ printf "Test group: every hook that speaks says it in the one shape\n"
 
 rm -rf "$TMPDIR/home"
 for pair in "load-rules.sh SessionStart" "remind-response-length.sh UserPromptSubmit" \
-  "print-rules-if-missed.sh UserPromptSubmit"; do
+  "print-session-start-if-missed.sh UserPromptSubmit"; do
   set -- $pair
   said="$(said_for "$1" "$2")"
 

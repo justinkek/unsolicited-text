@@ -72,7 +72,7 @@ the session ends, so nothing is left after that.
 
 ## Note
 
-Rendered from unsolicited-text 0.4.1. Say that version when asked which one is
+Rendered from unsolicited-text 0.5.0. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
