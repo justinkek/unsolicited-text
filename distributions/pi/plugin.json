@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"description": "Consent is important.",
 	"displayName": "unsolicited-text",
 	"license": "MIT",
@@ -9,15 +9,6 @@
 		"name": "Justin Kek",
 		"email": "justinkekjq@gmail.com"
 	},
-	"clients": [
-		"claude-code-local",
-		"zcode",
-		"claude-chat",
-		"claude-cowork",
-		"claude-code-cloud",
-		"codex",
-		"pi"
-	],
 	"ships": [
 		"rules"
 	],
