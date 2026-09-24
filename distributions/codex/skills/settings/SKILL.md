@@ -79,7 +79,7 @@ run the reload skill to print them with the new one.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.0. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.1. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
