@@ -27,7 +27,7 @@ If it was already the latest, say so and change nothing.
 
 ## Note
 
-Rendered from unsolicited-text 0.5.1. Say that version when asked which one is
+Rendered from unsolicited-text 0.5.2. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
