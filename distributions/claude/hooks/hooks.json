@@ -19,15 +19,15 @@
 				"hooks": [
 					{
 						"type": "command",
+						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/note-a-new-version.sh\""
+					},
+					{
+						"type": "command",
 						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/print-session-start-if-missed.sh\""
 					},
 					{
 						"type": "command",
 						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/remind-response-length.sh\""
-					},
-					{
-						"type": "command",
-						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/note-new-version.sh\""
 					},
 					{
 						"type": "command",

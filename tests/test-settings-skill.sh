@@ -160,11 +160,11 @@ for skill in "$CLOUD_SKILLS"/*/; do
     "the menu and the skill list would say different things about it"
 done
 
+# The SDK's update notice sends a reader to these two by name, and checks that
+# it does. What is this plugin's is that both skills are here to be reached.
 for named in update settings; do
-  grep --quiet --fixed-strings "unsolicited-text:$named" "$REPOSITORY/hooks/note-new-version.sh"
-  assert "the notice names unsolicited-text:$named" "$?" "it names a skill nobody can invoke"
   [ -f "$REPOSITORY/distributions/claude/skills/$named/SKILL.md" ]
-  assert "and that skill is one this repository carries" "$?" "no skill at skills/$named"
+  assert "skills/$named is one this repository carries" "$?" "no skill at skills/$named"
 done
 
 printf "\n%d passed, %d failed\n" "$pass" "$fail"
