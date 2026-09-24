@@ -30,13 +30,19 @@ file: follow them instead, since nothing would read what you wrote.
 
 ## How to update settings
 
-Refuse a value the table above does not allow, saying what it takes and writing
-nothing; where the file already holds one, say so, since the hooks read it as
-the default.
+Run this once per key, and edit no file yourself:
 
-If the file is not there, create and add the setting.
-Else, read the file, replace or add the setting, and write it back.
-Leave the rest of the file as it is, comments included.
+```
+bash "${PLUGIN_ROOT}/set-setting.sh" <key> <value>
+```
+
+It creates the file if it is not there, puts the new value where the old one
+was, and leaves the rest of the file as it is, comments included. It writes
+nothing and says what the setting takes when the value is one it cannot take,
+so pass on what it says rather than trying again.
+
+Where the file already holds a value for the key, say so before running it,
+since the hooks read it as the default.
 
 ## How to apply settings
 
@@ -73,7 +79,7 @@ run the reload skill to print them with the new one.
 
 ## Note
 
-Rendered from unsolicited-text 0.5.1. Say that version when asked which one is
+Rendered from unsolicited-text 0.5.2. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 

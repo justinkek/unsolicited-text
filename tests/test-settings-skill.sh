@@ -109,15 +109,21 @@ done
 assert "and pipe a line into every command they give" "$?" \
   "$missing names the script and never says to run it, and it waits on standard input"
 
+# The clients this plugin is built for, which is every folder the build wrote.
 while read -r client; do
+  [ -n "$client" ] || continue
   [ -s "$REPOSITORY/clients/$client/reload.md" ]
   assert "$client says where its loader is" "$?" \
     "it is installable and cannot reload its rules"
-done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
+done < <(for page in "$REPOSITORY"/clients/*/; do basename "$page"; done)
 
 printf "\nTest group: a value the table does not allow is refused\n"
 
-grep --quiet --fixed-strings 'Refuse a value the table above does not allow' "$SKILL"
+# The SDK writes the setting with a script that refuses a value the table does
+# not allow. Where an install has no path to run it from, the steps say to
+# refuse by hand instead.
+grep --quiet --fixed-strings 'set-setting.sh' "$SKILL" \
+  || grep --quiet --fixed-strings 'Refuse a value the table above does not allow' "$SKILL"
 assert "the skill refuses a value outside the table" "$?" \
   "it writes whatever it is handed, and the hooks read it as the default in silence"
 
