@@ -78,8 +78,10 @@ for hook_path in "$HOOKS_DIR/note-long-reply.sh"; do
   assert "$hook records its finding" "$?" "no stop_note_record call in $hook"
 done
 
-grep --quiet --fixed-strings 'stop_note_take' "$HOOKS_DIR/replay-stop-notes.sh"
-assert "the replay takes what they recorded" "$?" "no stop_note_take call in replay-stop-notes.sh"
+# The replay is the SDK's, so what is this plugin's here is only that its stop
+# hooks record into the place the replay reads.
+grep --quiet --fixed-strings 'stop_note_take' "$HOOKS_DIR/replay-notes.sh"
+assert "the replay takes what they recorded" "$?" "no stop_note_take call in replay-notes.sh"
 
 printf "\nTest group: the rules name only the four tags a reply may carry\n"
 

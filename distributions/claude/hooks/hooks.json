@@ -27,11 +27,11 @@
 					},
 					{
 						"type": "command",
-						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/replay-stop-notes.sh\""
+						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/note-new-version.sh\""
 					},
 					{
 						"type": "command",
-						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/note-new-version.sh\""
+						"command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/replay-notes.sh\""
 					}
 				]
 			}
