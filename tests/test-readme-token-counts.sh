@@ -44,7 +44,7 @@ grep --quiet --extended-regexp "~$stated +\\|" "$README"
 assert "the rules cost about $stated tokens and the readme says so" "$?" \
   "a session is handed ~$stated, which $README does not state"
 
-for hook in remind-response-length replay-stop-notes; do
+for hook in remind-response-length replay-notes; do
   printed="$(printf '{"session_id":"tokens","prompt":"x"}' | bash "$BUILT_HOOKS/$hook.sh" 2>/dev/null | wc -c | tr -d ' ')"
   [ "$printed" -lt 400 ]
   assert "$hook.sh prints little enough to be the small number it claims" "$?" \

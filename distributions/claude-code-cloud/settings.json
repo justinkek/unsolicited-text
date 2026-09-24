@@ -31,11 +31,11 @@
 					},
 					{
 						"type": "command",
-						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/replay-stop-notes.sh\""
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh\""
 					},
 					{
 						"type": "command",
-						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/note-new-version.sh\""
+						"command": "bash \"/opt/unsolicited-text/distributions/claude-code-cloud/hooks/replay-notes.sh\""
 					}
 				]
 			}
