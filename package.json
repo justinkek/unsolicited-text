@@ -1,11 +1,14 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.6.3",
+	"version": "0.6.4",
 	"description": "Consent is important.",
 	"license": "MIT",
 	"pi": {
 		"extensions": [
 			"./distributions/pi/src/index.ts"
+		],
+		"skills": [
+			"./distributions/pi/skills"
 		]
 	},
 	"author": {

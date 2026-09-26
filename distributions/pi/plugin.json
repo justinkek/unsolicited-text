@@ -1,6 +1,6 @@
 {
 	"name": "unsolicited-text",
-	"version": "0.6.3",
+	"version": "0.6.4",
 	"description": "Consent is important.",
 	"displayName": "unsolicited-text",
 	"license": "MIT",
@@ -52,12 +52,12 @@
 		"QUEUE_EMOJI": {
 			"kind": "switch",
 			"default": "off",
-			"says": "`on` opens each item with an emoji as well as its word: \u2753 Question, \ud83d\udd0d Investigate, \ud83d\udea6 Approve/Reject, \ud83c\udf31 Prevent, \ud83d\udca4 Later. Say that a terminal with no emoji font shows a box instead"
+			"says": "`on` opens each item with an emoji as well as its word: ❓ Question, 🔍 Investigate, 🚦 Approve/Reject, 🌱 Prevent, 💤 Later. Say that a terminal with no emoji font shows a box instead"
 		},
 		"BREADCRUMB": {
 			"kind": "switch",
 			"default": "off",
-			"says": "`on` opens every reply with the thread being worked on, `unsolicited-text \u203a settings \u203a breadcrumb`. Say that a session with one thread open shows nothing"
+			"says": "`on` opens every reply with the thread being worked on, `unsolicited-text › settings › breadcrumb`. Say that a session with one thread open shows nothing"
 		},
 		"QUEUE_TREE": {
 			"kind": "choice",
