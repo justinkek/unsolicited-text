@@ -143,25 +143,6 @@ for pair in UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS UNSOLICITED_TEXT_UPDATE_CHE
   assert "$pair is named as one of them" "$?" "the skill cannot say what turned it off"
 done
 
-printf "\nTest group: each skill has a menu entry that says the same thing\n"
-
-CLOUD_SKILLS="$REPOSITORY/distributions/claude-code-cloud/skills"
-CLOUD_COMMANDS="$REPOSITORY/distributions/claude-code-cloud/commands"
-
-for skill in "$CLOUD_SKILLS"/*/; do
-  named="$(basename "$skill")"
-  command="$CLOUD_COMMANDS/$named.md"
-
-  [ -f "$command" ]
-  assert "commands/$named.md is there" "$?" \
-    "skills/$named has no menu entry, and a skill alone never reaches the slash menu"
-
-  [ "$(sed -n 's/^description: //p' "$command" | head -1)" \
-    = "$(sed -n 's/^description: //p' "$skill/SKILL.md" | head -1)" ]
-  assert "and describes $named the same way the skill does" "$?" \
-    "the menu and the skill list would say different things about it"
-done
-
 # The SDK's update notice sends a reader to these two by name, and checks that
 # it does. What is this plugin's is that both skills are here to be reached.
 for named in update settings; do

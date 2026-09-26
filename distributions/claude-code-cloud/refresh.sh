@@ -19,7 +19,7 @@ after="$(installed_version)"
 
 "$folder/install.sh" >/dev/null 2>&1
 
-printf 'unsolicited-text %s replaces %s. Its skills and commands are in place from your next message.\n' \
+printf 'unsolicited-text %s replaces %s. Its skills are in place from your next message.\n' \
   "$after" "$before"
 
 exit 0

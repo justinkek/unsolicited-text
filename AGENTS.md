@@ -60,11 +60,6 @@ saying so, and its diff is reviewed like any other.
 The two plugin manifests are generated from `package.json`, which is where the
 version, the description and the author are written.
 
-Only the cloud distribution ships `commands/`, because its install renames them
-with an `unsolicited-text-` prefix. Where the install registers a plugin, a
-command and a skill of the same name both answer to `unsolicited-text:<name>`,
-the command wins, and its body only points back at the name it was invoked by.
-
 A folder under `clients/` is a client, and nothing else: its pages, its
 `signature.md` where a session has to recognise itself, and `client.json`
 holding its name. A page that would be a copy of another client's holds one line

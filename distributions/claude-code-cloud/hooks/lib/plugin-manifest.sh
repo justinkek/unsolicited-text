@@ -43,6 +43,11 @@ plugin_setting_values() {
   esac
 }
 
+plugin_hook_on() {
+  case "$1" in
+  esac
+}
+
 plugin_session_start_hooks() {
   :
   printf '%s\n' 'load-rules.sh'
