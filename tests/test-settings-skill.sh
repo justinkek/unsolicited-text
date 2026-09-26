@@ -78,15 +78,18 @@ grep --quiet --fixed-strings '## The steps for this install' "$UPDATE_SKILL"
 assert "it carries the commands for the clients it ships to" "$?" \
   "the skill neither holds them nor says where they are"
 
-while read -r client; do
-  [ -s "$REPOSITORY/clients/$client/update.md" ]
-  assert "$client says how it is updated" "$?" \
+# Every distribution the build wrote, which is what a person installs from.
+built() { for folder in "$REPOSITORY"/distributions/*/; do basename "$folder"; done; }
+
+while read -r distribution; do
+  [ -s "$REPOSITORY/distributions/$distribution/skills/update/SKILL.md" ]
+  assert "$distribution says how it is updated" "$?" \
     "it is installable and has no way forward from there"
-done < <(jq --raw-output '.clients[]' "$REPOSITORY/plugin.json" | sort --unique)
+done < <(built)
 
 printf "\nTest group: a change reaches the session that made it\n"
 
-RELOAD="$(cat "$REPOSITORY"/clients/*/reload.md)"
+RELOAD="$(cat "$REPOSITORY"/distributions/*/skills/reload/SKILL.md)"
 
 grep --quiet --fixed-strings '## The steps for this install' "$SKILL"
 assert "the settings skill carries the reload steps for its clients" "$?" \
@@ -100,22 +103,21 @@ printf '%s' "$RELOAD" | grep --quiet --fixed-strings 'load-rules.sh'
 assert "the reload steps name the loader" "$?" "there is no script to run"
 
 missing=""
-for page in "$REPOSITORY"/clients/*/reload.md; do
+for page in "$REPOSITORY"/distributions/*/skills/reload/SKILL.md; do
   grep --quiet --fixed-strings 'load-rules.sh' "$page" || continue
   grep --quiet --extended-regexp "printf '\{\}' \|" "$page" \
-    || missing="$missing $(basename "$(dirname "$page")")"
+    || missing="$missing $(basename "$(dirname "$(dirname "$(dirname "$page")")")")"
 done
 [ -z "$missing" ]
 assert "and pipe a line into every command they give" "$?" \
   "$missing names the script and never says to run it, and it waits on standard input"
 
-# The clients this plugin is built for, which is every folder the build wrote.
-while read -r client; do
-  [ -n "$client" ] || continue
-  [ -s "$REPOSITORY/clients/$client/reload.md" ]
-  assert "$client says where its loader is" "$?" \
+while read -r distribution; do
+  [ -n "$distribution" ] || continue
+  [ -s "$REPOSITORY/distributions/$distribution/skills/reload/SKILL.md" ]
+  assert "$distribution says where its loader is" "$?" \
     "it is installable and cannot reload its rules"
-done < <(for page in "$REPOSITORY"/clients/*/; do basename "$page"; done)
+done < <(built)
 
 printf "\nTest group: a value the table does not allow is refused\n"
 

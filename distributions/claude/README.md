@@ -83,9 +83,10 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-No hook runs in Chat, so the rules never reach a session on their own. Ask for
-the reload skill in your first message and it prints them; a preference or a
-custom style holding `rules/reply-shape.md` does it without asking.
+No hook runs in Chat, so nothing the plugin would print at session start
+reaches a conversation on its own. Ask for the reload skill in your first
+message and it prints it; a preference or a custom style holding the same text
+does it without asking.
 
 Nothing reads a settings file either, so a setting you ask for lasts as long as
 that conversation does.
@@ -99,8 +100,9 @@ Open the plus menu beside the message box, then Plugins, then Browse plugins,
 and install unsolicited-text. Its skills appear under the plugin's own entry
 in that menu.
 
-The hooks run here, so a conversation started after the install is given the
-rules. One started before it has none until you ask for the reload skill.
+The hooks run here, so a conversation started after the install gets what the
+session start hook prints. One started before it gets nothing until you ask for
+the reload skill.
 
 Settings are written inside the session's container, which is discarded when the
 session ends.

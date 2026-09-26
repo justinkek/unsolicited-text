@@ -5,7 +5,7 @@ description: Print what unsolicited-text puts into a session at its start, when 
 
 # Reloading unsolicited-text
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
@@ -43,14 +43,14 @@ a shell cannot read that variable, so find the file and run it:
 
 Skills under `/mnt/skills/plugins/`, no plugin directory, and no
 `~/.unsolicited-text` written by anything but you. No hook runs, so nothing
-reads a settings file and the rules only arrive when the reload skill prints
-them.
+reads a settings file, and what a session start hook would print only arrives
+when the reload skill prints it.
 
-No hook runs here, so nothing prints the rules on their own and there is no
-script to run. The copy below is what a session would have been given.
+No hook runs here, so nothing speaks on its own and there is no script to run.
+The copy below is what a session would have been given.
 
-To have them from the first message instead, put them in a preference or a
-custom style.
+To have it from the first message instead, put it in a preference or a custom
+style.
 
 ### Cowork
 
@@ -58,8 +58,8 @@ A plugin directory under `~/.claude/plugins`, with `~/.unsolicited-text/state`
 written this session. Every hook runs, and the container is discarded when the
 session ends.
 
-The hooks run here, so the rules are printed at session start. Print them again
-with the loader the plugin carries:
+The hooks run here, so the session start hook has already printed. Run it again
+with the script the plugin carries:
 
     find ~ -name load-rules.sh 2>/dev/null
 

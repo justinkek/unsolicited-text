@@ -52,8 +52,8 @@ That takes the settings and the state with it, so nothing is left.
 
 Skills under `/mnt/skills/plugins/`, no plugin directory, and no
 `~/.unsolicited-text` written by anything but you. No hook runs, so nothing
-reads a settings file and the rules only arrive when the reload skill prints
-them.
+reads a settings file, and what a session start hook would print only arrives
+when the reload skill prints it.
 
 Open the plus menu, then Plugins, then Manage plugins, and remove it there.
 
@@ -72,7 +72,7 @@ the session ends, so nothing is left after that.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 

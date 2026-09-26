@@ -22,9 +22,9 @@ changing a setting, updating and uninstalling say what to run by hand.
 
     pi install git:github.com/justinkek/unsolicited-text
 
-The adapter prints the rules when the first turn of a session starts, reminds
-each turn to keep the reply short, and carries a drift note into the next
-prompt.
+The extension runs the plugin's hooks: the session start ones when the first
+turn of a session starts, the prompt ones on every turn after that, and the
+stop ones when a turn ends.
 
 ## Updating
 

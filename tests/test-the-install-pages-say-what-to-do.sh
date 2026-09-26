@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
-CLOUD_STEPS="$REPOSITORY/clients/claude-code-cloud/install.md"
-MARKETPLACE="$REPOSITORY/clients/claude-code-local/install.md"
+CLOUD_STEPS="$REPOSITORY/distributions/claude-code-cloud/clients/claude-code-cloud.md"
+MARKETPLACE="$REPOSITORY/distributions/claude/clients/claude-code-local.md"
 
 pass=0
 fail=0
@@ -27,7 +27,7 @@ grep --quiet --extended-regexp 'reload skill|load-rules\.sh' "$CLOUD_STEPS"
 assert "and how to load the rules in a session already going" "$?" \
   "session start has passed, so the rules have to be printed by hand"
 
-grep --quiet --fixed-strings 'reload skill' "$REPOSITORY/clients/claude-chat/install.md"
+grep --quiet --fixed-strings 'reload skill' "$REPOSITORY/distributions/claude/clients/claude-chat.md"
 assert "and what to do on a harness that runs no hooks" "$?" \
   "a reader on such a harness is told nothing works and nothing else"
 

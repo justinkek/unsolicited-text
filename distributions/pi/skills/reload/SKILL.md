@@ -5,13 +5,13 @@ description: Print what unsolicited-text puts into a session at its start, when 
 
 # Reloading unsolicited-text
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
 ## The steps for this install
 
-The path is inside the checkout the Pi adapter loads, so find the file and run
+The path is inside the checkout the Pi extension loads, so find the file and run
 it:
 
     find ~ -name load-rules.sh 2>/dev/null

@@ -41,7 +41,7 @@ report "a skill names one only on a line that links where to go" \
 
 named=0
 while read -r harness; do
-  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY"/clients/*/update.md \
+  grep --quiet --ignore-case --fixed-strings "$harness" "$REPOSITORY"/distributions/*/skills/update/SKILL.md \
     && named=$((named + 1))
 done < <(printf '%s\n' claude codex pi)
 [ "$named" -eq 3 ]
