@@ -9,7 +9,7 @@ them from the manifest, so nothing is written into the config file by hand. The
 settings are kept in `~/.unsolicited-text` and outlive the session.
 
 Codex runs no hook until it has been reviewed, so the rules do not arrive until
-`/hooks` has been opened and the seven commands trusted.
+`/hooks` has been opened and its commands trusted.
 
 Last verified at 0.3.14, in the command line and in the desktop app: a session held to the ceiling in
 the settings file rather than the default, and a one-line reply against a

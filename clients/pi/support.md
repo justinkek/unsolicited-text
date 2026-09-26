@@ -8,6 +8,6 @@ the reminder, a ten-line reply came back as a note naming the ceiling, and the
 settings written by an earlier session were still in force.
 
 Pi loads its own skills from `~/.agents/skills`, and installing the extension
-puts nothing there, so the four skills every other client gets are missing. A
+puts nothing there, so the skills every other client gets are missing. A
 session there cannot say which version it is running, and the pages for
 changing a setting, updating and uninstalling say what to run by hand.
