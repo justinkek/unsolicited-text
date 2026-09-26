@@ -4,7 +4,10 @@
 # Writes one setting into the settings file and leaves everything else in it
 # alone, comments and order included.
 #
-#   bash set-setting.sh <key> <value>
+#   bash set-setting.sh [--project <directory>] <key> <value>
+#
+# With --project it writes the project's own .<plugin>/settings at that
+# directory, which the hooks read before the person's own file.
 #
 # The key is written the way the settings skill's table shows it, with or
 # without the plugin's prefix. A key this plugin does not have, or a value the
@@ -12,8 +15,18 @@
 
 . "$(dirname "$0")/hooks/lib/settings.sh"
 
+settings_file="$PLUGIN_SETTINGS"
+if [ "${1-}" = "--project" ]; then
+  [ -d "${2-}" ] || {
+    printf 'no project directory at %s\n' "${2-}" >&2
+    exit 2
+  }
+  settings_file="$(cd "$2" && pwd)/.$PLUGIN_NAME/settings"
+  shift 2
+fi
+
 [ "$#" = "2" ] || {
-  printf 'usage: set-setting.sh <key> <value>\n' >&2
+  printf 'usage: set-setting.sh [--project <directory>] <key> <value>\n' >&2
   exit 2
 }
 
@@ -36,12 +49,12 @@ plugin_setting_holds "$bare" "$value" || {
   exit 1
 }
 
-mkdir -p "$(dirname "$PLUGIN_SETTINGS")" || {
-  printf 'cannot write %s\n' "$PLUGIN_SETTINGS" >&2
+mkdir -p "$(dirname "$settings_file")" || {
+  printf 'cannot write %s\n' "$settings_file" >&2
   exit 1
 }
 
-[ -f "$PLUGIN_SETTINGS" ] || : > "$PLUGIN_SETTINGS"
+[ -f "$settings_file" ] || : > "$settings_file"
 
 # The new value goes where the old one was, so a file a person has arranged
 # stays arranged. A key assigned more than once is left assigned once.
@@ -52,7 +65,7 @@ awk -v named="$named" -v value="$value" '
   }
   { print }
   END { if (!written) print named " = " value }
-' "$PLUGIN_SETTINGS" > "$PLUGIN_SETTINGS.new" && mv "$PLUGIN_SETTINGS.new" "$PLUGIN_SETTINGS"
+' "$settings_file" > "$settings_file.new" && mv "$settings_file.new" "$settings_file"
 
 printf '%s = %s\n' "$named" "$value"
-printf 'written to %s\n' "$PLUGIN_SETTINGS"
+printf 'written to %s\n' "$settings_file"

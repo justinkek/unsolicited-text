@@ -5,7 +5,7 @@ description: Print what unsolicited-text puts into a session at its start, when 
 
 # Reloading unsolicited-text
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one
 is installed, and say it is the version this file was built from rather than one
 read off disk.
 
@@ -14,7 +14,7 @@ read off disk.
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
 The container is rebuilt for every session, so a setting written to the file
-lasts as long as this session does. To keep one, set an `UNSOLICITED_TEXT_`
+lasts as long as this session does. To keep one, set a `UNSOLICITED_TEXT_`
 environment variable on the cloud environment, see
 [the docs](https://code.claude.com/docs/en/cloud-environments#set-environment-variables).
 

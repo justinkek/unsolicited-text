@@ -28,11 +28,11 @@ A cloud session resolves no marketplace, so the marketplace install does not wor
 
 1. Set your permission mode to accept edits, or the auto-permissions classifier refuses the write.
 2. Ask the agent to run the "Cloud Session Install Script" (see below).
-3. The hooks take effect from your next message. Session start has passed, so ask the agent to print the rules into this one:
+3. The hooks take effect from your next message. Session start has passed, so ask the agent to run the session start hook against this one:
 
         printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
-4. The four skills are on disk as soon as the script finishes, and an agent follows one by reading it at `/opt/unsolicited-text/distributions/claude-code-cloud/skills/<name>/SKILL.md`. Nothing waits on the menu.
+4. The skills are on disk as soon as the script finishes, and an agent follows one by reading it at `/opt/unsolicited-text/distributions/claude-code-cloud/skills/<name>/SKILL.md`. Nothing waits on the menu.
 5. Run `/reload-skills` when you want them listed in the menu. `/reload-plugins` does not work over a remote connection, and this install method adds no plugin. The `/unsolicited-text-settings` and `/unsolicited-text-update` entries arrive on their own a moment later.
 
 The container takes all of it away when the session ends.
@@ -71,8 +71,8 @@ update unsolicited-text.
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh
 
-(audience: agents) Then print the rules again with the loader, since the copy in
-the menu is the one loaded before the update:
+(audience: agents) Then run the session start hook again, since the copy in the
+menu is the one loaded before the update:
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 

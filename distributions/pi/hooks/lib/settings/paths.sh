@@ -21,3 +21,8 @@ plugin_named_home="${PLUGIN_PREFIX}_HOME"
 PLUGIN_HOME="${!plugin_named_home:-$HOME/.$PLUGIN_NAME}"
 PLUGIN_SETTINGS="$PLUGIN_HOME/settings"
 PLUGIN_STATE="$PLUGIN_HOME/state"
+
+# The project a session works in, which can hold settings of its own. A hook
+# run by a harness is run in it; a hook that has the payload names it outright
+# with settings_from_project.
+PLUGIN_PROJECT="$PWD"

@@ -23,6 +23,12 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 `UNSOLICITED_TEXT_HOME` moves the settings file and the state under it together.
 
+A project can hold settings of its own in `.unsolicited-text/settings` at its root, in
+the same shape. The hooks read it before `~/.unsolicited-text/settings`, and an
+environment variable before either. Write there when the user wants a value
+for everyone working in the project rather than for themselves, and say that
+it is a file to commit.
+
 ## Before writing anything
 
 Read the steps below. Where they say no hook runs, write no
@@ -43,6 +49,9 @@ so pass on what it says rather than trying again.
 
 Where the file already holds a value for the key, say so before running it,
 since the hooks read it as the default.
+
+For the project's own file, put `--project <directory>` before the key,
+naming the root of the project.
 
 ## How to apply settings
 
@@ -81,9 +90,9 @@ steps under the one that matches.
 A plugin directory under `~/.claude/plugins`, and a project directory you can
 write to. Everything works, and settings persist.
 
-The hooks read the file every time they run, so a ceiling takes effect at once.
-Whatever rules this session already holds were printed with the old value, so
-run the reload skill to print them with the new one.
+The hooks read the file every time they run, so a change takes effect at once.
+Whatever this session was given at its start was given with the old value, so
+run the reload skill to be given it again with the new one.
 
 ### ZCode
 
@@ -91,26 +100,25 @@ A plugin cached under `~/.zcode`, and no `~/.claude/plugins`. Everything works
 as it does on Claude Code, and settings persist, but the window that installed
 it is ZCode's own.
 
-The hooks read the file every time they run, so a ceiling takes effect at once.
-Whatever rules this session already holds were printed with the old value, so
-run the reload skill to print them with the new one.
+The hooks read the file every time they run, so a change takes effect at once.
+Whatever this session was given at its start was given with the old value, so
+run the reload skill to be given it again with the new one.
 
 ### Claude Chat
 
 Skills under `/mnt/skills/plugins/`, no plugin directory, and no
 `~/.unsolicited-text` written by anything but you. No hook runs, so nothing
-reads a settings file and the rules only arrive when the reload skill prints
-them.
+reads a settings file, and what a session start hook would print only arrives
+when the reload skill prints it.
 
 No hook runs here, so nothing reads the file and none is worth writing.
 
-A setting still holds for this conversation: say which rule it changes and how,
-restate that rule with the new value, and follow it from your next reply. Say
-that it lasts until this conversation ends.
+A setting still holds for this conversation: say what it changes and how,
+restate the part it changes with the new value, and follow it from your next
+reply. Say that it lasts until this conversation ends.
 
-To keep it, put the rules in a preference or a custom style with the value
-already changed. The reload skill prints them, and they can be edited before
-they are pasted in.
+To keep it, put the text the reload skill prints in a preference or a custom
+style with the value already changed. It can be edited before it is pasted in.
 
 ### Cowork
 
@@ -118,15 +126,15 @@ A plugin directory under `~/.claude/plugins`, with `~/.unsolicited-text/state`
 written this session. Every hook runs, and the container is discarded when the
 session ends.
 
-The hooks read the file every time they run, so a ceiling takes effect at once,
-and the reload skill prints the rules again.
+The hooks read the file every time they run, so a change takes effect at once,
+and the reload skill prints with the new value.
 
 The file is written inside the session's container, which is discarded when the
 session ends, so say the setting lasts as long as this session does.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 

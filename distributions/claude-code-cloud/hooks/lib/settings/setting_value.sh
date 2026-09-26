@@ -3,11 +3,19 @@
 
 # A setting is named without its prefix here, and carries it everywhere a
 # person writes it: in the file, in the environment, and in the settings skill.
+#
+# The environment wins, then the project's file, then the person's own, then
+# the default. A project's file is committed with it, so everyone working in
+# the project is held to the same values; the environment is how one person
+# steps outside them for a while.
 setting_value() {
-  local key="$1" named="${PLUGIN_PREFIX}_$1" value default
+  local key="$1" named="${PLUGIN_PREFIX}_$1" value default project
   default="$(plugin_expanded "$(plugin_setting_default "$key")")"
 
   value="${!named-}"
+  if [ -z "$value" ] && project="$(project_settings_file)"; then
+    value="$(settings_file_value "$named" "$project")"
+  fi
   [ -n "$value" ] || value="$(settings_file_value "$named")"
   [ -n "$value" ] || { printf '%s' "$default"; return 0; }
 

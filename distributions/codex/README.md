@@ -40,12 +40,12 @@ The plugin carries its own hooks and Codex reads them from the manifest, so
 there is nothing to register. Nothing runs yet, though: Codex skips a hook until
 you have reviewed it, so the install is only half done at this point.
 
-In the command line, run `/hooks`, read the seven commands and trust each one.
+In the command line, run `/hooks`, read the 8 commands and trust each one.
 Then quit and start again. Until you do, a session there is a session without
-the plugin: no rules at the start, no reminder, no note about a long reply.
+the plugin: none of its hooks fire.
 
 In the desktop app there is no `/hooks` to run. Open Settings, then Hooks, then
-Plugin, and turn on the Trust switch beside each of the seven. Then quit the app
+Plugin, and turn on the Trust switch beside each of the 8. Then quit the app
 and start it again. Ask a session there and it may tell you the app has no way
 to do this and send you to the command line; it has, and the screen above is it.
 
@@ -65,7 +65,7 @@ Two things send you back to that screen:
 Running `add` again re-installs at the snapshot's version; there is no separate
 update command.
 
-An update rewrites the hooks, so Codex marks all seven for review and runs none
+An update rewrites the hooks, so Codex marks all 8 for review and runs none
 of them until you trust them again: `/hooks` in the command line, or Settings,
 then Hooks, then Plugin in the desktop app. Then start again.
 

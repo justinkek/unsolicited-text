@@ -13,6 +13,8 @@
 . "${BASH_SOURCE[0]%/*}/shell.sh"
 . "${BASH_SOURCE[0]%/*}/settings/paths.sh"
 . "${BASH_SOURCE[0]%/*}/settings/plugin_expanded.sh"
+. "${BASH_SOURCE[0]%/*}/settings/settings_from_project.sh"
+. "${BASH_SOURCE[0]%/*}/settings/project_settings_file.sh"
 . "${BASH_SOURCE[0]%/*}/settings/settings_file_value.sh"
 . "${BASH_SOURCE[0]%/*}/settings/plugin_setting_holds.sh"
 . "${BASH_SOURCE[0]%/*}/settings/setting_value.sh"

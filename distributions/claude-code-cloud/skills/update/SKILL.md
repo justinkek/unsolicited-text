@@ -39,8 +39,8 @@ update unsolicited-text.
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/refresh.sh
 
-(audience: agents) Then print the rules again with the loader, since the copy in
-the menu is the one loaded before the update:
+(audience: agents) Then run the session start hook again, since the copy in the
+menu is the one loaded before the update:
 
     printf '{}' | /opt/unsolicited-text/distributions/claude-code-cloud/hooks/load-rules.sh
 
@@ -49,7 +49,7 @@ disk are already the new ones, and an agent reads them there.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 

@@ -23,6 +23,12 @@ Blank lines and lines opening with `#` are ignored, and the last assignment of a
 
 `UNSOLICITED_TEXT_HOME` moves the settings file and the state under it together.
 
+A project can hold settings of its own in `.unsolicited-text/settings` at its root, in
+the same shape. The hooks read it before `~/.unsolicited-text/settings`, and an
+environment variable before either. Write there when the user wants a value
+for everyone working in the project rather than for themselves, and say that
+it is a file to commit.
+
 ## Before writing anything
 
 Read the steps below. Where they say no hook runs, write no
@@ -43,6 +49,9 @@ so pass on what it says rather than trying again.
 
 Where the file already holds a value for the key, say so before running it,
 since the hooks read it as the default.
+
+For the project's own file, put `--project <directory>` before the key,
+naming the root of the project.
 
 ## How to apply settings
 
@@ -73,13 +82,13 @@ thing, and the steps below say when it is the right one.
 
 ## The steps for this install
 
-The hooks read the file every time they run, so a ceiling takes effect at once.
-Whatever rules this session already holds were printed with the old value, so
-run the reload skill to print them with the new one.
+The hooks read the file every time they run, so a change takes effect at once.
+Whatever this session was given at its start was given with the old value, so
+run the reload skill to be given it again with the new one.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.2. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.3. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
