@@ -143,24 +143,16 @@ for pair in UNSOLICITED_TEXT_QUEUE_MAX_VISIBLE_ITEMS UNSOLICITED_TEXT_UPDATE_CHE
   assert "$pair is named as one of them" "$?" "the skill cannot say what turned it off"
 done
 
-printf "\nTest group: each skill has a menu entry that says the same thing\n"
+printf "\nTest group: the cloud install names each skill after the plugin, so it ships no commands\n"
 
-CLOUD_SKILLS="$REPOSITORY/distributions/claude-code-cloud/skills"
-CLOUD_COMMANDS="$REPOSITORY/distributions/claude-code-cloud/commands"
+# The cloud install copies each skill in as unsolicited-text-<name>, which is
+# its menu entry. A command of the same name would answer to the same entry.
+[ ! -d "$REPOSITORY/distributions/claude-code-cloud/commands" ]
+assert "the cloud distribution ships no commands/" "$?" \
+  "a command and a skill would both answer to /unsolicited-text-<name>"
 
-for skill in "$CLOUD_SKILLS"/*/; do
-  named="$(basename "$skill")"
-  command="$CLOUD_COMMANDS/$named.md"
-
-  [ -f "$command" ]
-  assert "commands/$named.md is there" "$?" \
-    "skills/$named has no menu entry, and a skill alone never reaches the slash menu"
-
-  [ "$(sed -n 's/^description: //p' "$command" | head -1)" \
-    = "$(sed -n 's/^description: //p' "$skill/SKILL.md" | head -1)" ]
-  assert "and describes $named the same way the skill does" "$?" \
-    "the menu and the skill list would say different things about it"
-done
+grep --quiet --fixed-strings 'skills/*/' "$REPOSITORY/distributions/claude-code-cloud/install.sh"
+assert "and its install copies every skill in" "$?" "the skills never reach ~/.claude/skills"
 
 # The SDK's update notice sends a reader to these two by name, and checks that
 # it does. What is this plugin's is that both skills are here to be reached.
