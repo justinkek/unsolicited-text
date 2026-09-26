@@ -59,11 +59,21 @@ function decided(event: any, ctx: any): { decision: string; reason: string } | u
 	const scripts = registered.PreToolUse ?? [];
 	if (scripts.length === 0) return undefined;
 	const input = event?.input ?? {};
+	// Pi's edit carries a list of replacements. One is an Edit, as every other
+	// client sends it; several are a MultiEdit.
+	const edits: any[] = Array.isArray(input.edits) ? input.edits : [];
+	const several = event?.toolName === "edit" && edits.length > 1;
 	const payload = {
 		hook_event_name: "PreToolUse",
 		cwd: ctx?.cwd ?? process.cwd(),
-		tool_name: toolNames[event?.toolName] ?? event?.toolName,
-		tool_input: { ...input, file_path: input.path, old_string: input.oldText, new_string: input.newText },
+		tool_name: several ? "MultiEdit" : (toolNames[event?.toolName] ?? event?.toolName),
+		tool_input: {
+			...input,
+			file_path: input.path,
+			old_string: edits[0]?.oldText ?? input.oldText,
+			new_string: edits[0]?.newText ?? input.newText,
+			edits: edits.map((edit) => ({ old_string: edit.oldText, new_string: edit.newText })),
+		},
 	};
 	const answers = scripts.map((script) => spawnHook(script, payload)).join("\n");
 	let strongest = "";
