@@ -44,5 +44,6 @@ plugin_setting_values() {
 }
 
 plugin_session_start_hooks() {
+  :
   printf '%s\n' 'load-rules.sh'
 }
