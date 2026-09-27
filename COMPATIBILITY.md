@@ -49,7 +49,7 @@ link is a product nothing installs on yet.
 
 | Product | Surface | Where it runs | Install from | Support |
 | --- | --- | --- | --- | --- |
-| Pi | CLI | Local | [distributions/pi](distributions/pi) | Partial |
+| Pi | CLI | Local | [distributions/pi](distributions/pi) | Supported |
 
 ## What is missing where it says Partial
 
@@ -57,7 +57,6 @@ link is a product nothing installs on yet.
 - **Cowork** - Every conversation runs on Anthropic's servers, whichever app starts it.
 - **Claude Code (Cloud)** - The container is rebuilt for every session, so a setting kept goes in an environment variable.
 - **Codex** - No hook runs until a person has trusted it, and an update un-trusts them all.
-- **Pi** - Skills load from ~/.agents/skills and an extension puts none there, so a plugin's skills do not arrive.
 
 ## Note
 
