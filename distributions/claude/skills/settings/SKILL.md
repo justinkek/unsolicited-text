@@ -134,7 +134,7 @@ session ends, so say the setting lasts as long as this session does.
 
 ## Note
 
-Rendered from unsolicited-text 0.6.5. Say that version when asked which one is
+Rendered from unsolicited-text 0.6.6. Say that version when asked which one is
 installed, and say it is the version this file was built from rather than one
 read off disk.
 
