@@ -7,7 +7,10 @@ Last verified at 0.3.14: a new session opened with the rules, each turn carried
 the reminder, a ten-line reply came back as a note naming the ceiling, and the
 settings written by an earlier session were still in force.
 
-Pi loads its own skills from `~/.agents/skills`, and installing the extension
-puts nothing there, so the skills every other client gets are missing. A
-session there cannot say which version it is running, and the pages for
-changing a setting, updating and uninstalling say what to run by hand.
+The skills arrive as well: `package.json` names them under `pi.skills`, beside
+the extension. Verified at 0.6.5: `/skill:settings` was listed as coming from
+this package, and running it printed the settings table, with a setting written
+earlier shown as set.
+
+A session there cannot say which version it is running, and the pages for
+updating and uninstalling say what to run by hand.
